@@ -1,0 +1,1916 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1d5bd8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="マラソンBGM">
+<title>マラソンBGM（HTML版）</title>
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: one narrow column like a running watch screen — run panel on top, then menu, then songs */
+:root{
+  --bg:#eef2f5; --surface:#ffffff; --ink:#14202b; --muted:#5a6773; --line:#d3dbe2;
+  --accent:#1d5bd8; --accent-ink:#ffffff; --accent-soft:#dfe8fb; --amber:#b86e00; --amber-soft:#fbefd9;
+  --warn:#b4372a;
+  --pause:#c2410c; --pause-ink:#ffffff; --pause-bg:#fff4ec; --pause-soft:#fde3d2;
+  --cur-bg:#c9d9fb;
+  --f-num:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1319; --surface:#151f29; --ink:#e7edf2; --muted:#93a1ad; --line:#2a3743;
+  --accent:#6f9cff; --accent-ink:#0b1420; --accent-soft:#1c2c48; --amber:#f0b44a; --amber-soft:#3a2c12; --warn:#ff8a7a;
+  --pause:#ff8a4c; --pause-ink:#1a0d05; --pause-bg:#241811; --pause-soft:#3a2416;
+  --cur-bg:#1f4a9a;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1319; --surface:#151f29; --ink:#e7edf2; --muted:#93a1ad; --line:#2a3743;
+  --accent:#6f9cff; --accent-ink:#0b1420; --accent-soft:#1c2c48; --amber:#f0b44a; --amber-soft:#3a2c12; --warn:#ff8a7a;
+  --pause:#ff8a4c; --pause-ink:#1a0d05; --pause-bg:#241811; --pause-soft:#3a2416;
+  --cur-bg:#1f4a9a;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6}
+.wrap{max-width:640px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+h1{font-size:1.25rem;font-weight:900;margin:0;letter-spacing:.02em}
+h2{font-size:1rem;font-weight:700;margin:0;text-wrap:balance}
+.sub{color:var(--muted);font-size:.85rem;margin:2px 0 0}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.label{font-size:.72rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+section{display:flex;flex-direction:column;gap:12px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+
+/* run panel */
+.run{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.seg-line{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.seg-name{font-weight:700;font-size:1.05rem}
+.big{font-family:var(--f-num);font-weight:700;font-size:clamp(4.2rem,22vw,6.5rem);line-height:.9;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.big-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.target{text-align:right}
+.target .v{font-family:var(--f-num);font-weight:700;font-size:2.4rem;line-height:1;color:var(--accent)}
+.target .u{font-size:.8rem;color:var(--muted)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{background:var(--bg);border-radius:10px;padding:8px 12px;min-width:0}
+.stat .v{font-family:var(--f-num);font-size:1.5rem;font-weight:600;line-height:1.1}
+.stat.next{background:var(--amber-soft)}
+.stat.goal{background:var(--accent-soft)}
+.stat.pos{grid-column:1/-1;border:1px solid var(--accent)}
+.stat.pos .v{font-size:1.6rem}
+.spdrow{display:flex;gap:8px;align-items:stretch}
+.spdbtn{flex:1 1 0;font-weight:700;padding:10px 4px;font-size:.9rem;white-space:nowrap;border:2px solid var(--accent);background:var(--surface);border-radius:12px;line-height:1.3}
+.spdbtn small{font-family:var(--f-num);font-size:.9rem;font-weight:600;color:var(--muted)}
+.spdnow{flex:0 0 auto;align-self:center;font-family:var(--f-num);font-size:1.05rem;font-weight:700;min-width:6.5em;text-align:center;line-height:1.3}.spdnow small{font-size:.8rem;color:var(--muted)}
+.strat,.rp{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.sauto{display:inline-flex;align-items:center;gap:6px;font-size:.88rem}.sauto select{width:auto;padding:4px 6px}
+.strat-h{display:flex;flex-direction:column;gap:2px}.strat-h .sub{margin:0;font-size:.8rem}
+.srow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:6px 0;border-top:1px solid var(--line);font-size:.9rem}
+.srow:first-child{border-top:0}
+.srow .sn{font-weight:700;min-width:4.6em}
+.strat .srow input[type=number]{width:4.6em;flex:none;font-family:var(--f-num);font-size:1.05rem;text-align:center;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 4px}
+.srow .sp{font-family:var(--f-num);font-size:1rem;color:var(--muted)}
+.srow.cur{background:var(--cur-bg);border-radius:8px;padding:6px}
+.lock-bar .spdlock{display:flex;gap:8px;flex:1 1 100%}.lock-bar .spdlock .unlock{flex:1;padding:12px 4px;font-size:1rem}
+.fixrow{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}
+.fixbtn{flex:1 1 200px;font-family:var(--f-num);font-size:1.35rem;font-weight:700;padding:12px 8px;border:2px solid var(--accent);background:var(--accent-soft);border-radius:12px}
+.fixrow .small{flex:none}
+.gps-ok{color:var(--accent)}
+.gpsrow{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.gps-st{font-size:.8rem;color:var(--muted)}.gps-st.on{color:var(--accent);font-weight:700}.gps-st.err{color:var(--warn);font-weight:700}
+.lock-bar .fixlock{display:flex;gap:8px;width:100%}
+.lock-bar .fixlock .unlock{flex:1;font-family:var(--f-num);font-size:1.15rem}
+.stat.cp{grid-column:1/-1;background:var(--pause-bg);border:1px solid var(--pause)}
+.stat.cp .v{font-size:1.4rem}
+.rc-grid textarea{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%;min-width:0;resize:vertical}
+.stat.goal .v{color:var(--ink)}
+.stat.next .v{color:var(--amber);font-size:1.1rem;font-family:var(--f-body);font-weight:700}
+.now{font-size:.88rem;color:var(--muted);min-width:0;overflow-wrap:anywhere}
+.now b{color:var(--ink)}
+
+.profile{position:relative;display:flex;align-items:flex-end;gap:2px;height:56px;padding-top:4px}
+.blk{background:var(--accent-soft);border-radius:3px 3px 0 0;position:relative;min-width:4px}
+.blk.cur{background:var(--accent)}
+.blk span{position:absolute;bottom:2px;left:4px;font-family:var(--f-num);font-size:.75rem;color:var(--ink);white-space:nowrap;overflow:hidden;max-width:calc(100% - 6px)}
+.blk.cur span{color:var(--accent-ink)}
+.head{position:absolute;top:0;bottom:0;width:2px;background:var(--amber);border-radius:1px;transition:left .25s linear}
+.axis{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-top:-8px}
+
+.ctrls{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;font-weight:500}
+button:hover{border-color:var(--accent)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700;padding:12px 26px;font-size:1.05rem;flex:1 1 160px}
+.small{padding:4px 10px;font-size:.82rem;border-radius:8px}
+.opts{display:flex;gap:6px 16px;flex-wrap:wrap;font-size:.85rem;color:var(--muted);align-items:center}
+.opts label{display:flex;align-items:center;gap:6px}
+input[type=range]{width:90px;accent-color:var(--accent)}
+input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px}
+
+/* menu */
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border-radius:999px;padding:4px 12px;font-size:.85rem}
+.chip.orig{margin-left:8px}
+.chip.orig.on{background:var(--pause);border-color:var(--pause);color:var(--pause-ink);font-weight:700}
+.chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.row{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row.cur,.song.cur{background:var(--cur-bg);box-shadow:inset 0 0 0 2px var(--accent)}
+.row.cur .idx{color:var(--ink)}
+.row.cur .row-top::after{content:"実行中";flex:none;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:999px;background:var(--accent);color:var(--accent-ink)}
+.row.cur .seg-info{color:var(--ink)}
+.row-top{display:flex;align-items:center;gap:8px}
+.row .idx{font-family:var(--f-num);color:var(--muted);font-weight:600;width:18px;flex:none}
+.row-top input{font-weight:700}
+.fields{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:flex-end}
+.seg-info{display:flex;gap:14px;font-size:.8rem;color:var(--muted);padding-bottom:7px;white-space:nowrap}
+.seg-info b{font-family:var(--f-num);font-size:1rem;color:var(--ink)}
+.pace-box input[type=text]{width:4.2em;min-width:0;flex:none;padding:5px 4px;text-align:center}
+.fields .unit-row input[type=number]{width:3.6em;min-width:0;flex:none;padding:5px 4px;text-align:center}
+
+.pstep{flex:none;padding:6px 10px;font-size:.82rem;border-radius:8px;white-space:nowrap}
+.pace-box input{font-family:var(--f-num);font-size:1.15rem;font-weight:600}
+.field{display:flex;flex-direction:column;gap:2px;min-width:0}
+.field .label{font-size:.68rem}
+.pace-box{display:flex;align-items:center;gap:4px}
+.pace-box input{text-align:center}
+.step{padding:0;width:34px;height:32px;flex:none;border-radius:8px;font-family:var(--f-num);font-size:.95rem}
+.unit-row{display:flex;align-items:center;gap:6px}
+.unit-row input{flex:1}
+.unit{font-size:.75rem;color:var(--muted);flex:none}
+.row-foot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:.78rem;color:var(--muted)}
+.row-foot b{font-family:var(--f-num);font-size:.95rem;color:var(--ink)}
+.linkbtn{border:0;background:none;padding:0;color:var(--accent);font-size:.78rem;text-decoration:underline;text-underline-offset:2px}
+.manual{color:var(--amber);font-weight:700}
+.calib{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.calib input[type=number]{width:3.6em;padding:5px 4px;text-align:center}
+[hidden]{display:none!important}
+html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:center;gap:4px;margin-left:auto;font-size:.9rem}.langsel select{font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.title-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.lockbtn{padding:5px 12px;font-size:.85rem;font-weight:700;border-color:var(--ink)}
+.stg{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:.78rem;color:var(--muted)}
+.stg button{padding:2px 10px;font-size:.78rem;border-radius:999px}
+.stg button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.song.off{opacity:.55}
+.use{display:flex;align-items:center;gap:4px;flex:none;font-size:.8rem;font-weight:700;color:var(--ink)}
+.use input{accent-color:var(--accent);width:18px;height:18px}
+.ml-save{display:flex;gap:8px}
+.ml-save input{flex:1;min-width:0;font:inherit;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.primary-sm{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700;flex:none}
+.ml-msg{margin:-4px 0 0;font-size:.8rem;color:var(--muted);min-height:1em}
+.ml-msg.err{color:var(--warn);font-weight:700}
+.ml{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid var(--line)}
+.ml:first-child{border-top:0}
+.ml.on{background:var(--cur-bg);box-shadow:inset 0 0 0 2px var(--accent)}
+.ml-info{flex:1 1 180px;min-width:0}
+.ml-info b{display:block;overflow-wrap:anywhere}
+.ml-info span{font-size:.78rem;color:var(--muted)}
+.ml .ctrls{gap:6px}
+.lock-layer{position:fixed;inset:0;z-index:50;background:color-mix(in srgb,var(--bg) 25%,transparent);display:flex;align-items:flex-end;justify-content:center;touch-action:none;-webkit-user-select:none;user-select:none;
+  padding:0 max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lock-bar{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;background:var(--surface);border:2px solid var(--ink);border-radius:16px;padding:10px 12px;box-shadow:0 6px 24px rgba(0,0,0,.25);width:min(100%,460px)}
+.lock-bar>.unlock{flex:1 1 0;width:auto;padding:12px 6px;font-size:.92rem}.lock-bar .fixlock{flex:2 1 0;display:flex}.lock-bar .fixlock .unlock{padding:12px 4px;font-size:1rem}
+.lock-bar .t{font-weight:900;font-size:1rem}
+.unlock{position:relative;overflow:hidden;width:100%;padding:14px;font-size:1rem;font-weight:700;border-radius:12px;border:2px solid var(--accent);background:var(--accent-soft);color:var(--ink);-webkit-touch-callout:none}
+.lock-bar .stopbtn{border-color:var(--warn);background:var(--pause-bg)}
+.lock-bar .stopbtn .fill{background:var(--warn)}
+.unlock .fill{position:absolute;inset:0;width:0;background:var(--accent);opacity:.35}
+.unlock span{position:relative}
+.wrap[inert]{filter:saturate(.85)}
+
+/* paused */
+.run{transition:background .3s,border-color .3s}
+.run.paused{background:var(--pause-bg);border-color:var(--pause)}
+.run.paused .big,.run.paused .target .v{color:var(--pause)}
+.run.paused .stat{background:var(--pause-soft)}
+.run.paused .head{background:var(--pause)}
+.run.paused .blk.cur{background:var(--pause)}
+.badge{display:none;font-size:.75rem;font-weight:700;letter-spacing:.06em;padding:2px 10px;border-radius:999px;background:var(--pause);color:var(--pause-ink)}
+.run.paused .badge{display:inline-block;animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.45}}
+.target .p{font-family:var(--f-num);font-weight:600;font-size:1.15rem;line-height:1.2;margin-top:4px}
+.stat .s{font-size:.75rem;color:var(--muted)}
+input[type=text],input[type=number]{font:inherit;width:100%;min-width:0;background:var(--bg);color:var(--ink);border:1px solid transparent;border-radius:8px;padding:5px 8px}
+input[type=number]{font-family:var(--f-num);font-size:1.05rem;text-align:right}
+input:hover{border-color:var(--line)}
+.x{padding:4px;width:30px;height:30px;border:0;background:transparent;color:var(--muted);font-size:1.1rem}
+.x:hover{color:var(--warn)}
+.total{font-size:.85rem;color:var(--muted)}
+
+/* songs */
+.drop{border:1.5px dashed var(--line);border-radius:12px;padding:18px;text-align:center;color:var(--muted);font-size:.88rem;background:var(--surface)}
+.drop.over{border-color:var(--accent);background:var(--accent-soft)}
+.song{padding:10px 12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.song:first-child{border-top:0}
+.song.cur{background:var(--cur-bg)}
+.song-top{display:flex;justify-content:space-between;gap:8px;align-items:baseline;min-width:0}
+.song-top{align-items:center}
+.ord{display:flex;gap:4px;flex:none}
+.ord .step{width:30px;height:28px;font-size:.75rem}
+.song-name{flex:1;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.song-dur{font-family:var(--f-num);color:var(--muted);flex:none}
+.song-mid{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.bpm-in{width:84px}
+.fit{font-size:.8rem;color:var(--muted)}
+.fit b{font-family:var(--f-num);font-size:.95rem;color:var(--ink)}
+.flag{font-size:.72rem;padding:1px 8px;border-radius:999px;background:var(--amber-soft);color:var(--amber);font-weight:700}
+.notes{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+.notes ul{margin:6px 0 0;padding-left:1.2em}
+.done{color:var(--accent);font-weight:700}
+.modes{display:flex;gap:6px;margin-top:12px}
+.io-row{margin-top:6px}.io-row .mode{font-size:.85rem;padding:8px 6px}
+.mode{flex:1 1 0;min-width:0;font-weight:700;padding:10px 6px;border-radius:10px}
+.mode.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.mode:disabled{opacity:.45}
+.rc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.rc-grid .f{display:flex;flex-direction:column;gap:3px;font-size:.78rem;color:var(--muted);font-weight:700;min-width:0}
+.rc-grid .f.wide{grid-column:1/-1}
+.rc-grid input,.rc-grid select{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%;min-width:0}
+.rc-sum{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.88rem;line-height:1.8}
+.rc-sum b{font-family:var(--f-num);font-size:1.05rem}
+.chk{display:flex;align-items:center;gap:8px;font-size:.9rem}
+.chk input{accent-color:var(--accent);width:18px;height:18px}
+.rc-notes{border-top:0;padding-top:0}
+.run.m-race #profWrap,.run.m-relax #profWrap,.run.m-relax .stats,.run.m-relax .target{display:none}
+.run.armed{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+/* after start: hide the mode tabs; in a race also hide text info (song, options, notices) */
+body.live .modes{display:none}
+body.live.race-live #nowPlaying,body.live.race-live .opts,body.live.race-live #hashNote,body.live.race-live header .sub{display:none!important}
+.hash-note{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:10px 12px;font-size:.88rem}
+.hash-note b{font-weight:700}
+.confirm{display:flex;flex-direction:column;gap:8px;background:var(--pause-bg);border:1px solid var(--pause);border-radius:10px;padding:10px 12px;font-size:.88rem}
+.danger{background:var(--warn);border-color:var(--warn);color:var(--surface);font-weight:700}
+.store-info{margin:-4px 0 0;font-size:.8rem;color:var(--muted)}
+.store-info.err{color:var(--warn)}
+.od{font-size:.88rem;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:8px 12px;line-height:1.7}.od b{font-family:var(--f-num);font-size:1.05rem}.od .err{color:var(--warn);font-weight:700}
+.recv{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.recv .ml-save{flex:1 1 100%}.recv .ml-msg{flex:1 1 100%;margin:0}.recv .ml-msg:empty{display:none}.recv-s{font-size:.78rem;color:var(--muted)}
+body.live .recv{display:none}
+.rc-cps{font-weight:400;font-size:.88rem;color:var(--ink);background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:7px 9px;line-height:1.7}
+.rc-cps .muted{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.head,.run{transition:none}.run.paused .badge{animation:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="title-row"><h1>マラソンBGM</h1><button id="btnLock" class="lockbtn" hidden>画面ロック</button><button class="primary-sm" id="rcArm" hidden>本番待機を始める</button><button id="rcDisarm" hidden>待機をやめる</button></div>
+    <p class="ml-msg" id="rcMsg"></p>
+    <p class="sub" id="leadTxt">手元の曲を、練習メニューの1kmペースで走りやすい速さに合わせて、音程を変えずに再生します。</p>
+    <div class="hash-note" id="hashNote" hidden></div>
+    <div class="modes" role="tablist" aria-label="モード">
+      <button class="mode" role="tab" data-mode="practice">1. 練習</button>
+      <button class="mode" role="tab" data-mode="race">2. 本番</button>
+      <button class="mode" role="tab" data-mode="relax">3. リラックス</button>
+    </div>
+    <div class="modes io-row" id="ioRow" role="tablist" aria-label="練習の場所">
+      <button class="mode" role="tab" data-mode="practice" data-io="in">屋内（時間でステージが進む）</button>
+      <button class="mode" role="tab" data-mode="practice" data-io="out">屋外（GPSの距離で進む）</button>
+    </div>
+  </header>
+
+  <!-- RUN -->
+  <section class="run" id="runPanel" aria-live="polite">
+    <div class="seg-line" id="segLine">
+      <span class="label" id="segCount">ステージ 1 / 3</span>
+      <span class="badge">一時停止中</span>
+      <span class="seg-name" id="segName">ウォームアップ</span>
+    </div>
+    <div class="big-row">
+      <div>
+        <div class="label" id="bigLabel">このステージの残り</div>
+        <div class="big" id="segLeft">10:00</div>
+      </div>
+      <div class="target">
+        <div class="label" id="tgtLabel">目標ペース</div>
+        <div class="v" id="segPace">7:00</div>
+        <div class="u" id="tgtUnit">分/km</div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="label" id="st1Label">全体の残り</div><div class="v num" id="totLeft">45:00</div><div class="s" id="totDist"></div></div>
+      <div class="stat next"><div class="label" id="st2Label">次のステージ</div><div class="v" id="nextSeg">一定速走 180</div></div>
+      <div class="stat pos" id="posStat" hidden><div class="label">推定の現在地</div><div class="v num" id="posNow">—</div><div class="s" id="posSub"></div></div>
+      <div class="stat cp" id="cpStat" hidden><div class="label">次の関門</div><div class="v num" id="cpNext">—</div><div class="s" id="cpSub"></div></div>
+      <div class="stat goal" id="goalStat" hidden><div class="label">今の通過地点（目標）</div><div class="v num" id="goalNow">—</div></div>
+      <div class="stat goal" id="goalStat2" hidden><div class="label">30分後の目標距離</div><div class="v num" id="goal30">—</div><div class="s" id="goal30s"></div></div>
+    </div>
+    <div class="spdrow" id="spdRow" hidden>
+      <button class="spdbtn" id="spdDown">ペースダウン<br><small>時速 −0.1</small></button>
+      <div class="spdnow" id="spdNow">時速 ±0.0</div>
+      <button class="spdbtn" id="spdUp">ペースアップ<br><small>時速 ＋0.1</small></button>
+    </div>
+    <div class="fixrow" id="fixRow" hidden>
+      <button class="fixbtn" id="fix1">1 km 通過</button>
+      <button class="small" id="fixUndo" disabled>1つ戻す</button>
+      <div class="gpsrow"><button class="small" id="gpsOn">GPSをONにする</button><button class="small" id="gpsOff" disabled>GPSをOFFにする</button><span class="gps-st" id="gpsSt">GPS：OFF</span></div>
+    </div>
+    <div id="profWrap">
+      <div class="profile" id="profile"></div>
+      <div class="axis"><span>0:00</span><span id="axisEnd">45:00</span></div>
+    </div>
+    <div class="od" id="odBox" hidden></div>
+    <div class="now" id="nowPlaying">曲を追加すると、ここに再生中の曲と速度の倍率が出ます。</div>
+    <div class="ctrls">
+      <button class="primary" id="btnStart">スタート</button>
+      <button id="btnSongTop">曲の先頭へ</button>
+      <button id="btnNextSong">次の曲</button>
+      <button id="btnBack">ステージを戻す</button>
+      <button id="btnSkip">ステージを進める</button>
+      <button id="btnReset">リセット</button>
+      <button id="btnRedo" hidden>最初に戻す（設定はそのまま）</button>
+    </div>
+    <div class="opts">
+      <label><input type="checkbox" id="optCue" checked> ステージの切り替えで合図音</label>
+      <label><input type="checkbox" id="optClick"> クリック音</label>
+      <label><input type="checkbox" id="optPitch"> 音程を保つ（オフの方が音がきれい）</label>
+      <label>曲の音量 <input type="range" id="optVol" min="0" max="1" step="0.05" value="0.75"></label>
+      <label>クリック <input type="range" id="optClickVol" min="0" max="1" step="0.05" value="0.4"></label>
+    </div>
+  </section>
+
+  <!-- RACE -->
+  <section id="raceSec" hidden>
+    <div class="sec-head"><div><h2>本番の設定</h2><p class="sub">スタート5分前から、目標タイムに合わせた1つのテンポでBGMを流し続けます。「本番の戦略」を入れると区間ごとにテンポを変えます。「使う」にチェックした曲を繰り返します。</p></div></div>
+    <div class="rc-grid">
+      <label class="f wide">大会名<input type="text" id="rcName" maxlength="60" placeholder="例：水戸黄門漫遊マラソン"></label>
+      <label class="f">種目<select id="rcEv"><option>フル</option><option>ハーフ</option><option>その他</option></select></label>
+      <label class="f" id="rcKmWrap">距離（km）<input type="number" id="rcKm" min="1" max="250" step="0.1" inputmode="decimal"></label>
+      <label class="f">開催日<input type="date" id="rcDate"></label>
+      <label class="f">スタート時刻<input type="time" id="rcTime"></label>
+      <label class="f">ウェーブの遅れ（分）<input type="number" id="rcWave" min="0" max="180" step="1" inputmode="numeric"></label>
+      <label class="f">制限時間（時:分）<input type="text" id="rcLimit" placeholder="6:00" autocomplete="off"></label>
+      <label class="f">目標タイム（時:分:秒）<input type="text" id="rcGoal" placeholder="4:59:00" autocomplete="off"></label>
+      <label class="f">ロスタイム分の余裕（分）<input type="number" id="rcMargin" min="0" max="30" step="1" inputmode="numeric"></label>
+      <label class="f wide">関門（任意）「距離km　号砲からの制限時間」または「距離km　閉鎖時刻」を1行ずつ
+        <textarea id="rcCps" rows="4" placeholder="例）
+10 1:40
+21.1 3:10
+30 13:30"></textarea></label>
+      <div class="f wide">読み取った関門<div class="rc-cps" id="rcCpsView"></div></div>
+    </div>
+    <div class="strat">
+      <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。</span></div>
+      <div id="stratList"></div>
+      <div class="ctrls"><button class="small" id="stratAdd">＋ ステージを追加</button><span class="sauto">目標タイムから<select id="stratN" aria-label="作るステージ数"></select>で<button class="small" id="stratAuto">作る</button></span><button class="small" id="stratClear">戦略を消す</button></div>
+      <div class="sub" id="stratSum"></div>
+    </div>
+    <div class="rc-sum" id="rcSum"></div>
+    <div class="rp">
+      <div class="strat-h"><b>本番の設定の保存</b><span class="sub">入力中の内容は自動で残ります。大会ごとに名前を付けて保存しておくと、あとで読み込めます。</span></div>
+      <div class="ml-save"><input type="text" id="rpName" maxlength="40" placeholder="保存名（例：水戸2026）" aria-label="保存名"><button class="primary-sm" id="rpSave">保存</button></div>
+      <p class="ml-msg" id="rpMsg"></p>
+      <div class="list" id="rpList" hidden></div>
+    </div>
+    <label class="chk"><input type="checkbox" id="optShuffle" data-shuffle="1"> 曲をシャッフルして流す</label>
+    <div class="notes rc-notes"><ul>
+      <li>ラジコやYouTubeなど、ほかのアプリをこのページから終了させることはできません。スタート5分前にBGMが鳴り始めると、多くのスマホではほかのアプリの音が自動で止まります。止まらないときは手で止めてください。</li>
+      <li>待機中と本番中は、このページを開いたまま画面をつけておいてください。画面が消えたりほかのアプリに切り替えたりすると、BGMや音声のお知らせが止まることがあります。</li>
+      <li>スタートラインを通過したら「スタート」を押してください。画面がロックされ、30分ごとに目標の距離を音声でお知らせします。BGMは、自分のウェーブのスタート時刻から制限時間＋30分まで流れます（途中で「ストップ」も可）。</li>
+    </ul></div>
+  </section>
+
+  <!-- RELAX -->
+  <section id="relaxSec" hidden>
+    <div class="sec-head"><div><h2>リラックス</h2><p class="sub">ステージはなく、「使う」にチェックした曲を原曲の速さのまま、「ストップ」を押すまで繰り返し流します。</p></div></div>
+    <label class="chk"><input type="checkbox" id="optShuffle2" data-shuffle="1"> 曲をシャッフルして流す</label>
+  </section>
+
+  <!-- MYLIST -->
+  <section>
+    <div class="sec-head">
+      <div><h2>マイリスト</h2><p class="sub" id="mlTxt">練習メニュー（ステージ・ペース・時間）、曲の順番とステージの割り当て、リズムの微調整をまとめて登録します。</p></div>
+    </div>
+    <div class="ml-save">
+      <input type="text" id="mlName" placeholder="名前（例：火曜のペース走）" maxlength="40" aria-label="マイリストの名前">
+      <button class="primary-sm" id="mlSave">今の設定を登録</button>
+    </div>
+    <p class="ml-msg" id="mlMsg"></p>
+    <div class="list" id="mlList" hidden></div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menuSec">
+    <div class="sec-head">
+      <div><h2>練習メニュー</h2><p class="sub">ステージごとに「1km何分で走るか」と時間を決めます。曲の速さは、そのペースで走りやすいリズムに自動で合わせます。</p></div>
+      <span class="total" id="menuTotal">合計 45分</span>
+    </div>
+    <div class="chips" id="presets"></div>
+    <div class="list" id="menuList"></div>
+    <div class="calib">
+      <label for="cadOffset">曲のリズムの微調整</label>
+      <span class="pace-box"><button class="pstep" id="cadUp" title="リズムを1歩/分 早く">早く</button>
+      <input type="number" id="cadOffset" value="0" min="-30" max="30" step="1" inputmode="numeric">
+      <button class="pstep" id="cadDown" title="リズムを1歩/分 遅く">遅く</button></span>
+      <span>（曲がゆっくりに感じたら「早く」、せかされる感じなら「遅く」）</span>
+    </div>
+    <div><button class="small" id="btnAddSeg">＋ ステージを追加</button></div>
+  </section>
+
+  <!-- SONGS -->
+  <section>
+    <div class="sec-head">
+      <div><h2>曲</h2><p class="sub" id="songsTxt">「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。曲ごとに流すステージも選べます（「全ステージ」か、個別のステージ）。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。</p></div>
+      <div class="ctrls"><button id="btnAdd">曲を追加</button><button id="btnShuffle" hidden>シャッフル</button><button id="btnClear" hidden>すべてクリア</button></div>
+    </div>
+    <div class="confirm" id="clearConfirm" hidden>
+      <span>一覧の曲をすべてクリアしますか？マイリストで使っている曲はこのブラウザに残り、マイリストを読み込むと一覧に戻ります。それ以外の曲は削除します（端末にある元のファイルは消えません）。</span>
+      <div class="ctrls"><button class="danger" id="clearYes">すべてクリア</button><button id="clearNo">やめる</button></div>
+    </div>
+    <p class="store-info" id="storeInfo"></p>
+    <input type="file" id="fileIn" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.flac" multiple hidden>
+    <div class="drop" id="drop">まだ曲がありません。「曲を追加」から音声ファイル（MP3・M4A・WAV など）を選ぶか、ここにドラッグしてください。<br>ファイルはこの端末の中だけで処理され、どこにも送られません。</div>
+    <div class="list" id="songList" hidden></div>
+  </section>
+
+  <div class="notes">
+    <b>オフラインで使うとき</b>
+    <ul>
+      <li>追加した曲とBPMはこのブラウザの中に保存され、次に開いたときも残ります。別の端末や別のブラウザでは、そちらで追加してください。</li>
+      <li>曲を読み込んだあとは、通信が切れても再生とタイマーは動きます。</li>
+      <li>スマホでは画面を消すとタイマーの更新が遅れることがあります。走っている間は画面をつけたままにするのが確実です（対応ブラウザでは自動で画面が消えないようにします）。</li>
+      <li>テンポの倍率が大きすぎる曲（目安：0.75倍未満・1.35倍超）は音が不自然になりやすいので「変化大」と表示します。</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const BOOT={hash:location.hash||'',ref:document.referrer||'',last:''};addEventListener('hashchange',()=>{BOOT.last=location.hash||'';});
+const curHash=()=>location.hash||BOOT.last||BOOT.hash||'';
+const $=s=>document.querySelector(s);
+const pendingKV={};
+const lsGet=k=>{try{const v=localStorage.getItem(k);return v==null?undefined:JSON.parse(v);}catch(e){return undefined;}};
+const store={get(k,d){const v=lsGet(k);return v===undefined?d:v;},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}
+    try{if(typeof DB!=='undefined'&&DB.ok)kvPut(k,v);else pendingKV[k]=v;}catch(e){pendingKV[k]=v;}}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=ms=>{ms=Math.max(0,ms);const t=Math.ceil(ms/1000);const h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s).padStart(2,'0')};
+
+/* pace (sec/km) <-> cadence (steps/min). Typical runners: 7:00/km ≈ 160, 4:00/km ≈ 180 spm. */
+let cadOffset=+store.get('cbgm-offset',0)||0;
+const V7=60000/420, SLOPE=20/(60000/240-60000/420);
+const CAD7=164; /* 7:00/km ≈ 164, 5:00/km ≈ 175, 4:00/km ≈ 184 spm */
+const cadFromPace=p=>Math.round(Math.min(215,Math.max(130,CAD7+SLOPE*(60000/p-V7)+cadOffset)));
+const paceFromCad=c=>Math.round(Math.min(900,Math.max(150,60000/(V7+(c-cadOffset-CAD7)/SLOPE))));
+const fmtPace=p=>{p=Math.round(p);return Math.floor(p/60)+':'+String(p%60).padStart(2,'0');};
+function parsePace(str){str=String(str).trim().replace(/[：'’分]/g,':').replace(/[秒"]/g,'');
+  let m,s;if(/^\d{3,4}$/.test(str)){m=+str.slice(0,-2);s=+str.slice(-2);}
+  else{const a=str.match(/^(\d{1,2})(?:[:.\s](\d{1,2}))?$/);if(!a)return null;m=+a[1];s=a[2]?+a[2]:0;}
+  if(s>59)return null;const p=m*60+s;return p>=150&&p<=900?p:null;}
+const kmOf=s=>s.min*60/s.pace;
+
+const PRESETS={
+  steady:{label:'一定速走',segs:[['ウォームアップ',420,10],['一定速走',300,30],['クールダウン',450,5]]},
+  lsd:{label:'LSD',segs:[['LSD',450,90]]},
+  build:{label:'ビルドアップ',segs:[['ジョグ',390,15],['ペースアップ',345,15],['テンポ走',300,10],['クールダウン',450,5]]},
+  jog:{label:'ジョグ',segs:[['ジョグ',405,30]]}
+};
+const gid=()=>'g'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const fromPreset=k=>PRESETS[k].segs.map(([n,p,m])=>({id:gid(),name:n,pace:p,bpm:cadFromPace(p),auto:true,min:m}));
+const toStage=s=>({id:String(s.id||gid()),name:String(s.name||'ステージ'),pace:+s.pace,bpm:cadFromPace(+s.pace),auto:true,min:+s.min||1});
+const validMenu=m=>Array.isArray(m)&&m.length&&m.every(s=>+s.pace>=150&&+s.pace<=900);
+let menu=store.get('cbgm-menu-pace',null);
+if(!validMenu(menu)) menu=fromPreset('steady');
+else menu=menu.map(toStage);
+let activePreset=store.get('cbgm-preset-pace','steady');
+const bpmMap=store.get('cbgm-bpm',{});
+let songs=[];
+let stash=[]; /* songs kept for mylists but taken off the current list */
+const opt={outdoor:!!store.get('cbgm-outdoor',false),cue:true,click:false,vol:.75,clickVol:.4,keepPitch:store.get('cbgm-keeppitch',false),original:false,shuffle:!!store.get('cbgm-shuffle',false)};
+/* ---------- modes: practice / race / relax ---------- */
+let MODE=store.get('cbgm-mode','practice');if(!['practice','race','relax'].includes(MODE))MODE='practice';
+let practiceMenu=null;
+const RCD={name:'',ev:'フル',km:42.195,date:'',time:'09:00',wave:0,limit:360,goal:0,margin:5,cps:'',strat:[]};
+let RC=Object.assign({},RCD,store.get('cbgm-race',{}));
+const RS={armed:false,pre:false,startAt:0,ann:0,fix:[],spd:0,stg:null,gunCue:false};
+const pMenu=()=>MODE==='practice'?menu:(practiceMenu||menu);
+const rcKm=()=>RC.ev==='フル'?42.195:RC.ev==='ハーフ'?21.0975:(+RC.km||0);
+/* "4:59:00" "4:59" "4.59.00" "45900" "459" "6" (hours) all accepted */
+function parseHMS(str){str=String(str==null?'':str).trim().replace(/[：．.・\s]+/g,':').replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248)).replace(/^:+|:+$/g,'');if(!str)return 0;
+  if(/^\d{5,6}$/.test(str))str=str.slice(0,-4)+':'+str.slice(-4,-2)+':'+str.slice(-2);
+  else if(/^\d{3,4}$/.test(str))str=str.slice(0,-2)+':'+str.slice(-2);
+  if(!/^\d+(:\d{1,2}){0,2}$/.test(str))return null;const p=str.split(':').map(Number);if(p.slice(1).some(x=>x>59))return null;
+  return p.length===3?p[0]*3600+p[1]*60+p[2]:p.length===2?p[0]*3600+p[1]*60:p[0]*3600;}
+const fmtHMS=s=>{s=Math.round(s);return Math.floor(s/3600)+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');};
+const fmtHM=m=>Math.floor(m/60)+':'+String(Math.round(m%60)).padStart(2,'0');
+function rcEff(){const km=rcKm();if(!km)return null;if(!RC.goal){const ts=stratTotalSec();return ts?ts/km:null;}const t=RC.goal-(+RC.margin||0)*60;return t>0?t/km:null;}
+/* ---------- race strategy: [{to:km, spd:km/h}] ---------- */
+const stratRows=()=>Array.isArray(RC.strat)?RC.strat:[];
+const validSpd=v=>+v>=3&&+v<=30;
+function stratSegs(){const rows=stratRows(),km=rcKm(),out=[];let from=0;
+  rows.forEach((r,i)=>{const last=i===rows.length-1,to=last?km:Math.min(km,Math.max(from,+r.to||0));if(validSpd(r.spd)&&to>from)out.push({i,from,to,spd:+r.spd});from=to;});return out;}
+function stratTotalSec(){const g=stratSegs();if(!g.length||Math.abs(g[g.length-1].to-rcKm())>1e-6)return null;return g.reduce((a,x)=>a+(x.to-x.from)/x.spd*3600,0);}
+function stratDistAt(sec){const g=stratSegs();if(!g.length)return null;let t=0;for(const x of g){const d=(x.to-x.from)/x.spd*3600;if(sec<=t+d)return x.from+(sec-t)/3600*x.spd;t+=d;}return g[g.length-1].to;}
+function stratAt(pos){const g=stratSegs();if(!g.length)return null;return g.find(x=>pos<x.to-1e-6)||g[g.length-1];}
+const adjPace=p=>{const v=3600/p+(RS.spd||0);return v>2?3600/v:p;};
+function racePace(){const pos=R.running?posInfo(elapsed()).pos:0,st=stratAt(pos),p=st?3600/st.spd:rcEff();return p?adjPace(p):null;}
+function rcWaveMs(){if(!/^\d{4}-\d\d-\d\d$/.test(RC.date||'')||!/^\d\d:\d\d$/.test(RC.time||''))return null;return new Date(RC.date+'T'+RC.time+':00').getTime()+(+RC.wave||0)*60000;}
+function rcEndMs(){const g=rcGunMs();return g==null?null:g+((+RC.limit||0)+30)*60000;}
+
+/* ---------- audio ---------- */
+let ctx=null;
+function getCtx(){if(!ctx){const C=window.AudioContext||window.webkitAudioContext;ctx=new C();}return ctx;}
+function setPitch(a){const k=!!opt.keepPitch;a.preservesPitch=k;a.mozPreservesPitch=k;a.webkitPreservesPitch=k;}
+/* limiter: lowers the level a little and catches peaks so sped-up audio does not clip */
+let chain=null;
+function ensureChain(){if(chain)return;try{const ac=getCtx();const src=ac.createMediaElementSource(audio);
+  const g=ac.createGain();g.gain.value=.85;const c=ac.createDynamicsCompressor();
+  c.threshold.value=-10;c.knee.value=8;c.ratio.value=12;c.attack.value=.003;c.release.value=.25;
+  src.connect(g);g.connect(c);c.connect(ac.destination);chain={g,c};}catch(e){chain={};}}
+const audio=new Audio();audio.preload='auto';setPitch(audio);
+const preview=new Audio();setPitch(preview);let previewId=null;
+
+function blip(t,freq,dur,gain){
+  const ac=getCtx();const o=ac.createOscillator(),g=ac.createGain();
+  o.frequency.value=freq;o.type='sine';
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(gain,t+.005);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+dur+.02);
+}
+function cue(final){if(!opt.cue)return;const ac=getCtx();const t=ac.currentTime+.05;
+  if(final){blip(t,880,.25,.5);blip(t+.3,880,.25,.5);blip(t+.6,1320,.6,.5);}
+  else{blip(t,1046,.18,.45);blip(t+.22,1318,.3,.45);}}
+
+let clickTimer=null,nextClick=0;
+function startClicks(){stopClicks();if(!opt.click)return;const ac=getCtx();nextClick=ac.currentTime+.1;
+  clickTimer=setInterval(()=>{const seg=menu[R.seg];if(!seg)return;const spb=60/seg.bpm;
+    while(nextClick<ac.currentTime+.15){blip(nextClick,1600,.03,opt.clickVol*.6);nextClick+=spb;}},30);}
+function stopClicks(){clearInterval(clickTimer);clickTimer=null;}
+
+/* ---------- BPM detection ---------- */
+async function detectBpm(file){
+  const ac=getCtx();
+  const buf=await ac.decodeAudioData(await file.arrayBuffer());
+  const sr=buf.sampleRate,dur=buf.duration;
+  const startS=Math.min(30,dur*.2),lenS=Math.max(4,Math.min(60,dur-startS));
+  const s0=Math.floor(startS*sr),n=Math.min(Math.floor(lenS*sr),buf.length-s0);
+  const c0=buf.getChannelData(0),c1=buf.numberOfChannels>1?buf.getChannelData(1):null;
+  const off=new OfflineAudioContext(1,n,sr);const b=off.createBuffer(1,n,sr);const d=b.getChannelData(0);
+  for(let i=0;i<n;i++)d[i]=c1?(c0[s0+i]+c1[s0+i])*.5:c0[s0+i];
+  const src=off.createBufferSource();src.buffer=b;const lp=off.createBiquadFilter();lp.type='lowpass';lp.frequency.value=180;
+  src.connect(lp);lp.connect(off.destination);src.start();
+  const x=(await off.startRendering()).getChannelData(0);
+  // broadband onsets too (hi-hats / snares)
+  const fps=200,hop=Math.floor(sr/fps),F=Math.floor(n/hop);
+  const envL=new Float32Array(F),envB=new Float32Array(F);
+  for(let f=0;f<F;f++){let a=0,bb=0;for(let i=f*hop,e=i+hop;i<e;i++){a+=x[i]*x[i];bb+=d[i]*d[i];}envL[f]=Math.log(1e-6+Math.sqrt(a/hop));envB[f]=Math.log(1e-6+Math.sqrt(bb/hop));}
+  const on=new Float32Array(F);let mean=0;
+  for(let f=1;f<F;f++){on[f]=Math.max(0,envL[f]-envL[f-1])+.6*Math.max(0,envB[f]-envB[f-1]);mean+=on[f];}
+  mean/=F;for(let f=0;f<F;f++)on[f]=Math.max(0,on[f]-mean);
+  const minL=Math.floor(fps*60/200),maxL=Math.ceil(fps*60/60),top=Math.min(F-1,maxL*2+2);
+  const acr=new Float32Array(top+1);
+  for(let l=minL;l<=top;l++){let s=0;for(let i=0;i+l<F;i++)s+=on[i]*on[i+l];acr[l]=s/(F-l);}
+  let best=-1,bl=0;
+  for(let l=minL;l<=maxL;l++){const bpm=60*fps/l;
+    const sc=acr[l]+.5*(acr[2*l]||0)+.25*(acr[Math.round(l/2)]||0);
+    const w=Math.exp(-.5*Math.pow(Math.log2(bpm/125)/1,2));
+    const v=sc*w;if(v>best){best=v;bl=l;}}
+  let lf=bl;if(bl>minL&&bl<maxL){const a=acr[bl-1],b2=acr[bl],c=acr[bl+1];const den=a-2*b2+c;if(den)lf=bl+.5*(a-c)/den;}
+  let bpm=60*fps/lf;while(bpm<70)bpm*=2;while(bpm>200)bpm/=2;
+  return {bpm:Math.round(bpm*10)/10,dur};
+}
+let queue=Promise.resolve();
+function enqueueDetect(s){queue=queue.then(async()=>{
+  try{const r=await detectBpm(s.file);s.dur=r.dur;if(s.bpm==null){s.bpm=r.bpm;saveBpm(s);} }
+  catch(e){s.err=true;}
+  s.detecting=false;saveMeta(s);if(R.running&&songs[R.song]===s)applyRate(true);renderSongs();renderRun();renderML();});}
+const keyOf=s=>s.name+'|'+s.size;
+function saveBpm(s){bpmMap[keyOf(s)]=s.bpm;store.set('cbgm-bpm',bpmMap);saveMeta(s);}
+
+/* ---------- song library (IndexedDB, this browser only) ---------- */
+const DB={db:null,ok:false};let storeErr=false;
+const sid=()=>'s'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+function idbOpen(){return new Promise(res=>{try{const r=indexedDB.open('cbgm-library',2);
+  r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains('meta'))d.createObjectStore('meta',{keyPath:'id'});
+    if(!d.objectStoreNames.contains('blobs'))d.createObjectStore('blobs');if(!d.objectStoreNames.contains('kv'))d.createObjectStore('kv');};
+  r.onsuccess=()=>{DB.db=r.result;DB.ok=true;res(true);};r.onerror=()=>res(false);r.onblocked=()=>res(false);}catch(e){res(false);}});}
+function tx(stores,mode,fn){return new Promise(res=>{if(!DB.ok)return res(null);try{const t=DB.db.transaction(stores,mode);let out;
+  t.oncomplete=()=>res(out===undefined?true:out);t.onerror=t.onabort=()=>res(null);out=fn(t);}catch(e){res(null);}});}
+const metaOf=(s,i)=>({id:s.id,name:s.name,size:s.size,bpm:s.bpm,dur:s.dur,order:i,stages:s.stages||'all',use:s.use!==false,parked:!!s.parked});
+const used=s=>s.use!==false;
+function saveMeta(s){const i=songs.indexOf(s);if(i<0&&stash.indexOf(s)<0)return;
+  tx(['meta'],'readwrite',t=>{t.objectStore('meta').put(i<0?{...metaOf(s,1e6),shown:false}:metaOf(s,i));});}
+function saveOrder(){tx(['meta'],'readwrite',t=>{const st=t.objectStore('meta');songs.forEach((s,i)=>st.put(metaOf(s,i)));});}
+async function saveNew(s){const ok=await tx(['meta','blobs'],'readwrite',t=>{t.objectStore('blobs').put(s.file,s.id);t.objectStore('meta').put(metaOf(s,songs.indexOf(s)));});
+  if(!ok&&DB.ok){storeErr=true;s.unsaved=true;}updateStoreInfo();renderSongs();}
+function delSong(id){tx(['meta','blobs'],'readwrite',t=>{t.objectStore('meta').delete(id);t.objectStore('blobs').delete(id);});}
+function updateStoreInfo(){const el=$('#storeInfo');if(!el)return;$('#btnClear').hidden=!songs.length;$('#btnShuffle').hidden=songs.length<2;
+  if(!DB.ok){el.textContent=songs.length?'この環境では曲を保存できません。ページを閉じると曲は消えます。':'';el.classList.add('err');return;}
+  const all=songs.concat(stash).filter(s=>!s.unsaved);const mb=all.reduce((a,s)=>a+s.size,0)/1048576;const n=all.length;
+  el.classList.toggle('err',storeErr);
+  el.textContent=storeErr?`端末の空き容量が足りず、保存できない曲がありました（保存済み ${n}曲）。曲を減らすと保存できます。`
+    :n?`このブラウザに ${n}曲を保存中（約${mb.toFixed(1)} MB${stash.length?`、うち一覧から外した曲 ${stash.length}曲`:''}）。次に開いたときも残ります。`:'';}
+/* settings mirror in IndexedDB: survives where localStorage is unavailable */
+const KV_KEYS=['cbgm-offset','cbgm-menu-pace','cbgm-preset-pace','cbgm-original','cbgm-keeppitch','cbgm-bpm','cbgm-mylists','cbgm-mylist-active','cbgm-hash-done','cbgm-race','cbgm-race-presets','cbgm-shuffle','cbgm-mode'];
+let hashDone=store.get('cbgm-hash-done','');
+function kvPut(k,v){return tx(['kv'],'readwrite',t=>{t.objectStore('kv').put(JSON.parse(JSON.stringify(v??null)),k);});}
+async function kvCheck(k,id,saved){if(!DB.ok)return null;const r=await tx(['kv'],'readonly',t=>t.objectStore('kv').get(k));
+  const v=r&&r.result;return Array.isArray(v)&&v.some(m=>m.id===id&&m.saved===saved);}
+function applyKV(k,v){switch(k){
+  case 'cbgm-offset':cadOffset=Math.max(-30,Math.min(30,+v||0));$('#cadOffset').value=cadOffset;break;
+  case 'cbgm-menu-pace':if(validMenu(v)&&!R.running&&!R.acc){const nm=v.map(toStage);if(MODE==='practice')menu=nm;else practiceMenu=nm;}break;
+  case 'cbgm-race':if(v&&typeof v==='object'){RC=Object.assign({},RCD,v);if(MODE==='race'&&!R.running&&!RS.pre)menu=virtualMenu();}break;
+  case 'cbgm-shuffle':opt.shuffle=!!v;break;
+  case 'cbgm-mode':if(['practice','race','relax'].includes(v)&&v!==MODE&&!R.running)setMode(v);break;
+  case 'cbgm-preset-pace':activePreset=v;break;
+  case 'cbgm-original':break;
+  case 'cbgm-keeppitch':opt.keepPitch=!!v;$('#optPitch').checked=opt.keepPitch;setPitch(audio);break;
+  case 'cbgm-bpm':if(v&&typeof v==='object')Object.assign(bpmMap,v);break;
+  case 'cbgm-mylists':if(Array.isArray(v))mylists=v;break;
+  case 'cbgm-mylist-active':activeML=v;break;
+  case 'cbgm-hash-done':hashDone=v;break;
+  case 'cbgm-race-presets':if(Array.isArray(v))racePresets=v;break;}}
+
+/* ---------- menu sent from マラソン大会管理 (#tm.J470x100_M407x150 ...) ---------- */
+const HASH_NAME={W:'ウォームアップ',J:'ジョグ',P:'ペース走',M:'目標ペース',I:'インターバル',R:'つなぎジョグ',B:'ビルドアップ',L:'ロング走',C:'クールダウン'};
+function readHashMenu(src){let h='';try{h=src!=null?String(src).trim().replace(/^.*#/,''):decodeURIComponent(curHash().slice(1));}catch(e){}
+  const m=/^tm\.([A-Z0-9x_]+)$/.exec(h);if(!m)return null;
+  const st=m[1].split('_').map(x=>{const a=/^([A-Z])(\d+)x(\d+)$/.exec(x);return a?{name:HASH_NAME[a[1]]||'ステージ',pace:+a[2],min:Math.max(.5,Math.round(+a[3]/5)/2)}:null;});
+  if(!st.length||st.length>40||st.some(x=>!x||x.pace<150||x.pace>900))return null;return {token:h,stages:st};}
+let hashPrev=null,hashShown='';
+function b64uDecode(t){try{t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';const bin=atob(t);return new TextDecoder().decode(Uint8Array.from(bin,c=>c.charCodeAt(0)));}catch(e){return '';}}
+function applyRaceHash(src){let h='';try{h=src!=null?String(src).trim().replace(/^.*#/,''):decodeURIComponent(curHash().slice(1));}catch(e){}
+  const m=/^rc\.(\d{4})(\d\d)(\d\d)\.(\d+)\.(\d+)\.([A-Za-z0-9_-]*)(?:\.([A-Za-z0-9_-]*))?(?:\.(\d{4}))?$/.exec(h);if(!m||(src==null&&h===hashDone)||R.running||RS.pre)return false;
+  const date=m[1]+'-'+m[2]+'-'+m[3],meters=+m[4],lim=+m[5],name=b64uDecode(m[6]);
+  if(RC.date!==date||RC.name!==name){RC.wave=0;RC.goal=0;}
+  RC.date=date;RC.name=name||RC.name;RC.ev=meters===42195?'フル':(meters===21098||meters===21097)?'ハーフ':'その他';RC.km=meters/1000;if(lim)RC.limit=Math.round(lim/60);if(m[7]!==undefined)RC.cps=b64uDecode(m[7]);if(m[8]&&+m[8].slice(0,2)<24&&+m[8].slice(2)<60)RC.time=m[8].slice(0,2)+':'+m[8].slice(2);
+  store.set('cbgm-race',RC);hashDone=h;store.set('cbgm-hash-done',hashDone);setMode('race',true);
+  const el=$('#hashNote');el.innerHTML=`<span>マラソン大会管理から<b>${esc(RC.name||'大会')}</b>の情報（${RC.ev}・${fmtHM(+RC.limit||0)}制限）を受け取りました。スタート時刻、ウェーブ、目標タイムを確認してください。</span><button class="small" id="hashOk">閉じる</button>`;el.hidden=false;
+  renderAll();return true;}
+function hashSame(H){const m=MODE==='practice'?menu:(practiceMenu||menu);return Array.isArray(m)&&m.length===H.stages.length&&m.every((s,i)=>+s.pace===H.stages[i].pace&&+s.min===H.stages[i].min);}
+function applyHashMenu(src){if(applyRaceHash(src))return true;const H=readHashMenu(src);if(!H||R.running)return !!H;
+  if(hashSame(H)){if(MODE!=='practice')setMode('practice');if(H.token!==hashShown){hashShown=H.token;const el=$('#hashNote');el.innerHTML=`<span>マラソン大会管理から届いた<b>今日の練習メニュー</b>（${H.stages.length}ステージ）は読み込み済みです。</span><button class="small" id="hashOk">閉じる</button>`;el.hidden=false;}return true;}
+  if(MODE!=='practice'&&!setMode('practice',true))return true;
+  hashPrev={menu:menu.map(s=>({...s})),preset:activePreset};
+  menu=H.stages.map(s=>({id:gid(),name:s.name,pace:s.pace,bpm:cadFromPace(s.pace),auto:true,min:s.min}));activePreset='custom';saveMenu();
+  hashDone=H.token;hashShown=H.token;store.set('cbgm-hash-done',hashDone);
+  const tot=menu.reduce((a,s)=>a+s.min,0);
+  const el=$('#hashNote');el.innerHTML=`<span>マラソン大会管理から届いた<b>今日の練習メニュー</b>（${menu.length}ステージ・約${Math.round(tot)}分）を読み込みました。</span><button class="small" id="hashUndo">元のメニューに戻す</button><button class="small" id="hashOk">閉じる</button>`;el.hidden=false;
+  renderAll();}
+document.addEventListener('click',e=>{if(e.target.id==='hashOk'){$('#hashNote').hidden=true;}
+  else if(e.target.id==='hashUndo'&&hashPrev){if(R.running)return;menu=hashPrev.menu;activePreset=hashPrev.preset;hashPrev=null;saveMenu();$('#hashNote').hidden=true;renderAll();}});
+window.addEventListener('hashchange',()=>applyHashMenu());
+function recvApply(v){const msg=$('#recvMsg');msg.classList.remove('err');
+  if(R.running){msg.textContent='走っている間は受け取れません。';msg.classList.add('err');return false;}
+  const t=String(v||'').trim().replace(/^.*#/,'');
+  if(!/^(rc|tm)\./.test(t)){msg.textContent='受け取れませんでした。大会管理で「マラソンBGMで開く」か「本番モードで開く」を押してから、もう一度お試しください。';msg.classList.add('err');return false;}
+  hashShown='';applyHashMenu(t);msg.textContent='';$('#recvPaste').hidden=true;$('#recvIn').value='';window.scrollTo(0,0);return true;}
+document.addEventListener('click',async e=>{const id=e.target.id;
+  if(id==='recvBtn'){$('#recvPaste').hidden=false;$('#recvMsg').textContent='';$('#recvIn').focus();
+    let txt=null;try{if(navigator.clipboard&&navigator.clipboard.readText)txt=await Promise.race([navigator.clipboard.readText(),new Promise(r=>setTimeout(()=>r(null),3000))]);}catch(err){}
+    if(txt&&/(^|#)(rc|tm)\./.test(txt.trim()))recvApply(txt);}
+  else if(id==='recvGo')recvApply($('#recvIn').value);});
+$('#recvIn')&&$('#recvIn').addEventListener('paste',()=>setTimeout(()=>{const v=$('#recvIn').value;if(/(^|#)(rc|tm)\./.test(v.trim()))recvApply(v);},0));
+document.addEventListener('click',e=>{if(e.target.id!=='tmLoad')return;const inp=$('#tmCode'),msg=$('#tmMsg'),v=inp.value;
+  if(R.running){msg.textContent='走っている間は読み込めません。';msg.classList.add('err');return;}
+  if(!readHashMenu(v)){msg.textContent='コードを読み取れませんでした。大会管理の「コピー」で写したものを、そのまま貼り付けてください。';msg.classList.add('err');return;}
+  hashShown='';applyHashMenu(v);inp.value='';msg.textContent='';msg.classList.remove('err');window.scrollTo(0,0);});
+async function syncKV(){const r=await tx(['kv'],'readonly',t=>{const st=t.objectStore('kv');return KV_KEYS.map(k=>st.get(k));});
+  /* IndexedDB is the source of truth; localStorage only fills keys IndexedDB has never stored */
+  KV_KEYS.forEach((k,i)=>{const ls=lsGet(k);const kv=r&&r[i]?r[i].result:undefined;
+    if(k in pendingKV)return;
+    if(kv!==undefined&&kv!==null){applyKV(k,kv);try{localStorage.setItem(k,JSON.stringify(kv));}catch(e){}}
+    else if(ls!==undefined)kvPut(k,ls);});
+  Object.keys(pendingKV).forEach(k=>{kvPut(k,pendingKV[k]);delete pendingKV[k];});
+  renderAll();}
+async function loadSaved(){if(!await idbOpen()){updateStoreInfo();raceExpire();applyHashMenu();renderAll();return;}
+  await syncKV();raceExpire();applyHashMenu();renderAll();
+  const rq=await tx(['meta'],'readonly',t=>t.objectStore('meta').getAll());
+  const list=((rq&&rq.result)||[]).sort((a,b)=>a.order-b.order);
+  const reqs=list.length?await tx(['blobs'],'readonly',t=>{const st=t.objectStore('blobs');return list.map(m=>st.get(m.id));}):[];
+  list.forEach((m,i)=>{const blob=reqs&&reqs[i]&&reqs[i].result;if(!blob){delSong(m.id);return;}
+    const s={id:m.id,name:m.name,size:m.size,file:blob,url:URL.createObjectURL(blob),bpm:m.bpm??null,dur:m.dur||0,detecting:m.bpm==null||!m.dur,stages:m.stages||'all',use:m.use!==false,parked:!!m.parked};
+    (m.shown===false?stash:songs).push(s);if(s.detecting)enqueueDetect(s);});
+  renderSongs();renderRun();updateStoreInfo();renderML();}
+
+/* ---------- songs per stage ---------- */
+function songStages(s){if(!Array.isArray(s.stages))return 'all';const ids=pMenu().map(g=>g.id);const a=s.stages.filter(x=>ids.includes(x));return a.length?a:'all';}
+function eligible(s,segIdx){if(!used(s))return false;if(MODE!=='practice')return true;const g=menu[segIdx];if(!g)return true;const st=songStages(s);return st==='all'||st.includes(g.id);}
+
+/* ---------- tempo match ---------- */
+function match(songBpm,target){
+  if(!songBpm)return{rate:1,mult:1,unknown:true};
+  let best=null;for(const m of[.5,1,2]){const rate=target/(songBpm*m);const dd=Math.abs(Math.log(rate));if(!best||dd<best.dd)best={rate,mult:m,dd};}
+  best.rate=Math.min(4,Math.max(.25,best.rate));best.big=best.rate<.75||best.rate>1.35;return best;}
+const multText=m=>m===2?'1拍に2歩':m===.5?'2拍で1歩':'1拍に1歩';
+
+/* ---------- runner ---------- */
+const R={running:false,paused:false,acc:0,t0:0,seg:0,song:0,done:false};
+const totalMs=()=>menu.reduce((a,s)=>a+s.min*60000,0);
+const rawEl=()=>R.acc+(R.running&&!R.paused?Date.now()-R.t0:0);
+/* 屋外練習では、GPSで走った距離を「計画上の経過時間」に置き換えてステージを進める */
+const elapsed=()=>(OD&&OD.active&&MODE==='practice')?odEl(odDist()):rawEl();
+function segAt(el){let c=0;for(let i=0;i<menu.length;i++){c+=menu[i].min*60000;if(el<c)return i;}return menu.length-1;}
+function segStart(i){let c=0;for(let k=0;k<i;k++)c+=menu[k].min*60000;return c;}
+const curRate=()=>{if(MODE==='relax'||(MODE==='practice'&&opt.original))return 1;const s=songs[R.song];
+  if(MODE==='race'){const p=racePace();return s&&p?match(s.bpm,cadFromPace(p)).rate:1;}
+  const g=menu[R.seg];return s&&g?match(s.bpm,RS.spd?cadFromPace(adjPace(g.pace)):g.bpm).rate:1;};
+
+let rampT=null,ramping=false;
+function applyRate(ramp){const target=curRate();clearInterval(rampT);ramping=false;
+  if(!ramp){audio.defaultPlaybackRate=target;audio.playbackRate=target;return;}
+  const from=audio.playbackRate,steps=10;let k=0;ramping=true;
+  rampT=setInterval(()=>{k++;const r=from+(target-from)*k/steps;audio.playbackRate=r;audio.defaultPlaybackRate=r;if(k>=steps){clearInterval(rampT);ramping=false;}},150);}
+/* next song for the current stage (BPM known first), falling back to any song */
+function nextIndex(from){const n=songs.length;if(!n)return 0;const seg=R.seg;
+  if(MODE!=='practice'&&opt.shuffle){const c=songs.map((s,i)=>i).filter(i=>used(songs[i])&&i!==from);if(c.length)return c[Math.floor(Math.random()*c.length)];}
+  const tests=[s=>eligible(s,seg)&&s.bpm,s=>eligible(s,seg),s=>used(s)&&s.bpm,s=>used(s),()=>true];
+  for(const ok of tests){for(let k=1;k<=n;k++){const i=(((from+k)%n)+n)%n;if(ok(songs[i]))return i;}}return 0;}
+function firstIndex(){return nextIndex(-1);}
+function stageChanged(){if(!R.running)return;const s=songs[R.song];
+  if(s&&!eligible(s,R.seg)&&songs.some(x=>eligible(x,R.seg))){playSong(nextIndex(R.song));if(R.paused)audio.pause();}else applyRate(true);}
+function playSong(i){const s=songs[i];if(!s)return;R.song=i;audio.src=s.url;setPitch(audio);audio.volume=opt.vol;applyRate(false);
+  audio.play().catch(()=>{});renderSongs();renderRun();}
+audio.addEventListener('loadedmetadata',()=>{setPitch(audio);applyRate(false);});
+audio.addEventListener('ended',()=>{if(((R.running&&!R.paused)||(MODE==='race'&&RS.pre&&!R.running))&&songs.length)playSong(nextIndex(R.song));});
+audio.addEventListener('playing',()=>{if(!ramping)applyRate(false);});
+audio.addEventListener('timeupdate',tick);
+
+let wake=null;
+async function lockScreen(){try{if('wakeLock'in navigator&&document.visibilityState==='visible')wake=await navigator.wakeLock.request('screen');}catch(e){}}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){try{ctx&&ctx.resume();}catch(e){}if((R.running&&!R.paused)||RS.armed||RS.pre)lockScreen();tick();}});
+
+function start(){
+  if(!songs.some(used))return;
+  const fresh=R.done||(!R.running&&R.acc===0);
+  if(MODE!=='practice'&&fresh)menu=virtualMenu();
+  if(!totalMs())return;
+  try{getCtx().resume();}catch(e){}
+  ensureChain();
+  if(previewId){preview.pause();previewId=null;}
+  if(fresh){R.acc=0;R.seg=0;R.done=false;R.t0=Date.now();R.running=true;R.paused=false;audio.volume=opt.vol;
+    if(MODE==='race'&&RS.pre&&!audio.paused)applyRate(false);else playSong(firstIndex());
+    if(MODE==='race'){RS.startAt=Date.now();RS.ann=0;RS.armed=false;RS.pre=false;const e=rcEff();
+      say(e?`スタート。テンポは1キロ${Math.floor(e/60)}分${Math.round(e%60)}秒です。`:'スタート。');lock();}
+    else if(MODE==='practice')lock();}
+  else{R.t0=Date.now();R.paused=false;R.running=true;audio.play().catch(()=>{});}
+  lockScreen();startClicks();renderAll();}
+function pause(){R.acc+=Date.now()-R.t0;R.paused=true;if(OD&&OD.active)OD.pt=null;audio.pause();stopClicks();renderAll();}
+function reset(){audio.pause();stopClicks();clearInterval(rampT);R.running=false;R.paused=false;R.acc=0;R.seg=0;R.done=false;
+  RS.armed=false;RS.pre=false;RS.startAt=0;RS.ann=0;RS.dnf=false;RS.fix=[];RS.spd=0;RS.spdLog=[];RS.endAt=0;RS.stg=null;RS.gunCue=false;RS.gpsAuto=false;if(MODE!=='practice')menu=virtualMenu();
+  try{wake&&wake.release();}catch(e){}wake=null;renderAll();}
+function finish(){R.acc=totalMs();R.running=false;R.paused=false;R.done=true;stopClicks();cue(true);
+  const v0=audio.volume;let k=0;const t=setInterval(()=>{k++;audio.volume=Math.max(0,v0*(1-k/20));if(k>=20){clearInterval(t);audio.pause();audio.volume=opt.vol;}},150);
+  try{wake&&wake.release();}catch(e){}wake=null;renderAll();
+  if(MODE==='race')say('制限時間を過ぎたので終了します。おつかれさまでした。');}
+function tick(){
+  if(!R.running||R.paused)return;
+  const el=elapsed();if(el>=totalMs()){finish();return;}
+  if(MODE==='race'){const n=Math.floor(el/1800000);if(n>RS.ann){RS.ann=n;const e=rcEff();const sd=stratDistAt(el/1000);say(`${n*30}分経過。${sd!=null?'戦略':'目標'}では${sd!=null?sd.toFixed(1):e?(el/1000/e).toFixed(1):'—'}キロ地点です。`);}
+    const st=stratAt(posInfo(el).pos);if(st&&st.i!==RS.stg){if(RS.stg!=null){cue(false);say(`第${st.i+1}ステージ。時速${(st.spd+(RS.spd||0)).toFixed(1)}キロ、ペース${sayPace(adjPace(3600/st.spd))}です。`);}RS.stg=st.i;renderStrat();}}
+  const si=segAt(el);if(si!==R.seg){R.seg=si;cue(false);stageChanged();renderMenu();renderSongs();}
+  else if(!ramping&&audio.src){const r=curRate();if(Math.abs(audio.playbackRate-r)>.005){audio.defaultPlaybackRate=r;audio.playbackRate=r;}}
+  renderRun();}
+setInterval(tick,250);
+
+/* ---------- render ---------- */
+function renderRun(){
+  const tot=totalMs(),el=Math.min(elapsed(),tot);
+  const i=R.running||R.acc?segAt(el):0;const seg=menu[i];
+  $('#segCount').textContent=R.done?'完了':`ステージ ${i+1} / ${menu.length}`;
+  $('#segName').textContent=R.done?'おつかれさまでした':(seg?seg.name:'—');
+  $('#segLeft').textContent=R.done?'0:00':fmt(segStart(i)+(seg?seg.min*60000:0)-el);
+  $('#segPace').textContent=seg?fmtPace(seg.pace):'—';
+  $('#totLeft').textContent=fmt(tot-el);
+  const totKm=menu.reduce((a,s)=>a+kmOf(s),0);
+  let doneKm=0;for(let k=0;k<menu.length;k++){const st=segStart(k),len=menu[k].min*60000;doneKm+=Math.max(0,Math.min(el-st,len))/1000/menu[k].pace;}
+  $('#totDist').textContent=`残り 約${Math.max(0,totKm-doneKm).toFixed(1)} km ／ 全 ${totKm.toFixed(1)} km`;
+  $('#runPanel').classList.toggle('paused',R.running&&R.paused);
+  const nx=menu[i+1];$('#nextSeg').textContent=R.done?'—':(nx?`${nx.name}　${fmtPace(nx.pace)} /km`:'これで最後です');
+  $('#axisEnd').textContent=fmt(tot);
+  const head=$('#head');if(head)head.style.left=(tot?el/tot*100:0)+'%';
+  document.querySelectorAll('.blk').forEach((b,k)=>b.classList.toggle('cur',k===i&&(R.running||R.acc>0)&&!R.done));
+  const s=songs[R.song];const np=$('#nowPlaying');
+  if(!songs.length)np.textContent='曲を追加すると、ここに再生中の曲と速度の倍率が出ます。';
+  else if(!songs.some(used))np.textContent='流す曲がありません。曲の一覧で「使う」にチェックを入れてください。';
+  else if(s&&seg){const m=match(s.bpm,seg.bpm);
+    np.innerHTML=`${R.running&&!R.paused?'再生中':R.running?'一時停止中':'最初の曲'}：<b>${esc(s.name)}</b><br>`+
+      ((opt.original&&MODE==='practice')||MODE==='relax'?`原曲再生：曲の速さを変えずに流しています${s.bpm?`（${s.bpm} BPM）`:''}`:
+      (m.unknown?'BPMを測定中のため、元の速さで流します。':`元 ${s.bpm} BPM → <b class="num">×${m.rate.toFixed(2)}</b>（${multText(m.mult)}）`)+
+      (m.big?' <span class="flag">変化大</span>':''));}
+  const b=$('#btnStart');b.textContent=R.running&&!R.paused?'一時停止':R.running&&R.paused?'再開':R.done?'もう一度':'スタート';
+  b.disabled=!songs.some(used)||!tot;$('#btnNextSong').disabled=!R.running||songs.filter(used).length<2;$('#btnSongTop').disabled=!R.running;$('#btnSkip').disabled=!R.running||R.seg>=menu.length-1;$('#btnBack').disabled=!R.running||R.seg<=0;
+  renderRunMode();
+}
+function renderProfile(){
+  const tot=menu.reduce((a,s)=>a+s.min,0)||1;const sp=menu.map(s=>1/s.pace);const lo=Math.min(...sp)*.85,hi=Math.max(...sp);
+  $('#profile').innerHTML=menu.map(s=>`<div class="blk" style="flex:${s.min} 1 0;height:${35+65*(1/s.pace-lo)/Math.max(1e-9,hi-lo)}%" title="${esc(s.name)} ${fmtPace(s.pace)}/km ${s.bpm}歩/分 ${s.min}分"><span>${fmtPace(s.pace)}</span></div>`).join('')+'<div class="head" id="head"></div>';
+  const km=menu.reduce((a,s)=>a+kmOf(s),0);
+  $('#menuTotal').textContent=`合計 ${Math.floor(tot/60)?Math.floor(tot/60)+'時間':''}${Math.round(tot%60)?Math.round(tot%60)+'分':''}・約${km.toFixed(1)} km`;
+}
+function renderMenu(){
+  $('#presets').innerHTML=Object.entries(PRESETS).map(([k,p])=>`<button class="chip${activePreset===k?' on':''}" data-p="${k}">${p.label}</button>`).join('');
+  const cur=(R.running||R.acc>0)&&!R.done?R.seg:-1;
+  $('#menuList').innerHTML=menu.map((s,i)=>`<div class="row${i===cur?' cur':''}" data-id="${s.id}">
+    <div class="row-top"><span class="idx">${i+1}</span>
+      <input type="text" id="n-${s.id}" data-f="name" value="${esc(s.name)}" aria-label="ステージ名">
+      <button class="x" data-del="${s.id}" aria-label="このステージを削除" ${menu.length<2?'disabled':''}>×</button></div>
+    <div class="fields">
+      <div class="field"><label class="label" for="p-${s.id}">ペース（/km）</label>
+        <div class="pace-box"><button class="pstep" data-pstep="-5" aria-label="ペースを5秒早くする" title="5秒早く">早く</button>
+        <input type="text" id="p-${s.id}" data-f="pace" value="${fmtPace(s.pace)}" inputmode="decimal" aria-label="1kmのペース 分:秒">
+        <button class="pstep" data-pstep="5" aria-label="ペースを5秒遅くする" title="5秒遅く">遅く</button></div></div>
+      <div class="field"><label class="label" for="m-${s.id}">時間</label>
+        <div class="unit-row"><input type="number" id="m-${s.id}" data-f="min" value="${s.min}" min="0.5" max="300" step="0.5" inputmode="decimal"><span class="unit">分</span></div></div>
+      <div class="seg-info"><span>時速 <b data-kmh="${s.id}">${(3600/s.pace).toFixed(1)}</b> km</span><span>距離 <b data-km="${s.id}">${kmOf(s).toFixed(2)}</b> km</span></div>
+    </div>
+  </div>`).join('');
+  renderProfile();
+}
+function refreshRow(s){const km=document.querySelector(`[data-km="${s.id}"]`);if(km)km.textContent=kmOf(s).toFixed(2);
+  const kh=document.querySelector(`[data-kmh="${s.id}"]`);if(kh)kh.textContent=(3600/s.pace).toFixed(1);
+  const b=document.getElementById('b-'+s.id);if(b&&document.activeElement!==b)b.value=s.bpm;
+  const md=document.querySelector(`[data-mode="${s.id}"]`);if(md)md.innerHTML=s.auto?'テンポはペースから自動':`<span class="manual">テンポを手動で設定中</span>　<button class="linkbtn" data-reauto="${s.id}">自動に戻す</button>`;}
+function renderSongs(){
+  const list=$('#songList'),drop=$('#drop');
+  list.hidden=!songs.length;drop.hidden=!!songs.length;
+  const seg=menu[R.seg]||menu[0];
+  list.innerHTML=songs.map((s,i)=>{const m=match(s.bpm,seg.bpm);const playing=i===R.song&&R.running;const st=songStages(s);
+    const off=!used(s)||(R.running&&!eligible(s,R.seg));
+    const chips=`<div class="stg"><span>流すステージ</span><button data-stg="all" data-song="${s.id}" class="${st==='all'?'on':''}">全ステージ</button>`+
+      pMenu().map(g=>`<button data-stg="${g.id}" data-song="${s.id}" class="${st!=='all'&&st.includes(g.id)?'on':''}">${esc(g.name||'ステージ')}</button>`).join('')+'</div>';
+    return `<div class="song${playing?' cur':''}${off?' off':''}" data-id="${s.id}">
+    <div class="song-top"><span class="ord"><button class="step" data-up="${s.id}" aria-label="ひとつ上へ" ${i===0?'disabled':''}>▲</button><button class="step" data-down="${s.id}" aria-label="ひとつ下へ" ${i===songs.length-1?'disabled':''}>▼</button></span><label class="use"><input type="checkbox" data-use="${s.id}" ${used(s)?'checked':''}> 使う</label><span class="song-name">${i+1}. ${playing?'♪ ':''}${esc(s.name)}</span><span class="song-dur">${s.dur?fmt(s.dur*1000):''}</span></div>
+    <div class="song-mid">
+      ${s.detecting?'<span class="fit">BPMを測定中…</span>':s.err&&s.bpm==null?'<span class="fit" style="color:var(--warn)">このファイルは解析できませんでした。BPMを入力してください。</span>':''}
+      <input type="number" class="bpm-in" id="sb-${s.id}" data-sb="${s.id}" value="${s.bpm??''}" placeholder="BPM" min="40" max="300" step="0.1" inputmode="decimal" aria-label="曲のBPM">
+      <button class="small" data-pv="${s.id}" ${R.running&&!R.paused?'disabled':''}>${previewId===s.id?'停止':'試聴'}</button>
+      ${MODE==='relax'?'':`<button class="small" data-tap="${s.id}">タップ${taps[s.id]&&taps[s.id].length?' '+taps[s.id].length:''}</button>`}
+      <button class="x" data-rm="${s.id}" aria-label="この曲を外す">×</button>
+    </div>
+    ${used(s)&&MODE==='practice'?chips:''}
+    ${(opt.original&&MODE==='practice')||MODE==='relax'?'<div class="fit">原曲の速さで流します</div>':s.bpm?`<div class="fit">「${esc(seg.name)}」${fmtPace(seg.pace)}/km なら <b>×${m.rate.toFixed(2)}</b>（${multText(m.mult)}）${m.big?' <span class="flag">変化大</span>':''}</div>`:''}
+  </div>`}).join('');
+}
+function renderAll(){renderMenu();renderSongs();renderRun();renderML();updateStoreInfo();applyModeUI();}
+
+/* ---------- events ---------- */
+function saveMenu(){store.set('cbgm-menu-pace',pMenu().map(({id,name,pace,min})=>({id,name,pace,min})));store.set('cbgm-preset-pace',activePreset);}
+let nameT=null;
+function menuChanged(){activePreset='custom';saveMenu();
+  document.querySelectorAll('#presets .chip').forEach(c=>c.classList.toggle('on',c.dataset.p==='custom'));
+  renderProfile();if(R.running){R.seg=segAt(elapsed());stageChanged();}renderSongs();renderRun();}
+$('#presets').addEventListener('click',e=>{
+  if(e.target.dataset.orig){opt.original=!opt.original;store.set('cbgm-original',opt.original);if(R.running)applyRate(true);renderMenu();renderSongs();renderRun();return;}
+  const k=e.target.dataset.p;if(!k||!PRESETS[k])return;
+  const old=menu;menu=fromPreset(k).map(g=>{const o=old.find(x=>x.name===g.name);return o?{...g,id:o.id}:g;});activePreset=k;saveMenu();
+  if(R.running){R.seg=segAt(elapsed());stageChanged();}renderAll();});
+$('#menuList').addEventListener('input',e=>{const f=e.target.dataset.f;if(!f)return;const id=e.target.closest('.row').dataset.id;const s=menu.find(x=>x.id===id);
+  if(f==='name')s.name=e.target.value;
+  else if(f==='pace'){const p=parsePace(e.target.value);if(p==null)return;s.pace=p;if(s.auto)s.bpm=cadFromPace(p);}
+  else{const v=parseFloat(e.target.value);if(!(v>0))return;
+    if(f==='bpm'){if(v<100||v>240)return;s.bpm=Math.round(v);s.auto=false;}else s.min=Math.min(300,v);}
+  refreshRow(s);menuChanged();});
+$('#menuList').addEventListener('change',e=>{if(e.target.dataset.f!=='pace')return;const s=menu.find(x=>x.id===e.target.closest('.row').dataset.id);
+  e.target.value=fmtPace(s.pace);});
+$('#menuList').addEventListener('click',e=>{const t=e.target;const row=t.closest('.row');if(!row)return;const s=menu.find(x=>x.id===row.dataset.id);
+  if(t.dataset.del){if(menu.length<2)return;menu=menu.filter(x=>x.id!==s.id);activePreset='custom';saveMenu();if(R.running){R.seg=segAt(elapsed());stageChanged();}renderAll();return;}
+  if(t.dataset.pstep){s.pace=Math.min(900,Math.max(150,s.pace+(+t.dataset.pstep)));if(s.auto)s.bpm=cadFromPace(s.pace);
+    document.getElementById('p-'+s.id).value=fmtPace(s.pace);refreshRow(s);menuChanged();return;}
+  if(t.dataset.reauto){s.auto=true;s.bpm=cadFromPace(s.pace);refreshRow(s);menuChanged();}});
+$('#btnAddSeg').addEventListener('click',()=>{const last=menu[menu.length-1];const pace=last?last.pace:390;
+  menu.push({id:gid(),name:'ステージ'+(menu.length+1),pace,bpm:last&&!last.auto?last.bpm:cadFromPace(pace),auto:last?last.auto:true,min:10});activePreset='custom';saveMenu();renderAll();});
+$('#cadOffset').value=cadOffset;
+function setOffset(v){if(isNaN(v))return;v=Math.max(-30,Math.min(30,v));cadOffset=v;store.set('cbgm-offset',v);
+  menu.forEach(s=>{if(s.auto)s.bpm=cadFromPace(s.pace);refreshRow(s);});saveMenu();renderProfile();if(R.running)applyRate(true);renderSongs();renderRun();}
+$('#cadOffset').addEventListener('input',e=>{const v=parseInt(e.target.value,10);if(isNaN(v)||v<-30||v>30)return;setOffset(v);});
+$('#cadOffset').addEventListener('change',e=>{e.target.value=cadOffset;});
+$('#cadUp').addEventListener('click',()=>{setOffset(cadOffset+1);$('#cadOffset').value=cadOffset;});
+$('#cadDown').addEventListener('click',()=>{setOffset(cadOffset-1);$('#cadOffset').value=cadOffset;});
+
+/* ---------- screen lock ---------- */
+const wrapEl=document.querySelector('.wrap');
+const lockLayer=document.createElement('div');lockLayer.className='lock-layer';lockLayer.hidden=true;
+lockLayer.innerHTML='<div class="lock-bar" role="dialog" aria-label="画面ロック中"><div class="fixlock" id="fixLock" hidden><button class="unlock" id="lockFix1"><i class="fill"></i><span>1 km 通過</span></button></div><button class="unlock" id="lockGps" hidden><i class="fill"></i><span>長押しでGPSをON</span></button><button class="unlock" id="btnUnlock"><i class="fill"></i><span>解除<br><small>長押し</small></span></button><button class="unlock stopbtn" id="btnLockStop" hidden><i class="fill"></i><span>ゴール<br><small>長押し</small></span></button></div>';
+document.body.appendChild(lockLayer);
+const unlockBtn=lockLayer.querySelector('#btnUnlock'),lockStopBtn=lockLayer.querySelector('#btnLockStop');
+const HOLD=1200;let holdRaf=0,holdFill=null;
+function lock(){try{$('#runPanel').scrollIntoView({block:'start'});}catch(err){}wrapEl.inert=true;lockLayer.hidden=false;lockStopBtn.hidden=!(MODE==='race'&&R.running);$('#fixLock').hidden=!(MODE==='race'&&R.running);try{document.activeElement&&document.activeElement.blur();}catch(e){}unlockBtn.focus();}
+function unlock(){wrapEl.inert=false;lockLayer.hidden=true;cancelHold();$('#btnLock').focus();}
+function cancelHold(){cancelAnimationFrame(holdRaf);holdRaf=0;lockLayer.querySelectorAll('.fill').forEach(f=>f.style.width='0');}
+/* press-and-hold buttons on the lock layer */
+function bindHold(btn,action){const fill=btn.querySelector('.fill');
+  const go=e=>{if(e)e.preventDefault();cancelHold();const t0=performance.now();
+    const step=()=>{const p=Math.min(1,(performance.now()-t0)/HOLD);fill.style.width=(p*100)+'%';if(p>=1){cancelHold();action();return;}holdRaf=requestAnimationFrame(step);};holdRaf=requestAnimationFrame(step);};
+  btn.addEventListener('pointerdown',go);['pointerup','pointerleave','pointercancel'].forEach(t=>btn.addEventListener(t,cancelHold));
+  btn.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat)go(e);});btn.addEventListener('keyup',cancelHold);}
+bindHold(unlockBtn,unlock);
+bindHold(lockStopBtn,()=>{unlock();raceStop();});
+bindHold(lockLayer.querySelector('#lockFix1'),()=>fixTap(4000));
+/* stop the race part-way (棄権) */
+function raceStop(){if(MODE!=='race'||!R.running)return;const el=elapsed(),e=rcEff();
+  R.acc=el;R.running=false;R.paused=false;R.done=true;RS.dnf=true;RS.endAt=Date.now();stopClicks();
+  const v0=audio.volume;let k=0;const t=setInterval(()=>{k++;audio.volume=Math.max(0,v0*(1-k/15));if(k>=15){clearInterval(t);audio.pause();audio.volume=opt.vol;}},120);
+  try{wake&&wake.release();}catch(_){}wake=null;
+  say(`終了しました。スタートから${Math.floor(el/3600000)?Math.floor(el/3600000)+'時間':''}${Math.floor(el%3600000/60000)}分。おつかれさまでした。`);
+  renderAll();}
+/* after the race ends: clear the run state and this race's settings so a reopened page starts fresh */
+function raceClear(el){const name=RC.name;
+  if(R.running||RS.pre)return;reset();
+  RC=Object.assign({},RCD,{margin:RC.margin,time:RC.time});store.set('cbgm-race',RC);if(MODE==='race')menu=virtualMenu();
+  if(el!=null){const n=$('#hashNote');n.innerHTML=`<span>${esc(name||'本番')}：ゴール（終了）しました。記録 <b>${fmtHMS(el/1000)}</b>。本番の設定はクリアしました。</span><button class="small" id="hashOk">閉じる</button>`;n.hidden=false;}
+  rcMsg('');renderAll();}
+/* a race whose music window (wave start + limit + 30 min) has passed is cleared on open */
+function raceExpire(){const e=rcEndMs();if(e&&Date.now()>e&&!R.running&&!RS.pre){RC=Object.assign({},RCD,{margin:RC.margin,time:RC.time});store.set('cbgm-race',RC);if(MODE==='race')menu=virtualMenu();}}
+let stopArm=0;
+/* ---------- distance corrections (km markers) & estimated position ---------- */
+/* plan = strategy (or goal pace) + pace up/down history */
+function spdAt(t){let v=0;for(const x of (RS.spdLog||[]))if(x.t<=t)v=x.spd;return v;}
+function baseSpdAt(pos){const g=stratSegs();if(g.length){const x=g.find(y=>pos<y.to-1e-6)||g[g.length-1];return x.spd;}const e=rcEff();return e?3600/e:0;}
+function planPos(el){if(!baseSpdAt(0))return 0;const km=rcKm(),dt=10000;let pos=0;
+  for(let t=0;t<el&&pos<km;t+=dt){const h=Math.min(dt,el-t),v=Math.max(2,baseSpdAt(pos)+spdAt(t));pos+=v*h/3600000;}return Math.min(km,pos);}
+function planSec(from,to){let sec=0,pos=from;const step=0.1;while(pos<to-1e-9){const d=Math.min(step,to-pos),v=Math.max(2,baseSpdAt(pos)+(RS.spd||0));sec+=d/v*3600;pos+=d;}return sec;}
+function posInfo(el){const e=rcEff(),km=rcKm(),f=RS.fix,last=f[f.length-1];
+  if(GPS.on&&GPS.t0!=null){const pace=GPS.dist>0.15?(GPS.lastEl-GPS.t0)/1000/GPS.dist:GPS.pace0;const pc=pace>150&&pace<1200?pace:(e||420);
+    return {pos:Math.min(km,GPS.base+GPS.dist+Math.max(0,el-GPS.lastEl)/1000/pc),pace:pc,last:{km:+(GPS.base+GPS.dist).toFixed(2),t:GPS.lastEl},fixed:true,gps:true};}
+  if(!last)return {pos:Math.min(km,planPos(el)),pace:e,last:null,fixed:false};
+  const prev=f.length>1?f[f.length-2]:{km:0,t:0};let pace=(last.t-prev.t)/1000/Math.max(0.01,last.km-prev.km);
+  if(!(pace>150&&pace<1200))pace=last.t/1000/Math.max(0.01,last.km);
+  return {pos:Math.min(km,last.km+Math.max(0,el-last.t)/1000/pace),pace,last,fixed:true};}
+function fixTargets(){const el=elapsed(),km=rcKm(),P=posInfo(el),lk=P.last?P.last.km:0;
+  const n1=Math.min(Math.floor(km),Math.max(Math.floor(lk)+1,Math.round(P.pos)));
+  let n5=Math.max(Math.floor(lk/5)*5+5,Math.round(P.pos/5)*5);if(n5<=lk)n5+=5;n5=Math.min(n5,Math.floor(km/5)*5);
+  return {n1,n5,ok1:n1>lk&&n1<=km,ok5:n5>lk&&n5<=km};}
+const sayPace=p=>{p=Math.round(p);return `${Math.floor(p/60)}分${p%60?p%60+'秒':''}`;};
+const sayMin=ms=>{const m=Math.round(Math.abs(ms)/60000);return m>=60?Math.floor(m/60)+'時間'+(m%60?m%60+'分':''):m+'分';};
+function nextCp(pos){return rcCps().find(c=>c.km>pos+0.01)||null;}
+function cpInfo(pos,el,now){const c=nextCp(pos);if(!c)return null;const g=rcGunMs(),e=rcEff();
+  const close=g!=null?g+c.sec*1000:null,left=!R.running?c.sec*1000-(+RC.wave||0)*60000:close!=null?close-now:(c.sec*1000-el-(RS.startAt&&g?RS.startAt-g:0));
+  const dist=Math.max(0,c.km-pos),need=dist>0.05&&left>0?left/1000/dist:null,spare=baseSpdAt(pos)&&left!=null?left-planSec(pos,c.km)*1000:null;
+  return {c,close,left,dist,need,spare};}
+function doFix(k,tt){if(MODE!=='race'||!R.running||!(k>0))return;const el=tt!=null?tt:elapsed(),e=rcEff();
+  const last=RS.fix[RS.fix.length-1];if(last&&k<=last.km)return;RS.fix.push({km:k,t:el});if(GPS.on){GPS.base=k;GPS.dist=0;GPS.t0=GPS.lastEl=el;}
+  let msg=`${k}キロ通過。`;if(e){const d=el-k*e*1000;msg+=Math.abs(d)<30000?'目標どおりです。':`目標より${sayMin(d)}${d>0?'遅れ':'早い'}です。`;}
+  const ci=cpInfo(k,el,Date.now());if(ci&&ci.need)msg+=`次の関門まで${+ci.dist.toFixed(1)}キロ、残り${sayMin(ci.left)}、必要ペース${sayPace(ci.need)}です。`;
+  say(msg);renderRun();}
+/* ---------- GPS（必要なときだけON。ONの間は実際に走った距離で現在地とペースを直す） ---------- */
+function gpsDenyMsg(){return window.isSecureContext===false?'この開き方ではGPSが使えません。スマホのファイルから直接開くとGPSは使えないため、https:// で始まるアドレスで開いてください。':'GPSが許可されていません（ブラウザの設定で位置情報を許可してください）';}
+const GPS={on:false,pre:false,got:false,watch:null,base:0,dist:0,t0:null,lastEl:0,pace0:null,pt:null,acc:null,msg:''};
+function hav(a,b){const R6=6371000,r=Math.PI/180,dl=(b.la-a.la)*r,dn=(b.lo-a.lo)*r,x=Math.sin(dl/2)**2+Math.cos(a.la*r)*Math.cos(b.la*r)*Math.sin(dn/2)**2;return 2*R6*Math.asin(Math.sqrt(x));}
+function gpsStatus(){const el=$('#gpsSt');if(!el)return;el.classList.toggle('on',GPS.on&&!GPS.msg);el.classList.toggle('err',!!GPS.msg);
+  el.textContent=GPS.msg?GPS.msg:GPS.on?(!GPS.got?'GPS：位置を探しています…':GPS.pre?`GPS：位置をつかみました ±${Math.round(GPS.acc)}m（スタート待ち）`:`GPS：受信中 ±${Math.round(GPS.acc)}m ／ ON中に ${GPS.dist.toFixed(2)} km`):'GPS：OFF';
+  $('#gpsOn').disabled=GPS.on||!(R.running||RS.armed||RS.pre);$('#gpsOff').disabled=!GPS.on;
+  const lg=lockLayer.querySelector('#lockGps span');if(lg)lg.textContent=GPS.on?'長押しでGPSをOFF':'長押しでGPSをON';}
+function gpsOn(){if(GPS.on||MODE!=='race'||!(R.running||RS.armed||RS.pre))return;
+  if(!('geolocation' in navigator)){GPS.msg='この端末・画面ではGPSが使えません';gpsStatus();return;}
+  if(!R.running){Object.assign(GPS,{on:true,pre:true,got:false,base:0,dist:0,t0:null,lastEl:0,pace0:null,pt:null,acc:null,msg:''});
+    try{GPS.watch=navigator.geolocation.watchPosition(gpsFix,gpsErr,{enableHighAccuracy:true,maximumAge:0,timeout:30000});}catch(err){gpsErr({code:2});return;}
+    say('GPSをオンにしました。位置を探しています。');gpsStatus();renderRun();return;}
+  const el=elapsed(),P=posInfo(el);Object.assign(GPS,{on:true,pre:false,got:false,base:P.pos,dist:0,t0:el,lastEl:el,pace0:P.pace,pt:null,acc:null,msg:''});
+  try{GPS.watch=navigator.geolocation.watchPosition(gpsFix,gpsErr,{enableHighAccuracy:true,maximumAge:0,timeout:30000});}catch(err){gpsErr({code:2});return;}
+  say('GPSをオンにしました。');gpsStatus();renderRun();}
+function gpsFix(p){if(!GPS.on)return;if(!R.running&&!GPS.pre){gpsOff(true);return;}const c=p.coords;GPS.acc=c.accuracy;GPS.msg='';
+  if(c.accuracy<=35&&!GPS.got){GPS.got=true;say('GPSの位置をつかみました。');}
+  if(GPS.pre){if(c.accuracy<=35)GPS.pt={la:c.latitude,lo:c.longitude,ts:p.timestamp||Date.now()};gpsStatus();return;}
+  if(c.accuracy<=35){const pt={la:c.latitude,lo:c.longitude,ts:p.timestamp||Date.now()};
+    if(!GPS.pt){GPS.pt=pt;GPS.lastEl=elapsed();}
+    else{const d=hav(GPS.pt,pt),dt=Math.max(1,(pt.ts-GPS.pt.ts)/1000);
+      if(d/dt>7){GPS.pt=pt;} /* 速すぎる移動は位置の飛びとして捨てる */
+      else if(d>=Math.max(8,c.accuracy*0.6)){GPS.dist+=d/1000;GPS.pt=pt;GPS.lastEl=elapsed();}}}
+  gpsStatus();}
+function gpsErr(e){GPS.msg=e&&e.code===1?gpsDenyMsg():'GPSの位置が取れません';gpsStatus();}
+function gpsOff(silent){if(!GPS.on)return;try{navigator.geolocation.clearWatch(GPS.watch);}catch(err){}
+  const el=R.running?elapsed():GPS.lastEl,km=rcKm(),endKm=Math.min(km,GPS.base+GPS.dist),f=RS.fix,last=f[f.length-1];let msg='GPSをオフにしました。';
+  if(R.running&&GPS.dist>=0.1){const sk=+GPS.base.toFixed(2),ek=+endKm.toFixed(2);
+    if(!last||sk>last.km+0.005)f.push({km:sk,t:GPS.t0,gps:true});
+    const l2=f[f.length-1];if(!l2||ek>l2.km+0.005)f.push({km:ek,t:GPS.lastEl,gps:true});
+    const pace=(GPS.lastEl-GPS.t0)/1000/GPS.dist;if(pace>150&&pace<1200)msg+=`GPSで測ったペースは1キロ${sayPace(pace)}です。`;}
+  GPS.on=false;GPS.pre=false;GPS.got=false;GPS.watch=null;GPS.t0=null;GPS.msg='';if(!silent)say(msg);gpsStatus();renderRun();}
+document.addEventListener('click',e=>{if(e.target.id==='gpsOn')gpsOn();else if(e.target.id==='gpsOff')gpsOff();});
+bindHold(lockLayer.querySelector('#lockGps'),()=>GPS.on?gpsOff():gpsOn());
+{const _r=reset;reset=function(){gpsOff(true);return _r.apply(this,arguments);};const _f=finish;finish=function(){gpsOff(true);return _f.apply(this,arguments);};}
+/* race: GPS switched on before the start (1 min before / manually) keeps running; distance counts from the moment Start is pressed */
+{const _s=start;start=function(){const r=_s.apply(this,arguments);
+  if(MODE==='race'&&GPS.on&&GPS.pre&&R.running){const el=elapsed(),pt=GPS.pt;Object.assign(GPS,{pre:false,base:0,dist:0,t0:el,lastEl:el,pace0:rcEff()});
+    if(!(pt&&Date.now()-pt.ts<15000))GPS.pt=null;gpsStatus();}return r;};}
+/* 「1km通過」は押すたびに+1。最後に押してから数秒で確定（例：5km地点で前回が1kmなら4回押す） */
+const FP={n:0,t:0,timer:0};
+const fixBase=()=>{const f=RS.fix[RS.fix.length-1];return f?Math.floor(f.km+1e-6):0;};
+function fixTap(wait){if(MODE!=='race'||!R.running)return;const km=Math.floor(rcKm());if(fixBase()+FP.n+1>km)return;
+  FP.n++;FP.t=elapsed();clearTimeout(FP.timer);FP.timer=setTimeout(fixCommit,wait||3000);
+  try{speechSynthesis.cancel();}catch(err){}say(String(fixBase()+FP.n));renderRun();}
+function fixCommit(){clearTimeout(FP.timer);if(!FP.n)return;const k=fixBase()+FP.n,t=FP.t;FP.n=0;doFix(k,t);relockRace();}
+/* 本番待機を押すまでは、残り時間を0:00で止めておく */
+const raceIdle=()=>MODE==='race'&&!R.running&&!R.done&&!RS.armed&&!RS.pre;
+function renderPos(run,t,e,km,now,w){
+  const P=posInfo(t);$('#posStat').hidden=!(MODE==='race'&&run);
+  if(run){$('#posNow').textContent=`${P.pos.toFixed(1)} km`+(P.fixed?'':(RS.spd||(RS.spdLog||[]).length?'（今のペースで推定）':'（目標ペースで推定）'));
+    const L=[];if(P.gps)L.push('GPSで計測中');else if(P.last)L.push(`補正 ${P.last.km}km（${fmt(P.last.t)}）`);
+    if(e){const d=t-P.pos*e*1000;L.push(Math.abs(d)<30000?'目標どおり':`目標より ${fmt(Math.abs(d))} ${d>0?'遅れ':'早い'}`);}
+    if(P.fixed){L.push(`直近 ${fmtPace(P.pace)}/km`);L.push(`ゴール予想 ${fmtHMS((t+(km-P.pos)*P.pace*1000)/1000)}`);}
+    $('#posSub').textContent=L.join(' ／ ');}
+  const F=fixTargets(),showFix=MODE==='race'&&R.running;$('#fixRow').hidden=!(showFix||(MODE==='race'&&(RS.armed||RS.pre||GPS.on)&&!R.done));$('#fix1').hidden=$('#fixUndo').hidden=!showFix;
+  gpsStatus();lockLayer.querySelector('#lockGps').hidden=!(MODE==='race'&&R.running);
+  if(showFix){const nx=fixBase()+FP.n+(FP.n?0:1),ok=fixBase()+FP.n+1<=Math.floor(km);
+    $('#fix1').textContent=FP.n?`${nx} km（もう一度で +1）`:`${nx} km 通過`;$('#fix1').disabled=!FP.n&&!ok;$('#fixUndo').disabled=!RS.fix.length&&!FP.n;
+    lockLayer.querySelector('#lockFix1 span').innerHTML=FP.n?`${nx}km<br><small>長押しで+1</small>`:`${nx}km 通過<br><small>長押し</small>`;
+    lockLayer.querySelector('#lockFix1').disabled=!FP.n&&!ok;$('#fixLock').hidden=lockLayer.hidden;}
+  const cps=rcCps();if(!cps.length)return;
+  const pos=run?P.pos:0,ci=cpInfo(pos,run?t:0,now);
+  if(!ci){$('#cpNext').textContent='すべて通過';$('#cpSub').textContent='推定では、関門はすべて通過しています';return;}
+  $('#cpNext').textContent=`${+ci.c.km.toFixed(2)}km まで あと ${ci.dist.toFixed(1)} km`;
+  const S=[`閉鎖まで ${raceIdle()?'0:00':!R.running&&ci.close?fmt(ci.close-now):ci.left>0?fmt(ci.left):'閉鎖'}`+(ci.close?`（${tm(ci.close).split(' ')[1]}）`:`（号砲から${fmtHM(ci.c.sec/60)}）`)];
+  if(ci.need)S.push(`必要ペース ${fmtPace(ci.need)}/km 以内`);
+  if(ci.spare!=null)S.push(ci.spare>=0?`今のペースなら余裕 ${Math.round(ci.spare/60000)}分`:`今のペースでは ${Math.round(-ci.spare/60000)}分 足りません`);
+  $('#cpSub').textContent=S.join(' ／ ');}
+document.addEventListener('click',e=>{const id=e.target.id;if(id==='fix1')fixTap(3000);
+  else if(id==='fixUndo'&&(RS.fix.length||FP.n)){undoKm();renderRun();clearTimeout(relockT);relockT=setTimeout(relockRace,3000);}});
+/* 「1つ戻す」は押すたびに1kmずつ戻す（確定前のタップも、まとめて確定した補正も） */
+function undoKm(){try{speechSynthesis.cancel();}catch(err){}
+  if(FP.n){FP.n--;clearTimeout(FP.timer);if(FP.n)FP.timer=setTimeout(fixCommit,3000);say(FP.n?String(fixBase()+FP.n):'取り消しました。');return;}
+  const f=RS.fix[RS.fix.length-1];if(!f)return;const prev=RS.fix.length>1?RS.fix[RS.fix.length-2].km:0,k=Math.floor(f.km+1e-6);
+  if(f.km===k&&k-1>prev+1e-6){f.km=k-1;say(`${k-1}キロに直しました。`);}
+  else{RS.fix.pop();say(`${f.km}キロの補正を取り消しました。`);}}
+let relockT=0;
+/* while racing, lock the screen again after a correction is confirmed or undone on the panel */
+function relockRace(){if(MODE==='race'&&R.running&&lockLayer.hidden)lock();}
+lockLayer.addEventListener('contextmenu',e=>e.preventDefault());
+lockLayer.addEventListener('click',e=>e.preventDefault());
+$('#btnLock').addEventListener('click',lock);
+
+$('#btnStart').addEventListener('click',()=>{if(R.running&&!R.paused)pause();else start();});
+$('#btnSongTop').addEventListener('click',()=>{if(!(R.running||RS.pre)||!audio.src)return;try{audio.currentTime=0;}catch(e){}});
+$('#btnReset').addEventListener('click',()=>{
+  if(MODE==='race'&&R.done){raceClear(R.acc);return;}
+  if(MODE==='race'&&R.running){const b=$('#btnReset');
+    if(Date.now()-stopArm>3000){stopArm=Date.now();b.textContent='もう一度押すとゴール（終了）';b.classList.add('danger');setTimeout(()=>{if(Date.now()-stopArm>=3000){b.classList.remove('danger');applyModeUI();}},3100);return;}
+    stopArm=0;b.classList.remove('danger');raceStop();return;}
+  RS.dnf=false;reset();});
+/* 本番：間違えてスタートしたとき、大会の設定を残したままスタート前に戻す（2回押しで確定） */
+let redoArm=0;
+$('#btnRedo').addEventListener('click',()=>{const b=$('#btnRedo');
+  if(Date.now()-redoArm>3000){redoArm=Date.now();b.textContent='もう一度押すと最初に戻します';b.classList.add('danger');setTimeout(()=>{if(Date.now()-redoArm>=3000){b.classList.remove('danger');b.textContent='最初に戻す（設定はそのまま）';}},3100);return;}
+  redoArm=0;b.classList.remove('danger');b.textContent='最初に戻す（設定はそのまま）';RS.dnf=false;reset();say('スタート前に戻しました。');});
+$('#btnNextSong').addEventListener('click',()=>{if((R.running||RS.pre)&&songs.length)playSong(nextIndex(R.song));if(R.paused)audio.pause();});
+/* jump the timer to the start of stage i (works while paused too) */
+function jumpToStage(i){if(!R.running||i<0||i>=menu.length)return;R.acc=segStart(i);R.t0=Date.now();
+  if(i!==R.seg){R.seg=i;cue(false);stageChanged();}renderAll();}
+$('#btnSkip').addEventListener('click',()=>{if(R.seg<menu.length-1)jumpToStage(R.seg+1);});
+$('#btnBack').addEventListener('click',()=>{if(R.seg>0)jumpToStage(R.seg-1);});
+/* ---------- 屋外練習（GPSの距離でステージを進める） ---------- */
+var OD={active:false,watch:null,dist:0,pt:null,acc:null,lastFixRaw:0,msg:'',hist:[],kmNext:1,kmT:0,realMs:0,got:false,gotAt:0};
+const WARM={watch:null,acc:null,got:false,msg:''};
+const cumKm=i=>menu.slice(0,i).reduce((a,s)=>a+kmOf(s),0);
+function odEl(d){let c=0;for(let i=0;i<menu.length;i++){const k=kmOf(menu[i]);if(d<c+k)return segStart(i)+(d-c)*menu[i].pace*1000;c+=k;}return totalMs();}
+/* 位置が30秒以上取れないときは、そのステージの目標ペースで進んだとみなして表示する（記録には足さない） */
+function odDist(){const raw=rawEl(),gap=raw-OD.lastFixRaw;if(!R.running||R.paused||gap<30000)return OD.dist;
+  const i=segAt(odEl(OD.dist)),p=menu[i]?menu[i].pace:420;return OD.dist+(gap-30000)/1000/p;}
+function odPace(){const h=OD.hist;if(h.length<2)return null;const a=h[0],b=h[h.length-1],dd=b.d-a.d;return dd>=0.1?(b.t-a.t)/1000/dd:null;}
+function setIO(out){if(MODE!=='practice'||R.running||R.acc>0)return;opt.outdoor=out;store.set('cbgm-outdoor',out);renderAll();}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-io]');if(b)setIO(b.dataset.io==='out');});
+function odStart(){odStop();if(!('geolocation' in navigator)){OD.msg='この端末・画面ではGPSが使えません';return;}
+  const g=WARM.got;warmStop();Object.assign(OD,{active:true,dist:0,pt:null,acc:null,lastFixRaw:0,msg:'',hist:[{t:0,d:0}],kmNext:1,kmT:0,realMs:0,got:g,gotAt:0});
+  try{OD.watch=navigator.geolocation.watchPosition(odFix,e=>{OD.msg=e&&e.code===1?gpsDenyMsg():'GPSの位置が取れません';},{enableHighAccuracy:true,maximumAge:0,timeout:30000});}
+  catch(err){OD.msg='GPSが使えません';}}
+/* before Start: search for a GPS fix so the runner knows when it is ready */
+function warmStart(){if(WARM.watch!=null||OD.active||!('geolocation' in navigator))return;Object.assign(WARM,{acc:null,got:false,msg:''});
+  try{WARM.watch=navigator.geolocation.watchPosition(p=>{WARM.acc=p.coords.accuracy;WARM.msg='';if(p.coords.accuracy<=35&&!WARM.got){WARM.got=true;say('GPSの位置をつかみました。スタートできます。');}odRender();},
+    e=>{WARM.msg=e&&e.code===1?gpsDenyMsg():'GPSの位置が取れません';odRender();},{enableHighAccuracy:true,maximumAge:0,timeout:30000});}catch(err){WARM.msg='GPSが使えません';}}
+function warmStop(){if(WARM.watch!=null){try{navigator.geolocation.clearWatch(WARM.watch);}catch(err){}}WARM.watch=null;}
+function odStop(){if(OD.watch!=null){try{navigator.geolocation.clearWatch(OD.watch);}catch(err){}}OD.watch=null;OD.active=false;}
+function odFix(p){if(!OD.active)return;const c=p.coords;OD.acc=c.accuracy;OD.msg='';
+  if(c.accuracy<=35&&!OD.got){OD.got=true;OD.gotAt=Date.now();say('GPSの位置をつかみました。');}if(!R.running||R.paused||c.accuracy>35)return;
+  const pt={la:c.latitude,lo:c.longitude,ts:p.timestamp||Date.now()},raw=rawEl();
+  if(!OD.pt){OD.pt=pt;OD.lastFixRaw=raw;return;}
+  const d=hav(OD.pt,pt),dt=Math.max(1,(pt.ts-OD.pt.ts)/1000);
+  if(d/dt>7){OD.pt=pt;return;}
+  if(d>=Math.max(8,c.accuracy*0.6)){OD.dist+=d/1000;OD.pt=pt;OD.lastFixRaw=raw;
+    OD.hist.push({t:raw,d:OD.dist});while(OD.hist.length>2&&(OD.dist-OD.hist[1].d>0.4))OD.hist.shift();
+    if(OD.dist>=OD.kmNext){const lap=raw-OD.kmT;OD.kmT=raw;const i=segAt(odEl(OD.dist)),tp=menu[i]?menu[i].pace:null;
+      let m=`${OD.kmNext}キロ。この1キロは${sayPace(lap/1000)}`;if(tp){const df=Math.round(lap/1000-tp);m+=Math.abs(df)<5?'、目標どおりです。':`、目標より${Math.abs(df)}秒${df<0?'速い':'遅い'}です。`;}
+      say(m);OD.kmNext=Math.floor(OD.dist)+1;}}}
+{const _s=start;start=function(){const fresh=R.done||(!R.running&&R.acc===0);if(MODE==='practice'&&opt.outdoor&&fresh)odStart();
+  else if(MODE==='practice'&&opt.outdoor&&OD.active)OD.pt=null;return _s.apply(this,arguments);};
+ const _r=reset;reset=function(){odStop();return _r.apply(this,arguments);};
+ const _f=finish;finish=function(){if(OD.active)OD.realMs=rawEl();const r=_f.apply(this,arguments);if(OD.active){odStop();OD.done=true;}renderRun();return r;};
+ const _j=jumpToStage;jumpToStage=function(i){if(!(OD.active&&MODE==='practice'))return _j(i);if(!R.running||i<0||i>=menu.length)return;
+   OD.dist=cumKm(i);OD.pt=null;OD.lastFixRaw=rawEl();OD.kmNext=Math.floor(OD.dist)+1;if(i!==R.seg){R.seg=i;cue(false);stageChanged();}renderAll();};
+ const _rr=renderRun;renderRun=function(){_rr();odRender();};}
+function odRender(){const prac=MODE==='practice',out=prac&&opt.outdoor;
+  const busy=R.running||R.acc>0||RS.pre||RS.armed;
+  document.querySelectorAll('.mode[data-io]').forEach(b=>{const me=prac&&(b.dataset.io==='out')===out;b.classList.toggle('on',me);b.setAttribute('aria-selected',me);b.disabled=busy&&!me;});
+  const box=$('#odBox');box.hidden=!out;
+  if(out&&!R.running&&!R.acc&&!R.done&&!OD.active)warmStart();else if(WARM.watch!=null&&(!out||OD.active))warmStop();
+  if(!out)return;
+  const tot=totalMs(),totKm=menu.reduce((a,s)=>a+kmOf(s),0),live=OD.active&&(R.running||R.acc>0);
+  const d=live?Math.min(totKm,odDist()):(R.done&&OD.done?totKm:0),i=live?segAt(odEl(d)):0,seg=menu[i];
+  $('#bigLabel').textContent='このステージの残り距離';
+  $('#segLeft').textContent=R.done?'0.00 km':((seg?Math.max(0,cumKm(i)+kmOf(seg)-d):0).toFixed(2)+' km');
+  $('#st1Label').textContent='全体の残り距離';$('#totLeft').textContent=Math.max(0,totKm-d).toFixed(2)+' km';
+  const real=R.done&&OD.realMs?OD.realMs:rawEl();
+  $('#totDist').textContent=`走った距離 ${d.toFixed(2)} km ／ 経過 ${fmt(real)}`;
+  const pc=live?odPace():null,L=[];
+  if(OD.msg)L.push(`<span class="err">${esc(OD.msg)}</span>`+(R.running&&!OD.active?'　屋内と同じく時間で進めます。':''));
+  else if(!live&&!R.done){L.push('スタートを押すとGPSで距離を測り、各ステージの距離を走ると次のステージへ進みます。画面はつけたままにしてください。');
+    L.push(WARM.msg?`<span class="err">${esc(WARM.msg)}</span>`:WARM.got?`<b class="gps-ok">GPSの位置をつかみました（±${Math.round(WARM.acc)}m）。スタートできます。</b>`:'GPS：位置を探しています…');}
+  else if(live&&OD.got&&Date.now()-OD.gotAt<15000&&OD.gotAt)L.push(`<b class="gps-ok">GPSの位置をつかみました（±${Math.round(OD.acc)}m）</b>`);
+  else if(live)L.push(!OD.got?'GPS：位置を探しています…':`GPS：受信中 ±${Math.round(OD.acc)}m`+(rawEl()-OD.lastFixRaw>30000&&R.running&&!R.paused?'（位置が取れないため目標ペースで推定中）':''));
+  if(pc&&seg){const df=Math.round(pc-seg.pace);L.push(`直近ペース <b>${fmtPace(pc)}</b>/km（目標 ${fmtPace(seg.pace)}${Math.abs(df)<5?'・目標どおり':`より${Math.abs(df)}秒${df<0?'速い':'遅い'}`}）`);}
+  if(R.done&&OD.realMs)L.push(`記録 <b>${totKm.toFixed(2)} km</b> ／ <b>${fmt(OD.realMs)}</b>（平均 ${fmtPace(OD.realMs/1000/totKm)}/km）`);
+  box.innerHTML=L.join('<br>');}
+$('#optCue').addEventListener('change',e=>opt.cue=e.target.checked);
+$('#optClick').addEventListener('change',e=>{opt.click=e.target.checked;if(R.running&&!R.paused){try{getCtx().resume();}catch(_){}startClicks();}else stopClicks();});
+$('#optPitch').checked=!!opt.keepPitch;
+$('#optPitch').addEventListener('change',e=>{opt.keepPitch=e.target.checked;store.set('cbgm-keeppitch',opt.keepPitch);setPitch(audio);setPitch(preview);});
+$('#optVol').addEventListener('input',e=>{opt.vol=+e.target.value;audio.volume=opt.vol;preview.volume=opt.vol;});
+$('#optClickVol').addEventListener('input',e=>opt.clickVol=+e.target.value);
+
+function addFiles(files){
+  for(const f of files){if(!(f.type.startsWith('audio/')||/\.(mp3|m4a|aac|wav|ogg|flac|opus)$/i.test(f.name)))continue;
+    const s={id:sid(),name:f.name.replace(/\.[^.]+$/,''),size:f.size,file:f,url:URL.createObjectURL(f),bpm:null,dur:0,detecting:true,stages:'all'};
+    const kept=stash.find(x=>x.name===s.name&&x.size===f.size);
+    if(kept){URL.revokeObjectURL(s.url);stash.splice(stash.indexOf(kept),1);kept.use=true;kept.parked=false;songs.push(kept);saveMeta(kept);continue;}
+    const saved=bpmMap[s.name+'|'+f.size];if(saved)s.bpm=saved;
+    songs.push(s);saveNew(s);enqueueDetect(s);}
+  try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist();}catch(e){}
+  renderSongs();renderRun();updateStoreInfo();renderML();}
+$('#btnClear').addEventListener('click',()=>{$('#clearConfirm').hidden=false;$('#clearNo').focus();});
+$('#clearNo').addEventListener('click',()=>{$('#clearConfirm').hidden=true;});
+$('#clearYes').addEventListener('click',()=>{
+  if(R.running||R.acc>0)reset();if(previewId){preview.pause();previewId=null;}
+  audio.removeAttribute('src');const list=songs;songs=[];R.song=0;storeErr=false;list.forEach(takeOff);
+  $('#clearConfirm').hidden=true;renderSongs();renderRun();updateStoreInfo();renderML();});
+$('#btnAdd').addEventListener('click',()=>$('#fileIn').click());
+$('#fileIn').addEventListener('change',e=>{addFiles(e.target.files);e.target.value='';});
+const drop=$('#drop');
+['dragenter','dragover'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>addFiles(e.dataTransfer.files));
+document.addEventListener('dragover',e=>e.preventDefault());
+document.addEventListener('drop',e=>{e.preventDefault();if(e.dataTransfer&&e.dataTransfer.files.length&&e.target!==drop)addFiles(e.dataTransfer.files);});
+
+const taps={};
+$('#songList').addEventListener('change',e=>{
+  if(e.target.dataset.use){const s=songs.find(x=>x.id===e.target.dataset.use);if(!s)return;s.use=e.target.checked;saveMeta(s);
+    if(R.running&&songs[R.song]===s&&!s.use&&songs.some(used)){playSong(nextIndex(R.song));if(R.paused)audio.pause();}
+    renderSongs();renderRun();renderML();return;}
+  const id=e.target.dataset.sb;if(!id)return;const s=songs.find(x=>x.id===id);const v=parseFloat(e.target.value);
+  if(v>=40&&v<=300){s.bpm=Math.round(v*10)/10;saveBpm(s);if(R.running&&songs[R.song]===s)applyRate(true);}renderSongs();renderRun();});
+function moveSong(from,to){if(to<0||to>=songs.length||from===to)return;const cur=songs[R.song];const [s]=songs.splice(from,1);songs.splice(to,0,s);
+  if(cur)R.song=songs.indexOf(cur);saveOrder();}
+$('#btnShuffle').addEventListener('click',()=>{const cur=songs[R.song];
+  for(let i=songs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[songs[i],songs[j]]=[songs[j],songs[i]];}
+  if(cur)R.song=songs.indexOf(cur);saveOrder();renderSongs();renderRun();});
+$('#songList').addEventListener('click',e=>{const d=e.target.dataset;
+  if(d.stg){const s=songs.find(x=>x.id===d.song);if(!s)return;
+    if(d.stg==='all')s.stages='all';
+    else{const cur=songStages(s);s.stages=(cur!=='all'&&cur.length===1&&cur[0]===d.stg)?'all':[d.stg];}
+    saveMeta(s);if(R.running&&songs[R.song]===s)stageChanged();renderSongs();renderRun();return;}
+  const id=d.half||d.dbl||d.pv||d.tap||d.rm||d.up||d.down;if(!id)return;const s=songs.find(x=>x.id===id);if(!s)return;
+  if(d.up||d.down){const i=songs.indexOf(s);moveSong(i,d.up?i-1:i+1);renderSongs();renderRun();
+    const b=document.querySelector(`[data-${d.up?'up':'down'}="${id}"]`);if(b&&!b.disabled)b.focus();return;}
+  if(d.half||d.dbl){if(!s.bpm)return;const v=d.half?s.bpm/2:s.bpm*2;if(v<40||v>300)return;s.bpm=Math.round(v*10)/10;saveBpm(s);if(R.running&&songs[R.song]===s)applyRate(true);}
+  else if(d.pv){if(previewId===id){preview.pause();previewId=null;}else{preview.src=s.url;preview.playbackRate=1;preview.volume=opt.vol;preview.currentTime=0;
+    preview.play().then(()=>{try{preview.currentTime=Math.min(30,(s.dur||60)*.2);}catch(_){}}).catch(()=>{});previewId=id;}}
+  else if(d.tap){const now=performance.now();let t=taps[id]||[];if(t.length&&now-t[t.length-1]>2000)t=[];t.push(now);if(t.length>12)t.shift();taps[id]=t;
+    if(t.length>=4){const iv=(t[t.length-1]-t[0])/(t.length-1);s.bpm=Math.round(60000/iv*10)/10;saveBpm(s);if(R.running&&songs[R.song]===s)applyRate(true);}}
+  else if(d.rm){const idx=songs.indexOf(s);if(previewId===id){preview.pause();previewId=null;}
+    if(R.running&&idx===R.song){songs.splice(idx,1);if(songs.length)playSong(idx%songs.length);else{reset();}}
+    else{songs.splice(idx,1);if(idx<R.song)R.song--;}
+    takeOff(s);saveOrder();updateStoreInfo();renderML();}
+  renderSongs();renderRun();});
+preview.addEventListener('ended',()=>{previewId=null;renderSongs();});
+
+/* ---------- my list ---------- */
+let mylists=store.get('cbgm-mylists',[]);if(!Array.isArray(mylists))mylists=[];
+let activeML=store.get('cbgm-mylist-active',null);let mlDelArm=null;
+const saveMLs=()=>{store.set('cbgm-mylists',mylists);store.set('cbgm-mylist-active',activeML);};
+function mlMsg(t){$('#mlMsg').textContent=t;$('#mlMsg').classList.remove('err');}
+async function confirmSaved(snap,text){await new Promise(r=>setTimeout(r,150));const ok=await kvCheck('cbgm-mylists',snap.id,snap.saved);
+  if(ok===false){$('#mlMsg').textContent='保存を確認できませんでした。もう一度「上書き」を押してください。';$('#mlMsg').classList.add('err');}
+  else mlMsg(text+(ok?'（保存を確認しました）':''));}
+const fmtWhen=t=>{const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;};
+function snapshot(name,id){return {id:id||gid(),name,saved:Date.now(),offset:cadOffset,original:opt.original,
+  menu:pMenu().map(({id,name,pace,min})=>({id,name,pace,min})),songs:songs.filter(used).map(s=>({id:s.id,name:s.name,size:s.size,stages:songStages(s)}))};}
+/* a mylist song is found by id, or by file name + size when the same file was added again */
+const matchSong=(x,arr)=>arr.find(s=>s.id===x.id)||(x.name!=null?arr.find(s=>s.name===x.name&&s.size===x.size):null);
+const findSong=x=>matchSong(x,songs)||matchSong(x,stash);
+const referenced=s=>mylists.some(m=>m.songs.some(x=>x.id===s.id||(x.name!=null&&x.name===s.name&&x.size===s.size)));
+/* taking a song off the list keeps its file when a mylist uses it; otherwise it is deleted */
+function takeOff(s){if(referenced(s)){if(stash.indexOf(s)<0)stash.push(s);saveMeta(s);}else{URL.revokeObjectURL(s.url);delSong(s.id);}}
+function purgeStash(){stash.filter(s=>!referenced(s)&&!s.parked).forEach(s=>{stash.splice(stash.indexOf(s),1);URL.revokeObjectURL(s.url);delSong(s.id);});updateStoreInfo();}
+function renderML(){const list=$('#mlList');if(!list)return;list.hidden=!mylists.length;
+  list.innerHTML=mylists.map(m=>{const min=m.menu.reduce((a,s)=>a+ +s.min,0),km=m.menu.reduce((a,s)=>a+s.min*60/s.pace,0);
+    const have=m.songs.filter(x=>findSong(x)).length;
+    return `<div class="ml${m.id===activeML?' on':''}"><div class="ml-info"><b>${esc(m.name)}</b>
+      <span>${m.menu.length}ステージ・${Math.round(min)}分・約${km.toFixed(1)} km・曲 ${have}曲${m.saved?`・保存 ${fmtWhen(m.saved)}`:''}</span></div>
+      <div class="ctrls"><button class="small" data-mlload="${m.id}" ${R.running?'disabled':''}>読み込む</button>
+      <button class="small" data-mladd="${m.id}" title="今の一覧に、このマイリストの曲を重複なしで追加します">追加読込</button>
+      <button class="small" data-mlsave="${m.id}">上書き</button>
+      <button class="small${mlDelArm===m.id?' danger':''}" data-mldel="${m.id}">${mlDelArm===m.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
+$('#mlSave').addEventListener('click',()=>{const name=$('#mlName').value.trim();if(!name){mlMsg('名前を入力してください。');$('#mlName').focus();return;}
+  const ex=mylists.find(m=>m.name===name);const snap=snapshot(name,ex&&ex.id);
+  if(ex)mylists[mylists.indexOf(ex)]=snap;else mylists.push(snap);activeML=snap.id;saveMLs();
+  $('#mlName').value='';renderML();confirmSaved(snap,ex?`「${name}」を今の設定で上書きしました。`:`「${name}」を登録しました。`);});
+$('#mlName').addEventListener('keydown',e=>{if(e.key==='Enter')$('#mlSave').click();});
+$('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
+  if(d.mldel){if(mlDelArm!==d.mldel){mlDelArm=d.mldel;renderML();return;}
+    const m=mylists.find(x=>x.id===d.mldel);mylists=mylists.filter(x=>x.id!==d.mldel);if(activeML===d.mldel)activeML=null;mlDelArm=null;saveMLs();purgeStash();
+    mlMsg(m?`「${m.name}」を削除しました。`:'');renderML();return;}
+  mlDelArm=null;
+  if(d.mladd){const m=mylists.find(x=>x.id===d.mladd);if(!m)return;
+    const nameOf=id=>{const g=m.menu.find(x=>x.id===id);return g&&g.name;};
+    const mapSt=st=>{if(!Array.isArray(st))return 'all';const a=st.map(id=>{const g=menu.find(x=>x.id===id)||menu.find(x=>x.name===nameOf(id));return g&&g.id;}).filter(Boolean);return a.length?[...new Set(a)]:'all';};
+    let added=0,dup=0,miss=0;
+    m.songs.forEach(x=>{const inList=matchSong(x,songs);
+      if(inList){dup++;if(!used(inList)){inList.use=true;saveMeta(inList);}return;}
+      const s=matchSong(x,stash);if(!s){miss++;return;}
+      stash.splice(stash.indexOf(s),1);s.parked=false;s.use=true;s.stages=mapSt(x.stages);songs.push(s);added++;});
+    saveOrder();
+    mlMsg(`「${m.name}」の曲を追加しました。追加 ${added}曲`+(dup?`、すでに一覧にある ${dup}曲は重複しないようにそのままにしました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。練習メニューは変わりません。');
+    renderSongs();renderRun();renderML();updateStoreInfo();return;}
+  if(d.mlsave){const i=mylists.findIndex(x=>x.id===d.mlsave);if(i<0)return;mylists[i]=snapshot(mylists[i].name,d.mlsave);activeML=d.mlsave;saveMLs();
+    renderML();confirmSaved(mylists[i],`「${mylists[i].name}」を今の設定で上書きしました。`);return;}
+  if(d.mlload){if(R.running)return;const m=mylists.find(x=>x.id===d.mlload);if(!m||!validMenu(m.menu))return;
+    if(R.acc>0||R.done)reset();
+    cadOffset=Math.max(-30,Math.min(30,+m.offset||0));store.set('cbgm-offset',cadOffset);$('#cadOffset').value=cadOffset;
+    {const nm=m.menu.map(toStage);if(MODE==='practice')menu=nm;else practiceMenu=nm;}activePreset='custom';saveMenu();
+    opt.original=false;
+    m.songs.forEach(x=>{if(!matchSong(x,songs)){const s=matchSong(x,stash);if(s){stash.splice(stash.indexOf(s),1);s.parked=false;songs.push(s);}}});
+    const pos=new Map(),stg=new Map();m.songs.forEach((x,i)=>{const s=findSong(x);if(s&&!pos.has(s.id)){pos.set(s.id,i);stg.set(s.id,x.stages);}});
+    /* show only this mylist: other songs are kept in this browser but taken off the list */
+    const others=songs.filter(s=>!pos.has(s.id));songs=songs.filter(s=>pos.has(s.id));
+    others.forEach(s=>{s.parked=true;if(stash.indexOf(s)<0)stash.push(s);saveMeta(s);});
+    songs.forEach(s=>{s.use=pos.has(s.id);s.stages=stg.has(s.id)?stg.get(s.id):'all';});
+    songs.sort((a,b)=>(pos.has(a.id)?pos.get(a.id):1e9)-(pos.has(b.id)?pos.get(b.id):1e9));R.song=0;saveOrder();
+    activeML=m.id;saveMLs();const miss=m.songs.length-pos.size;
+    const nUse=songs.length,nOther=others.length;
+    mlMsg(`「${m.name}」を読み込みました。流す曲 ${nUse}曲`+(nOther?`。マイリストに入っていない曲 ${nOther}曲は一覧から外しました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。');renderAll();}});
+
+/* ---------- mode UI ---------- */
+function say(t){try{if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=1.05;
+  audio.volume=Math.max(.05,opt.vol*.3);u.onend=u.onerror=()=>{audio.volume=opt.vol;};speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
+function virtualMenu(){
+  if(MODE==='race'){const p=Math.min(900,Math.max(150,Math.round(rcEff()||360)));let min=(+RC.limit||360)+30;const e=rcEndMs(),now=Date.now();
+    if(e&&now<e&&now>e-24*3600000)min=Math.max(1,(e-now)/60000);
+    return [{id:'race',name:RC.name||'本番',pace:p,bpm:cadFromPace(p),auto:true,min}];}
+  return [{id:'relax',name:'リラックス',pace:360,bpm:cadFromPace(360),auto:true,min:24*60}];}
+function setMode(m,force){if(m===MODE)return true;if(R.running||R.acc>0||RS.pre){if(!force)return false;reset();}
+  if(MODE==='practice')practiceMenu=menu;MODE=m;store.set('cbgm-mode',m);
+  if(m==='practice'){menu=practiceMenu||menu;practiceMenu=null;}else menu=virtualMenu();
+  RS.armed=false;renderAll();window.scrollTo(0,0);return true;}
+const tm=d=>{const x=new Date(d);return (x.getMonth()+1)+'/'+x.getDate()+' '+x.getHours()+':'+String(x.getMinutes()).padStart(2,'0');};
+function rcSummary(){const km=rcKm(),e=rcEff(),w=rcWaveMs(),end=rcEndMs(),L=[];
+  L.push(`距離 <b>${km?+km.toFixed(3):'—'}</b> km ／ 制限時間 <b>${fmtHM(+RC.limit||0)}</b>`);
+  L.push(e?`BGMのテンポ：<b>${fmtPace(e)}</b>/km（目標 ${fmtHMS(RC.goal)} より${+RC.margin||0}分早いペース・約${cadFromPace(e)}歩/分）`:'目標タイムを入れると、BGMのテンポを計算します。');
+  L.push(w?`BGM開始 <b>${tm(w-300000)}</b>（スタート5分前）／ 自分のスタート ${tm(w)} ／ BGM終了 ${tm(end)}（号砲から制限時間＋30分）`:'開催日とスタート時刻を入れると、BGMを流し始める時刻と終える時刻を表示します。');
+  const cps=rcCps();if(cps.length)L.push('関門 '+cps.map(c=>`${+c.km.toFixed(2)}km ${fmtHM(c.sec/60)}`).join('、')+(String(RC.cps).trim().split(/\n/).filter(x=>x.trim()).length>cps.length?'（読み取れない行があります）':''));
+  return L.join('<br>');}
+function rcCpsView(){const c=rcCps();return (c.length?c.map(x=>{const g=rcGunMs();return `${+x.km.toFixed(2)}km　`+(g!=null?`${tm(g+x.sec*1000).split(' ')[1]}閉鎖（号砲から${fmtHM(x.sec/60)}）`:`号砲から${fmtHM(x.sec/60)}`);}).join('<br>'):(RC.name?'なし':'まだ受け取っていません'))+(c.some(x=>x.sec>(+RC.limit||360)*60)?'<br><b style="color:var(--warn)">関門の時刻がスタート時刻より前になっています。スタート時刻（いま '+esc(RC.time||'未入力')+'）を確認してください。</b>':'')+'<br><span class="muted">時刻（例 13:30）で書いた関門は、スタート時刻からの時間に直して使います。</span>';}
+/* 関門: "10 1:40" / "21.1km 3:10" per line, time measured from the gun (start time without wave) */
+function rcCps(){return String(RC.cps||'').split(/\n/).map(l=>{const m=/^\s*([\d.０-９．]+)\s*(?:km|ｋｍ|キロ|k)?\s*[\s,、]\s*(\S+)\s*$/i.exec(l.replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248)));
+  if(!m)return null;const km=parseFloat(m[1]);let sec=parseHMS(m[2]);const gt=/^(\d\d):(\d\d)$/.exec(RC.time||''),gs=gt?(+gt[1])*3600+(+gt[2])*60:null;
+  if(gs!=null&&sec>=gs)sec-=gs; /* 時刻（例 10:40）で書いた関門は、スタート時刻からの時間に直す */
+  return km>0&&sec>0?{km,sec}:null;}).filter(Boolean).sort((a,b)=>a.km-b.km);}
+function rcGunMs(){if(!/^\d{4}-\d\d-\d\d$/.test(RC.date||'')||!/^\d\d:\d\d$/.test(RC.time||''))return null;return new Date(RC.date+'T'+RC.time+':00').getTime();}
+function setVal(id,v){const el=document.getElementById(id);if(el&&document.activeElement!==el)el.value=v;}
+const MODE_TXT={
+  practice:['手元の曲を、練習メニューの1kmペースで走りやすい速さに合わせて、音程を変えずに再生します。',
+    '練習メニュー（ステージ・ペース・時間）、曲の順番とステージの割り当て、リズムの微調整をまとめて登録します。',
+    '「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。曲ごとに流すステージも選べます（「全ステージ」か、個別のステージ）。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。'],
+  race:['手元の曲を、本番の目標タイム（本番の戦略）のペースで走りやすい速さに合わせて、音程を変えずに再生します。',
+    '「使う」にチェックした曲とその順番、リズムの微調整をまとめて登録します（練習メニューも一緒に登録されます）。',
+    '「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。'],
+  relax:['手元の曲を、原曲の速さのまま繰り返し再生します。',
+    '「使う」にチェックした曲とその順番をまとめて登録します（練習メニューも一緒に登録されます）。',
+    '「使う」にチェックした曲だけを、原曲の速さで流します。マイリストには、チェックした曲が登録されます。']};
+function applyModeUI(){{const tx=MODE_TXT[MODE]||MODE_TXT.practice;T0('#leadTxt',tx[0]);T0('#mlTxt',tx[1]);T0('#songsTxt',tx[2]);}
+  document.querySelectorAll('.mode').forEach(b=>{const me=b.dataset.mode===MODE&&(!b.dataset.io||(b.dataset.io==='out')===!!opt.outdoor);b.classList.toggle('on',me);b.setAttribute('aria-selected',me);b.disabled=!me&&(R.running||R.acc>0||RS.pre||RS.armed);});
+  $('#menuSec').hidden=MODE!=='practice';$('#ioRow').hidden=MODE!=='practice';$('#raceSec').hidden=MODE!=='race';$('#relaxSec').hidden=MODE!=='relax';
+  $('#btnBack').hidden=$('#btnSkip').hidden=MODE!=='practice';
+  $('#btnRedo').hidden=!(MODE==='race'&&(R.running||R.done));
+  $('#btnReset').textContent=MODE==='practice'?'リセット':MODE==='race'&&R.running?'ゴール（終了）':MODE==='race'&&R.done?'終了（画面を閉じる）':'ストップ';
+  document.querySelectorAll('[data-shuffle]').forEach(c=>c.checked=!!opt.shuffle);
+  if(MODE==='race'){setVal('rcName',RC.name);setVal('rcEv',RC.ev);setVal('rcKm',RC.km);setVal('rcDate',RC.date);setVal('rcTime',RC.time);setVal('rcWave',RC.wave);
+    setVal('rcLimit',fmtHM(+RC.limit||0));setVal('rcGoal',RC.goal?fmtHMS(RC.goal):'');setVal('rcMargin',RC.margin);setVal('rcCps',RC.cps||'');$('#rcCpsView').innerHTML=rcCpsView();
+    $('#rcKmWrap').hidden=RC.ev!=='その他';$('#rcSum').innerHTML=rcSummary();
+    $('#rcArm').hidden=RS.armed||RS.pre||R.running||R.done;$('#rcDisarm').hidden=!(RS.armed||RS.pre)||R.running;}
+  else{$('#rcArm').hidden=$('#rcDisarm').hidden=true;}
+  $('#runPanel').classList.toggle('armed',MODE==='race'&&(RS.armed||RS.pre)&&!R.running);liveUI();}
+function T0(id,t){const e=$(id);if(e&&e.dataset.ja!==t){e.dataset.ja=t;e.textContent=t;}}
+function liveUI(){const live=R.running||RS.pre;document.body.classList.toggle('live',!!live);document.body.classList.toggle('race-live',MODE==='race'&&!!live);}
+function renderRunMode(){liveUI();const rp=$('#runPanel');rp.classList.toggle('m-race',MODE==='race');rp.classList.toggle('m-relax',MODE==='relax');
+  const T=(id,t)=>{$(id).textContent=t;};
+  $('#goalStat').hidden=$('#goalStat2').hidden=MODE!=='race';$('#cpStat').hidden=MODE!=='race'||!rcCps().length;
+  $('#segLine').hidden=false;
+  if(MODE==='practice'){T('#bigLabel','このステージの残り');T('#tgtLabel','目標ペース');T('#st1Label','全体の残り');T('#st2Label','次のステージ');return;}
+  let now=Date.now();
+  const el=elapsed(),used2=songs.filter(used).length;
+  $('#btnNextSong').disabled=!(R.running||RS.pre)||used2<2;$('#btnSongTop').disabled=!(R.running||RS.pre);
+  if(MODE==='relax'){T('#segCount',R.running?(R.paused?'一時停止中':'再生中'):'リラックス');T('#segName','原曲の速さで繰り返し');T('#bigLabel','再生時間');
+    $('#segLeft').textContent=fmt(R.running||R.acc?el:0);if(!R.running)$('#btnStart').textContent='再生';return;}
+  const w=rcWaveMs(),e=rcEff(),km=rcKm();if(R.done&&RS.endAt)now=RS.endAt;
+  /* race: show only meaningful status (no plain 「本番」 label) */
+  const stTxt=R.done?(RS.dnf?'ゴール（終了）':'完了'):R.running?'':RS.pre?'まもなくスタート（BGM再生中）':RS.armed?'待機中':'';
+  const nmTxt=R.done?'おつかれさまでした':(RC.name||'');
+  T('#segCount',stTxt);T('#segName',nmTxt);$('#segLine').hidden=!stTxt&&!nmTxt&&!(R.running&&R.paused);
+  const idle=raceIdle();
+  if(R.running||R.done){T('#bigLabel','スタートから');$('#segLeft').textContent=fmt(R.done?R.acc:el);}
+  else if(idle){T('#bigLabel','スタートまで');$('#segLeft').textContent='0:00';}
+  else if(w&&now<w){T('#bigLabel','スタートまで');$('#segLeft').textContent=fmt(w-now);}
+  else if(w){T('#bigLabel','スタート時刻から');$('#segLeft').textContent=fmt(now-w);}
+  else{T('#bigLabel','スタートまで');$('#segLeft').textContent='--:--';}
+  {const rp=racePace(),st=stratAt(R.running?posInfo(el).pos:0);T('#tgtLabel',st?`BGMのテンポ（第${st.i+1}ステージ）`:'BGMのテンポ');$('#segPace').textContent=rp?fmtPace(rp):'—';
+   $('#tgtUnit').textContent='';}
+  T('#st1Label',R.done&&RS.endAt?'ゴール時の制限時間まで':'制限時間まで');const lim=(+RC.limit||0)*60000;const g0=rcGunMs(),lossMs=RS.startAt&&g0?RS.startAt-g0:0;const rem=g0&&lim?g0+lim-now:(R.running&&lim?lim-el-lossMs:null);
+  $('#totLeft').textContent=idle?'0:00':rem==null?'—':fmt(rem);
+  $('#totDist').textContent=R.running&&e?`予定では 約${(baseSpdAt(0)?planPos(el):el/1000/e).toFixed(1)} km 地点 ／ 全 ${+km.toFixed(2)} km`:`全 ${+km.toFixed(2)} km ／ 目標 ${RC.goal?fmtHMS(RC.goal):'未入力'}`;
+  T('#st2Label','ロスタイム');$('#nextSeg').textContent=RS.startAt&&w?fmt(Math.max(0,RS.startAt-w)):'スタートで計測';
+  {const run=R.running||R.done,t=run?(R.done?R.acc:el):0,kmAt=ms=>baseSpdAt(0)?Math.min(km,planPos(ms)):e?Math.min(km,ms/1000/e):null,cut=v=>v==null?'—':v.toFixed(1)+' km';
+    $('#goalNow').textContent=run&&kmAt(t)>=0.05?cut(kmAt(t)):'—';
+    const t30=t+1800000,k30=kmAt(t30);$('#goal30').textContent=cut(k30);
+    $('#goal30s').textContent=e?(k30>=km?'ゴール到着の予定':(run?'スタートから'+fmt(t30):'スタート30分後')):'目標タイムを入れると表示';
+    renderPos(run,t,e,km,now,w);}
+  if(!R.running&&!R.done)$('#btnStart').textContent='スタート（スタートライン通過で押す）';}
+document.querySelector('.modes').addEventListener('click',e=>{const b=e.target.closest('[data-mode]');if(!b||b.disabled)return;setMode(b.dataset.mode);});
+document.addEventListener('change',e=>{if(e.target.dataset.shuffle){opt.shuffle=e.target.checked;store.set('cbgm-shuffle',opt.shuffle);applyModeUI();}});
+function rcInput(e){const t=e.target,id=t.id;if(!/^rc[A-Z]/.test(id)||id==='rcArm'||id==='rcDisarm')return;const v=t.value;
+  if(id==='rcName')RC.name=v.trim();else if(id==='rcEv')RC.ev=v;else if(id==='rcKm'){const k=parseFloat(v);if(k>0)RC.km=k;}
+  else if(id==='rcDate')RC.date=v;else if(id==='rcTime')RC.time=v;else if(id==='rcWave'){const k=parseInt(v,10);RC.wave=k>=0?k:0;}
+  else if(id==='rcLimit'){const s2=parseHMS(v);if(s2==null)return;RC.limit=Math.round(s2/60);}
+  else if(id==='rcGoal'){const s2=parseHMS(v);if(s2==null)return;RC.goal=s2;}
+  else if(id==='rcMargin'){const k=parseInt(v,10);RC.margin=k>=0?Math.min(30,k):0;}
+  else if(id==='rcCps')RC.cps=v;
+  store.set('cbgm-race',RC);if(MODE==='race'&&!R.running)menu=virtualMenu();
+  $('#rcKmWrap').hidden=RC.ev!=='その他';$('#rcSum').innerHTML=rcSummary();$('#rcCpsView').innerHTML=rcCpsView();renderRun();renderSongs();}
+$('#raceSec').addEventListener('input',rcInput);$('#raceSec').addEventListener('change',e=>{rcInput(e);if(e.target.id==='rcLimit'||e.target.id==='rcGoal'){const g=e.target;g.value=g.id==='rcLimit'?fmtHM(+RC.limit||0):(RC.goal?fmtHMS(RC.goal):'');}});
+function rcMsg(t,err){const m=$('#rcMsg');m.textContent=t;m.classList.toggle('err',!!err);}
+$('#rcArm').addEventListener('click',()=>{
+  if(!songs.some(used))return rcMsg('流す曲がありません。曲の一覧で「使う」にチェックを入れてください。',true);
+  const w=rcWaveMs();if(!w)return rcMsg('開催日とスタート時刻を入れてください。',true);
+  if(!rcEff())return rcMsg('目標タイムを入れてください。',true);
+  if(Date.now()>=rcEndMs())return rcMsg('BGMを流す時間（制限時間＋30分）を過ぎています。開催日とスタート時刻を確認してください。',true);
+  try{getCtx().resume();}catch(e){}ensureChain();
+  const s=songs[firstIndex()];if(s){R.song=songs.indexOf(s);audio.src=s.url;}audio.muted=true;
+  audio.play().then(()=>{audio.pause();audio.currentTime=0;audio.muted=false;}).catch(()=>{audio.muted=false;});
+  say('本番待機を始めました。スタート5分前に音楽が始まります。');
+  RS.armed=true;menu=virtualMenu();lockScreen();
+  rcMsg(`待機中です。${tm(w-300000)} にBGMが始まります。このページを開いたまま、画面をつけておいてください。`);applyModeUI();renderRun();});
+$('#rcDisarm').addEventListener('click',()=>{if(GPS.pre)gpsOff(true);RS.gpsAuto=false;RS.armed=false;if(RS.pre&&!R.running){audio.pause();RS.pre=false;}rcMsg('待機をやめました。');applyModeUI();renderRun();});
+setInterval(()=>{if(MODE!=='race')return;
+  if((RS.armed||RS.pre)&&!R.running&&!GPS.on&&!RS.gpsAuto){const w=rcWaveMs(),now=Date.now();if(w&&now>=w-60000&&now<w+3600000){RS.gpsAuto=true;gpsOn();}}
+  if((RS.armed||RS.pre)&&!R.running&&!RS.gunCue){const w=rcWaveMs(),now=Date.now();if(w&&now>=w&&now<w+120000){RS.gunCue=true;startChime();say('スタート時刻です。スタートラインを通過したら、スタートを押してください。');}}
+  if(RS.armed&&!R.running&&!RS.pre){const w=rcWaveMs(),now=Date.now();
+    if(w&&now>=w-300000&&now<rcEndMs()){RS.pre=true;try{getCtx().resume();}catch(e){}ensureChain();menu=virtualMenu();R.seg=0;audio.volume=opt.vol;playSong(firstIndex());say('スタート5分前です。');applyModeUI();}}
+  if(!R.running)renderRun();},1000);
+/* ---------- start-time chime ---------- */
+function startChime(){try{const ac=getCtx();ac.resume();const t=ac.currentTime+.05;[0,.45,.9].forEach(d=>blip(t+d,988,.25,.6));blip(t+1.4,1319,.9,.6);}catch(e){}}
+/* ---------- pace up / down (時速 ±0.1) ---------- */
+let spdRelock=0;
+function changeSpd(d){if(!R.running||MODE==='relax')return;RS.spd=Math.round(((RS.spd||0)+d)*10)/10;(RS.spdLog=RS.spdLog||[]).push({t:elapsed(),spd:RS.spd});
+  let p=MODE==='race'?racePace():(menu[R.seg]?adjPace(menu[R.seg].pace):null);applyRate(true);
+  try{speechSynthesis.cancel();}catch(e){}say((d>0?'ペースアップ。':'ペースダウン。')+(p?`時速${(3600/p).toFixed(1)}キロ、ペース${sayPace(p)}。`:''));
+  renderRun();clearTimeout(spdRelock);spdRelock=setTimeout(()=>{if(R.running&&lockLayer.hidden)lock();},3000);}
+document.addEventListener('click',e=>{const b=e.target.closest('#spdUp,#spdDown');if(b)changeSpd(b.id==='spdUp'?0.1:-0.1);});
+{const row=document.createElement('div');row.className='spdlock';row.id='spdLock';row.hidden=true;
+ row.innerHTML='<button class="unlock" id="lockSpdDown"><i class="fill"></i><span>ペースダウン<br><small>長押し 時速−0.1</small></span></button><button class="unlock" id="lockSpdUp"><i class="fill"></i><span>ペースアップ<br><small>長押し 時速＋0.1</small></span></button>';
+ lockLayer.querySelector('.lock-bar').prepend(row);
+ bindHold(row.querySelector('#lockSpdDown'),()=>changeSpd(-0.1));bindHold(row.querySelector('#lockSpdUp'),()=>changeSpd(0.1));
+ const _l=lock;lock=function(){_l();row.hidden=!(R.running&&MODE!=='relax');};}
+function renderSpd(){const show=R.running&&MODE!=='relax';$('#spdRow').hidden=!show;const sl=document.getElementById('spdLock');if(sl&&!lockLayer.hidden)sl.hidden=!show;if(!show)return;
+  const p=MODE==='race'?racePace():(menu[R.seg]?adjPace(menu[R.seg].pace):null),v=p?`時速 ${(3600/p).toFixed(1)}km`:'';
+  $('#spdNow').innerHTML=RS.spd?`<small>時速 ${RS.spd>0?'＋':'−'}${Math.abs(RS.spd).toFixed(1)} →</small><br>${v}`:v;}
+/* ---------- race: start button locked until 1 s before the start time ---------- */
+function startGateMs(){if(MODE!=='race'||R.running||R.done)return 0;const w=rcWaveMs();if(!w)return 0;const d=w-1000-Date.now();return d>0?d:0;}
+function startGateUI(){const b=$('#btnStart');if(!b)return;const g=startGateMs();b.disabled=g>0;
+  if(g>0){const w=new Date(rcWaveMs()-1000);b.textContent=`スタート（${w.getHours()}:${String(w.getMinutes()).padStart(2,'0')}:${String(w.getSeconds()).padStart(2,'0')}から押せます）`;}
+  else if(MODE==='race'&&!R.running&&!R.done&&b.dataset.gated)b.textContent='スタート（スタートライン通過で押す）';b.dataset.gated=g>0?'1':'';}
+$('#btnStart').addEventListener('click',e=>{if(startGateMs()>0){e.stopImmediatePropagation();e.preventDefault();}},true);
+setInterval(startGateUI,500);
+{const _rr=renderRun;renderRun=function(){_rr();renderSpd();if(MODE==='practice'&&R.running&&RS.spd&&menu[R.seg]){const p=adjPace(menu[R.seg].pace);$('#segPace').textContent=fmtPace(p);}$('#tgtUnit').textContent=MODE==='race'?'':'分/km';$('#tgtUnit').hidden=MODE==='race';startGateUI();};}
+/* ---------- strategy editor ---------- */
+function stratSave(){store.set('cbgm-race',RC);if(MODE==='race'&&!R.running)menu=virtualMenu();}
+function renderStrat(){const box=$('#stratList');if(!box)return;const rows=stratRows(),km=rcKm(),cur=R.running?stratAt(posInfo(elapsed()).pos):null;let from=0;
+  box.innerHTML=rows.length?rows.map((r,i)=>{const last=i===rows.length-1,to=last?km:+r.to||0;const html=`<div class="srow${cur&&cur.i===i?' cur':''}"><span class="sn">第${i+1}ステージ</span><span>${i?(+from.toFixed(2))+' ～':'スタート ～'}</span>`+
+    (last?`<b>ゴール（${+km.toFixed(3)}）</b>`:`<input type="number" id="st-to-${i}" data-sto="${i}" min="0.1" max="${km}" step="0.1" value="${r.to??''}" inputmode="decimal" aria-label="${i+1}ステージの終わり（km）"><span>km</span>`)+
+    `<span>時速</span><input type="number" id="st-spd-${i}" data-sspd="${i}" min="3" max="30" step="0.1" value="${r.spd??''}" inputmode="decimal" aria-label="${i+1}ステージの時速"><span>km</span><span class="sp" id="st-p-${i}">${validSpd(r.spd)?'ペース '+fmtPace(3600/r.spd)+'/km':''}</span><button class="x" data-sdel="${i}" aria-label="${i+1}ステージを削除">×</button></div>`;from=last?km:to;return html;}).join(''):'<div class="sub">戦略はありません。目標タイムから計算した1つのテンポで流します。</div>';
+  const ts=stratTotalSec();$('#stratSum').textContent=rows.length?(ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。'):'';}
+function stratDefN(){const km=rcKm();return km>45?Math.min(20,Math.max(3,Math.round(km/10))):3;}
+let stratNPicked=false;document.addEventListener('change',e=>{if(e.target.id==='stratN')stratNPicked=true;});
+document.addEventListener('input',e=>{if(/^rc(Km|Ev)$/.test(e.target.id)&&!stratNPicked)fillStratN();});
+document.addEventListener('change',e=>{if(e.target.id==='rcEv'&&!stratNPicked)fillStratN();});
+function fillStratN(){const sel=$('#stratN');if(!sel)return;const cur=stratNPicked&&+sel.value||stratDefN();let h='';for(let n=1;n<=20;n++)h+=`<option value="${n}"${n===cur?' selected':''}>${n}ステージ</option>`;sel.innerHTML=h;}
+function stratAuto(){const km=rcKm();let total=RC.goal?RC.goal-(+RC.margin||0)*60:null;if(!km||!total){rcMsg('先に目標タイムを入れてください。',true);return;}
+  const n=+($('#stratN')&&$('#stratN').value)||stratDefN();let b;
+  if(n===3&&Math.abs(km-42.195)<0.01)b=[10,30];else{b=[];for(let i=1;i<n;i++)b.push(Math.round(km*i/n*10)/10);}
+  const segs=[];let f=0;b.forEach(e=>{segs.push([f,e]);f=e;});segs.push([f,km]);
+  const w=segs.map((_,i)=>n===1?1:i===0?0.98:1.02-0.05*(i-1)/Math.max(1,n-2));
+  const v=km/(total/3600),t=segs.reduce((a,[f,e],i)=>a+(e-f)/(v*w[i])*3600,0),k=t/total;
+  RC.strat=segs.map(([f,e],i,arr)=>({to:i===arr.length-1?null:e,spd:Math.round(v*w[i]*k*10)/10}));stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}
+document.addEventListener('click',e=>{const t=e.target;
+  if(t.id==='stratAdd'){const rows=stratRows(),km=rcKm();const prev=rows.length?rows[rows.length-1]:null;
+    if(prev){const prevFrom=rows.length>1?+rows[rows.length-2].to||0:0;prev.to=Math.round((prevFrom+(km-prevFrom)/2)*10)/10;}
+    rows.push({to:null,spd:prev?prev.spd:(rcEff()?Math.round(3600/rcEff()*10)/10:8)});RC.strat=rows;stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}
+  else if(t.id==='stratAuto')stratAuto();
+  else if(t.id==='stratClear'){RC.strat=[];stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}
+  else if(t.dataset&&t.dataset.sdel!=null){RC.strat.splice(+t.dataset.sdel,1);stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}});
+document.addEventListener('input',e=>{const t=e.target,d=t.dataset||{};if(d.sto==null&&d.sspd==null)return;const i=+(d.sto??d.sspd),r=stratRows()[i];if(!r)return;const v=parseFloat(t.value);
+  if(d.sto!=null){if(v>0)r.to=v;}else{if(validSpd(v))r.spd=v;const sp=$('#st-p-'+i);if(sp)sp.textContent=validSpd(v)?'ペース '+fmtPace(3600/v)+'/km':'';}
+  stratSave();const ts=stratTotalSec();$('#stratSum').textContent=ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。';$('#rcSum').innerHTML=rcSummary();renderRun();});
+document.addEventListener('change',e=>{if(e.target.dataset&&e.target.dataset.sto!=null)renderStrat();});
+/* ---------- saved race settings ---------- */
+let racePresets=store.get('cbgm-race-presets',[]);if(!Array.isArray(racePresets))racePresets=[];let rpDelArm=null;
+function rpMsg(t,err){const m=$('#rpMsg');m.textContent=t;m.classList.toggle('err',!!err);}
+function renderRP(){const l=$('#rpList');if(!l)return;l.hidden=!racePresets.length;
+  l.innerHTML=racePresets.map(p=>{const r=p.rc||{},km=r.ev==='フル'?42.195:r.ev==='ハーフ'?21.0975:(+r.km||0);
+    return `<div class="ml"><div class="ml-info"><b>${esc(p.name)}</b><span>${esc(r.name||'大会名なし')}・${r.date||'日付なし'} ${r.time||''}・${+km.toFixed(3)}km${r.goal?'・目標 '+fmtHMS(r.goal):''}${(r.strat||[]).length?'・戦略 '+r.strat.length+'ステージ':''}・保存 ${fmtWhen(p.saved)}</span></div>
+      <div class="ctrls"><button class="small" data-rpload="${p.id}" ${R.running||RS.pre?'disabled':''}>読み込む</button><button class="small" data-rpsave="${p.id}">上書き</button><button class="small${rpDelArm===p.id?' danger':''}" data-rpdel="${p.id}">${rpDelArm===p.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
+const rpSnap=()=>JSON.parse(JSON.stringify(RC));
+document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};
+  if(t.id==='rpSave'){const name=$('#rpName').value.trim()||RC.name;if(!name){rpMsg('保存名を入れてください。',true);return;}
+    const ex=racePresets.find(p=>p.name===name),p={id:ex?ex.id:gid(),name,saved:Date.now(),rc:rpSnap()};if(ex)racePresets[racePresets.indexOf(ex)]=p;else racePresets.push(p);
+    store.set('cbgm-race-presets',racePresets);$('#rpName').value='';rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);renderRP();return;}
+  if(d.rpdel){if(rpDelArm!==d.rpdel){rpDelArm=d.rpdel;renderRP();return;}const p=racePresets.find(x=>x.id===d.rpdel);racePresets=racePresets.filter(x=>x.id!==d.rpdel);rpDelArm=null;store.set('cbgm-race-presets',racePresets);rpMsg(p?`「${p.name}」を削除しました。`:'');renderRP();return;}
+  if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);renderRP();return;}
+  if(d.rpload){if(R.running||RS.pre)return;const p=racePresets.find(x=>x.id===d.rpload);if(!p)return;RC=Object.assign({},RCD,JSON.parse(JSON.stringify(p.rc)));store.set('cbgm-race',RC);
+    if(MODE==='race')menu=virtualMenu();rpMsg(`「${p.name}」を読み込みました。`);renderAll();return;}});
+{const _a=applyModeUI;applyModeUI=function(){_a();if(MODE==='race'){fillStratN();if(!(document.activeElement&&document.activeElement.dataset&&(document.activeElement.dataset.sto!=null||document.activeElement.dataset.sspd!=null)))renderStrat();renderRP();}};}
+if(MODE!=='practice'){practiceMenu=menu;menu=virtualMenu();}
+renderAll();loadSaved();
+</script>
+<script>
+/* ===================== i18n (ja / en / zh-CN / zh-TW / ko) ===================== */
+const I18N=(()=>{
+const LANGS=[['ja','日本語'],['en','English'],['zh-CN','简体中文'],['zh-TW','繁體中文'],['ko','한국어']];
+const VOICE={ja:'ja-JP',en:'en-US','zh-CN':'zh-CN','zh-TW':'zh-TW',ko:'ko-KR'};
+const IX={en:0,'zh-CN':1,'zh-TW':2,ko:3};
+const JP=/[぀-ヿ一-鿿！-～]/;
+const NW=s=>s.replace(/\s+/g,' ');const D=new Map();const W=(ja,...t)=>{D.set(NW(ja),t);};
+const PT=[];const P=(re,f)=>{PT.push([re,f]);};
+let LANG='ja';try{const v=store.get('cbgm-lang','ja');if(IX[v]!=null)LANG=v;}catch(e){}
+const L=()=>IX[LANG];
+/* duration words: "1時間5分", "6分23秒", "5分", "30秒" */
+function dur(s){const m=/^(?:(\d+)時間)?(?:(\d+)分)?(?:(\d+)秒)?$/.exec(s);if(!m||!(m[1]||m[2]||m[3]))return s;const [h,mi,se]=[m[1],m[2],m[3]];
+  switch(LANG){case 'en':return [h&&`${h} hour${h==1?'':'s'}`,mi&&`${mi} minute${mi==1?'':'s'}`,se&&`${se} second${se==1?'':'s'}`].filter(Boolean).join(' ');
+    case 'ko':return [h&&`${h}시간`,mi&&`${mi}분`,se&&`${se}초`].filter(Boolean).join(' ');
+    case 'zh-CN':return (h?h+'小时':'')+(mi?mi+(se?'分':'分钟'):'')+(se?se+'秒':'');
+    case 'zh-TW':return (h?h+'小時':'')+(mi?mi+(se?'分':'分鐘'):'')+(se?se+'秒':'');}return s;}
+const pick=a=>a[L()];
+/* ---- dictionary & patterns are injected here ---- */
+/* exact strings: [ja, en, zh-CN, zh-TW, ko] */
+W('マラソンBGM','Marathon BGM','马拉松BGM','馬拉松BGM','마라톤 BGM');
+W('マラソンBGM（HTML版）','Marathon BGM (HTML)','马拉松BGM（HTML版）','馬拉松BGM（HTML版）','마라톤 BGM (HTML판)');
+W('画面ロック','Lock screen','锁定屏幕','鎖定螢幕','화면 잠금');
+W('本番待機を始める','Start race standby','开始比赛待机','開始比賽待機','대회 대기 시작');
+W('待機をやめる','Cancel standby','取消待机','取消待機','대기 취소');
+W('手元の曲を、練習メニューの1kmペースで走りやすい速さに合わせて、音程を変えずに再生します。（HTML版：情報はすべてこの画面で入力します）','Plays your own music at a speed that matches the per-km pace of your training menu, without changing the pitch. (HTML version: enter all information on this screen.)','以适合训练菜单每公里配速的速度播放您自己的音乐，且不改变音调。（HTML版：所有信息都在此页面输入）','以適合訓練菜單每公里配速的速度播放您自己的音樂，且不改變音調。（HTML版：所有資訊都在此頁面輸入）','내 음악을 연습 메뉴의 1km 페이스에 맞춰 달리기 좋은 속도로, 음정은 바꾸지 않고 재생합니다. (HTML판: 모든 정보는 이 화면에서 입력합니다)');
+W('モード','Mode','模式','模式','모드');
+W('1. 練習','1. Training','1. 训练','1. 訓練','1. 연습');
+W('2. 本番','2. Race','2. 比赛','2. 比賽','2. 대회');
+W('3. リラックス','3. Relax','3. 放松','3. 放鬆','3. 릴랙스');
+W('練習の場所','Training location','训练地点','訓練地點','연습 장소');
+W('屋内（時間でステージが進む）','Indoor (stages advance by time)','室内（按时间切换阶段）','室內（按時間切換階段）','실내 (시간으로 스테이지 진행)');
+W('屋外（GPSの距離で進む）','Outdoor (advance by GPS distance)','户外（按GPS距离切换）','戶外（按GPS距離切換）','실외 (GPS 거리로 진행)');
+W('一時停止中','Paused','已暂停','已暫停','일시정지 중');
+W('ウォームアップ','Warm-up','热身','熱身','워밍업');
+W('このステージの残り','Left in this stage','本阶段剩余','本階段剩餘','이 스테이지 남은 시간');
+W('目標ペース','Target pace','目标配速','目標配速','목표 페이스');
+W('分/km','min/km','分/公里','分/公里','분/km');
+W('全体の残り','Total left','总剩余','總剩餘','전체 남은 시간');
+W('次のステージ','Next stage','下一阶段','下一階段','다음 스테이지');
+W('推定の現在地','Estimated position','推定当前位置','推定目前位置','추정 현재 위치');
+W('次の関門','Next cutoff','下一个关门点','下一個關門點','다음 관문');
+W('今の通過地点（目標）','Current point (target)','当前通过点（目标）','目前通過點（目標）','현재 통과 지점 (목표)');
+W('30分後の目標距離','Target distance in 30 min','30分钟后的目标距离','30分鐘後的目標距離','30분 후 목표 거리');
+W('ペースダウン','Pace down','减速','減速','페이스 다운');
+W('ペースアップ','Pace up','加速','加速','페이스 업');
+W('1つ戻す','Undo','撤销','撤銷','되돌리기');
+W('GPSをONにする','Turn GPS ON','打开GPS','開啟GPS','GPS 켜기');
+W('GPSをOFFにする','Turn GPS OFF','关闭GPS','關閉GPS','GPS 끄기');
+W('GPS：OFF','GPS: OFF','GPS：关','GPS：關','GPS: 꺼짐');
+W('曲を追加すると、ここに再生中の曲と速度の倍率が出ます。','Add songs to see the current song and its speed ratio here.','添加歌曲后，这里会显示正在播放的歌曲和速度倍率。','新增歌曲後，這裡會顯示正在播放的歌曲和速度倍率。','곡을 추가하면 재생 중인 곡과 속도 배율이 여기에 표시됩니다.');
+W('スタート','Start','开始','開始','시작');
+W('曲の先頭へ','Restart song','回到歌曲开头','回到歌曲開頭','곡 처음으로');
+W('次の曲','Next song','下一首','下一首','다음 곡');
+W('ステージを戻す','Previous stage','上一阶段','上一階段','이전 스테이지');
+W('ステージを進める','Next stage','进入下一阶段','進入下一階段','다음 스테이지로');
+W('リセット','Reset','重置','重置','리셋');
+W('最初に戻す（設定はそのまま）','Back to start (keep settings)','回到开始（保留设置）','回到開始（保留設定）','처음으로 (설정 유지)');
+W('ステージの切り替えで合図音','Beep on stage change','阶段切换时提示音','階段切換時提示音','스테이지 전환 시 신호음');
+W('クリック音','Click sound','节拍音','節拍音','클릭음');
+W('音程を保つ（オフの方が音がきれい）','Keep pitch (off sounds cleaner)','保持音调（关闭时音质更好）','保持音調（關閉時音質更好）','음정 유지 (끄면 음질이 깨끗함)');
+W('曲の音量','Music volume','音乐音量','音樂音量','음악 볼륨');
+W('クリック','Click','节拍','節拍','클릭');
+W('本番の設定','Race settings','比赛设置','比賽設定','대회 설정');
+W('スタート5分前から、目標タイムに合わせた1つのテンポでBGMを流し続けます。「本番の戦略」を入れると区間ごとにテンポを変えます。「使う」にチェックした曲を繰り返します。','From 5 minutes before the start, BGM plays at one tempo based on your target time. Enter a "Race strategy" to change the tempo by section. Songs checked "Use" repeat.','从起跑前5分钟开始，以根据目标时间计算的节奏持续播放BGM。输入“比赛策略”后会按区间改变节奏。勾选“使用”的歌曲会循环播放。','從起跑前5分鐘開始，以根據目標時間計算的節奏持續播放BGM。輸入「比賽策略」後會按區間改變節奏。勾選「使用」的歌曲會循環播放。','출발 5분 전부터 목표 기록에 맞춘 하나의 템포로 BGM을 계속 재생합니다. "대회 전략"을 입력하면 구간마다 템포를 바꿉니다. "사용"에 체크한 곡을 반복합니다.');
+W('大会名','Race name','比赛名称','比賽名稱','대회명');
+W('例：水戸黄門漫遊マラソン','e.g. Tokyo Marathon','例：东京马拉松','例：東京馬拉松','예: 서울 마라톤');
+W('種目','Event','项目','項目','종목');
+W('フル','Full','全程','全程','풀');
+W('ハーフ','Half','半程','半程','하프');
+W('その他','Other','其他','其他','기타');
+W('距離（km）','Distance (km)','距离（公里）','距離（公里）','거리 (km)');
+W('開催日','Date','比赛日期','比賽日期','개최일');
+W('スタート時刻','Start time','起跑时间','起跑時間','출발 시각');
+W('ウェーブの遅れ（分）','Wave delay (min)','分批起跑延迟（分）','分批起跑延遲（分）','웨이브 지연 (분)');
+W('制限時間（時:分）','Time limit (h:mm)','关门时间（时:分）','關門時間（時:分）','제한 시간 (시:분)');
+W('目標タイム（時:分:秒）','Target time (h:mm:ss)','目标成绩（时:分:秒）','目標成績（時:分:秒）','목표 기록 (시:분:초)');
+W('ロスタイム分の余裕（分）','Margin for start loss (min)','起跑损失时间余量（分）','起跑損失時間餘裕（分）','로스타임 여유 (분)');
+W('関門（任意）「距離km 号砲からの制限時間」または「距離km 閉鎖時刻」を1行ずつ','Cutoffs (optional): one per line, "distance-km time-from-gun" or "distance-km closing-clock-time"','关门点（可选）：每行一个，“距离km 鸣枪后限时”或“距离km 关闭时刻”','關門點（可選）：每行一個，「距離km 鳴槍後限時」或「距離km 關閉時刻」','관문 (선택): 한 줄에 하나씩 "거리km 출발 신호부터 제한 시간" 또는 "거리km 폐쇄 시각"');
+W('例）','e.g.','例：','例：','예)');
+W('読み取った関門','Cutoffs read','已识别的关门点','已識別的關門點','읽어 들인 관문');
+W('本番の戦略','Race strategy','比赛策略','比賽策略','대회 전략');
+W('（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。','(Optional) Set a speed for each section and the music plays at a tempo for that speed. Use "+ Add stage" to add as many stages as you need (works for ultramarathons too).','（可选）为每个区间设定时速后，该区间会以相应节奏播放。用“＋ 添加阶段”可以任意增加阶段（也适用于超级马拉松）。','（可選）為每個區間設定時速後，該區間會以相應節奏播放。用「＋ 新增階段」可以任意增加階段（也適用於超級馬拉松）。','(선택) 구간마다 시속을 정하면 그 구간은 그 속도에 맞춘 템포로 재생합니다. "+ 스테이지 추가"로 원하는 만큼 늘릴 수 있습니다 (울트라마라톤에도 사용 가능).');
+W('＋ ステージを追加','+ Add stage','＋ 添加阶段','＋ 新增階段','+ 스테이지 추가');
+W('目標タイムから','From target time:','根据目标成绩','根據目標成績','목표 기록으로');
+W('作るステージ数','Number of stages','生成阶段数','產生階段數','만들 스테이지 수');
+W('で','','生成','產生','');
+W('作る','Create','生成','產生','만들기');
+W('戦略を消す','Clear strategy','清除策略','清除策略','전략 지우기');
+W('本番の設定の保存','Save race settings','保存比赛设置','儲存比賽設定','대회 설정 저장');
+W('入力中の内容は自動で残ります。大会ごとに名前を付けて保存しておくと、あとで読み込めます。','What you enter is kept automatically. Save it under a name for each race to load it later.','输入的内容会自动保留。为每场比赛命名保存后，之后可以读取。','輸入的內容會自動保留。為每場比賽命名儲存後，之後可以讀取。','입력한 내용은 자동으로 남습니다. 대회마다 이름을 붙여 저장하면 나중에 불러올 수 있습니다.');
+W('保存名（例：水戸2026）','Name (e.g. Tokyo 2026)','保存名（例：东京2026）','儲存名稱（例：東京2026）','저장 이름 (예: 서울 2026)');
+W('保存名','Save name','保存名','儲存名稱','저장 이름');
+W('保存','Save','保存','儲存','저장');
+W('曲をシャッフルして流す','Shuffle songs','随机播放歌曲','隨機播放歌曲','곡 셔플 재생');
+W('ラジコやYouTubeなど、ほかのアプリをこのページから終了させることはできません。スタート5分前にBGMが鳴り始めると、多くのスマホではほかのアプリの音が自動で止まります。止まらないときは手で止めてください。','This page cannot close other apps such as radio or YouTube. When the BGM starts 5 minutes before the start, most phones stop other apps\' audio automatically. If not, stop it yourself.','本页面无法关闭广播或YouTube等其他应用。起跑前5分钟BGM开始播放时，大多数手机会自动停止其他应用的声音。如未停止，请手动停止。','本頁面無法關閉廣播或YouTube等其他應用程式。起跑前5分鐘BGM開始播放時，大多數手機會自動停止其他應用程式的聲音。如未停止，請手動停止。','이 페이지에서 라디오나 YouTube 등 다른 앱을 종료할 수는 없습니다. 출발 5분 전에 BGM이 시작되면 대부분의 휴대폰에서 다른 앱 소리가 자동으로 멈춥니다. 멈추지 않으면 직접 멈춰 주세요.');
+W('待機中と本番中は、このページを開いたまま画面をつけておいてください。画面が消えたりほかのアプリに切り替えたりすると、BGMや音声のお知らせが止まることがあります。','During standby and the race, keep this page open with the screen on. If the screen turns off or you switch apps, the BGM and voice announcements may stop.','待机和比赛期间，请保持本页面打开并保持屏幕常亮。屏幕关闭或切换到其他应用时，BGM和语音提示可能会停止。','待機和比賽期間，請保持本頁面開啟並保持螢幕常亮。螢幕關閉或切換到其他應用程式時，BGM和語音提示可能會停止。','대기 중과 대회 중에는 이 페이지를 연 채로 화면을 켜 두세요. 화면이 꺼지거나 다른 앱으로 전환하면 BGM과 음성 안내가 멈출 수 있습니다.');
+W('スタートラインを通過したら「スタート」を押してください。画面がロックされ、30分ごとに目標の距離を音声でお知らせします。BGMは、自分のウェーブのスタート時刻から制限時間＋30分まで流れます（途中で「ストップ」も可）。','Press "Start" when you cross the start line. The screen locks and your target distance is announced every 30 minutes. The BGM plays until the time limit + 30 minutes (you can stop it any time).','通过起跑线时请按“开始”。屏幕会锁定，每30分钟语音播报目标距离。BGM会一直播放到关门时间＋30分钟（中途也可以停止）。','通過起跑線時請按「開始」。螢幕會鎖定，每30分鐘語音播報目標距離。BGM會一直播放到關門時間＋30分鐘（中途也可以停止）。','출발선을 지나면 "시작"을 누르세요. 화면이 잠기고 30분마다 목표 거리를 음성으로 알려 줍니다. BGM은 제한 시간 + 30분까지 재생됩니다 (중간에 멈출 수도 있음).');
+W('リラックス','Relax','放松','放鬆','릴랙스');
+W('ステージはなく、「使う」にチェックした曲を原曲の速さのまま、「ストップ」を押すまで繰り返し流します。','No stages. Songs checked "Use" play at their original speed, repeating until you press "Stop".','没有阶段。勾选“使用”的歌曲以原速循环播放，直到按下“停止”。','沒有階段。勾選「使用」的歌曲以原速循環播放，直到按下「停止」。','스테이지 없이 "사용"에 체크한 곡을 원래 속도로 "정지"를 누를 때까지 반복 재생합니다.');
+W('マイリスト','My lists','我的列表','我的清單','마이 리스트');
+W('練習メニュー（ステージ・ペース・時間）、曲の順番とステージの割り当て、リズムの微調整をまとめて登録します。','Saves the training menu (stages, pace, time), song order and stage assignments, and rhythm fine-tuning together.','一并保存训练菜单（阶段・配速・时间）、歌曲顺序与阶段分配，以及节奏微调。','一併儲存訓練菜單（階段・配速・時間）、歌曲順序與階段分配，以及節奏微調。','연습 메뉴(스테이지・페이스・시간), 곡 순서와 스테이지 배정, 리듬 미세 조정을 한꺼번에 등록합니다.');
+W('名前（例：火曜のペース走）','Name (e.g. Tuesday tempo run)','名称（例：周二配速跑）','名稱（例：週二配速跑）','이름 (예: 화요일 페이스주)');
+W('マイリストの名前','My list name','列表名称','清單名稱','마이 리스트 이름');
+W('今の設定を登録','Save current settings','保存当前设置','儲存目前設定','현재 설정 등록');
+W('練習メニュー','Training menu','训练菜单','訓練菜單','연습 메뉴');
+W('ステージごとに「1km何分で走るか」と時間を決めます。曲の速さは、そのペースで走りやすいリズムに自動で合わせます。','Set the pace per km and the time for each stage. The music speed is adjusted automatically to a rhythm that suits that pace.','为每个阶段设定“每公里几分钟”和时间。歌曲速度会自动调整为适合该配速的节奏。','為每個階段設定「每公里幾分鐘」和時間。歌曲速度會自動調整為適合該配速的節奏。','스테이지마다 "1km를 몇 분에 달릴지"와 시간을 정합니다. 곡 속도는 그 페이스로 달리기 좋은 리듬에 자동으로 맞춥니다.');
+W('曲のリズムの微調整','Rhythm fine-tuning','节奏微调','節奏微調','곡 리듬 미세 조정');
+W('リズムを1歩/分 早く','Rhythm 1 step/min faster','节奏加快1步/分','節奏加快1步/分','리듬 1보/분 빠르게');
+W('リズムを1歩/分 遅く','Rhythm 1 step/min slower','节奏放慢1步/分','節奏放慢1步/分','리듬 1보/분 느리게');
+W('早く','Faster','加快','加快','빠르게');
+W('遅く','Slower','放慢','放慢','느리게');
+W('（曲がゆっくりに感じたら「早く」、せかされる感じなら「遅く」）','(If the music feels slow, press "Faster"; if it feels rushed, press "Slower")','（感觉歌曲太慢就按“加快”，感觉太急就按“放慢”）','（感覺歌曲太慢就按「加快」，感覺太急就按「放慢」）','(곡이 느리게 느껴지면 "빠르게", 재촉받는 느낌이면 "느리게")');
+W('曲','Songs','歌曲','歌曲','곡');
+W('「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。曲ごとに流すステージも選べます（「全ステージ」か、個別のステージ）。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。','Only songs checked "Use" are played, and they are what gets saved to a my list. You can choose which stages each song plays in ("All stages" or specific ones). BPM is measured automatically; if it is off, fix it with "Tap" while previewing.','只播放勾选“使用”的歌曲，我的列表也只保存勾选的歌曲。可以为每首歌选择播放的阶段（“全部阶段”或指定阶段）。BPM会自动测量，如有偏差可边试听边用“轻点”修正。','只播放勾選「使用」的歌曲，我的清單也只儲存勾選的歌曲。可以為每首歌選擇播放的階段（「全部階段」或指定階段）。BPM會自動測量，如有偏差可邊試聽邊用「輕點」修正。','"사용"에 체크한 곡만 재생하며, 마이 리스트에도 체크한 곡이 등록됩니다. 곡마다 재생할 스테이지를 고를 수 있습니다 ("전체 스테이지" 또는 개별 스테이지). BPM은 자동으로 측정하며, 어긋나면 미리 듣기하면서 "탭"으로 고칠 수 있습니다.');
+W('曲を追加','Add songs','添加歌曲','新增歌曲','곡 추가');
+W('シャッフル','Shuffle','随机排序','隨機排序','셔플');
+W('すべてクリア','Clear all','全部清除','全部清除','모두 지우기');
+W('一覧の曲をすべてクリアしますか？マイリストで使っている曲はこのブラウザに残り、マイリストを読み込むと一覧に戻ります。それ以外の曲は削除します（端末にある元のファイルは消えません）。','Clear all songs from the list? Songs used in my lists stay in this browser and come back when you load the my list. Other songs are deleted (the original files on your device are not deleted).','要清除列表中的所有歌曲吗？我的列表中使用的歌曲会保留在此浏览器中，读取我的列表后会回到列表。其他歌曲将被删除（设备上的原始文件不会被删除）。','要清除清單中的所有歌曲嗎？我的清單中使用的歌曲會保留在此瀏覽器中，讀取我的清單後會回到清單。其他歌曲將被刪除（裝置上的原始檔案不會被刪除）。','목록의 곡을 모두 지울까요? 마이 리스트에서 쓰는 곡은 이 브라우저에 남고, 마이 리스트를 불러오면 목록으로 돌아옵니다. 그 밖의 곡은 삭제합니다 (기기에 있는 원본 파일은 지워지지 않습니다).');
+W('やめる','Cancel','取消','取消','취소');
+W('まだ曲がありません。「曲を追加」から音声ファイル（MP3・M4A・WAV など）を選ぶか、ここにドラッグしてください。','No songs yet. Choose audio files (MP3, M4A, WAV, etc.) with "Add songs", or drag them here.','还没有歌曲。请通过“添加歌曲”选择音频文件（MP3・M4A・WAV等），或拖放到这里。','還沒有歌曲。請透過「新增歌曲」選擇音訊檔案（MP3・M4A・WAV等），或拖放到這裡。','아직 곡이 없습니다. "곡 추가"에서 오디오 파일(MP3・M4A・WAV 등)을 고르거나 여기로 끌어다 놓으세요.');
+W('ファイルはこの端末の中だけで処理され、どこにも送られません。','Files are processed only on this device and are never sent anywhere.','文件只在本设备中处理，不会发送到任何地方。','檔案只在本裝置中處理，不會傳送到任何地方。','파일은 이 기기 안에서만 처리되며 어디에도 전송되지 않습니다.');
+W('オフラインで使うとき','Using offline','离线使用时','離線使用時','오프라인으로 사용할 때');
+W('追加した曲とBPMはこのブラウザの中に保存され、次に開いたときも残ります。別の端末や別のブラウザでは、そちらで追加してください。','Added songs and BPMs are saved in this browser and remain next time. On another device or browser, add them there.','添加的歌曲和BPM保存在此浏览器中，下次打开时仍在。在其他设备或浏览器上，请在那里添加。','新增的歌曲和BPM儲存在此瀏覽器中，下次開啟時仍在。在其他裝置或瀏覽器上，請在那裡新增。','추가한 곡과 BPM은 이 브라우저에 저장되어 다음에 열 때도 남습니다. 다른 기기나 브라우저에서는 그곳에서 추가하세요.');
+W('曲を読み込んだあとは、通信が切れても再生とタイマーは動きます。','Once songs are loaded, playback and the timer keep working even without a connection.','歌曲读取后，即使断网，播放和计时也会继续。','歌曲讀取後，即使斷網，播放和計時也會繼續。','곡을 불러온 뒤에는 통신이 끊겨도 재생과 타이머가 작동합니다.');
+W('スマホでは画面を消すとタイマーの更新が遅れることがあります。走っている間は画面をつけたままにするのが確実です（対応ブラウザでは自動で画面が消えないようにします）。','On phones the timer may lag when the screen is off. Keeping the screen on while running is safest (supported browsers keep it on automatically).','手机关闭屏幕后计时更新可能会延迟。跑步时保持屏幕常亮最可靠（支持的浏览器会自动保持屏幕常亮）。','手機關閉螢幕後計時更新可能會延遲。跑步時保持螢幕常亮最可靠（支援的瀏覽器會自動保持螢幕常亮）。','휴대폰은 화면을 끄면 타이머 갱신이 늦어질 수 있습니다. 달리는 동안 화면을 켜 두는 것이 확실합니다 (지원 브라우저에서는 자동으로 화면이 꺼지지 않게 합니다).');
+W('テンポの倍率が大きすぎる曲（目安：0.75倍未満・1.35倍超）は音が不自然になりやすいので「変化大」と表示します。','Songs with a large tempo ratio (roughly under 0.75× or over 1.35×) tend to sound unnatural and are marked "Big change".','节奏倍率过大的歌曲（约低于0.75倍或高于1.35倍）声音容易不自然，会显示“变化大”。','節奏倍率過大的歌曲（約低於0.75倍或高於1.35倍）聲音容易不自然，會顯示「變化大」。','템포 배율이 너무 큰 곡(대략 0.75배 미만・1.35배 초과)은 소리가 부자연스러워지기 쉬워 "변화 큼"으로 표시합니다.');
+/* menu / presets */
+W('一定速走','Steady run','匀速跑','勻速跑','일정 속도주');
+W('クールダウン','Cool-down','放松跑','緩和跑','쿨다운');
+W('ビルドアップ','Build-up','渐进跑','漸進跑','빌드업');
+W('ジョグ','Jog','慢跑','慢跑','조깅');
+W('テンポ走','Tempo run','节奏跑','節奏跑','템포주');
+W('ステージ','Stage','阶段','階段','스테이지');
+W('ペース走','Pace run','配速跑','配速跑','페이스주');
+W('インターバル','Interval','间歇跑','間歇跑','인터벌');
+W('つなぎジョグ','Recovery jog','恢复慢跑','恢復慢跑','회복 조깅');
+W('ロング走','Long run','长距离跑','長距離跑','장거리주');
+W('LSD','LSD','LSD','LSD','LSD');
+/* messages */
+W('この環境では曲を保存できません。ページを閉じると曲は消えます。','Songs cannot be saved here. They will disappear when you close the page.','此环境无法保存歌曲。关闭页面后歌曲会消失。','此環境無法儲存歌曲。關閉頁面後歌曲會消失。','이 환경에서는 곡을 저장할 수 없습니다. 페이지를 닫으면 곡이 사라집니다.');
+W('走っている間は受け取れません。','Cannot receive while running.','跑步中无法接收。','跑步中無法接收。','달리는 중에는 받을 수 없습니다.');
+W('走っている間は読み込めません。','Cannot load while running.','跑步中无法读取。','跑步中無法讀取。','달리는 중에는 불러올 수 없습니다.');
+W('閉じる','Close','关闭','關閉','닫기');
+W('元のメニューに戻す','Restore previous menu','恢复原菜单','恢復原菜單','원래 메뉴로 되돌리기');
+W('1拍に2歩','2 steps per beat','每拍2步','每拍2步','1박에 2보');
+W('2拍で1歩','1 step per 2 beats','每2拍1步','每2拍1步','2박에 1보');
+W('1拍に1歩','1 step per beat','每拍1步','每拍1步','1박에 1보');
+W('完了','Done','完成','完成','완료');
+W('おつかれさまでした','Great job!','辛苦了！','辛苦了！','수고하셨습니다');
+W('これで最後です','This is the last one','这是最后一个','這是最後一個','마지막입니다');
+W('流す曲がありません。曲の一覧で「使う」にチェックを入れてください。','No songs to play. Check "Use" in the song list.','没有可播放的歌曲。请在歌曲列表中勾选“使用”。','沒有可播放的歌曲。請在歌曲清單中勾選「使用」。','재생할 곡이 없습니다. 곡 목록에서 "사용"에 체크하세요.');
+W('BPMを測定中のため、元の速さで流します。','Measuring BPM; playing at original speed.','正在测量BPM，以原速播放。','正在測量BPM，以原速播放。','BPM 측정 중이라 원래 속도로 재생합니다.');
+W('変化大','Big change','变化大','變化大','변화 큼');
+W('一時停止','Pause','暂停','暫停','일시정지');
+W('再開','Resume','继续','繼續','재개');
+W('もう一度','Again','再来一次','再來一次','다시');
+W('原曲再生','Original speed','原速播放','原速播放','원곡 재생');
+W('曲の速さを変えずに流します','Plays without changing song speed','不改变歌曲速度播放','不改變歌曲速度播放','곡 속도를 바꾸지 않고 재생합니다');
+W('ステージ名','Stage name','阶段名称','階段名稱','스테이지 이름');
+W('このステージを削除','Delete this stage','删除此阶段','刪除此階段','이 스테이지 삭제');
+W('ペース（/km）','Pace (/km)','配速（/公里）','配速（/公里）','페이스 (/km)');
+W('ペースを5秒早くする','5 s faster pace','配速加快5秒','配速加快5秒','페이스 5초 빠르게');
+W('5秒早く','5 s faster','快5秒','快5秒','5초 빠르게');
+W('ペースを5秒遅くする','5 s slower pace','配速放慢5秒','配速放慢5秒','페이스 5초 느리게');
+W('5秒遅く','5 s slower','慢5秒','慢5秒','5초 느리게');
+W('1kmのペース 分:秒','Pace per km m:ss','每公里配速 分:秒','每公里配速 分:秒','1km 페이스 분:초');
+W('時間','Time','时间','時間','시간');
+W('分','min','分','分','분');
+W('時速','Speed','时速','時速','시속');
+W('距離','Distance','距离','距離','거리');
+W('テンポはペースから自動','Tempo set automatically from pace','节奏根据配速自动设定','節奏根據配速自動設定','템포는 페이스에서 자동');
+W('テンポを手動で設定中','Tempo set manually','节奏为手动设定','節奏為手動設定','템포 수동 설정 중');
+W('自動に戻す','Back to auto','恢复自动','恢復自動','자동으로 되돌리기');
+W('流すステージ','Play in','播放阶段','播放階段','재생 스테이지');
+W('全ステージ','All stages','全部阶段','全部階段','전체 스테이지');
+W('ひとつ上へ','Move up','上移','上移','위로');
+W('ひとつ下へ','Move down','下移','下移','아래로');
+W('使う','Use','使用','使用','사용');
+W('BPMを測定中…','Measuring BPM…','正在测量BPM…','正在測量BPM…','BPM 측정 중…');
+W('このファイルは解析できませんでした。BPMを入力してください。','This file could not be analyzed. Enter the BPM.','无法分析此文件。请输入BPM。','無法分析此檔案。請輸入BPM。','이 파일은 분석할 수 없었습니다. BPM을 입력하세요.');
+W('曲のBPM','Song BPM','歌曲BPM','歌曲BPM','곡 BPM');
+W('停止','Stop','停止','停止','정지');
+W('試聴','Preview','试听','試聽','미리 듣기');
+W('タップ','Tap','轻点','輕點','탭');
+W('この曲を外す','Remove this song','移除此歌曲','移除此歌曲','이 곡 빼기');
+W('原曲の速さで流します','Plays at original speed','以原速播放','以原速播放','원래 속도로 재생합니다');
+W('画面ロック中','Screen locked','屏幕已锁定','螢幕已鎖定','화면 잠김');
+W('1 km 通過','Passed 1 km','通过1公里','通過1公里','1 km 통과');
+W('長押しでGPSをON','Hold to turn GPS ON','长按打开GPS','長按開啟GPS','길게 눌러 GPS 켜기');
+W('長押しでGPSをOFF','Hold to turn GPS OFF','长按关闭GPS','長按關閉GPS','길게 눌러 GPS 끄기');
+W('解除','Unlock','解锁','解鎖','해제');
+W('長押し','Hold','长按','長按','길게 누르기');
+W('ゴール','Finish','终点','終點','골');
+W('時間','Time','时间','時間','시간');
+W('目標どおり','On target','符合目标','符合目標','목표대로');
+W('GPS：位置を探しています…','GPS: searching…','GPS：正在定位…','GPS：正在定位…','GPS: 위치 찾는 중…');
+W('この端末・画面ではGPSが使えません','GPS is not available on this device/screen','此设备或页面无法使用GPS','此裝置或頁面無法使用GPS','이 기기・화면에서는 GPS를 쓸 수 없습니다');
+W('GPSが許可されていません（この画面では使えない可能性があります）','GPS is not permitted (it may not work on this screen)','GPS未获许可（此页面可能无法使用）','GPS未獲許可（此頁面可能無法使用）','GPS가 허용되지 않았습니다 (이 화면에서는 쓸 수 없을 수 있습니다)');
+W('GPSの位置が取れません','Cannot get GPS position','无法获取GPS位置','無法取得GPS位置','GPS 위치를 얻을 수 없습니다');
+W('（今のペースで推定）','(estimated at current pace)','（按当前配速推定）','（按目前配速推定）','(현재 페이스로 추정)');
+W('（目標ペースで推定）','(estimated at target pace)','（按目标配速推定）','（按目標配速推定）','(목표 페이스로 추정)');
+W('GPSで計測中','Measuring by GPS','GPS测量中','GPS測量中','GPS로 측정 중');
+W('すべて通過','All passed','全部通过','全部通過','모두 통과');
+W('推定では、関門はすべて通過しています','All cutoffs passed (estimated)','推定已通过所有关门点','推定已通過所有關門點','추정으로는 관문을 모두 통과했습니다');
+W('閉鎖','Closed','已关闭','已關閉','폐쇄');
+W('もう一度押すとゴール（終了）','Press again to finish','再按一次结束（到达终点）','再按一次結束（到達終點）','한 번 더 누르면 골 (종료)');
+W('もう一度押すと最初に戻します','Press again to go back to start','再按一次回到开始','再按一次回到開始','한 번 더 누르면 처음으로 돌아갑니다');
+W('GPSが使えません','GPS unavailable','GPS不可用','GPS無法使用','GPS를 쓸 수 없습니다');
+W('このステージの残り距離','Distance left in stage','本阶段剩余距离','本階段剩餘距離','이 스테이지 남은 거리');
+W('全体の残り距離','Total distance left','总剩余距离','總剩餘距離','전체 남은 거리');
+W('屋内と同じく時間で進めます。','Advancing by time, same as indoor.','与室内一样按时间切换。','與室內一樣按時間切換。','실내와 같이 시간으로 진행합니다.');
+W('スタートを押すとGPSで距離を測り、各ステージの距離を走ると次のステージへ進みます。画面はつけたままにしてください。','Press Start to measure distance by GPS; when you finish each stage\'s distance you move to the next. Keep the screen on.','按开始后用GPS测量距离，跑完每个阶段的距离就进入下一阶段。请保持屏幕常亮。','按開始後用GPS測量距離，跑完每個階段的距離就進入下一階段。請保持螢幕常亮。','시작을 누르면 GPS로 거리를 재고, 각 스테이지 거리를 달리면 다음 스테이지로 넘어갑니다. 화면은 켜 두세요.');
+W('（位置が取れないため目標ペースで推定中）','(no position; estimating at target pace)','（无法定位，按目标配速推定中）','（無法定位，按目標配速推定中）','(위치를 얻지 못해 목표 페이스로 추정 중)');
+W('保存を確認できませんでした。もう一度「上書き」を押してください。','Could not confirm the save. Press "Overwrite" again.','无法确认保存。请再按一次“覆盖”。','無法確認儲存。請再按一次「覆寫」。','저장을 확인하지 못했습니다. "덮어쓰기"를 다시 누르세요.');
+W('（保存を確認しました）','(save confirmed)','（已确认保存）','（已確認儲存）','(저장 확인됨)');
+W('読み込む','Load','读取','讀取','불러오기');
+W('今の一覧に、このマイリストの曲を重複なしで追加します','Add this list\'s songs to the current list without duplicates','将此列表的歌曲不重复地添加到当前列表','將此清單的歌曲不重複地加到目前清單','이 마이 리스트의 곡을 중복 없이 현재 목록에 추가합니다');
+W('追加読込','Add from list','追加读取','追加讀取','추가 불러오기');
+W('上書き','Overwrite','覆盖','覆寫','덮어쓰기');
+W('本当に削除','Really delete','确定删除','確定刪除','정말 삭제');
+W('削除','Delete','删除','刪除','삭제');
+W('名前を入力してください。','Enter a name.','请输入名称。','請輸入名稱。','이름을 입력하세요.');
+W('本番','Race','比赛','比賽','대회');
+W('目標タイムを入れると、BGMのテンポを計算します。','Enter a target time to calculate the BGM tempo.','输入目标成绩后会计算BGM节奏。','輸入目標成績後會計算BGM節奏。','목표 기록을 입력하면 BGM 템포를 계산합니다.');
+W('開催日とスタート時刻を入れると、BGMを流し始める時刻と終える時刻を表示します。','Enter the date and start time to show when the BGM starts and ends.','输入比赛日期和起跑时间后，会显示BGM开始和结束的时刻。','輸入比賽日期和起跑時間後，會顯示BGM開始和結束的時刻。','개최일과 출발 시각을 입력하면 BGM 시작・종료 시각을 표시합니다.');
+W('（読み取れない行があります）','(some lines could not be read)','（有无法识别的行）','（有無法識別的行）','(읽을 수 없는 줄이 있습니다)');
+W('なし','None','无','無','없음');
+W('まだ受け取っていません','Nothing received yet','尚未接收','尚未接收','아직 받지 않았습니다');
+W('未入力','not set','未输入','未輸入','미입력');
+W('時刻（例 13:30）で書いた関門は、スタート時刻からの時間に直して使います。','Cutoffs written as clock times (e.g. 13:30) are converted to time from the start.','以时刻（如13:30）填写的关门点，会换算为从起跑开始的时间。','以時刻（如13:30）填寫的關門點，會換算為從起跑開始的時間。','시각(예 13:30)으로 쓴 관문은 출발 시각부터의 시간으로 바꿔 사용합니다.');
+W('ゴール（終了）','Finish (end)','到达终点（结束）','到達終點（結束）','골 (종료)');
+W('終了（画面を閉じる）','End (close screen)','结束（关闭画面）','結束（關閉畫面）','종료 (화면 닫기)');
+W('ストップ','Stop','停止','停止','정지');
+W('再生中','Playing','播放中','播放中','재생 중');
+W('原曲の速さで繰り返し','Repeat at original speed','以原速循环','以原速循環','원래 속도로 반복');
+W('再生時間','Play time','播放时间','播放時間','재생 시간');
+W('再生','Play','播放','播放','재생');
+W('まもなくスタート（BGM再生中）','Starting soon (BGM playing)','即将起跑（BGM播放中）','即將起跑（BGM播放中）','곧 출발 (BGM 재생 중)');
+W('待機中','Standing by','待机中','待機中','대기 중');
+W('スタートから','Since start','起跑后','起跑後','출발부터');
+W('スタートまで','Until start','距起跑','距起跑','출발까지');
+W('スタート時刻から','Since start time','起跑时刻后','起跑時刻後','출발 시각부터');
+W('BGMのテンポ','BGM tempo','BGM节奏','BGM節奏','BGM 템포');
+W('ゴール時の制限時間まで','Time limit left at finish','到终点时距关门剩余','到終點時距關門剩餘','골 시점 제한 시간까지');
+W('制限時間まで','Until time limit','距关门时间','距關門時間','제한 시간까지');
+W('ロスタイム','Start loss','起跑损失时间','起跑損失時間','로스타임');
+W('スタートで計測','Measured at start','起跑时测量','起跑時測量','출발 시 측정');
+W('ゴール到着の予定','Expected finish','预计到达终点','預計到達終點','골 도착 예정');
+W('スタート30分後','30 min after start','起跑30分钟后','起跑30分鐘後','출발 30분 후');
+W('目標タイムを入れると表示','Shown when target time is set','输入目标成绩后显示','輸入目標成績後顯示','목표 기록을 입력하면 표시');
+W('スタート（スタートライン通過で押す）','Start (press at the start line)','开始（通过起跑线时按）','開始（通過起跑線時按）','시작 (출발선 통과 시 누르기)');
+W('開催日とスタート時刻を入れてください。','Enter the date and start time.','请输入比赛日期和起跑时间。','請輸入比賽日期和起跑時間。','개최일과 출발 시각을 입력하세요.');
+W('目標タイムを入れてください。','Enter a target time.','请输入目标成绩。','請輸入目標成績。','목표 기록을 입력하세요.');
+W('BGMを流す時間（制限時間＋30分）を過ぎています。開催日とスタート時刻を確認してください。','The BGM period (time limit + 30 min) has passed. Check the date and start time.','已超过BGM播放时间（关门时间＋30分钟）。请确认比赛日期和起跑时间。','已超過BGM播放時間（關門時間＋30分鐘）。請確認比賽日期和起跑時間。','BGM 재생 시간(제한 시간 + 30분)이 지났습니다. 개최일과 출발 시각을 확인하세요.');
+W('本番待機を始めました。スタート5分前に音楽が始まります。','Race standby started. Music begins 5 minutes before the start.','已开始比赛待机。起跑前5分钟开始播放音乐。','已開始比賽待機。起跑前5分鐘開始播放音樂。','대회 대기를 시작했습니다. 출발 5분 전에 음악이 시작됩니다.');
+W('待機をやめました。','Standby cancelled.','已取消待机。','已取消待機。','대기를 취소했습니다.');
+W('戦略はありません。目標タイムから計算した1つのテンポで流します。','No strategy. Plays at one tempo calculated from the target time.','没有策略。以根据目标成绩计算的单一节奏播放。','沒有策略。以根據目標成績計算的單一節奏播放。','전략이 없습니다. 목표 기록에서 계산한 하나의 템포로 재생합니다.');
+W('時速と区間の終わり（km）を入れると、ゴール予想を表示します。','Enter speeds and section ends (km) to see the predicted finish.','输入时速和区间终点（公里）后显示预计完赛时间。','輸入時速和區間終點（公里）後顯示預計完賽時間。','시속과 구간 끝(km)을 입력하면 골 예상을 표시합니다.');
+W('先に目標タイムを入れてください。','Enter a target time first.','请先输入目标成绩。','請先輸入目標成績。','먼저 목표 기록을 입력하세요.');
+W('保存名を入れてください。','Enter a save name.','请输入保存名。','請輸入儲存名稱。','저장 이름을 입력하세요.');
+W('大会名なし','No race name','无比赛名称','無比賽名稱','대회명 없음');
+W('日付なし','No date','无日期','無日期','날짜 없음');
+W('言語','Language','语言','語言','언어');
+W('大会','Race','比赛','比賽','대회');
+W('（','(','（','（','(');
+W('）',')','）','）',')');
+/* speech-only sentences */
+W('スタート','Start','开始','開始','시작');
+W('制限時間を過ぎたので終了します。おつかれさまでした','The time limit has passed, so we will finish. Great job','已超过关门时间，结束。辛苦了','已超過關門時間，結束。辛苦了','제한 시간이 지나서 종료합니다. 수고하셨습니다');
+W('制限時間を過ぎたので終了します','The time limit has passed, so we will finish','已超过关门时间，结束','已超過關門時間，結束','제한 시간이 지나서 종료합니다');
+W('目標どおりです','You are on target','符合目标','符合目標','목표대로입니다');
+W('取り消しました','Cancelled','已撤销','已撤銷','취소했습니다');
+W('GPSをオンにしました','GPS turned on','已打开GPS','已開啟GPS','GPS를 켰습니다');
+W('GPSをオフにしました','GPS turned off','已关闭GPS','已關閉GPS','GPS를 껐습니다');
+W('スタート前に戻しました','Back to before the start','已回到起跑前','已回到起跑前','출발 전으로 되돌렸습니다');
+W('スタート時刻です','It is the start time','到起跑时间了','到起跑時間了','출발 시각입니다');
+W('スタートラインを通過したら、スタートを押してください','Press Start when you cross the start line','通过起跑线后请按开始','通過起跑線後請按開始','출발선을 지나면 시작을 누르세요');
+W('スタート5分前です','5 minutes to the start','距起跑还有5分钟','距起跑還有5分鐘','출발 5분 전입니다');
+W('ペースアップ','Pace up','加速','加速','페이스 업');
+W('ペースダウン','Pace down','减速','減速','페이스 다운');
+W('おつかれさまでした','Great job','辛苦了','辛苦了','수고하셨습니다');
+W('目標では','By target','按目标','按目標','목표로는');
+W('手元の曲を、練習メニューの1kmペースで走りやすい速さに合わせて、音程を変えずに再生します。','Plays your own music at a speed that matches the per-km pace of your training menu, without changing the pitch.','以适合训练菜单每公里配速的速度播放您自己的音乐，且不改变音调。','以適合訓練菜單每公里配速的速度播放您自己的音樂，且不改變音調。','내 음악을 연습 메뉴의 1km 페이스에 맞춰 달리기 좋은 속도로, 음정은 바꾸지 않고 재생합니다.');
+W('手元の曲を、本番の目標タイム（本番の戦略）のペースで走りやすい速さに合わせて、音程を変えずに再生します。','Plays your own music at a speed that matches the pace of your race target time (race strategy), without changing the pitch.','以适合比赛目标成绩（比赛策略）配速的速度播放您自己的音乐，且不改变音调。','以適合比賽目標成績（比賽策略）配速的速度播放您自己的音樂，且不改變音調。','내 음악을 대회 목표 기록(대회 전략)의 페이스에 맞춰 달리기 좋은 속도로, 음정은 바꾸지 않고 재생합니다.');
+W('手元の曲を、原曲の速さのまま繰り返し再生します。','Plays your own music on repeat at its original speed.','以原速循环播放您自己的音乐。','以原速循環播放您自己的音樂。','내 음악을 원래 속도 그대로 반복 재생합니다.');
+W('「使う」にチェックした曲とその順番、リズムの微調整をまとめて登録します（練習メニューも一緒に登録されます）。','Saves the songs checked "Use", their order, and rhythm fine-tuning together (the training menu is saved too).','一并保存勾选“使用”的歌曲及其顺序和节奏微调（训练菜单也会一起保存）。','一併儲存勾選「使用」的歌曲及其順序和節奏微調（訓練菜單也會一起儲存）。','"사용"에 체크한 곡과 순서, 리듬 미세 조정을 한꺼번에 등록합니다 (연습 메뉴도 함께 등록됩니다).');
+W('「使う」にチェックした曲とその順番をまとめて登録します（練習メニューも一緒に登録されます）。','Saves the songs checked "Use" and their order (the training menu is saved too).','一并保存勾选“使用”的歌曲及其顺序（训练菜单也会一起保存）。','一併儲存勾選「使用」的歌曲及其順序（訓練菜單也會一起儲存）。','"사용"에 체크한 곡과 순서를 한꺼번에 등록합니다 (연습 메뉴도 함께 등록됩니다).');
+W('「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。','Only songs checked "Use" are played, and they are what gets saved to a my list. BPM is measured automatically; if it is off, fix it with "Tap" while previewing.','只播放勾选“使用”的歌曲，我的列表也只保存勾选的歌曲。BPM会自动测量，如有偏差可边试听边用“轻点”修正。','只播放勾選「使用」的歌曲，我的清單也只儲存勾選的歌曲。BPM會自動測量，如有偏差可邊試聽邊用「輕點」修正。','"사용"에 체크한 곡만 재생하며, 마이 리스트에도 체크한 곡이 등록됩니다. BPM은 자동으로 측정하며, 어긋나면 미리 듣기하면서 "탭"으로 고칠 수 있습니다.');
+W('「使う」にチェックした曲だけを、原曲の速さで流します。マイリストには、チェックした曲が登録されます。','Only songs checked "Use" are played, at their original speed. Checked songs are what gets saved to a my list.','只以原速播放勾选“使用”的歌曲。我的列表也只保存勾选的歌曲。','只以原速播放勾選「使用」的歌曲。我的清單也只儲存勾選的歌曲。','"사용"에 체크한 곡만 원래 속도로 재생합니다. 마이 리스트에는 체크한 곡이 등록됩니다.');
+W('GPSの位置をつかみました','GPS position acquired','已获取GPS位置','已取得GPS位置','GPS 위치를 잡았습니다');
+W('スタートできます','You can start','可以开始了','可以開始了','시작할 수 있습니다');
+W('位置を探しています','Searching for position','正在定位','正在定位','위치를 찾고 있습니다');
+W('GPSをオンにしました','GPS turned on','已打开GPS','已開啟GPS','GPS를 켰습니다');
+W('この開き方ではGPSが使えません。スマホのファイルから直接開くとGPSは使えないため、https:// で始まるアドレスで開いてください。','GPS is not available when opened this way. GPS does not work when the page is opened directly from a file on your phone; open it from an address that starts with https://.','这种打开方式无法使用GPS。直接从手机文件打开时无法使用GPS，请通过以 https:// 开头的地址打开。','這種開啟方式無法使用GPS。直接從手機檔案開啟時無法使用GPS，請透過以 https:// 開頭的網址開啟。','이렇게 열면 GPS를 쓸 수 없습니다. 휴대폰 파일에서 바로 열면 GPS가 작동하지 않으니 https://로 시작하는 주소로 여세요.');
+W('GPSが許可されていません（ブラウザの設定で位置情報を許可してください）','GPS is not permitted (allow location access in your browser settings)','GPS未获许可（请在浏览器设置中允许位置信息）','GPS未獲許可（請在瀏覽器設定中允許位置資訊）','GPS가 허용되지 않았습니다 (브라우저 설정에서 위치 정보를 허용하세요)');
+
+/* helpers */
+const nm=x=>{const r=tr1(x);return r==null?x:r;};
+const q=x=>LANG==='en'?`"${x}"`:LANG==='ko'?`"${x}"`:`「${x}」`;
+const PL=(n,w)=>`${n} ${w}${+n===1?'':'s'}`;
+/* more words */
+W('制限時間','Time limit','关门时间','關門時間','제한 시간');
+W('BGMのテンポ：','BGM tempo:','BGM节奏：','BGM節奏：','BGM 템포:');
+W('BGM開始','BGM starts','BGM开始','BGM開始','BGM 시작');
+W('（スタート5分前）','(5 min before start)','（起跑前5分钟）','（起跑前5分鐘）','(출발 5분 전)');
+W('スタート ～','Start –','起点 ～','起點 ～','출발 ～');
+W('長押しで+1','Hold: +1','长按+1','長按+1','길게 눌러 +1');
+W('待機中です','Standing by','待机中','待機中','대기 중입니다');
+W('このページを開いたまま、画面をつけておいてください','Keep this page open with the screen on','请保持本页面打开并保持屏幕常亮','請保持本頁面開啟並保持螢幕常亮','이 페이지를 연 채로 화면을 켜 두세요');
+W('次に開いたときも残ります','They remain next time you open the page','下次打开时仍会保留','下次開啟時仍會保留','다음에 열 때도 남습니다');
+W('練習メニューは変わりません','The training menu is unchanged','训练菜单不变','訓練菜單不變','연습 메뉴는 바뀌지 않습니다');
+W('記録','Time','成绩','成績','기록');
+W('直近ペース','Recent pace','最近配速','最近配速','최근 페이스');
+W('終了しました','Finished','已结束','已結束','종료했습니다');
+W('目標どおりです','On target','符合目标','符合目標','목표대로입니다');
+W('本番の設定はクリアしました','Race settings were cleared','已清除比赛设置','已清除比賽設定','대회 설정을 지웠습니다');
+W('（保存を確認しました）','(save confirmed)','（已确认保存）','（已確認儲存）','(저장 확인됨)');
+W('受け取れませんでした。大会管理で「マラソンBGMで開く」か「本番モードで開く」を押してから、もう一度お試しください。','Could not receive it. Press "Open in Marathon BGM" or "Open in race mode" in the race manager, then try again.','未能接收。请在比赛管理中按“用马拉松BGM打开”或“以比赛模式打开”后再试一次。','未能接收。請在比賽管理中按「用馬拉松BGM開啟」或「以比賽模式開啟」後再試一次。','받지 못했습니다. 대회 관리에서 "마라톤 BGM으로 열기" 또는 "대회 모드로 열기"를 누른 뒤 다시 시도하세요.');
+W('コードを読み取れませんでした。大会管理の「コピー」で写したものを、そのまま貼り付けてください。','Could not read the code. Paste exactly what you copied with "Copy" in the race manager.','无法读取代码。请原样粘贴在比赛管理中用“复制”得到的内容。','無法讀取代碼。請原樣貼上在比賽管理中用「複製」得到的內容。','코드를 읽지 못했습니다. 대회 관리의 "복사"로 복사한 내용을 그대로 붙여 넣으세요.');
+/* stages */
+P(/^ステージ ?(\d+)$/,m=>[`Stage ${m[1]}`,`阶段${m[1]}`,`階段${m[1]}`,`스테이지 ${m[1]}`]);
+P(/^第(\d+)ステージ$/,m=>[`Stage ${m[1]}`,`第${m[1]}阶段`,`第${m[1]}階段`,`${m[1]}스테이지`]);
+P(/^(\d+)ステージ$/,m=>[PL(m[1],'stage'),`${m[1]}个阶段`,`${m[1]}個階段`,`${m[1]}개 스테이지`]);
+P(/^戦略 (\d+)ステージ$/,m=>[`Strategy: ${PL(m[1],'stage')}`,`策略：${m[1]}个阶段`,`策略：${m[1]}個階段`,`전략 ${m[1]}개 스테이지`]);
+P(/^ステージ (\d+) \/ (\d+)$/,m=>[`Stage ${m[1]} / ${m[2]}`,`阶段 ${m[1]} / ${m[2]}`,`階段 ${m[1]} / ${m[2]}`,`스테이지 ${m[1]} / ${m[2]}`]);
+P(/^BGMのテンポ（第(\d+)ステージ）$/,m=>[`BGM tempo (stage ${m[1]})`,`BGM节奏（第${m[1]}阶段）`,`BGM節奏（第${m[1]}階段）`,`BGM 템포 (${m[1]}스테이지)`]);
+P(/^(\d+)ステージの時速$/,m=>[`Stage ${m[1]} speed`,`第${m[1]}阶段时速`,`第${m[1]}階段時速`,`${m[1]}스테이지 시속`]);
+P(/^(\d+)ステージの終わり（km）$/,m=>[`Stage ${m[1]} end (km)`,`第${m[1]}阶段终点（公里）`,`第${m[1]}階段終點（公里）`,`${m[1]}스테이지 끝 (km)`]);
+P(/^(\d+)ステージを削除$/,m=>[`Delete stage ${m[1]}`,`删除第${m[1]}阶段`,`刪除第${m[1]}階段`,`${m[1]}스테이지 삭제`]);
+P(/^(.+) (\d+:\d\d)\/km ([\d.]+)歩\/分 ([\d.]+)分$/,m=>{const n=nm(m[1]),mi=+(+m[4]).toFixed(1);return [`${n} ${m[2]}/km ${m[3]} spm ${mi} min`,`${n} ${m[2]}/公里 ${m[3]}步/分 ${mi}分`,`${n} ${m[2]}/公里 ${m[3]}步/分 ${mi}分`,`${n} ${m[2]}/km ${m[3]}보/분 ${mi}분`];});
+P(/^「(.+)」(\d+:\d\d)\/km なら$/,m=>{const n=nm(m[1]);return [`At ${q(n)} ${m[2]}/km:`,`「${n}」${m[2]}/公里时`,`「${n}」${m[2]}/公里時`,`"${n}" ${m[2]}/km이면`];});
+P(/^合計 ((?:\d+時間)?(?:\d+分)?)$/,m=>[`Total ${dur(m[1])}`,`合计 ${dur(m[1])}`,`合計 ${dur(m[1])}`,`합계 ${dur(m[1])}`]);
+P(/^約([\d.]+) ?km$/,m=>[`about ${m[1]} km`,`约${m[1]}公里`,`約${m[1]}公里`,`약 ${m[1]} km`]);
+P(/^((?:\d+時間)?(?:\d+分)?(?:\d+秒)?)$/,m=>m[1]?dur(m[1]):null);
+P(/^曲 (\d+)曲$/,m=>[PL(m[1],'song'),`${m[1]}首歌`,`${m[1]}首歌`,`곡 ${m[1]}곡`]);
+P(/^保存 (.+)$/,m=>[`saved ${m[1]}`,`保存于 ${m[1]}`,`儲存於 ${m[1]}`,`저장 ${m[1]}`]);
+P(/^目標 (.+)$/,m=>[`Target ${nm(m[1])}`,`目标 ${nm(m[1])}`,`目標 ${nm(m[1])}`,`목표 ${nm(m[1])}`]);
+P(/^タップ (\d+)$/,m=>[`Tap ${m[1]}`,`轻点 ${m[1]}`,`輕點 ${m[1]}`,`탭 ${m[1]}`]);
+/* run panel */
+P(/^残り 約([\d.]+) km$/,m=>[`about ${m[1]} km left`,`剩余约${m[1]}公里`,`剩餘約${m[1]}公里`,`남은 거리 약 ${m[1]} km`]);
+P(/^全 ([\d.]+) km$/,m=>[`of ${m[1]} km`,`全程 ${m[1]} 公里`,`全程 ${m[1]} 公里`,`전체 ${m[1]} km`]);
+P(/^予定では 約([\d.]+) km 地点$/,m=>[`Planned: about ${m[1]} km`,`按计划约在${m[1]}公里处`,`按計畫約在${m[1]}公里處`,`예정으로는 약 ${m[1]} km 지점`]);
+P(/^スタートから(.+)$/,m=>{const v=/[時分秒]/.test(m[1])?dur(m[1]):m[1];return [`${v} after start`,`起跑后${v}`,`起跑後${v}`,`출발 후 ${v}`];});
+P(/^(一時停止中|再生中|最初の曲)：$/,m=>{const k={'一時停止中':['Paused','已暂停','已暫停','일시정지 중'],'再生中':['Playing','播放中','播放中','재생 중'],'最初の曲':['First song','第一首','第一首','첫 곡']}[m[1]];return k.map((w,i)=>w+(i===1||i===2?'：':': '));});
+P(/^元 ([\d.]+) BPM →$/,m=>[`Original ${m[1]} BPM →`,`原曲 ${m[1]} BPM →`,`原曲 ${m[1]} BPM →`,`원곡 ${m[1]} BPM →`]);
+P(/^原曲再生：曲の速さを変えずに流しています（([\d.]+) BPM）$/,m=>[`Original speed: playing without changing speed (${m[1]} BPM)`,`原速播放：不改变速度播放（${m[1]} BPM）`,`原速播放：不改變速度播放（${m[1]} BPM）`,`원곡 재생: 속도를 바꾸지 않고 재생 중 (${m[1]} BPM)`]);
+P(/^原曲再生：曲の速さを変えずに流しています$/,m=>['Original speed: playing without changing speed','原速播放：不改变速度播放','原速播放：不改變速度播放','원곡 재생: 속도를 바꾸지 않고 재생 중']);
+P(/^✓ (.+)$/,m=>'✓ '+nm(m[1]));
+P(/^時速 ([\d.]+) ?km$/,m=>[`${m[1]} km/h`,`时速 ${m[1]} 公里`,`時速 ${m[1]} 公里`,`시속 ${m[1]} km`]);
+P(/^時速 ?([＋−±+\-])([\d.]+)( →)?$/,m=>{const s={'＋':'+','−':'−','±':'±'}[m[1]]||m[1];return [`${s}${m[2]} km/h${m[3]||''}`,`时速 ${s}${m[2]}${m[3]||''}`,`時速 ${s}${m[2]}${m[3]||''}`,`시속 ${s}${m[2]}${m[3]||''}`];});
+P(/^長押し 時速([＋−])([\d.]+)$/,m=>{const s=m[1]==='＋'?'+':'−';return [`Hold: ${s}${m[2]} km/h`,`长按 时速${s}${m[2]}`,`長按 時速${s}${m[2]}`,`길게 누르기 시속 ${s}${m[2]}`];});
+P(/^スタート（(\d+:\d\d:\d\d)から押せます）$/,m=>[`Start (available from ${m[1]})`,`开始（${m[1]}起可按）`,`開始（${m[1]}起可按）`,`시작 (${m[1]}부터 누를 수 있음)`]);
+/* position / cutoffs */
+P(/^([\d.]+) km（もう一度で \+1）$/,m=>[`${m[1]} km (again: +1)`,`${m[1]} 公里（再按+1）`,`${m[1]} 公里（再按+1）`,`${m[1]} km (한 번 더: +1)`]);
+P(/^([\d.]+) ?km 通過$/,m=>[`Passed ${m[1]} km`,`通过${m[1]}公里`,`通過${m[1]}公里`,`${m[1]} km 통과`]);
+P(/^補正 ([\d.]+)km（(.+)）$/,m=>[`Corrected ${m[1]} km (${m[2]})`,`校正 ${m[1]}公里（${m[2]}）`,`校正 ${m[1]}公里（${m[2]}）`,`보정 ${m[1]} km (${m[2]})`]);
+P(/^目標より ?(.+?) ?(遅れ|早い)$/,m=>{const v=/[時分秒]/.test(m[1])?dur(m[1]):m[1],late=m[2]==='遅れ';return [`${v} ${late?'behind':'ahead of'} target`,`比目标${late?'慢':'快'}${v}`,`比目標${late?'慢':'快'}${v}`,`목표보다 ${v} ${late?'늦음':'빠름'}`];});
+P(/^直近 (.+)\/km$/,m=>[`Recent ${m[1]}/km`,`最近 ${m[1]}/公里`,`最近 ${m[1]}/公里`,`최근 ${m[1]}/km`]);
+P(/^ゴール予想 (.+)$/,m=>[`Predicted finish ${m[1]}`,`预计完赛 ${m[1]}`,`預計完賽 ${m[1]}`,`골 예상 ${m[1]}`]);
+P(/^この戦略のゴール予想 ([\d:]+)$/,m=>[`Predicted finish with this strategy ${m[1]}`,`按此策略预计完赛 ${m[1]}`,`按此策略預計完賽 ${m[1]}`,`이 전략의 골 예상 ${m[1]}`]);
+P(/^([\d.]+)km まで あと ([\d.]+) km$/,m=>[`${m[2]} km to ${m[1]} km`,`距${m[1]}公里还有${m[2]}公里`,`距${m[1]}公里還有${m[2]}公里`,`${m[1]} km까지 ${m[2]} km 남음`]);
+P(/^閉鎖まで (.+)$/,m=>{let a=m[1];const cl=/^閉鎖/.test(a);const rest=a.replace(/^閉鎖|^[\d:]+/,'');const t=cl?null:(/^[\d:]+/.exec(a)||[''])[0];const r=nm(rest);
+  const sp=r?' ':'';return [cl?`Closed${sp}${r}`:`Closes in ${t}${sp}${r}`,cl?`已关闭${r}`:`距关闭 ${t}${r}`,cl?`已關閉${r}`:`距關閉 ${t}${r}`,cl?`폐쇄${sp}${r}`:`폐쇄까지 ${t}${sp}${r}`];});
+P(/^号砲から(.+)$/,m=>[`${m[1]} from gun`,`鸣枪后${m[1]}`,`鳴槍後${m[1]}`,`출발 신호부터 ${m[1]}`]);
+P(/^必要ペース (.+)\/km 以内$/,m=>[`Required pace ${m[1]}/km or faster`,`所需配速 ${m[1]}/公里以内`,`所需配速 ${m[1]}/公里以內`,`필요 페이스 ${m[1]}/km 이내`]);
+P(/^今のペースなら余裕 (\d+)分$/,m=>[`At current pace: ${m[1]} min to spare`,`按当前配速富余${m[1]}分钟`,`按目前配速餘裕${m[1]}分鐘`,`현재 페이스면 ${m[1]}분 여유`]);
+P(/^今のペースでは (\d+)分 足りません$/,m=>[`At current pace: ${m[1]} min short`,`按当前配速差${m[1]}分钟`,`按目前配速差${m[1]}分鐘`,`현재 페이스로는 ${m[1]}분 부족`]);
+P(/^([\d.]+)km\s*([\d:]+)閉鎖（号砲から([\d:]+)）$/,m=>[`${m[1]} km closes ${m[2]} (${m[3]} from gun)`,`${m[1]}公里 ${m[2]}关闭（鸣枪后${m[3]}）`,`${m[1]}公里 ${m[2]}關閉（鳴槍後${m[3]}）`,`${m[1]} km ${m[2]} 폐쇄 (출발 신호부터 ${m[3]})`]);
+P(/^関門 (.+)$/,m=>[`Cutoffs ${nm(m[1])}`,`关门点 ${nm(m[1])}`,`關門點 ${nm(m[1])}`,`관문 ${nm(m[1])}`]);
+P(/^関門の時刻がスタート時刻より前になっています。スタート時刻（いま (.+)）を確認してください。$/,m=>{const v=nm(m[1]);return [`A cutoff time is earlier than the start time. Check the start time (now ${v}).`,`关门时刻早于起跑时间。请确认起跑时间（当前 ${v}）。`,`關門時刻早於起跑時間。請確認起跑時間（目前 ${v}）。`,`관문 시각이 출발 시각보다 앞입니다. 출발 시각(현재 ${v})을 확인하세요.`];});
+P(/^走った距離 ([\d.]+) km$/,m=>[`Distance ${m[1]} km`,`已跑距离 ${m[1]} 公里`,`已跑距離 ${m[1]} 公里`,`달린 거리 ${m[1]} km`]);
+P(/^経過 (.+)$/,m=>[`Elapsed ${m[1]}`,`用时 ${m[1]}`,`用時 ${m[1]}`,`경과 ${m[1]}`]);
+P(/^平均 (.+)$/,m=>[`avg ${m[1]}`,`平均 ${m[1]}`,`平均 ${m[1]}`,`평균 ${m[1]}`]);
+P(/^GPS：受信中 ±(\d+)m$/,m=>[`GPS: receiving ±${m[1]} m`,`GPS：接收中 ±${m[1]}米`,`GPS：接收中 ±${m[1]}公尺`,`GPS: 수신 중 ±${m[1]}m`]);
+P(/^ON中に ([\d.]+) km$/,m=>[`${m[1]} km while ON`,`开启期间 ${m[1]} 公里`,`開啟期間 ${m[1]} 公里`,`ON 동안 ${m[1]} km`]);
+P(/^\/km（目標 ([\d:]+)・目標どおり）$/,m=>[`/km (target ${m[1]}, on target)`,`/公里（目标 ${m[1]}・符合目标）`,`/公里（目標 ${m[1]}・符合目標）`,`/km (목표 ${m[1]}・목표대로)`]);
+P(/^\/km（目標 ([\d:]+)より(\d+)秒(速い|遅い)）$/,m=>{const f=m[3]==='速い';return [`/km (target ${m[1]}, ${m[2]} s ${f?'faster':'slower'})`,`/公里（目标 ${m[1]}，${f?'快':'慢'}${m[2]}秒）`,`/公里（目標 ${m[1]}，${f?'快':'慢'}${m[2]}秒）`,`/km (목표 ${m[1]}보다 ${m[2]}초 ${f?'빠름':'느림'})`];});
+P(/^\/km（目標 (.+) より(\d+)分早いペース・約(\d+)歩\/分）$/,m=>[`/km (${m[2]} min faster than target ${m[1]}, about ${m[3]} spm)`,`/公里（比目标 ${m[1]} 快${m[2]}分钟的配速・约${m[3]}步/分）`,`/公里（比目標 ${m[1]} 快${m[2]}分鐘的配速・約${m[3]}步/分）`,`/km (목표 ${m[1]}보다 ${m[2]}분 빠른 페이스・약 ${m[3]}보/분)`]);
+P(/^自分のスタート (.+)$/,m=>[`Your start ${m[1]}`,`本人起跑 ${m[1]}`,`本人起跑 ${m[1]}`,`내 출발 ${m[1]}`]);
+P(/^BGM終了 (.+?)（号砲から制限時間＋30分）$/,m=>[`BGM ends ${m[1]} (time limit + 30 min from gun)`,`BGM结束 ${m[1]}（鸣枪后关门时间＋30分钟）`,`BGM結束 ${m[1]}（鳴槍後關門時間＋30分鐘）`,`BGM 종료 ${m[1]} (출발 신호부터 제한 시간 + 30분)`]);
+P(/^ペース (.+)\/km$/,m=>[`Pace ${m[1]}/km`,`配速 ${m[1]}/公里`,`配速 ${m[1]}/公里`,`페이스 ${m[1]}/km`]);
+P(/^例）([\s\S]*)$/,m=>[`e.g.${m[1]}`,`例：${m[1]}`,`例：${m[1]}`,`예)${m[1]}`]);
+P(/^(.+)にBGMが始まります$/,m=>[`BGM starts at ${m[1].trim()}`,`BGM将于${m[1].trim()}开始`,`BGM將於${m[1].trim()}開始`,`${m[1].trim()}에 BGM이 시작됩니다`]);
+/* storage / my lists / presets */
+P(/^このブラウザに (\d+)曲を保存中$/,m=>[`${PL(m[1],'song')} saved in this browser`,`此浏览器中保存了${m[1]}首歌`,`此瀏覽器中儲存了${m[1]}首歌`,`이 브라우저에 ${m[1]}곡 저장 중`]);
+P(/^このブラウザに (\d+)曲を保存中（約([\d.]+) MB(?:、うち一覧から外した曲 (\d+)曲)?）$/,m=>[`${PL(m[1],'song')} saved in this browser (about ${m[2]} MB${m[3]?`, incl. ${m[3]} removed from the list`:''})`,`此浏览器中保存了${m[1]}首歌（约${m[2]} MB${m[3]?`，其中${m[3]}首已移出列表`:''}）`,`此瀏覽器中儲存了${m[1]}首歌（約${m[2]} MB${m[3]?`，其中${m[3]}首已移出清單`:''}）`,`이 브라우저에 ${m[1]}곡 저장 중 (약 ${m[2]} MB${m[3]?`, 그중 목록에서 뺀 곡 ${m[3]}곡`:''})`]);
+P(/^端末の空き容量が足りず、保存できない曲がありました（保存済み (\d+)曲）$/,m=>[`Not enough storage; some songs could not be saved (${m[1]} saved)`,`设备空间不足，有歌曲未能保存（已保存${m[1]}首）`,`裝置空間不足，有歌曲未能儲存（已儲存${m[1]}首）`,`저장 공간이 부족해 저장하지 못한 곡이 있습니다 (저장됨 ${m[1]}곡)`]);
+P(/^曲を減らすと保存できます$/,m=>['Remove some songs to save them','减少歌曲后即可保存','減少歌曲後即可儲存','곡을 줄이면 저장할 수 있습니다']);
+const done=(re,en,cn,tw,ko)=>P(re,m=>{const n=q(m[1]),c=`「${m[1]}」`;return [en(n),cn(c),tw(c),ko(n)];});
+done(/^「(.+)」を保存しました$/,n=>`Saved ${n}`,c=>`已保存${c}`,c=>`已儲存${c}`,n=>`${n}을(를) 저장했습니다`);
+done(/^「(.+)」を上書きしました$/,n=>`Overwrote ${n}`,c=>`已覆盖${c}`,c=>`已覆寫${c}`,n=>`${n}을(를) 덮어썼습니다`);
+done(/^「(.+)」を今の設定で上書きしました$/,n=>`Overwrote ${n} with the current settings`,c=>`已用当前设置覆盖${c}`,c=>`已用目前設定覆寫${c}`,n=>`${n}을(를) 현재 설정으로 덮어썼습니다`);
+done(/^「(.+)」を登録しました$/,n=>`Saved ${n}`,c=>`已保存${c}`,c=>`已儲存${c}`,n=>`${n}을(를) 등록했습니다`);
+done(/^「(.+)」を削除しました$/,n=>`Deleted ${n}`,c=>`已删除${c}`,c=>`已刪除${c}`,n=>`${n}을(를) 삭제했습니다`);
+done(/^「(.+)」を読み込みました$/,n=>`Loaded ${n}`,c=>`已读取${c}`,c=>`已讀取${c}`,n=>`${n}을(를) 불러왔습니다`);
+done(/^「(.+)」の曲を追加しました$/,n=>`Added songs from ${n}`,c=>`已添加${c}的歌曲`,c=>`已新增${c}的歌曲`,n=>`${n}의 곡을 추가했습니다`);
+P(/^追加 (\d+)曲$/,m=>[`${m[1]} added`,`添加${m[1]}首`,`新增${m[1]}首`,`추가 ${m[1]}곡`]);
+P(/^すでに一覧にある (\d+)曲は重複しないようにそのままにしました$/,m=>[`${PL(m[1],'song')} already in the list were left as is`,`列表中已有的${m[1]}首保持不变，不会重复`,`清單中已有的${m[1]}首保持不變，不會重複`,`이미 목록에 있는 ${m[1]}곡은 중복되지 않게 그대로 두었습니다`]);
+P(/^（削除済みの曲 (\d+)曲は省きました）$/,m=>[`(${m[1]} deleted songs skipped)`,`（已跳过${m[1]}首已删除的歌曲）`,`（已略過${m[1]}首已刪除的歌曲）`,`(삭제된 곡 ${m[1]}곡은 제외했습니다)`]);
+P(/^流す曲 (\d+)曲$/,m=>[`${PL(m[1],'song')} to play`,`播放${m[1]}首`,`播放${m[1]}首`,`재생할 곡 ${m[1]}곡`]);
+P(/^マイリストに入っていない曲 (\d+)曲は一覧から外しました$/,m=>[`${PL(m[1],'song')} not in the list were removed from the song list`,`不在列表中的${m[1]}首已移出`,`不在清單中的${m[1]}首已移出`,`마이 리스트에 없는 ${m[1]}곡은 목록에서 뺐습니다`]);
+/* race finished banner */
+P(/^(.+)：ゴール（終了）しました。記録$/,m=>{const n=nm(m[1]);return [`${n}: finished. Time`,`${n}：已完赛。成绩`,`${n}：已完賽。成績`,`${n}: 골 (종료)했습니다. 기록`];});
+P(/^。本番の設定はクリアしました。$/,m=>['. Race settings were cleared.','。已清除比赛设置。','。已清除比賽設定。','. 대회 설정을 지웠습니다.']);
+/* hash receive banners */
+P(/^マラソン大会管理から$/,m=>['From the race manager,','来自马拉松比赛管理：','來自馬拉松比賽管理：','마라톤 대회 관리에서']);
+P(/^の情報（(.+)・(.+)制限）を受け取りました。スタート時刻、ウェーブ、目標タイムを確認してください。$/,m=>{const e=nm(m[1]);return [` info received (${e}, ${m[2]} limit). Check the start time, wave and target time.`,` 的信息已接收（${e}・限时${m[2]}）。请确认起跑时间、分批和目标成绩。`,` 的資訊已接收（${e}・限時${m[2]}）。請確認起跑時間、分批和目標成績。`,` 정보를 받았습니다 (${e}・제한 ${m[2]}). 출발 시각, 웨이브, 목표 기록을 확인하세요.`];});
+P(/^マラソン大会管理から届いた$/,m=>['From the race manager:','来自马拉松比赛管理的','來自馬拉松比賽管理的','마라톤 대회 관리에서 온']);
+W('今日の練習メニュー',"Today's training menu",'今日训练菜单','今日訓練菜單','오늘의 연습 메뉴');
+P(/^（(\d+)ステージ）は読み込み済みです。$/,m=>[` (${PL(m[1],'stage')}) is already loaded.`,`（${m[1]}个阶段）已读取。`,`（${m[1]}個階段）已讀取。`,` (${m[1]}개 스테이지)은(는) 이미 불러왔습니다.`]);
+P(/^（(\d+)ステージ・約(\d+)分）を読み込みました。$/,m=>[` (${PL(m[1],'stage')}, about ${m[2]} min) was loaded.`,`（${m[1]}个阶段・约${m[2]}分钟）已读取。`,`（${m[1]}個階段・約${m[2]}分鐘）已讀取。`,` (${m[1]}개 스테이지・약 ${m[2]}분)을(를) 불러왔습니다.`]);
+/* speech sentences */
+P(/^(\d+)分経過$/,m=>[`${m[1]} minutes elapsed`,`已过${m[1]}分钟`,`已過${m[1]}分鐘`,`${m[1]}분 경과`]);
+P(/^(戦略|目標)では(.+)キロ地点です$/,m=>{const s=m[1]==='戦略';return [`By your ${s?'strategy':'target'}, you should be at ${m[2]} kilometers`,`按${s?'策略':'目标'}应在${m[2]}公里处`,`按${s?'策略':'目標'}應在${m[2]}公里處`,`${s?'전략':'목표'}으로는 ${m[2]}킬로미터 지점입니다`];});
+P(/^テンポは1キロ(.+)です$/,m=>[`Tempo: ${dur(m[1])} per kilometer`,`节奏为每公里${dur(m[1])}`,`節奏為每公里${dur(m[1])}`,`템포는 1킬로미터 ${dur(m[1])}입니다`]);
+P(/^(\d+)キロ通過$/,m=>[`${PL(m[1],'kilometer')} passed`,`通过${m[1]}公里`,`通過${m[1]}公里`,`${m[1]}킬로미터 통과`]);
+P(/^目標より(.+)(遅れ|早い)です$/,m=>{const late=m[2]==='遅れ',v=dur(m[1]);return [`${v} ${late?'behind':'ahead of'} target`,`比目标${late?'慢':'快'}${v}`,`比目標${late?'慢':'快'}${v}`,`목표보다 ${v} ${late?'늦습니다':'빠릅니다'}`];});
+P(/^次の関門まで([\d.]+)キロ、残り(.+)、必要ペース(.+)です$/,m=>[`${m[1]} kilometers to the next cutoff, ${dur(m[2])} left, required pace ${dur(m[3])}`,`距下一个关门点${m[1]}公里，剩余${dur(m[2])}，所需配速${dur(m[3])}`,`距下一個關門點${m[1]}公里，剩餘${dur(m[2])}，所需配速${dur(m[3])}`,`다음 관문까지 ${m[1]}킬로미터, 남은 시간 ${dur(m[2])}, 필요 페이스 ${dur(m[3])}`]);
+P(/^(\d+)キロに直しました$/,m=>[`Corrected to ${PL(m[1],'kilometer')}`,`已改为${m[1]}公里`,`已改為${m[1]}公里`,`${m[1]}킬로미터로 고쳤습니다`]);
+P(/^([\d.]+)キロの補正を取り消しました$/,m=>[`Cancelled the ${m[1]} kilometer correction`,`已撤销${m[1]}公里的校正`,`已撤銷${m[1]}公里的校正`,`${m[1]}킬로미터 보정을 취소했습니다`]);
+P(/^時速([\d.]+)キロ、ペース(.+?)(です)?$/,m=>[`${m[1]} kilometers per hour, pace ${dur(m[2])}`,`时速${m[1]}公里，配速${dur(m[2])}`,`時速${m[1]}公里，配速${dur(m[2])}`,`시속 ${m[1]}킬로미터, 페이스 ${dur(m[2])}`]);
+P(/^GPSで測ったペースは1キロ(.+)です$/,m=>[`GPS pace is ${dur(m[1])} per kilometer`,`GPS测得的配速为每公里${dur(m[1])}`,`GPS測得的配速為每公里${dur(m[1])}`,`GPS로 잰 페이스는 1킬로미터 ${dur(m[1])}입니다`]);
+P(/^(\d+)キロ$/,m=>[PL(m[1],'kilometer'),`${m[1]}公里`,`${m[1]}公里`,`${m[1]}킬로미터`]);
+P(/^この1キロは(.+?)(?:、目標どおりです|、目標より(\d+)秒(速い|遅い)です)?$/,m=>{const p=dur(m[1]);const f=m[3]==='速い';const e=m[2]?[`, ${m[2]} seconds ${f?'faster':'slower'} than target`,`，比目标${f?'快':'慢'}${m[2]}秒`,`，比目標${f?'快':'慢'}${m[2]}秒`,`, 목표보다 ${m[2]}초 ${f?'빠릅니다':'느립니다'}`]:/目標どおり/.test(m[0])?[', on target','，符合目标','，符合目標',', 목표대로입니다']:['','','',''];
+  return [`This kilometer: ${p}${e[0]}`,`这一公里${p}${e[1]}`,`這一公里${p}${e[2]}`,`이번 1킬로미터는 ${p}${e[3]}`];});
+P(/^GPS：位置をつかみました ±(\d+)m（スタート待ち）$/,m=>[`GPS: position acquired ±${m[1]} m (waiting for start)`,`GPS：已获取位置 ±${m[1]}米（等待起跑）`,`GPS：已取得位置 ±${m[1]}公尺（等待起跑）`,`GPS: 위치 잡음 ±${m[1]}m (출발 대기)`]);
+P(/^GPSの位置をつかみました（±(\d+)m）$/,m=>[`GPS position acquired (±${m[1]} m)`,`已获取GPS位置（±${m[1]}米）`,`已取得GPS位置（±${m[1]}公尺）`,`GPS 위치를 잡았습니다 (±${m[1]}m)`]);
+P(/^GPSの位置をつかみました（±(\d+)m）。スタートできます。$/,m=>[`GPS position acquired (±${m[1]} m). You can start.`,`已获取GPS位置（±${m[1]}米）。可以开始了。`,`已取得GPS位置（±${m[1]}公尺）。可以開始了。`,`GPS 위치를 잡았습니다 (±${m[1]}m). 시작할 수 있습니다.`]);
+
+const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
+const isEn=()=>LANG==='en'||LANG==='ko';
+function part(x){const t=x.trim();if(!t)return x;const r=tr1(t);return r==null?x:x.replace(t,r);}
+function splitTr(c,seps){for(const sep of seps){if(!c.includes(sep))continue;const parts=c.split(sep),out=parts.map(part);
+    if(out.some((x,i)=>x!==parts[i])){const en=isEn();return out.join(sep==='、'?(en?', ':'、'):sep==='・'?(en?' · ':'・'):sep==='。'?(en?'. ':'。'):sep).replace(/\.\. /g,'. ').replace(/ +$/,'');}}return null;}
+function tr1(c){if(!JP.test(c))return c;const n=NW(c),v=D.get(n)||D.get(n+'。');if(v)return v[L()];
+  {const s=splitTr(c,SEPS1);if(s!=null)return s;}
+  for(const [re,f] of PT){const m=re.exec(c);if(m){const o=f(m);if(o!=null)return Array.isArray(o)?o[L()]:o;}}
+  {const s=splitTr(c,SEPS);if(s!=null)return s;}
+  const b=/^(.*?)（(.+)）(.*)$/.exec(c);if(b){const en=isEn(),whole=D.get(NW('（'+b[2]+'）'));
+    const inner=whole?whole[L()]:(en?'(':'（')+(tr1(b[2])??b[2])+(en?')':'）');
+    const r=part(b[1])+(en&&b[1]&&!/\s$/.test(b[1])?' ':'')+inner+part(b[3]);if(r!==c)return r;}
+  return null;}
+function tr(s){if(LANG==='ja'||!s||!JP.test(s))return s;const core=s.trim();if(!core)return s;const r=tr1(core);return r==null?s:s.replace(core,r);}
+/* speech: sentence by sentence */
+function trSay(t){if(LANG==='ja')return t;const w=D.get(NW(t.trim()));if(w)return w[L()];const parts=t.split('。').map(x=>x.trim()).filter(Boolean);
+  const end=LANG==='en'||LANG==='ko'?'. ':'。';return parts.map(x=>{const r=tr1(x);return (r==null?x:r).replace(/[.。]\s*$/,'');}).join(end)+(LANG==='en'||LANG==='ko'?'.':'。');}
+/* ---- DOM ---- */
+const TXT=new WeakMap(),ATR=new WeakMap(),ATTRS=['placeholder','aria-label','title'];
+const skip=el=>!el||el.closest('script,style,[data-notr],.song-name,.ml-info b');
+function doText(n){const p=n.parentElement;if(skip(p))return;let r=TXT.get(n);if(!r||n.data!==r.out){r={ja:n.data};TXT.set(n,r);}
+  const out=tr(r.ja);r.out=out;if(n.data!==out)n.data=out;}
+function doAttr(el){if(skip(el))return;let rec=ATR.get(el);if(!rec){rec={};ATR.set(el,rec);}
+  for(const a of ATTRS){if(!el.hasAttribute(a))continue;const cur=el.getAttribute(a);let r=rec[a];if(!r||cur!==r.out){r=rec[a]={ja:cur};}const out=tr(r.ja);r.out=out;if(cur!==out)el.setAttribute(a,out);}
+  if(el.tagName==='INPUT'&&el.dataset.f==='name'){let r=rec.value;if(!r||el.value!==r.out)r=rec.value={ja:el.value};const v=D.get(r.ja);const out=LANG==='ja'||!v?r.ja:v[L()];r.out=out;if(el.value!==out)el.value=out;}}
+function walk(root){if(root.nodeType===3){doText(root);return;}if(root.nodeType!==1)return;if(root.tagName==='SCRIPT'||root.tagName==='STYLE')return;
+  doAttr(root);for(const c of root.childNodes)walk(c);}
+let busy=false;
+const mo=new MutationObserver(ms=>{if(busy)return;busy=true;try{for(const m of ms){if(m.type==='characterData')doText(m.target);else if(m.type==='attributes')doAttr(m.target);else m.addedNodes.forEach(walk);}}finally{busy=false;}});
+const docTitle=document.title;
+function apply(){document.documentElement.lang=LANG;document.title=tr(docTitle);busy=true;try{walk(document.body);}finally{busy=false;}mo.takeRecords();}
+/* stage names stored in data: translate default names on display only via input.value (see doAttr) */
+function setLang(l){if(IX[l]==null&&l!=='ja')return;LANG=l;try{store.set('cbgm-lang',l);}catch(e){}
+  try{renderAll();}catch(e){}apply();const s=$('#langSel');if(s)s.value=l;}
+/* UI: select in the title row */
+function mount(){const row=document.querySelector('.title-row');if(!row||$('#langSel'))return;
+  const sel=document.createElement('select');sel.id='langSel';sel.setAttribute('data-notr','');sel.setAttribute('aria-label','Language / 言語');
+  sel.innerHTML=LANGS.map(([k,n])=>`<option value="${k}">${n}</option>`).join('');sel.value=LANG;sel.addEventListener('change',()=>setLang(sel.value));
+  const wrap=document.createElement('label');wrap.className='langsel';wrap.setAttribute('data-notr','');wrap.innerHTML='<span aria-hidden="true">🌐</span>';wrap.appendChild(sel);row.appendChild(wrap);}
+/* <option> without value: freeze the Japanese text as the value so translating the label doesn't change data */
+document.querySelectorAll('option:not([value])').forEach(o=>o.setAttribute('value',o.textContent));
+mount();apply();mo.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:ATTRS});
+return {tr,trSay,setLang,get lang(){return LANG;},voice:()=>VOICE[LANG],D};
+})();
+/* speech in the selected language */
+say=function(t){try{if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(I18N.trSay(t));u.lang=I18N.voice();u.rate=I18N.lang==='ja'?1.05:1;
+  audio.volume=Math.max(.05,opt.vol*.3);u.onend=u.onerror=()=>{audio.volume=opt.vol;};speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}};
+
+</script>
+</body>
+</html>
