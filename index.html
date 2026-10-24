@@ -48,6 +48,7 @@ h2{font-size:1rem;font-weight:700;margin:0;text-wrap:balance}
 .num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
 .label{font-size:.72rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
 section{display:flex;flex-direction:column;gap:12px}
+.clr-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:2px;margin-left:auto}.clr-wrap .ml-msg{margin:0;font-size:.8rem;max-width:22em;text-align:right}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
 
 /* run panel */
@@ -340,7 +341,7 @@ body.live .recv{display:none}
 
   <!-- RACE -->
   <section id="raceSec" hidden>
-    <div class="sec-head"><div><h2>本番の設定</h2><p class="sub">スタート5分前から、目標タイムに合わせた1つのテンポでBGMを流し続けます。「本番の戦略」を入れると区間ごとにテンポを変えます。「使う」にチェックした曲を繰り返します。</p></div></div>
+    <div class="sec-head"><div><h2>本番の設定</h2><p class="sub">スタート5分前から、目標タイムに合わせた1つのテンポでBGMを流し続けます。「本番の戦略」を入れると区間ごとにテンポを変えます。「使う」にチェックした曲を繰り返します。</p></div><div class="clr-wrap"><button class="small clr" data-clear="race">本番の内容をクリア</button><p class="ml-msg" id="clrMsg-race"></p></div></div>
     <div class="rc-grid">
       <label class="f wide">大会名<input type="text" id="rcName" maxlength="60" placeholder="例：水戸黄門漫遊マラソン"></label>
       <label class="f">種目<select id="rcEv"><option>フル</option><option>ハーフ</option><option>その他</option></select></label>
@@ -387,7 +388,7 @@ body.live .recv{display:none}
 
   <!-- RELAX -->
   <section id="relaxSec" hidden>
-    <div class="sec-head"><div><h2>リラックス</h2><p class="sub">ステージはなく、「使う」にチェックした曲を原曲の速さのまま、「ストップ」を押すまで繰り返し流します。</p></div></div>
+    <div class="sec-head"><div><h2>リラックス</h2><p class="sub">ステージはなく、「使う」にチェックした曲を原曲の速さのまま、「ストップ」を押すまで繰り返し流します。</p></div><div class="clr-wrap"><button class="small clr" data-clear="relax">リラックスの内容をクリア</button><p class="ml-msg" id="clrMsg-relax"></p></div></div>
     <label class="chk"><input type="checkbox" id="optShuffle2" data-shuffle="1"> 曲をシャッフルして流す</label>
   </section>
 
@@ -409,6 +410,7 @@ body.live .recv{display:none}
     <div class="sec-head">
       <div><h2>練習メニュー</h2><p class="sub">ステージごとに「1km何分で走るか」と時間を決めます。曲の速さは、そのペースで走りやすいリズムに自動で合わせます。</p></div>
       <span class="total" id="menuTotal">合計 45分</span>
+      <div class="clr-wrap"><button class="small clr" data-clear="practice">練習の内容をクリア</button><p class="ml-msg" id="clrMsg-practice"></p></div>
     </div>
     <div class="chips" id="presets"></div>
     <div class="list" id="menuList"></div>
@@ -860,6 +862,23 @@ function renderSongs(){
 function renderAll(){renderMenu();renderSongs();renderRun();renderML();updateStoreInfo();applyModeUI();}
 
 /* ---------- events ---------- */
+/* ---------- clear the inputs of each mode (saved my lists / race settings stay and can be loaded again) ---------- */
+const clrArm={};
+function clearMode(k){if(R.running||R.acc>0||RS.pre||RS.armed){clrMsg(k,'走っている間・待機中はクリアできません。',true);return;}
+  if(!clrArm[k]){clrArm[k]=setTimeout(()=>{clrArm[k]=0;renderClr();},4000);renderClr();return;}
+  clearTimeout(clrArm[k]);clrArm[k]=0;
+  if(k==='practice'){const st={id:gid(),name:'ステージ1',pace:420,bpm:cadFromPace(420),auto:true,min:10};
+    if(MODE==='practice')menu=[st];else practiceMenu=[st];activePreset='custom';saveMenu();setOffset(0);$('#cadOffset').value=0;activeML=null;saveMLs();
+    clrMsg(k,'練習の内容をクリアしました。マイリストに登録してあれば「読み込む」で元に戻せます。');}
+  else if(k==='race'){RC=Object.assign({},RCD,{strat:[]});store.set('cbgm-race',RC);if(MODE==='race')menu=virtualMenu();
+    clrMsg(k,'本番の内容をクリアしました。「本番の設定の保存」に保存してあれば「読み込む」で元に戻せます。');}
+  else if(k==='relax'){songs.forEach(x=>{if(x.use!==false){x.use=false;saveMeta(x);}});opt.shuffle=false;store.set('cbgm-shuffle',false);activeML=null;saveMLs();
+    clrMsg(k,'曲の「使う」のチェックをすべて外しました。マイリストに登録してあれば「読み込む」で元に戻せます。');}
+  renderAll();renderClr();}
+function clrMsg(k,t,err){const m=$('#clrMsg-'+k);if(!m)return;m.textContent=t;m.classList.toggle('err',!!err);clearTimeout(m._t);m._t=setTimeout(()=>{m.textContent='';},12000);}
+const CLR_LABEL={practice:'練習の内容をクリア',race:'本番の内容をクリア',relax:'リラックスの内容をクリア'};
+function renderClr(){document.querySelectorAll('[data-clear]').forEach(b=>{const k=b.dataset.clear;b.textContent=clrArm[k]?'もう一度押すとクリア':CLR_LABEL[k];b.classList.toggle('danger',!!clrArm[k]);b.disabled=!!(R.running||R.acc>0||RS.pre||RS.armed);});}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-clear]');if(b)clearMode(b.dataset.clear);});
 function saveMenu(){store.set('cbgm-menu-pace',pMenu().map(({id,name,pace,min})=>({id,name,pace,min})));store.set('cbgm-preset-pace',activePreset);}
 let nameT=null;
 function menuChanged(){activePreset='custom';saveMenu();
@@ -1317,7 +1336,8 @@ function applyModeUI(){{const tx=MODE_TXT[MODE]||MODE_TXT.practice;T0('#leadTxt'
   else{$('#rcArm').hidden=$('#rcDisarm').hidden=true;}
   $('#runPanel').classList.toggle('armed',MODE==='race'&&(RS.armed||RS.pre)&&!R.running);liveUI();}
 function T0(id,t){const e=$(id);if(e&&e.dataset.ja!==t){e.dataset.ja=t;e.textContent=t;}}
-function liveUI(){const live=R.running||RS.pre;document.body.classList.toggle('live',!!live);document.body.classList.toggle('race-live',MODE==='race'&&!!live);}
+function liveUI(){try{renderClr();}catch(e){}
+const live=R.running||RS.pre;document.body.classList.toggle('live',!!live);document.body.classList.toggle('race-live',MODE==='race'&&!!live);}
 function renderRunMode(){liveUI();const rp=$('#runPanel');rp.classList.toggle('m-race',MODE==='race');rp.classList.toggle('m-relax',MODE==='relax');
   const T=(id,t)=>{$(id).textContent=t;};
   $('#goalStat').hidden=$('#goalStat2').hidden=MODE!=='race';$('#cpStat').hidden=MODE!=='race'||!rcCps().length;$('#wsStat').hidden=MODE!=='race'||!rcWs().length;
@@ -1763,6 +1783,15 @@ W('推定では、給水所はすべて通過しています','All aid stations 
 W('まもなく給水所です','Aid station coming up','即将到达补给站','即將到達補給站','곧 급수소입니다');
 W('水と食べ物があります','Water and food available','有水和食物','有水和食物','물과 음식이 있습니다');
 W('給水のみです','Water only','仅供水','僅供水','급수만 있습니다');
+W('練習の内容をクリア','Clear training','清除训练内容','清除訓練內容','연습 내용 지우기');
+W('本番の内容をクリア','Clear race','清除比赛内容','清除比賽內容','대회 내용 지우기');
+W('リラックスの内容をクリア','Clear relax','清除放松内容','清除放鬆內容','릴랙스 내용 지우기');
+W('もう一度押すとクリア','Press again to clear','再按一次清除','再按一次清除','한 번 더 누르면 지웁니다');
+W('走っている間・待機中はクリアできません。','Cannot clear while running or standing by.','跑步中或待机中无法清除。','跑步中或待機中無法清除。','달리는 중이나 대기 중에는 지울 수 없습니다.');
+W('練習の内容をクリアしました。マイリストに登録してあれば「読み込む」で元に戻せます。','Training cleared. If you saved it to a my list, press "Load" to restore it.','已清除训练内容。如已保存到我的列表，可按“读取”恢复。','已清除訓練內容。如已儲存到我的清單，可按「讀取」恢復。','연습 내용을 지웠습니다. 마이 리스트에 등록했다면 "불러오기"로 되돌릴 수 있습니다.');
+W('本番の内容をクリアしました。「本番の設定の保存」に保存してあれば「読み込む」で元に戻せます。','Race settings cleared. If you saved them under "Save race settings", press "Load" to restore them.','已清除比赛内容。如已在“保存比赛设置”中保存，可按“读取”恢复。','已清除比賽內容。如已在「儲存比賽設定」中儲存，可按「讀取」恢復。','대회 내용을 지웠습니다. "대회 설정 저장"에 저장했다면 "불러오기"로 되돌릴 수 있습니다.');
+W('曲の「使う」のチェックをすべて外しました。マイリストに登録してあれば「読み込む」で元に戻せます。','Unchecked "Use" on all songs. If you saved a my list, press "Load" to restore it.','已取消所有歌曲的“使用”勾选。如已保存到我的列表，可按“读取”恢复。','已取消所有歌曲的「使用」勾選。如已儲存到我的清單，可按「讀取」恢復。','모든 곡의 "사용" 체크를 해제했습니다. 마이 리스트에 등록했다면 "불러오기"로 되돌릴 수 있습니다.');
+W('ステージ1','Stage 1','阶段1','階段1','스테이지 1');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
