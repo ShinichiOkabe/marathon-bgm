@@ -1,7 +1,8 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" translate="no">
 <head>
 <meta charset="utf-8">
+<meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1d5bd8">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -86,6 +87,7 @@ section{display:flex;flex-direction:column;gap:12px}
 .gpsrow{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.gps-st{font-size:.8rem;color:var(--muted)}.gps-st.on{color:var(--accent);font-weight:700}.gps-st.err{color:var(--warn);font-weight:700}
 .lock-bar .fixlock{display:flex;gap:8px;width:100%}
 .lock-bar .fixlock .unlock{flex:1;font-family:var(--f-num);font-size:1.15rem}
+.stat.ws{grid-column:1/-1;border:1px solid var(--line)}.stat.ws .v{font-size:1.35rem}.ws-food{color:var(--warn);font-weight:700}
 .stat.cp{grid-column:1/-1;background:var(--pause-bg);border:1px solid var(--pause)}
 .stat.cp .v{font-size:1.4rem}
 .rc-grid textarea{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%;min-width:0;resize:vertical}
@@ -298,6 +300,7 @@ body.live .recv{display:none}
       <div class="stat next"><div class="label" id="st2Label">次のステージ</div><div class="v" id="nextSeg">一定速走 180</div></div>
       <div class="stat pos" id="posStat" hidden><div class="label">推定の現在地</div><div class="v num" id="posNow">—</div><div class="s" id="posSub"></div></div>
       <div class="stat cp" id="cpStat" hidden><div class="label">次の関門</div><div class="v num" id="cpNext">—</div><div class="s" id="cpSub"></div></div>
+      <div class="stat ws" id="wsStat" hidden><div class="label">次の給水</div><div class="v num" id="wsNext">—</div><div class="s" id="wsSub"></div></div>
       <div class="stat goal" id="goalStat" hidden><div class="label">今の通過地点（目標）</div><div class="v num" id="goalNow">—</div></div>
       <div class="stat goal" id="goalStat2" hidden><div class="label">30分後の目標距離</div><div class="v num" id="goal30">—</div><div class="s" id="goal30s"></div></div>
     </div>
@@ -354,6 +357,12 @@ body.live .recv{display:none}
 21.1 3:10
 30 13:30"></textarea></label>
       <div class="f wide">読み取った関門<div class="rc-cps" id="rcCpsView"></div></div>
+      <label class="f wide">給水所（任意）「距離km　種類」を1行ずつ（種類：水＝給水のみ、食＝給水＆食べ物）
+        <textarea id="rcWs" rows="4" placeholder="例）
+5 水
+10 食
+15 水"></textarea></label>
+      <div class="f wide">読み取った給水所<div class="rc-cps" id="rcWsView"></div></div>
     </div>
     <div class="strat">
       <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。</span></div>
@@ -486,7 +495,7 @@ const opt={outdoor:!!store.get('cbgm-outdoor',false),cue:true,click:false,vol:.7
 /* ---------- modes: practice / race / relax ---------- */
 let MODE=store.get('cbgm-mode','practice');if(!['practice','race','relax'].includes(MODE))MODE='practice';
 let practiceMenu=null;
-const RCD={name:'',ev:'フル',km:42.195,date:'',time:'09:00',wave:0,limit:360,goal:0,margin:5,cps:'',strat:[]};
+const RCD={name:'',ev:'フル',km:42.195,date:'',time:'09:00',wave:0,limit:360,goal:0,margin:5,cps:'',ws:'',strat:[]};
 let RC=Object.assign({},RCD,store.get('cbgm-race',{}));
 const RS={armed:false,pre:false,startAt:0,ann:0,fix:[],spd:0,stg:null,gunCue:false};
 const pMenu=()=>MODE==='practice'?menu:(practiceMenu||menu);
@@ -752,7 +761,7 @@ function start(){
   lockScreen();startClicks();renderAll();}
 function pause(){R.acc+=Date.now()-R.t0;R.paused=true;if(OD&&OD.active)OD.pt=null;audio.pause();stopClicks();renderAll();}
 function reset(){audio.pause();stopClicks();clearInterval(rampT);R.running=false;R.paused=false;R.acc=0;R.seg=0;R.done=false;
-  RS.armed=false;RS.pre=false;RS.startAt=0;RS.ann=0;RS.dnf=false;RS.fix=[];RS.spd=0;RS.spdLog=[];RS.endAt=0;RS.stg=null;RS.gunCue=false;RS.gpsAuto=false;if(MODE!=='practice')menu=virtualMenu();
+  RS.armed=false;RS.pre=false;RS.startAt=0;RS.ann=0;RS.dnf=false;RS.fix=[];RS.spd=0;RS.spdLog=[];RS.endAt=0;RS.stg=null;RS.gunCue=false;RS.gpsAuto=false;RS.wsAnn={};if(MODE!=='practice')menu=virtualMenu();
   try{wake&&wake.release();}catch(e){}wake=null;renderAll();}
 function finish(){R.acc=totalMs();R.running=false;R.paused=false;R.done=true;stopClicks();cue(true);
   const v0=audio.volume;let k=0;const t=setInterval(()=>{k++;audio.volume=Math.max(0,v0*(1-k/20));if(k>=20){clearInterval(t);audio.pause();audio.volume=opt.vol;}},150);
@@ -762,6 +771,7 @@ function tick(){
   if(!R.running||R.paused)return;
   const el=elapsed();if(el>=totalMs()){finish();return;}
   if(MODE==='race'){const n=Math.floor(el/1800000);if(n>RS.ann){RS.ann=n;const e=rcEff();const sd=stratDistAt(el/1000);say(`${n*30}分経過。${sd!=null?'戦略':'目標'}では${sd!=null?sd.toFixed(1):e?(el/1000/e).toFixed(1):'—'}キロ地点です。`);}
+    if(R.running)wsAnnounce(posInfo(el).pos);
     const st=stratAt(posInfo(el).pos);if(st&&st.i!==RS.stg){if(RS.stg!=null){cue(false);say(`第${st.i+1}ステージ。時速${(st.spd+(RS.spd||0)).toFixed(1)}キロ、ペース${sayPace(adjPace(3600/st.spd))}です。`);}RS.stg=st.i;renderStrat();}}
   const si=segAt(el);if(si!==R.seg){R.seg=si;cue(false);stageChanged();renderMenu();renderSongs();}
   else if(!ramping&&audio.src){const r=curRate();if(Math.abs(audio.playbackRate-r)>.005){audio.defaultPlaybackRate=r;audio.playbackRate=r;}}
@@ -1010,6 +1020,7 @@ function renderPos(run,t,e,km,now,w){
     $('#fix1').textContent=FP.n?`${nx} km（もう一度で +1）`:`${nx} km 通過`;$('#fix1').disabled=!FP.n&&!ok;$('#fixUndo').disabled=!RS.fix.length&&!FP.n;
     lockLayer.querySelector('#lockFix1 span').innerHTML=FP.n?`${nx}km<br><small>長押しで+1</small>`:`${nx}km 通過<br><small>長押し</small>`;
     lockLayer.querySelector('#lockFix1').disabled=!FP.n&&!ok;$('#fixLock').hidden=lockLayer.hidden;}
+  renderWs(run,run?P.pos:0);
   const cps=rcCps();if(!cps.length)return;
   const pos=run?P.pos:0,ci=cpInfo(pos,run?t:0,now);
   if(!ci){$('#cpNext').textContent='すべて通過';$('#cpSub').textContent='推定では、関門はすべて通過しています';return;}
@@ -1263,6 +1274,19 @@ function rcSummary(){const km=rcKm(),e=rcEff(),w=rcWaveMs(),end=rcEndMs(),L=[];
   return L.join('<br>');}
 function rcCpsView(){const c=rcCps();return (c.length?c.map(x=>{const g=rcGunMs();return `${+x.km.toFixed(2)}km　`+(g!=null?`${tm(g+x.sec*1000).split(' ')[1]}閉鎖（号砲から${fmtHM(x.sec/60)}）`:`号砲から${fmtHM(x.sec/60)}`);}).join('<br>'):(RC.name?'なし':'まだ受け取っていません'))+(c.some(x=>x.sec>(+RC.limit||360)*60)?'<br><b style="color:var(--warn)">関門の時刻がスタート時刻より前になっています。スタート時刻（いま '+esc(RC.time||'未入力')+'）を確認してください。</b>':'')+'<br><span class="muted">時刻（例 13:30）で書いた関門は、スタート時刻からの時間に直して使います。</span>';}
 /* 関門: "10 1:40" / "21.1km 3:10" per line, time measured from the gun (start time without wave) */
+/* 給水所: "5 水" / "10 食" per line (水=給水のみ, 食=給水＆食べ物; 種類なしは給水のみ) */
+function rcWs(){return String(RC.ws||'').split(/\n/).map(l=>{l=l.replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248));
+  const m=/^\s*([\d.]+)\s*(?:km|ｋｍ|キロ|k)?\s*[\s,、]*\s*(\S*)\s*$/i.exec(l);if(!m)return null;const km=parseFloat(m[1]);if(!(km>0))return null;
+  const food=/食|フード|food|エイド|aid|給食|f/i.test(m[2]);return {km,food};}).filter(Boolean).sort((a,b)=>a.km-b.km);}
+const wsKind=w=>w.food?'給水＆食べ物':'給水のみ';
+function rcWsView(){const w=rcWs();const bad=String(RC.ws||'').split(/\n/).filter(x=>x.trim()).length>w.length;
+  return (w.length?w.map(x=>`${+x.km.toFixed(2)}km　`+(x.food?`<span class="ws-food">${wsKind(x)}</span>`:wsKind(x))).join('<br>'):'なし')+(bad?'<br>（読み取れない行があります）':'');}
+function renderWs(run,pos){const w=rcWs(),box=$('#wsStat');box.hidden=MODE!=='race'||!w.length;if(box.hidden)return;
+  const i=w.findIndex(x=>x.km>pos+0.02);if(i<0){$('#wsNext').textContent='すべて通過';$('#wsSub').textContent='推定では、給水所はすべて通過しています';return;}
+  const x=w[i],n=w[i+1];$('#wsNext').textContent=`${+x.km.toFixed(2)}km まで あと ${Math.max(0,x.km-pos).toFixed(1)} km`;
+  $('#wsSub').innerHTML=(x.food?`<span class="ws-food">${wsKind(x)}</span>`:wsKind(x))+(n?`　（その次 ${+n.km.toFixed(2)}km ${wsKind(n)}）`:'');}
+function wsAnnounce(pos){const w=rcWs();if(!w.length)return;RS.wsAnn=RS.wsAnn||{};
+  w.forEach((x,i)=>{const d=x.km-pos;if(d>0&&d<=0.3&&!RS.wsAnn[i]){RS.wsAnn[i]=1;cue(false);say(x.food?'まもなく給水所です。水と食べ物があります。':'まもなく給水所です。給水のみです。');}});}
 function rcCps(){return String(RC.cps||'').split(/\n/).map(l=>{const m=/^\s*([\d.０-９．]+)\s*(?:km|ｋｍ|キロ|k)?\s*[\s,、]\s*(\S+)\s*$/i.exec(l.replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248)));
   if(!m)return null;const km=parseFloat(m[1]);let sec=parseHMS(m[2]);const gt=/^(\d\d):(\d\d)$/.exec(RC.time||''),gs=gt?(+gt[1])*3600+(+gt[2])*60:null;
   if(gs!=null&&sec>=gs)sec-=gs; /* 時刻（例 10:40）で書いた関門は、スタート時刻からの時間に直す */
@@ -1287,7 +1311,7 @@ function applyModeUI(){{const tx=MODE_TXT[MODE]||MODE_TXT.practice;T0('#leadTxt'
   $('#btnReset').textContent=MODE==='practice'?'リセット':MODE==='race'&&R.running?'ゴール（終了）':MODE==='race'&&R.done?'終了（画面を閉じる）':'ストップ';
   document.querySelectorAll('[data-shuffle]').forEach(c=>c.checked=!!opt.shuffle);
   if(MODE==='race'){setVal('rcName',RC.name);setVal('rcEv',RC.ev);setVal('rcKm',RC.km);setVal('rcDate',RC.date);setVal('rcTime',RC.time);setVal('rcWave',RC.wave);
-    setVal('rcLimit',fmtHM(+RC.limit||0));setVal('rcGoal',RC.goal?fmtHMS(RC.goal):'');setVal('rcMargin',RC.margin);setVal('rcCps',RC.cps||'');$('#rcCpsView').innerHTML=rcCpsView();
+    setVal('rcLimit',fmtHM(+RC.limit||0));setVal('rcGoal',RC.goal?fmtHMS(RC.goal):'');setVal('rcMargin',RC.margin);setVal('rcCps',RC.cps||'');$('#rcCpsView').innerHTML=rcCpsView();setVal('rcWs',RC.ws||'');$('#rcWsView').innerHTML=rcWsView();
     $('#rcKmWrap').hidden=RC.ev!=='その他';$('#rcSum').innerHTML=rcSummary();
     $('#rcArm').hidden=RS.armed||RS.pre||R.running||R.done;$('#rcDisarm').hidden=!(RS.armed||RS.pre)||R.running;}
   else{$('#rcArm').hidden=$('#rcDisarm').hidden=true;}
@@ -1336,8 +1360,9 @@ function rcInput(e){const t=e.target,id=t.id;if(!/^rc[A-Z]/.test(id)||id==='rcAr
   else if(id==='rcGoal'){const s2=parseHMS(v);if(s2==null)return;RC.goal=s2;}
   else if(id==='rcMargin'){const k=parseInt(v,10);RC.margin=k>=0?Math.min(30,k):0;}
   else if(id==='rcCps')RC.cps=v;
+  else if(id==='rcWs')RC.ws=v;
   store.set('cbgm-race',RC);if(MODE==='race'&&!R.running)menu=virtualMenu();
-  $('#rcKmWrap').hidden=RC.ev!=='その他';$('#rcSum').innerHTML=rcSummary();$('#rcCpsView').innerHTML=rcCpsView();renderRun();renderSongs();}
+  $('#rcKmWrap').hidden=RC.ev!=='その他';$('#rcSum').innerHTML=rcSummary();$('#rcCpsView').innerHTML=rcCpsView();$('#rcWsView').innerHTML=rcWsView();renderRun();renderSongs();}
 $('#raceSec').addEventListener('input',rcInput);$('#raceSec').addEventListener('change',e=>{rcInput(e);if(e.target.id==='rcLimit'||e.target.id==='rcGoal'){const g=e.target;g.value=g.id==='rcLimit'?fmtHM(+RC.limit||0):(RC.goal?fmtHMS(RC.goal):'');}});
 function rcMsg(t,err){const m=$('#rcMsg');m.textContent=t;m.classList.toggle('err',!!err);}
 $('#rcArm').addEventListener('click',()=>{
@@ -1729,6 +1754,15 @@ W('位置を探しています','Searching for position','正在定位','正在�
 W('GPSをオンにしました','GPS turned on','已打开GPS','已開啟GPS','GPS를 켰습니다');
 W('この開き方ではGPSが使えません。スマホのファイルから直接開くとGPSは使えないため、https:// で始まるアドレスで開いてください。','GPS is not available when opened this way. GPS does not work when the page is opened directly from a file on your phone; open it from an address that starts with https://.','这种打开方式无法使用GPS。直接从手机文件打开时无法使用GPS，请通过以 https:// 开头的地址打开。','這種開啟方式無法使用GPS。直接從手機檔案開啟時無法使用GPS，請透過以 https:// 開頭的網址開啟。','이렇게 열면 GPS를 쓸 수 없습니다. 휴대폰 파일에서 바로 열면 GPS가 작동하지 않으니 https://로 시작하는 주소로 여세요.');
 W('GPSが許可されていません（ブラウザの設定で位置情報を許可してください）','GPS is not permitted (allow location access in your browser settings)','GPS未获许可（请在浏览器设置中允许位置信息）','GPS未獲許可（請在瀏覽器設定中允許位置資訊）','GPS가 허용되지 않았습니다 (브라우저 설정에서 위치 정보를 허용하세요)');
+W('次の給水','Next aid station','下一个补给站','下一個補給站','다음 급수');
+W('給水所（任意）「距離km 種類」を1行ずつ（種類：水＝給水のみ、食＝給水＆食べ物）','Aid stations (optional): one per line, "distance-km type" (type: 水 = water only, 食 = water & food)','补给站（可选）：每行一个，“距离km 类型”（类型：水＝仅供水，食＝供水和食物）','補給站（可選）：每行一個，「距離km 類型」（類型：水＝僅供水，食＝供水和食物）','급수소 (선택): 한 줄에 하나씩 "거리km 종류" (종류: 水 = 급수만, 食 = 급수와 음식)');
+W('読み取った給水所','Aid stations read','已识别的补给站','已識別的補給站','읽어 들인 급수소');
+W('給水のみ','Water only','仅供水','僅供水','급수만');
+W('給水＆食べ物','Water & food','供水和食物','供水和食物','급수 & 음식');
+W('推定では、給水所はすべて通過しています','All aid stations passed (estimated)','推定已通过所有补给站','推定已通過所有補給站','추정으로는 급수소를 모두 통과했습니다');
+W('まもなく給水所です','Aid station coming up','即将到达补给站','即將到達補給站','곧 급수소입니다');
+W('水と食べ物があります','Water and food available','有水和食物','有水和食物','물과 음식이 있습니다');
+W('給水のみです','Water only','仅供水','僅供水','급수만 있습니다');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -1862,6 +1896,7 @@ P(/^この1キロは(.+?)(?:、目標どおりです|、目標より(\d+)秒(速
 P(/^GPS：位置をつかみました ±(\d+)m（スタート待ち）$/,m=>[`GPS: position acquired ±${m[1]} m (waiting for start)`,`GPS：已获取位置 ±${m[1]}米（等待起跑）`,`GPS：已取得位置 ±${m[1]}公尺（等待起跑）`,`GPS: 위치 잡음 ±${m[1]}m (출발 대기)`]);
 P(/^GPSの位置をつかみました（±(\d+)m）$/,m=>[`GPS position acquired (±${m[1]} m)`,`已获取GPS位置（±${m[1]}米）`,`已取得GPS位置（±${m[1]}公尺）`,`GPS 위치를 잡았습니다 (±${m[1]}m)`]);
 P(/^GPSの位置をつかみました（±(\d+)m）。スタートできます。$/,m=>[`GPS position acquired (±${m[1]} m). You can start.`,`已获取GPS位置（±${m[1]}米）。可以开始了。`,`已取得GPS位置（±${m[1]}公尺）。可以開始了。`,`GPS 위치를 잡았습니다 (±${m[1]}m). 시작할 수 있습니다.`]);
+P(/^（その次 ([\d.]+)km (給水のみ|給水＆食べ物)）$/,m=>{const k=nm(m[2]);return [`(then ${m[1]} km: ${k})`,`（之后 ${m[1]}公里 ${k}）`,`（之後 ${m[1]}公里 ${k}）`,`(그다음 ${m[1]} km ${k})`];});
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
