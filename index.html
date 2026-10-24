@@ -71,15 +71,18 @@ section{display:flex;flex-direction:column;gap:12px}
 .spdbtn{flex:1 1 0;font-weight:700;padding:10px 4px;font-size:.9rem;white-space:nowrap;border:2px solid var(--accent);background:var(--surface);border-radius:12px;line-height:1.3}
 .spdbtn small{font-family:var(--f-num);font-size:.9rem;font-weight:600;color:var(--muted)}
 .spdnow{flex:0 0 auto;align-self:center;font-family:var(--f-num);font-size:1.05rem;font-weight:700;min-width:6.5em;text-align:center;line-height:1.3}.spdnow small{font-size:.8rem;color:var(--muted)}
+.need{outline:3px solid var(--warn)!important}
 .strat,.rp{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .sauto{display:inline-flex;align-items:center;gap:6px;font-size:.88rem}.sauto select{width:auto;padding:4px 6px}
 .strat-h{display:flex;flex-direction:column;gap:2px}.strat-h .sub{margin:0;font-size:.8rem}
-.srow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:6px 0;border-top:1px solid var(--line);font-size:.9rem}
-.srow:first-child{border-top:0}
-.srow .sn{font-weight:700;min-width:4.6em}
-.strat .srow input[type=number]{width:4.6em;flex:none;font-family:var(--f-num);font-size:1.05rem;text-align:center;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 4px}
+.srow{display:grid;grid-template-columns:4.7em 4.9em 3.9em 3.7em 2.9em 26px;align-items:center;gap:6px 5px;padding:7px 0;border-top:1px solid var(--line);font-size:.85rem}
+.srow.hd{color:var(--muted);padding:0 0 2px;border-top:0}.srow.hd span{text-align:center;white-space:nowrap;font-size:.8em}.srow.hd .hk{grid-column:2/4}
+.srow .fr{text-align:right;white-space:nowrap}.srow .gl{white-space:nowrap;font-weight:700;text-align:center}.srow .sp{white-space:nowrap;text-align:center;font-family:var(--f-num)}
+.srow:first-child,.srow.hd+.srow{border-top:0}
+.srow .sn{font-weight:700;white-space:nowrap}
+.strat .srow input[type=number]{width:100%;box-sizing:border-box;padding:4px 2px!important;font-family:var(--f-num);font-size:1.05rem;text-align:center;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 4px}
 .srow .sp{font-family:var(--f-num);font-size:1rem;color:var(--muted)}
-.srow.cur{background:var(--cur-bg);border-radius:8px;padding:6px}
+.srow.cur{background:var(--cur-bg);border-radius:8px;padding:8px 4px}
 .lock-bar .spdlock{display:flex;gap:8px;flex:1 1 100%}.lock-bar .spdlock .unlock{flex:1;padding:12px 4px;font-size:1rem}
 .fixrow{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}
 .fixbtn{flex:1 1 200px;font-family:var(--f-num);font-size:1.35rem;font-weight:700;padding:12px 8px;border:2px solid var(--accent);background:var(--accent-soft);border-radius:12px}
@@ -369,6 +372,7 @@ body.live .recv{display:none}
       <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。</span></div>
       <div id="stratList"></div>
       <div class="ctrls"><button class="small" id="stratAdd">＋ ステージを追加</button><span class="sauto">目標タイムから<select id="stratN" aria-label="作るステージ数"></select>で<button class="small" id="stratAuto">作る</button></span><button class="small" id="stratClear">戦略を消す</button></div>
+      <p class="ml-msg err" id="stratMsg"></p>
       <div class="sub" id="stratSum"></div>
     </div>
     <div class="rc-sum" id="rcSum"></div>
@@ -1359,7 +1363,7 @@ function renderRunMode(){liveUI();const rp=$('#runPanel');rp.classList.toggle('m
   else if(w&&now<w){T('#bigLabel','スタートまで');$('#segLeft').textContent=fmt(w-now);}
   else if(w){T('#bigLabel','スタート時刻から');$('#segLeft').textContent=fmt(now-w);}
   else{T('#bigLabel','スタートまで');$('#segLeft').textContent='--:--';}
-  {const rp=racePace(),st=stratAt(R.running?posInfo(el).pos:0);T('#tgtLabel',st?`BGMのテンポ（第${st.i+1}ステージ）`:'BGMのテンポ');$('#segPace').textContent=rp?fmtPace(rp):'—';
+  {const rp=racePace(),st=stratAt(R.running?posInfo(el).pos:0);T('#tgtLabel',st?`BGMのテンポ（${st.i+1}ステージ）`:'BGMのテンポ');$('#segPace').textContent=rp?fmtPace(rp):'—';
    $('#tgtUnit').textContent='';}
   T('#st1Label',R.done&&RS.endAt?'ゴール時の制限時間まで':'制限時間まで');const lim=(+RC.limit||0)*60000;const g0=rcGunMs(),lossMs=RS.startAt&&g0?RS.startAt-g0:0;const rem=g0&&lim?g0+lim-now:(R.running&&lim?lim-el-lossMs:null);
   $('#totLeft').textContent=idle?'0:00':rem==null?'—':fmt(rem);
@@ -1431,16 +1435,18 @@ setInterval(startGateUI,500);
 /* ---------- strategy editor ---------- */
 function stratSave(){store.set('cbgm-race',RC);if(MODE==='race'&&!R.running)menu=virtualMenu();}
 function renderStrat(){const box=$('#stratList');if(!box)return;const rows=stratRows(),km=rcKm(),cur=R.running?stratAt(posInfo(elapsed()).pos):null;let from=0;
-  box.innerHTML=rows.length?rows.map((r,i)=>{const last=i===rows.length-1,to=last?km:+r.to||0;const html=`<div class="srow${cur&&cur.i===i?' cur':''}"><span class="sn">第${i+1}ステージ</span><span>${i?(+from.toFixed(2))+' ～':'スタート ～'}</span>`+
-    (last?`<b>ゴール（${+km.toFixed(3)}）</b>`:`<input type="number" id="st-to-${i}" data-sto="${i}" min="0.1" max="${km}" step="0.1" value="${r.to??''}" inputmode="decimal" aria-label="${i+1}ステージの終わり（km）"><span>km</span>`)+
-    `<span>時速</span><input type="number" id="st-spd-${i}" data-sspd="${i}" min="3" max="30" step="0.1" value="${r.spd??''}" inputmode="decimal" aria-label="${i+1}ステージの時速"><span>km</span><span class="sp" id="st-p-${i}">${validSpd(r.spd)?'ペース '+fmtPace(3600/r.spd)+'/km':''}</span><button class="x" data-sdel="${i}" aria-label="${i+1}ステージを削除">×</button></div>`;from=last?km:to;return html;}).join(''):'<div class="sub">戦略はありません。目標タイムから計算した1つのテンポで流します。</div>';
+  box.innerHTML=rows.length?'<div class="srow hd"><span></span><span class="hk">区間（km）</span><span>時速</span><span>ペース</span><span></span></div>'+rows.map((r,i)=>{const last=i===rows.length-1,to=last?km:+r.to||0;const html=`<div class="srow${cur&&cur.i===i?' cur':''}"><span class="sn">${i+1}ステージ</span><span class="fr">${i?(+from.toFixed(2))+' ～':'スタート ～'}</span>`+
+    (last?`<span class="gl" title="${+km.toFixed(3)} km">ゴール</span>`:`<input type="number" id="st-to-${i}" data-sto="${i}" min="0.1" max="${km}" step="0.1" value="${r.to??''}" inputmode="decimal" aria-label="${i+1}ステージの終わり（km）">`)+
+    `<input type="number" id="st-spd-${i}" data-sspd="${i}" min="3" max="30" step="0.1" value="${r.spd??''}" inputmode="decimal" aria-label="${i+1}ステージの時速"><span class="sp" id="st-p-${i}">${validSpd(r.spd)?fmtPace(3600/r.spd):''}</span>`+
+    `<button class="x" data-sdel="${i}" aria-label="${i+1}ステージを削除">×</button></div>`;from=last?km:to;return html;}).join(''):'<div class="sub">戦略はありません。目標タイムから計算した1つのテンポで流します。</div>';
   const ts=stratTotalSec();$('#stratSum').textContent=rows.length?(ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。'):'';}
 function stratDefN(){const km=rcKm();return km>45?Math.min(20,Math.max(3,Math.round(km/10))):3;}
 let stratNPicked=false;document.addEventListener('change',e=>{if(e.target.id==='stratN')stratNPicked=true;});
 document.addEventListener('input',e=>{if(/^rc(Km|Ev)$/.test(e.target.id)&&!stratNPicked)fillStratN();});
 document.addEventListener('change',e=>{if(e.target.id==='rcEv'&&!stratNPicked)fillStratN();});
 function fillStratN(){const sel=$('#stratN');if(!sel)return;const cur=stratNPicked&&+sel.value||stratDefN();let h='';for(let n=1;n<=20;n++)h+=`<option value="${n}"${n===cur?' selected':''}>${n}ステージ</option>`;sel.innerHTML=h;}
-function stratAuto(){const km=rcKm();let total=RC.goal?RC.goal-(+RC.margin||0)*60:null;if(!km||!total){rcMsg('先に目標タイムを入れてください。',true);return;}
+function stratAuto(){const km=rcKm();let total=RC.goal?RC.goal-(+RC.margin||0)*60:null;if(!km||!total){const m=$('#stratMsg');m.textContent='先に上の「目標タイム（時:分:秒）」を入れてください（例 4:30:00）。';const g=$('#rcGoal');g.classList.add('need');g.scrollIntoView({block:'center',behavior:'smooth'});setTimeout(()=>g.focus(),400);setTimeout(()=>{g.classList.remove('need');},4000);return;}
+  $('#stratMsg').textContent='';
   const n=+($('#stratN')&&$('#stratN').value)||stratDefN();let b;
   if(n===3&&Math.abs(km-42.195)<0.01)b=[10,30];else{b=[];for(let i=1;i<n;i++)b.push(Math.round(km*i/n*10)/10);}
   const segs=[];let f=0;b.forEach(e=>{segs.push([f,e]);f=e;});segs.push([f,km]);
@@ -1455,7 +1461,7 @@ document.addEventListener('click',e=>{const t=e.target;
   else if(t.id==='stratClear'){RC.strat=[];stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}
   else if(t.dataset&&t.dataset.sdel!=null){RC.strat.splice(+t.dataset.sdel,1);stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}});
 document.addEventListener('input',e=>{const t=e.target,d=t.dataset||{};if(d.sto==null&&d.sspd==null)return;const i=+(d.sto??d.sspd),r=stratRows()[i];if(!r)return;const v=parseFloat(t.value);
-  if(d.sto!=null){if(v>0)r.to=v;}else{if(validSpd(v))r.spd=v;const sp=$('#st-p-'+i);if(sp)sp.textContent=validSpd(v)?'ペース '+fmtPace(3600/v)+'/km':'';}
+  if(d.sto!=null){if(v>0)r.to=v;}else{if(validSpd(v))r.spd=v;const sp=$('#st-p-'+i);if(sp)sp.textContent=validSpd(v)?fmtPace(3600/v):'';}
   stratSave();const ts=stratTotalSec();$('#stratSum').textContent=ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。';$('#rcSum').innerHTML=rcSummary();renderRun();});
 document.addEventListener('change',e=>{if(e.target.dataset&&e.target.dataset.sto!=null)renderStrat();});
 /* ---------- saved race settings ---------- */
@@ -1792,6 +1798,9 @@ W('練習の内容をクリアしました。マイリストに登録してあ�
 W('本番の内容をクリアしました。「本番の設定の保存」に保存してあれば「読み込む」で元に戻せます。','Race settings cleared. If you saved them under "Save race settings", press "Load" to restore them.','已清除比赛内容。如已在“保存比赛设置”中保存，可按“读取”恢复。','已清除比賽內容。如已在「儲存比賽設定」中儲存，可按「讀取」恢復。','대회 내용을 지웠습니다. "대회 설정 저장"에 저장했다면 "불러오기"로 되돌릴 수 있습니다.');
 W('曲の「使う」のチェックをすべて外しました。マイリストに登録してあれば「読み込む」で元に戻せます。','Unchecked "Use" on all songs. If you saved a my list, press "Load" to restore it.','已取消所有歌曲的“使用”勾选。如已保存到我的列表，可按“读取”恢复。','已取消所有歌曲的「使用」勾選。如已儲存到我的清單，可按「讀取」恢復。','모든 곡의 "사용" 체크를 해제했습니다. 마이 리스트에 등록했다면 "불러오기"로 되돌릴 수 있습니다.');
 W('ステージ1','Stage 1','阶段1','階段1','스테이지 1');
+W('先に上の「目標タイム（時:分:秒）」を入れてください（例 4:30:00）。','First enter the "Target time (h:mm:ss)" above (e.g. 4:30:00).','请先在上方输入“目标成绩（时:分:秒）”（例 4:30:00）。','請先在上方輸入「目標成績（時:分:秒）」（例 4:30:00）。','먼저 위의 "목표 기록 (시:분:초)"을 입력하세요 (예 4:30:00).');
+W('区間（km）','Section (km)','区间（公里）','區間（公里）','구간 (km)');
+W('ペース','Pace','配速','配速','페이스');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -1926,6 +1935,7 @@ P(/^GPS：位置をつかみました ±(\d+)m（スタート待ち）$/,m=>[`GP
 P(/^GPSの位置をつかみました（±(\d+)m）$/,m=>[`GPS position acquired (±${m[1]} m)`,`已获取GPS位置（±${m[1]}米）`,`已取得GPS位置（±${m[1]}公尺）`,`GPS 위치를 잡았습니다 (±${m[1]}m)`]);
 P(/^GPSの位置をつかみました（±(\d+)m）。スタートできます。$/,m=>[`GPS position acquired (±${m[1]} m). You can start.`,`已获取GPS位置（±${m[1]}米）。可以开始了。`,`已取得GPS位置（±${m[1]}公尺）。可以開始了。`,`GPS 위치를 잡았습니다 (±${m[1]}m). 시작할 수 있습니다.`]);
 P(/^（その次 ([\d.]+)km (給水のみ|給水＆食べ物)）$/,m=>{const k=nm(m[2]);return [`(then ${m[1]} km: ${k})`,`（之后 ${m[1]}公里 ${k}）`,`（之後 ${m[1]}公里 ${k}）`,`(그다음 ${m[1]} km ${k})`];});
+P(/^BGMのテンポ（(\d+)ステージ）$/,m=>[`BGM tempo (stage ${m[1]})`,`BGM节奏（第${m[1]}阶段）`,`BGM節奏（第${m[1]}階段）`,`BGM 템포 (${m[1]}스테이지)`]);
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
@@ -1948,6 +1958,7 @@ function trSay(t){if(LANG==='ja')return t;const w=D.get(NW(t.trim()));if(w)retur
 const TXT=new WeakMap(),ATR=new WeakMap(),ATTRS=['placeholder','aria-label','title'];
 const skip=el=>!el||el.closest('script,style,[data-notr],.song-name,.ml-info b');
 function doText(n){const p=n.parentElement;if(skip(p))return;let r=TXT.get(n);if(!r||n.data!==r.out){r={ja:n.data};TXT.set(n,r);}
+  if(p.classList.contains('sn')){const mm=/^(\d+)ステージ$/.exec(r.ja.trim());if(mm){const out=LANG==='ja'?r.ja:tr('第'+mm[1]+'ステージ');r.out=out;if(n.data!==out)n.data=out;return;}}
   const out=tr(r.ja);r.out=out;if(n.data!==out)n.data=out;}
 function doAttr(el){if(skip(el))return;let rec=ATR.get(el);if(!rec){rec={};ATR.set(el,rec);}
   for(const a of ATTRS){if(!el.hasAttribute(a))continue;const cur=el.getAttribute(a);let r=rec[a];if(!r||cur!==r.out){r=rec[a]={ja:cur};}const out=tr(r.ja);r.out=out;if(cur!==out)el.setAttribute(a,out);}
