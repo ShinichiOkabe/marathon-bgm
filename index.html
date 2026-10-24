@@ -1320,7 +1320,7 @@ function T0(id,t){const e=$(id);if(e&&e.dataset.ja!==t){e.dataset.ja=t;e.textCon
 function liveUI(){const live=R.running||RS.pre;document.body.classList.toggle('live',!!live);document.body.classList.toggle('race-live',MODE==='race'&&!!live);}
 function renderRunMode(){liveUI();const rp=$('#runPanel');rp.classList.toggle('m-race',MODE==='race');rp.classList.toggle('m-relax',MODE==='relax');
   const T=(id,t)=>{$(id).textContent=t;};
-  $('#goalStat').hidden=$('#goalStat2').hidden=MODE!=='race';$('#cpStat').hidden=MODE!=='race'||!rcCps().length;
+  $('#goalStat').hidden=$('#goalStat2').hidden=MODE!=='race';$('#cpStat').hidden=MODE!=='race'||!rcCps().length;$('#wsStat').hidden=MODE!=='race'||!rcWs().length;
   $('#segLine').hidden=false;
   if(MODE==='practice'){T('#bigLabel','このステージの残り');T('#tgtLabel','目標ペース');T('#st1Label','全体の残り');T('#st2Label','次のステージ');return;}
   let now=Date.now();
