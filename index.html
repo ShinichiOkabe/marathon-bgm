@@ -1328,14 +1328,15 @@ const referenced=s=>mylists.some(m=>m.songs.some(x=>x.id===s.id||(x.name!=null&&
 /* taking a song off the list keeps its file when a mylist uses it; otherwise it is deleted */
 function takeOff(s){if(referenced(s)){if(stash.indexOf(s)<0)stash.push(s);saveMeta(s);}else{URL.revokeObjectURL(s.url);delSong(s.id);}}
 function purgeStash(){stash.filter(s=>!referenced(s)&&!s.parked).forEach(s=>{stash.splice(stash.indexOf(s),1);URL.revokeObjectURL(s.url);delSong(s.id);});updateStoreInfo();}
+var mlFlash=null,mlFlashTxt='',mlFlashT=0;function flashML(id,t){mlFlash=id;mlFlashTxt=t;clearTimeout(mlFlashT);mlFlashT=setTimeout(()=>{mlFlash=null;renderML();},2500);setTimeout(()=>{try{$('#mlMsg').scrollIntoView({block:'nearest',behavior:'smooth'});}catch(e){}},50);}
 function renderML(){const list=$('#mlList');if(!list)return;list.hidden=!mylists.length;
   list.innerHTML=mylists.map(m=>{const min=m.menu.reduce((a,s)=>a+ +s.min,0),km=m.menu.reduce((a,s)=>a+s.min*60/s.pace,0);
     const have=m.songs.filter(x=>findSong(x)).length;
-    return `<div class="ml${m.id===activeML?' on':''}"><div class="ml-info"><b>${esc(m.name)}</b>
-      <span>${m.menu.length}ステージ・${Math.round(min)}分・約${km.toFixed(1)} km・曲 ${have}曲${m.saved?`・保存 ${fmtWhen(m.saved)}`:''}</span></div>
-      <div class="ctrls"><button class="small" data-mlload="${m.id}" ${R.running?'disabled':''}>読み込む</button>
+    return `<div class="ml${m.id===activeML?' on':''}${mlFlash===m.id?' flash':''}"><div class="ml-info"><b>${esc(m.name)}</b>
+      <span>${m.menu.length}ステージ・${Math.round(min)}分・約${km.toFixed(1)} km・曲 ${have}曲${m.saved?`・保存 ${fmtWhenS(m.saved)}`:''}</span></div>
+      <div class="ctrls"><button class="small${mlFlash===m.id&&mlFlashTxt.startsWith('読')?' ok':''}" data-mlload="${m.id}" ${R.running?'disabled':''}>${mlFlash===m.id&&mlFlashTxt.startsWith('読')?mlFlashTxt:'読み込む'}</button>
       <button class="small" data-mladd="${m.id}" title="今の一覧に、このマイリストの曲を重複なしで追加します">追加読込</button>
-      <button class="small" data-mlsave="${m.id}">上書き</button>
+      <button class="small${mlFlash===m.id&&mlFlashTxt.startsWith('上')?' ok':''}" data-mlsave="${m.id}">${mlFlash===m.id&&mlFlashTxt.startsWith('上')?mlFlashTxt:'上書き'}</button>
       <button class="small${mlDelArm===m.id?' danger':''}" data-mldel="${m.id}">${mlDelArm===m.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
 $('#mlSave').addEventListener('click',()=>{const name=$('#mlName').value.trim();if(!name){mlMsg('名前を入力してください。');$('#mlName').focus();return;}
   const ex=mylists.find(m=>m.name===name);const snap=snapshot(name,ex&&ex.id);
@@ -1359,8 +1360,8 @@ $('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
     mlMsg(`「${m.name}」の曲を追加しました。追加 ${added}曲`+(dup?`、すでに一覧にある ${dup}曲は重複しないようにそのままにしました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。練習メニューは変わりません。');
     renderSongs();renderRun();renderML();updateStoreInfo();return;}
   if(d.mlsave){const i=mylists.findIndex(x=>x.id===d.mlsave);if(i<0)return;mylists[i]=snapshot(mylists[i].name,d.mlsave);activeML=d.mlsave;saveMLs();
-    renderML();confirmSaved(mylists[i],`「${mylists[i].name}」を今の設定で上書きしました。`);return;}
-  if(d.mlload){if(R.running)return;const m=mylists.find(x=>x.id===d.mlload);if(!m||!validMenu(m.menu))return;
+    flashML(d.mlsave,'上書きしました ✓');renderML();confirmSaved(mylists[i],`「${mylists[i].name}」を今の設定で上書きしました。`);return;}
+  if(d.mlload){if(R.running){mlMsg('走っている間は読み込めません。');return;}const m=mylists.find(x=>x.id===d.mlload);if(!m)return;if(!validMenu(m.menu)){mlMsg(`「${m.name}」は練習メニューが正しく保存されていないため読み込めません。上書きし直してください。`);return;}
     if(R.acc>0||R.done)reset();
     cadOffset=Math.max(-30,Math.min(30,+m.offset||0));store.set('cbgm-offset',cadOffset);$('#cadOffset').value=cadOffset;
     {const nm=m.menu.map(toStage);if(MODE==='practice')menu=nm;else practiceMenu=nm;}activePreset='custom';saveMenu();
@@ -1372,7 +1373,7 @@ $('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
     others.forEach(s=>{s.parked=true;if(stash.indexOf(s)<0)stash.push(s);saveMeta(s);});
     songs.forEach(s=>{s.use=pos.has(s.id);s.stages=stg.has(s.id)?stg.get(s.id):'all';});
     songs.sort((a,b)=>(pos.has(a.id)?pos.get(a.id):1e9)-(pos.has(b.id)?pos.get(b.id):1e9));R.song=0;saveOrder();
-    activeML=m.id;saveMLs();const miss=m.songs.length-pos.size;
+    activeML=m.id;flashML(m.id,'読み込みました ✓');saveMLs();const miss=m.songs.length-pos.size;
     const nUse=songs.length,nOther=others.length;
     mlMsg(`「${m.name}」を読み込みました。流す曲 ${nUse}曲`+(nOther?`。マイリストに入っていない曲 ${nOther}曲は一覧から外しました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。');renderAll();}});
 
@@ -1575,7 +1576,7 @@ document.addEventListener('change',e=>{if(e.target.dataset&&e.target.dataset.sto
 let racePresets=store.get('cbgm-race-presets',[]);if(!Array.isArray(racePresets))racePresets=[];let rpDelArm=null;
 function rpMsg(t,err){const m=$('#rpMsg');m.textContent=t;m.classList.toggle('err',!!err);}
 let rpFlash=null,rpFlashT=0;const nLines=t=>String(t||'').split(/\n/).filter(x=>x.trim()).length;
-const fmtWhenS=t=>{const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;};
+function fmtWhenS(t){const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;}
 let rpFlashTxt='上書きしました ✓';function flashRP(id,txt){rpFlash=id;rpFlashTxt=txt||'上書きしました ✓';clearTimeout(rpFlashT);rpFlashT=setTimeout(()=>{rpFlash=null;renderRP();},2500);}
 function renderRP(){const l=$('#rpList');if(!l)return;l.hidden=!racePresets.length;
   l.innerHTML=racePresets.map(p=>{const r=p.rc||{},km=r.ev==='フル'?42.195:r.ev==='ハーフ'?21.0975:(+r.km||0);
@@ -2269,6 +2270,7 @@ W('「使う」にチェックした曲を、ペースに合わせた速さで�
 W('曲は流さず、ペースに合わせた歩数（1分あたり）でドラムを鳴らします。曲の一覧は使いません。','No songs: a drum beat plays at the steps per minute for your pace. The song list is not used.','不播放歌曲，以符合配速的步频（每分钟）播放鼓点。不使用歌曲列表。','不播放歌曲，以符合配速的步頻（每分鐘）播放鼓點。不使用歌曲清單。','곡 없이 페이스에 맞춘 걸음 수(1분당)로 드럼을 울립니다. 곡 목록은 사용하지 않습니다.');
 W('音楽は流しません。合図音と音声のお知らせだけです。','No music: only cue sounds and voice announcements.','不播放音乐，只有提示音和语音播报。','不播放音樂，只有提示音和語音播報。','음악은 재생하지 않습니다. 신호음과 음성 알림만 있습니다.');
 W('無音：音楽は流さず、音声のお知らせだけです','Silent: no music, voice announcements only','静音：不播放音乐，只有语音播报','靜音：不播放音樂，只有語音播報','무음: 음악 없이 음성 알림만');
+W('読み込みました ✓','Loaded ✓','已读取 ✓','已讀取 ✓','불러왔습니다 ✓');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2442,6 +2444,7 @@ P(/^(.+)があります$/,m=>{const a=m[1].split('、').map(x=>nm(x));return [`$
 P(/^関門 (\d+)か所$/,m=>[`${m[1]} cutoffs`,`关门点${m[1]}处`,`關門點${m[1]}處`,`관문 ${m[1]}곳`]);
 P(/^給水 (\d+)か所$/,m=>[`${m[1]} aid stations`,`补给站${m[1]}处`,`補給站${m[1]}處`,`급수 ${m[1]}곳`]);
 P(/^ドラム：(\d+|—)歩\/分のテンポで鳴らします$/,m=>[`Drum: playing at ${m[1]} steps/min`,`鼓点：以每分钟${m[1]}步的节奏播放`,`鼓點：以每分鐘${m[1]}步的節奏播放`,`드럼: ${m[1]}보/분 템포로 울립니다`]);
+P(/^「(.+)」は練習メニューが正しく保存されていないため読み込めません。上書きし直してください。$/,m=>[`"${m[1]}" cannot be loaded because its training menu was not saved correctly. Please overwrite it again.`,`「${m[1]}」的训练菜单未正确保存，无法读取。请重新覆盖。`,`「${m[1]}」的訓練菜單未正確儲存，無法讀取。請重新覆寫。`,`"${m[1]}"은(는) 연습 메뉴가 제대로 저장되지 않아 불러올 수 없습니다. 다시 덮어쓰세요.`]);
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
