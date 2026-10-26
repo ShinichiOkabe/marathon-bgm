@@ -322,7 +322,7 @@ body.live .recv{display:none}
       <div class="stat pos" id="posStat" hidden><div class="label">推定の現在地</div><div class="v num" id="posNow">—</div><div class="s" id="posSub"></div></div>
       <div class="stat cp" id="cpStat" hidden><div class="label">次の関門</div><div class="v num" id="cpNext">—</div><div class="s" id="cpSub"></div></div>
       <div class="stat auto" id="autoStat" hidden><div class="label" id="autoLbl">戦略を自動で調整中</div><div class="v num" id="autoNow">—</div><div class="s" id="autoSub"></div><button class="small" id="autoRevert">元の戦略に戻す</button></div>
-      <div class="stat ws" id="wsStat" hidden><div class="label">次の給水</div><div class="v num" id="wsNext">—</div><div class="s" id="wsSub"></div></div>
+      <div class="stat ws" id="wsStat" hidden><div class="label">次の給水・エイド</div><div class="v num" id="wsNext">—</div><div class="s" id="wsSub"></div></div>
       <div class="stat goal" id="goalStat" hidden><div class="label">今の通過地点（目標）</div><div class="v num" id="goalNow">—</div></div>
       <div class="stat goal" id="goalStat2" hidden><div class="label">30分後の目標距離</div><div class="v num" id="goal30">—</div><div class="s" id="goal30s"></div></div>
     </div>
@@ -381,13 +381,13 @@ body.live .recv{display:none}
 21.1 3:10
 30 13:30"></textarea></label>
       <div class="f wide">読み取った関門<div class="rc-cps" id="rcCpsView"></div><button class="small" type="button" data-clr="rcCps">関門をすべてクリア</button></div>
-      <label class="f wide">給水所（任意）「距離km　内容」を1行ずつ（水＝給水のみ、食＝給水＆食べ物。ラーメン・おにぎりなど品名も書けます）
+      <label class="f wide">給水所・エイド（任意）「距離km　内容」を1行ずつ（水＝給水、食＝食べ物、そのほかは書いた品名のまま。例「水 バナナ」「カニ汁」「水 食」）
         <textarea id="rcWs" rows="4" autocomplete="off" placeholder="例）
 5 水
-10 食
-15 バナナ おにぎり
-30 ラーメン"></textarea></label>
-      <div class="f wide">読み取った給水所<div class="rc-cps" id="rcWsView"></div><button class="small" type="button" data-clr="rcWs">給水所をすべてクリア</button></div>
+10 水 食
+15 水 バナナ
+20 カニ汁"></textarea></label>
+      <div class="f wide">読み取った給水所・エイド<div class="rc-cps" id="rcWsView"></div><button class="small" type="button" data-clr="rcWs">給水所・エイドをすべてクリア</button></div>
     </div>
     <div class="strat">
       <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。</span></div>
@@ -1337,16 +1337,21 @@ function rcCpsView(){const c=rcCps();return (c.length?c.map(x=>{const g=rcGunMs(
 function rcWs(){return String(RC.ws||'').split(/\n/).map(l=>{l=l.replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248));
   const m=/^\s*([\d.]+)\s*(?:km|ｋｍ|キロ|k(?![a-z]))?\s*[,、]?\s*(.*?)\s*$/i.exec(l);if(!m)return null;const km=parseFloat(m[1]);if(!(km>0))return null;
   const toks=m[2].split(/[\s,、・／/＆&＋+]+/).filter(Boolean);const water=/^(水|給水|water|w|ドリンク)$/i,food=/^(食|給食|食べ物|フード|food|f|エイド|aid)$/i;
-  const items=toks.filter(t=>!water.test(t)&&!food.test(t));return {km,food:items.length>0||toks.some(t=>food.test(t)),items};}).filter(Boolean).sort((a,b)=>a.km-b.km);}
-const wsKind=w=>w.items&&w.items.length?'給水＆'+w.items.join('・'):w.food?'給水＆食べ物':'給水のみ';
+  /* 水＝給水、食＝食べ物、それ以外は書いたとおり。書いた順に並べる（何も書かなければ給水） */
+  const parts=toks.length?toks.map(t=>water.test(t)?{w:1}:food.test(t)?{f:1}:{n:t}):[{w:1}];
+  const seen=new Set(),uniq=parts.filter(p=>{const key=p.w?'w':p.f?'f':'n:'+p.n;if(seen.has(key))return false;seen.add(key);return true;});
+  return {km,water:uniq.some(p=>p.w),food:uniq.some(p=>!p.w),parts:uniq};}).filter(Boolean).sort((a,b)=>a.km-b.km);}
+const wsKind=w=>{const p=w.parts||[];if(p.length===1&&p[0].w)return '給水のみ';return p.map(x=>x.w?'給水':x.f?'食べ物':x.n).join('＆');};
 function rcWsView(){const w=rcWs();const bad=String(RC.ws||'').split(/\n/).filter(x=>x.trim()).length>w.length;
   return (w.length?w.map(x=>`${+x.km.toFixed(2)}km　`+(x.food?`<span class="ws-food">${esc(wsKind(x))}</span>`:wsKind(x))).join('<br>'):'なし')+(bad?'<br>（読み取れない行があります）':'');}
 function renderWs(run,pos){const w=rcWs(),box=$('#wsStat');box.hidden=MODE!=='race'||!w.length;if(box.hidden)return;
-  const i=w.findIndex(x=>x.km>pos+0.02);if(i<0){$('#wsNext').textContent='すべて通過';$('#wsSub').textContent='推定では、給水所はすべて通過しています';return;}
+  const i=w.findIndex(x=>x.km>pos+0.02);if(i<0){$('#wsNext').textContent='すべて通過';$('#wsSub').textContent='推定では、給水所・エイドはすべて通過しています';return;}
   const x=w[i],n=w[i+1];$('#wsNext').textContent=`${+x.km.toFixed(2)}km まで あと ${Math.max(0,x.km-pos).toFixed(1)} km`;
   $('#wsSub').innerHTML=(x.food?`<span class="ws-food">${esc(wsKind(x))}</span>`:wsKind(x))+(n?`　（その次 ${+n.km.toFixed(2)}km ${esc(wsKind(n))}）`:'');}
+function wsSay(x){const p=x.parts||[];if(p.length===1&&p[0].w)return 'まもなく給水所です。給水のみです。';
+  return `まもなく${x.water?'給水所':'エイド'}です。${p.map(q=>q.w?'水':q.f?'食べ物':q.n).join('、')}があります。`;}
 function wsAnnounce(pos){const w=rcWs();if(!w.length)return;RS.wsAnn=RS.wsAnn||{};
-  w.forEach((x,i)=>{const d=x.km-pos;if(d>0&&d<=0.3&&!RS.wsAnn[i]){RS.wsAnn[i]=1;cue(false);say(x.items&&x.items.length?`まもなく給水所です。${x.items.join('、')}があります。`:x.food?'まもなく給水所です。水と食べ物があります。':'まもなく給水所です。給水のみです。');}});}
+  w.forEach((x,i)=>{const d=x.km-pos;if(d>0&&d<=0.3&&!RS.wsAnn[i]){RS.wsAnn[i]=1;cue(false);say(wsSay(x));}});}
 function rcCps(){return String(RC.cps||'').split(/\n/).map(l=>{const m=/^\s*([\d.０-９．]+)\s*(?:km|ｋｍ|キロ|k)?\s*[\s,、]\s*(\S+)\s*$/i.exec(l.replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248)));
   if(!m)return null;const km=parseFloat(m[1]);let sec=parseHMS(m[2]);const gt=/^(\d\d):(\d\d)$/.exec(RC.time||''),gs=gt?(+gt[1])*3600+(+gt[2])*60:null;
   if(gs!=null&&sec>=gs)sec-=gs; /* 時刻（例 10:40）で書いた関門は、スタート時刻からの時間に直す */
@@ -2120,6 +2125,16 @@ W('直近5km分を表示しています（終了後にすべて表示）','Showi
 W('給水所（任意）「距離km 内容」を1行ずつ（水＝給水のみ、食＝給水＆食べ物。ラーメン・おにぎりなど品名も書けます）','Aid stations (optional): one per line, "distance-km contents" (水 = water only, 食 = water & food; you can also write items such as ramen or rice balls)','补给站（可选）：每行一个，“距离km 内容”（水＝仅供水，食＝供水和食物，也可以写拉面、饭团等品名）','補給站（可選）：每行一個，「距離km 內容」（水＝僅供水，食＝供水和食物，也可以寫拉麵、飯糰等品名）','급수소 (선택): 한 줄에 하나씩 "거리km 내용" (水 = 급수만, 食 = 급수와 음식. 라면・주먹밥 등 품목도 쓸 수 있습니다)');
 W('関門をすべてクリア','Clear all cutoffs','清除所有关门点','清除所有關門點','관문 모두 지우기');
 W('給水所をすべてクリア','Clear all aid stations','清除所有补给站','清除所有補給站','급수소 모두 지우기');
+W('給水所・エイド（任意）「距離km 内容」を1行ずつ（水＝給水のみ、食＝給水＆食べ物。ラーメン・おにぎりなど品名も書けます。品名だけなら水なし、水も出るときは「水 ラーメン」）','Aid stations (optional): one per line, "distance-km contents" (水 = water only, 食 = water & food; you can also write items such as ramen or rice balls — items alone mean no water; write "水 ramen" if water is also served)','补给站（可选）：每行一个，“距离km 内容”（水＝仅供水，食＝供水和食物；也可以写拉面、饭团等品名，只写品名表示无水，同时供水时写“水 拉面”）','補給站（可選）：每行一個，「距離km 內容」（水＝僅供水，食＝供水和食物；也可以寫拉麵、飯糰等品名，只寫品名表示無水，同時供水時寫「水 拉麵」）','급수소・에이드 (선택): 한 줄에 하나씩 "거리km 내용" (水 = 급수만, 食 = 급수와 음식. 라면・주먹밥 등 품목도 쓸 수 있으며, 품목만 쓰면 물 없음, 물도 있으면 "水 라면")');
+W('次の給水・エイド','Next aid station','下一个补给站','下一個補給站','다음 급수・에이드');
+W('推定では、給水所・エイドはすべて通過しています','All aid stations passed (estimated)','推定已通过所有补给站','推定已通過所有補給站','추정으로는 급수소・에이드를 모두 통과했습니다');
+W('読み取った給水所・エイド','Aid stations read','已识别的补给站','已識別的補給站','읽어 들인 급수소・에이드');
+W('給水所・エイドをすべてクリア','Clear all aid stations','清除所有补给站','清除所有補給站','급수소・에이드 모두 지우기');
+W('まもなくエイドです','Aid station coming up','即将到达补给站','即將到達補給站','곧 에이드입니다');
+W('給水所・エイド（任意）「距離km 内容」を1行ずつ（水＝給水、食＝食べ物、そのほかは書いた品名のまま。例「水 バナナ」「カニ汁」「水 食」）','Aid stations (optional): one per line, "distance-km contents" (水 = water, 食 = food, anything else is shown as written; e.g. "水 banana", "crab soup", "水 食")','补给站（可选）：每行一个，“距离km 内容”（水＝供水，食＝食物，其他按所写品名显示；例“水 香蕉”“蟹汤”“水 食”）','補給站（可選）：每行一個，「距離km 內容」（水＝供水，食＝食物，其他按所寫品名顯示；例「水 香蕉」「蟹湯」「水 食」）','급수소・에이드 (선택): 한 줄에 하나씩 "거리km 내용" (水 = 급수, 食 = 음식, 그 밖은 쓴 그대로; 예 "水 바나나" "게국" "水 食")');
+W('給水','Water','供水','供水','급수');
+W('食べ物','Food','食物','食物','음식');
+W('水','water','水','水','물');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2253,7 +2268,7 @@ P(/^この1キロは(.+?)(?:、目標どおりです|、目標より(\d+)秒(速
 P(/^GPS：位置をつかみました ±(\d+)m（スタート待ち）$/,m=>[`GPS: position acquired ±${m[1]} m (waiting for start)`,`GPS：已获取位置 ±${m[1]}米（等待起跑）`,`GPS：已取得位置 ±${m[1]}公尺（等待起跑）`,`GPS: 위치 잡음 ±${m[1]}m (출발 대기)`]);
 P(/^GPSの位置をつかみました（±(\d+)m）$/,m=>[`GPS position acquired (±${m[1]} m)`,`已获取GPS位置（±${m[1]}米）`,`已取得GPS位置（±${m[1]}公尺）`,`GPS 위치를 잡았습니다 (±${m[1]}m)`]);
 P(/^GPSの位置をつかみました（±(\d+)m）。スタートできます。$/,m=>[`GPS position acquired (±${m[1]} m). You can start.`,`已获取GPS位置（±${m[1]}米）。可以开始了。`,`已取得GPS位置（±${m[1]}公尺）。可以開始了。`,`GPS 위치를 잡았습니다 (±${m[1]}m). 시작할 수 있습니다.`]);
-P(/^（その次 ([\d.]+)km (給水.*)）$/,m=>{const k=nm(m[2]);return [`(then ${m[1]} km: ${k})`,`（之后 ${m[1]}公里 ${k}）`,`（之後 ${m[1]}公里 ${k}）`,`(그다음 ${m[1]} km ${k})`];});
+P(/^（その次 ([\d.]+)km (.+)）$/,m=>{const k=nm(m[2]);return [`(then ${m[1]} km: ${k})`,`（之后 ${m[1]}公里 ${k}）`,`（之後 ${m[1]}公里 ${k}）`,`(그다음 ${m[1]} km ${k})`];});
 P(/^BGMのテンポ（(\d+)ステージ）$/,m=>[`BGM tempo (stage ${m[1]})`,`BGM节奏（第${m[1]}阶段）`,`BGM節奏（第${m[1]}階段）`,`BGM 템포 (${m[1]}스테이지)`]);
 P(/^時速 ([\d.]+)km（(\d+:\d\d)\/km）$/,m=>[`${m[1]} km/h (${m[2]}/km)`,`时速 ${m[1]}公里（${m[2]}/公里）`,`時速 ${m[1]}公里（${m[2]}/公里）`,`시속 ${m[1]}km (${m[2]}/km)`]);
 P(/^([\d.]+)km地点で目標より(.+)遅れていたため$/,m=>{const v=dur(m[2]);return [`because you were ${v} behind target at ${m[1]} km`,`因在${m[1]}公里处比目标慢${v}`,`因在${m[1]}公里處比目標慢${v}`,`${m[1]}km 지점에서 목표보다 ${v} 늦었기 때문`];});
@@ -2287,8 +2302,9 @@ P(/^直近5キロのペースでは制限時間を超えるため、完走でき
 P(/^直近5キロのペースに合わせて、時速([\d.]+)キロ、ペース(.+)に調整します$/,m=>[`Adjusting to your last 5 kilometer pace: ${m[1]} kilometers per hour, pace ${dur(m[2])}`,`按最近5公里的配速调整为时速${m[1]}公里，配速${dur(m[2])}`,`按最近5公里的配速調整為時速${m[1]}公里，配速${dur(m[2])}`,`최근 5킬로미터 페이스에 맞춰 시속 ${m[1]}킬로미터, 페이스 ${dur(m[2])}로 조정합니다`]);
 P(/^([\d.]+)km 戦略を自動調整：直近5km 時速([\d.]+)kmでは制限時間を超えるため 時速([\d.]+)km（(.+)\/km）$/,m=>[`${m[1]} km auto-adjusted: last 5 km ${m[2]} km/h would exceed the limit → ${m[3]} km/h (${m[4]}/km)`,`${m[1]}公里 自动调整：最近5公里时速${m[2]}公里会超时 → 时速${m[3]}公里（${m[4]}/公里）`,`${m[1]}公里 自動調整：最近5公里時速${m[2]}公里會超時 → 時速${m[3]}公里（${m[4]}/公里）`,`${m[1]}km 자동 조정: 최근 5km 시속 ${m[2]}km면 제한 시간 초과 → 시속 ${m[3]}km (${m[4]}/km)`]);
 P(/^([\d.]+)km 戦略を自動調整：直近5kmのペース 時速([\d.]+)km（(.+)\/km）$/,m=>[`${m[1]} km auto-adjusted: last 5 km pace ${m[2]} km/h (${m[3]}/km)`,`${m[1]}公里 自动调整：最近5公里配速 时速${m[2]}公里（${m[3]}/公里）`,`${m[1]}公里 自動調整：最近5公里配速 時速${m[2]}公里（${m[3]}/公里）`,`${m[1]}km 자동 조정: 최근 5km 페이스 시속 ${m[2]}km (${m[3]}/km)`]);
-P(/^給水＆(.+)$/,m=>{const x=m[1];return [`Water & ${x}`,`供水和${x}`,`供水和${x}`,`급수 & ${x}`];});
-P(/^(.+)があります$/,m=>[`${m[1]} available`,`有${m[1]}`,`有${m[1]}`,`${m[1]}이(가) 있습니다`]);
+P(/^(.+＆.+)$/,m=>{const parts=m[1].split('＆').map(x=>nm(x));return [parts.join(' & '),parts.join('＆'),parts.join('＆'),parts.join(' & ')];});
+P(/^水と、(.+)があります$/,m=>[`Water and ${m[1]} available`,`有水和${m[1]}`,`有水和${m[1]}`,`물과 ${m[1]}이(가) 있습니다`]);
+P(/^(.+)があります$/,m=>{const a=m[1].split('、').map(x=>nm(x));return [`${a.join(', ')} available`,`有${a.join('、')}`,`有${a.join('、')}`,`${a.join(', ')}이(가) 있습니다`];});
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
