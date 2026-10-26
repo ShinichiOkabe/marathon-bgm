@@ -77,6 +77,7 @@ section{display:flex;flex-direction:column;gap:12px}
 .rlog td.late{color:var(--warn);font-weight:700}.rlog td.src{font-size:.7rem;color:var(--muted)}.rlog tr.ev td{white-space:normal;text-align:left;color:var(--warn);font-family:inherit;font-size:.8rem}
 .rlog .tw{max-height:320px;overflow:auto}.rlog svg{width:100%;height:auto;display:block}.rlog .chart-t{font-size:.8rem;font-weight:700;margin:6px 0 2px}
 .rlog .lg{font-size:.72rem;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}.rlog .lg i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:4px}
+.ml.flash{animation:rpfl 1.2s ease-out}@keyframes rpfl{0%{background:var(--accent-soft)}100%{background:transparent}}button.ok{border-color:var(--accent);color:var(--accent);font-weight:700}
 .strat,.rp{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .sauto{display:inline-flex;align-items:center;gap:6px;font-size:.88rem}.sauto select{width:auto;padding:4px 6px}
 .strat-h{display:flex;flex-direction:column;gap:2px}.strat-h .sub{margin:0;font-size:.8rem}
@@ -1510,17 +1511,20 @@ document.addEventListener('change',e=>{if(e.target.dataset&&e.target.dataset.sto
 /* ---------- saved race settings ---------- */
 let racePresets=store.get('cbgm-race-presets',[]);if(!Array.isArray(racePresets))racePresets=[];let rpDelArm=null;
 function rpMsg(t,err){const m=$('#rpMsg');m.textContent=t;m.classList.toggle('err',!!err);}
+let rpFlash=null,rpFlashT=0;const nLines=t=>String(t||'').split(/\n/).filter(x=>x.trim()).length;
+const fmtWhenS=t=>{const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;};
+let rpFlashTxt='上書きしました ✓';function flashRP(id,txt){rpFlash=id;rpFlashTxt=txt||'上書きしました ✓';clearTimeout(rpFlashT);rpFlashT=setTimeout(()=>{rpFlash=null;renderRP();},2500);}
 function renderRP(){const l=$('#rpList');if(!l)return;l.hidden=!racePresets.length;
   l.innerHTML=racePresets.map(p=>{const r=p.rc||{},km=r.ev==='フル'?42.195:r.ev==='ハーフ'?21.0975:(+r.km||0);
-    return `<div class="ml"><div class="ml-info"><b>${esc(p.name)}</b><span>${esc(r.name||'大会名なし')}・${r.date||'日付なし'} ${r.time||''}・${+km.toFixed(3)}km${r.goal?'・目標 '+fmtHMS(r.goal):''}${(r.strat||[]).length?'・戦略 '+r.strat.length+'ステージ':''}・保存 ${fmtWhen(p.saved)}</span></div>
-      <div class="ctrls"><button class="small" data-rpload="${p.id}" ${R.running||RS.pre?'disabled':''}>読み込む</button><button class="small" data-rpsave="${p.id}">上書き</button><button class="small${rpDelArm===p.id?' danger':''}" data-rpdel="${p.id}">${rpDelArm===p.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
+    return `<div class="ml${rpFlash===p.id?' flash':''}"><div class="ml-info"><b>${esc(p.name)}</b><span>${esc(r.name||'大会名なし')}・${r.date||'日付なし'} ${r.time||''}・${+km.toFixed(3)}km${r.goal?'・目標 '+fmtHMS(r.goal):''}${(r.strat||[]).length?'・戦略 '+r.strat.length+'ステージ':''}${nLines(r.cps)?'・関門 '+nLines(r.cps)+'か所':''}${nLines(r.ws)?'・給水 '+nLines(r.ws)+'か所':''}・保存 ${fmtWhenS(p.saved)}</span></div>
+      <div class="ctrls"><button class="small" data-rpload="${p.id}" ${R.running||RS.pre?'disabled':''}>読み込む</button><button class="small${rpFlash===p.id?' ok':''}" data-rpsave="${p.id}">${rpFlash===p.id?rpFlashTxt:'上書き'}</button><button class="small${rpDelArm===p.id?' danger':''}" data-rpdel="${p.id}">${rpDelArm===p.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
 const rpSnap=()=>JSON.parse(JSON.stringify(RC));
 document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};
   if(t.id==='rpSave'){const name=$('#rpName').value.trim()||RC.name;if(!name){rpMsg('保存名を入れてください。',true);return;}
     const ex=racePresets.find(p=>p.name===name),p={id:ex?ex.id:gid(),name,saved:Date.now(),rc:rpSnap()};if(ex)racePresets[racePresets.indexOf(ex)]=p;else racePresets.push(p);
-    store.set('cbgm-race-presets',racePresets);$('#rpName').value='';rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);renderRP();return;}
+    store.set('cbgm-race-presets',racePresets);$('#rpName').value='';rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashRP(p.id,ex?'上書きしました ✓':'保存しました ✓');renderRP();return;}
   if(d.rpdel){if(rpDelArm!==d.rpdel){rpDelArm=d.rpdel;renderRP();return;}const p=racePresets.find(x=>x.id===d.rpdel);racePresets=racePresets.filter(x=>x.id!==d.rpdel);rpDelArm=null;store.set('cbgm-race-presets',racePresets);rpMsg(p?`「${p.name}」を削除しました。`:'');renderRP();return;}
-  if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);renderRP();return;}
+  if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);flashRP(p.id);renderRP();return;}
   if(d.rpload){if(R.running||RS.pre)return;const p=racePresets.find(x=>x.id===d.rpload);if(!p)return;RC=Object.assign({},RCD,JSON.parse(JSON.stringify(p.rc)));store.set('cbgm-race',RC);
     if(MODE==='race')menu=virtualMenu();rpMsg(`「${p.name}」を読み込みました。`);renderAll();return;}});
 {const _a=applyModeUI;applyModeUI=function(){_a();if(MODE==='race'){fillStratN();if(!(document.activeElement&&document.activeElement.dataset&&(document.activeElement.dataset.sto!=null||document.activeElement.dataset.sspd!=null)))renderStrat();renderRP();}};}
@@ -2135,6 +2139,8 @@ W('給水所・エイド（任意）「距離km 内容」を1行ずつ（水＝�
 W('給水','Water','供水','供水','급수');
 W('食べ物','Food','食物','食物','음식');
 W('水','water','水','水','물');
+W('上書きしました ✓','Overwritten ✓','已覆盖 ✓','已覆寫 ✓','덮어썼습니다 ✓');
+W('保存しました ✓','Saved ✓','已保存 ✓','已儲存 ✓','저장했습니다 ✓');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2305,6 +2311,8 @@ P(/^([\d.]+)km 戦略を自動調整：直近5kmのペース 時速([\d.]+)km（
 P(/^(.+＆.+)$/,m=>{const parts=m[1].split('＆').map(x=>nm(x));return [parts.join(' & '),parts.join('＆'),parts.join('＆'),parts.join(' & ')];});
 P(/^水と、(.+)があります$/,m=>[`Water and ${m[1]} available`,`有水和${m[1]}`,`有水和${m[1]}`,`물과 ${m[1]}이(가) 있습니다`]);
 P(/^(.+)があります$/,m=>{const a=m[1].split('、').map(x=>nm(x));return [`${a.join(', ')} available`,`有${a.join('、')}`,`有${a.join('、')}`,`${a.join(', ')}이(가) 있습니다`];});
+P(/^関門 (\d+)か所$/,m=>[`${m[1]} cutoffs`,`关门点${m[1]}处`,`關門點${m[1]}處`,`관문 ${m[1]}곳`]);
+P(/^給水 (\d+)か所$/,m=>[`${m[1]} aid stations`,`补给站${m[1]}处`,`補給站${m[1]}處`,`급수 ${m[1]}곳`]);
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
