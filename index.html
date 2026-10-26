@@ -90,6 +90,43 @@ section{display:flex;flex-direction:column;gap:12px}
 .srow .sp{font-family:var(--f-num);font-size:1rem;color:var(--muted)}
 .srow.cur{background:var(--cur-bg);border-radius:8px;padding:8px 4px} 
 .od table.laps{width:100%;border-collapse:collapse;margin-top:8px;font-family:var(--f-num);font-size:.95rem}.od table.laps th{font-family:inherit;font-size:.75rem;color:var(--muted);font-weight:600;text-align:right;padding:2px 6px}.od table.laps td{text-align:right;padding:3px 6px;border-top:1px solid var(--line)}.od table.laps td.late{color:var(--warn);font-weight:700}.od table.laps td.fast{color:var(--accent);font-weight:700}
+.stabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:-8px}
+.stab{flex:1 1 0;min-width:0;border:0;border-bottom:3px solid transparent;border-radius:10px 10px 0 0;background:none;padding:10px 4px;font-weight:700;color:var(--muted);margin-bottom:-2px}
+.stab:hover{border-color:transparent;border-bottom-color:var(--line)}
+.stab.on{color:var(--ink);border-bottom-color:var(--accent);background:var(--accent-soft)}
+.tabsec{display:flex;flex-direction:column;gap:20px}
+.srcsel{display:flex;flex-direction:column;gap:6px}
+.src-btns{display:flex;gap:6px}
+.src-b{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px;font-weight:700;border-radius:10px}
+.src-b small{font-weight:400;font-size:.72rem;color:var(--muted);text-align:center}
+.src-b.on{background:var(--accent-soft);border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.src-b.on small{color:var(--ink)}
+.songs-off{opacity:.5}
+.opts-v{flex-direction:column;align-items:flex-start;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+#stratSec{display:flex;flex-direction:column;gap:14px}
+/* while running: only what is needed, on one screen */
+body.live header,body.live .stabs,body.live .tabsec{display:none!important}
+body.live.pre-only header{display:block!important}body.live.pre-only header .sub,body.live.pre-only header .modes,body.live.pre-only header .hash-note,body.live.pre-only header .resume{display:none!important}
+body.live .wrap{padding-top:8px;gap:8px;padding-bottom:120px}
+body.live #profWrap,body.live #nowPlaying,body.live #goalStat2{display:none!important}
+body.live:not(.od-live) .od{display:none!important}
+body.live.race-live .stat.next{display:none!important}
+body.live .run{padding:12px 14px;gap:10px}
+body.live .stats{gap:6px}
+body.live .stat{padding:6px 10px}
+body.live .ctrls{gap:6px}
+body.live .ctrls button{padding:6px 10px;font-size:.85rem}
+body.live .ctrls .primary{flex:1 1 100%;padding:10px 14px;font-size:1rem}
+body.live .big-row{flex-wrap:nowrap;align-items:flex-end}
+body.live .big{font-size:clamp(3.2rem,17vw,5.2rem)}
+.big{white-space:nowrap}body.od-live .big{font-size:clamp(2.6rem,14vw,4.2rem)}
+body.live .target .v{font-size:2rem}
+body.live .stat .v{font-size:1.25rem}
+body.live .stat .s{font-size:.72rem;line-height:1.4}
+body.live.race-live #goalStat{order:1}
+body.live.race-live #posStat,body.live.race-live #cpStat{order:2}
+body.live.race-live .stat.cp .v,body.live .stat.ws .v{font-size:1.2rem}
+/* screen locked: the buttons are on the lock bar, so hide the same buttons in the panel */
+body.locked #spdRow,body.locked #fixRow,body.locked .run>.ctrls,body.locked #musicResume{display:none!important}
 .kmtoast{position:fixed;left:0;right:0;margin:0 auto;width:max-content;max-width:calc(100% - 32px);white-space:nowrap;top:18%;z-index:80;pointer-events:none;min-width:12em;text-align:center;padding:16px 28px;border-radius:20px;background:rgba(20,32,43,.92);color:#fff;box-shadow:0 10px 40px rgba(0,0,0,.35)}
 .kmtoast.show{animation:kmin .35s ease-out}@keyframes kmin{from{opacity:0;transform:translateY(-12px) scale(.96)}to{opacity:1;transform:none}}
 .kmtoast .kk{font-family:var(--f-num);font-size:3.2rem;font-weight:800;line-height:1.05}.kmtoast .kl{font-family:var(--f-num);font-size:1.9rem;font-weight:700;margin-top:4px}
@@ -353,16 +390,16 @@ body.live .recv{display:none}
       <button id="btnReset">リセット</button>
       <button id="btnRedo" hidden>最初に戻す（設定はそのまま）</button>
     </div>
-    <div class="opts">
-      <label><input type="checkbox" id="optCue" checked> ステージの切り替えで合図音</label>
-      <label><input type="checkbox" id="optKm" checked> 1kmごとにお知らせ（音声と画面）</label>
-      <label><input type="checkbox" id="optClick"> クリック音</label>
-      <label><input type="checkbox" id="optPitch"> 音程を保つ（オフの方が音がきれい）</label>
-      <label>曲の音量 <input type="range" id="optVol" min="0" max="1" step="0.05" value="0.75"></label>
-      <label>クリック <input type="range" id="optClickVol" min="0" max="1" step="0.05" value="0.4"></label>
-    </div>
   </section>
 
+
+  <div class="stabs" id="stabs" role="tablist" aria-label="走る前の設定">
+    <button class="stab" role="tab" data-st="main" id="stMain">メニュー</button>
+    <button class="stab" role="tab" data-st="strat" id="stStrat">戦略・記録</button>
+    <button class="stab" role="tab" data-st="songs">曲</button>
+    <button class="stab" role="tab" data-st="sound">音・合図</button>
+  </div>
+  <div class="tabsec" data-tab="main">
   <!-- RACE -->
   <section id="raceSec" hidden>
     <div class="sec-head"><div><h2>本番の設定</h2><p class="sub">スタート5分前から、目標タイムに合わせた1つのテンポでBGMを流し続けます。「本番の戦略」を入れると区間ごとにテンポを変えます。「使う」にチェックした曲を繰り返します。</p></div><div class="clr-wrap"><button class="small clr" data-clear="race">本番の内容をクリア</button><p class="ml-msg" id="clrMsg-race"></p></div></div>
@@ -390,28 +427,7 @@ body.live .recv{display:none}
 20 カニ汁"></textarea></label>
       <div class="f wide">読み取った給水所・エイド<div class="rc-cps" id="rcWsView"></div><button class="small" type="button" data-clr="rcWs">給水所・エイドをすべてクリア</button></div>
     </div>
-    <div class="strat">
-      <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。</span></div>
-      <div id="stratList"></div>
-      <div class="ctrls"><button class="small" id="stratAdd">＋ ステージを追加</button><span class="sauto">目標タイムから<select id="stratN" aria-label="作るステージ数"></select>で<button class="small" id="stratAuto">作る</button></span><button class="small" id="stratClear">戦略を消す</button></div>
-      <label class="chk"><input type="checkbox" id="rcAutoSafe"> 5kmごとに、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）</label>
-      <p class="ml-msg err" id="stratMsg"></p>
-      <div class="sub" id="stratSum"></div>
-    </div>
     <div class="rc-sum" id="rcSum"></div>
-    <div class="rp">
-      <div class="strat-h"><b>本番の設定の保存</b><span class="sub">入力中の内容は自動で残ります。大会ごとに名前を付けて保存しておくと、あとで読み込めます。</span></div>
-      <div class="ml-save"><input type="text" id="rpName" maxlength="40" placeholder="保存名（例：水戸2026）" aria-label="保存名"><button class="primary-sm" id="rpSave">保存</button></div>
-      <p class="ml-msg" id="rpMsg"></p>
-      <div class="list" id="rpList" hidden></div>
-    </div>
-    <div class="rp rlog">
-      <div class="strat-h"><b>本番のログ</b><span class="sub">スタート時刻と1kmごとの通過時間を記録します。途中でスマホの電源が切れても、ページを開き直すと記録から今の位置を推測して続きから再開できます。前回の大会の記録は、次の大会でスタートを押すまで、ここでグラフを見たりダウンロードしたりできます。</span></div>
-      <div class="ctrls"><select id="logSel" aria-label="ログを選ぶ"></select><button class="small" id="logCsv">CSVをダウンロード</button><button class="small" id="logDel">このログを削除</button></div>
-      <div id="logInfo" class="sub"></div>
-      <div id="logChart"></div>
-      <div class="tw" id="logTable"></div>
-    </div>
     <label class="chk"><input type="checkbox" id="optShuffle" data-shuffle="1"> 曲をシャッフルして流す</label>
     <div class="notes rc-notes"><ul>
       <li>ラジコやYouTubeなど、ほかのアプリをこのページから終了させることはできません。スタート5分前にBGMが鳴り始めると、多くのスマホではほかのアプリの音が自動で止まります。止まらないときは手で止めてください。</li>
@@ -424,6 +440,19 @@ body.live .recv{display:none}
   <section id="relaxSec" hidden>
     <div class="sec-head"><div><h2>リラックス</h2><p class="sub">ステージはなく、「使う」にチェックした曲を原曲の速さのまま、「ストップ」を押すまで繰り返し流します。</p></div><div class="clr-wrap"><button class="small clr" data-clear="relax">リラックスの内容をクリア</button><p class="ml-msg" id="clrMsg-relax"></p></div></div>
     <label class="chk"><input type="checkbox" id="optShuffle2" data-shuffle="1"> 曲をシャッフルして流す</label>
+  </section>
+
+
+  <!-- MENU -->
+  <section id="menuSec">
+    <div class="sec-head">
+      <div><h2>練習メニュー</h2><p class="sub">ステージごとに「1km何分で走るか」と時間を決めます。曲の速さは、そのペースで走りやすいリズムに自動で合わせます。</p></div>
+      <span class="total" id="menuTotal">合計 45分</span>
+      <div class="clr-wrap"><button class="small clr" data-clear="practice">練習の内容をクリア</button><p class="ml-msg" id="clrMsg-practice"></p></div>
+    </div>
+    <div class="chips" id="presets"></div>
+    <div class="list" id="menuList"></div>
+    <div><button class="small" id="btnAddSeg">＋ ステージを追加</button></div>
   </section>
 
   <!-- MYLIST -->
@@ -439,25 +468,39 @@ body.live .recv{display:none}
     <div class="list" id="mlList" hidden></div>
   </section>
 
-  <!-- MENU -->
-  <section id="menuSec">
-    <div class="sec-head">
-      <div><h2>練習メニュー</h2><p class="sub">ステージごとに「1km何分で走るか」と時間を決めます。曲の速さは、そのペースで走りやすいリズムに自動で合わせます。</p></div>
-      <span class="total" id="menuTotal">合計 45分</span>
-      <div class="clr-wrap"><button class="small clr" data-clear="practice">練習の内容をクリア</button><p class="ml-msg" id="clrMsg-practice"></p></div>
-    </div>
-    <div class="chips" id="presets"></div>
-    <div class="list" id="menuList"></div>
-    <div class="calib">
-      <label for="cadOffset">曲のリズムの微調整</label>
-      <span class="pace-box"><button class="pstep" id="cadUp" title="リズムを1歩/分 早く">早く</button>
-      <input type="number" id="cadOffset" value="0" min="-30" max="30" step="1" inputmode="numeric">
-      <button class="pstep" id="cadDown" title="リズムを1歩/分 遅く">遅く</button></span>
-      <span>（曲がゆっくりに感じたら「早く」、せかされる感じなら「遅く」）</span>
-    </div>
-    <div><button class="small" id="btnAddSeg">＋ ステージを追加</button></div>
-  </section>
 
+  </div>
+  <div class="tabsec" data-tab="strat" hidden>
+  <section id="stratSec">
+    <div class="strat">
+      <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。</span></div>
+      <div id="stratList"></div>
+      <div class="ctrls"><button class="small" id="stratAdd">＋ ステージを追加</button><span class="sauto">目標タイムから<select id="stratN" aria-label="作るステージ数"></select>で<button class="small" id="stratAuto">作る</button></span><button class="small" id="stratClear">戦略を消す</button></div>
+      <label class="chk"><input type="checkbox" id="rcAutoSafe"> 5kmごとに、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）</label>
+      <p class="ml-msg err" id="stratMsg"></p>
+      <div class="sub" id="stratSum"></div>
+    </div>
+    <div class="rp">
+      <div class="strat-h"><b>本番の設定の保存</b><span class="sub">入力中の内容は自動で残ります。大会ごとに名前を付けて保存しておくと、あとで読み込めます。</span></div>
+      <div class="ml-save"><input type="text" id="rpName" maxlength="40" placeholder="保存名（例：水戸2026）" aria-label="保存名"><button class="primary-sm" id="rpSave">保存</button></div>
+      <p class="ml-msg" id="rpMsg"></p>
+      <div class="list" id="rpList" hidden></div>
+    </div>
+    <div class="rp rlog">
+      <div class="strat-h"><b>本番のログ</b><span class="sub">スタート時刻と1kmごとの通過時間を記録します。途中でスマホの電源が切れても、ページを開き直すと記録から今の位置を推測して続きから再開できます。前回の大会の記録は、次の大会でスタートを押すまで、ここでグラフを見たりダウンロードしたりできます。</span></div>
+      <div class="ctrls"><select id="logSel" aria-label="ログを選ぶ"></select><button class="small" id="logCsv">CSVをダウンロード</button><button class="small" id="logDel">このログを削除</button></div>
+      <div id="logInfo" class="sub"></div>
+      <div id="logChart"></div>
+      <div class="tw" id="logTable"></div>
+    </div>
+  </section>
+  </div>
+  <div class="tabsec" data-tab="songs" hidden>
+    <div class="srcsel" role="group" aria-label="流す音">
+      <div class="label">流す音</div>
+      <div class="src-btns"><button class="src-b" data-src="songs">曲を流す<small>手元の曲をペースに合わせて</small></button><button class="src-b" data-src="drum">ドラム<small>曲なし・テンポだけ</small></button><button class="src-b" data-src="silent">無音<small>音声の案内だけ</small></button></div>
+      <p class="sub" id="srcNote"></p>
+    </div>
   <!-- SONGS -->
   <section>
     <div class="sec-head">
@@ -473,7 +516,6 @@ body.live .recv{display:none}
     <div class="drop" id="drop">まだ曲がありません。「曲を追加」から音声ファイル（MP3・M4A・WAV など）を選ぶか、ここにドラッグしてください。<br>ファイルはこの端末の中だけで処理され、どこにも送られません。</div>
     <div class="list" id="songList" hidden></div>
   </section>
-
   <div class="notes">
     <b>オフラインで使うとき</b>
     <ul>
@@ -482,6 +524,27 @@ body.live .recv{display:none}
       <li>スマホでは画面を消すとタイマーの更新が遅れることがあります。走っている間は画面をつけたままにするのが確実です（対応ブラウザでは自動で画面が消えないようにします）。</li>
       <li>テンポの倍率が大きすぎる曲（目安：0.75倍未満・1.35倍超）は音が不自然になりやすいので「変化大」と表示します。</li>
     </ul>
+  </div>
+  </div>
+  <div class="tabsec" data-tab="sound" hidden>
+  <section id="soundSec">
+    <div class="sec-head"><div><h2>音・合図</h2><p class="sub">合図音やお知らせ、クリック音、音量、リズムの微調整です。</p></div></div>
+    <div class="opts opts-v">
+      <label><input type="checkbox" id="optCue" checked> ステージの切り替えで合図音</label>
+      <label><input type="checkbox" id="optKm" checked> 1kmごとにお知らせ（音声と画面）</label>
+      <label><input type="checkbox" id="optClick"> クリック音</label>
+      <label><input type="checkbox" id="optPitch"> 音程を保つ（オフの方が音がきれい）</label>
+      <label>曲の音量 <input type="range" id="optVol" min="0" max="1" step="0.05" value="0.75"></label>
+      <label>クリック <input type="range" id="optClickVol" min="0" max="1" step="0.05" value="0.4"></label>
+    </div>
+    <div class="calib">
+      <label for="cadOffset">曲のリズムの微調整</label>
+      <span class="pace-box"><button class="pstep" id="cadUp" title="リズムを1歩/分 早く">早く</button>
+      <input type="number" id="cadOffset" value="0" min="-30" max="30" step="1" inputmode="numeric">
+      <button class="pstep" id="cadDown" title="リズムを1歩/分 遅く">遅く</button></span>
+      <span>（曲がゆっくりに感じたら「早く」、せかされる感じなら「遅く」）</span>
+    </div>
+  </section>
   </div>
 </div>
 
@@ -783,7 +846,7 @@ async function lockScreen(){try{if('wakeLock'in navigator&&document.visibilitySt
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){try{ctx&&ctx.resume();}catch(e){}if((R.running&&!R.paused)||RS.armed||RS.pre)lockScreen();tick();}});
 
 function start(){
-  if(!songs.some(used))return;
+  if(opt.src==='songs'&&!songs.some(used))return;
   const fresh=R.done||(!R.running&&R.acc===0);
   if(MODE!=='practice'&&fresh)menu=virtualMenu();
   if(!totalMs())return;
@@ -842,7 +905,7 @@ function renderRun(){
       (m.unknown?'BPMを測定中のため、元の速さで流します。':`元 ${s.bpm} BPM → <b class="num">×${m.rate.toFixed(2)}</b>（${multText(m.mult)}）`)+
       (m.big?' <span class="flag">変化大</span>':''));}
   const b=$('#btnStart');b.textContent=R.running&&!R.paused?'一時停止':R.running&&R.paused?'再開':R.done?'もう一度':'スタート';
-  b.disabled=!songs.some(used)||!tot;$('#btnNextSong').disabled=!R.running||songs.filter(used).length<2;$('#btnSongTop').disabled=!R.running;$('#btnSkip').disabled=!R.running||R.seg>=menu.length-1;$('#btnBack').disabled=!R.running||R.seg<=0;
+  b.disabled=(opt.src==='songs'&&!songs.some(used))||!tot;$('#btnNextSong').disabled=!R.running||songs.filter(used).length<2;$('#btnSongTop').disabled=!R.running;$('#btnSkip').disabled=!R.running||R.seg>=menu.length-1;$('#btnBack').disabled=!R.running||R.seg<=0;
   renderRunMode();
 }
 function renderProfile(){
@@ -1434,7 +1497,7 @@ $('#raceSec').addEventListener('input',rcInput);$('#raceSec').addEventListener('
 $('#raceSec').addEventListener('click',e=>{const b=e.target.closest('[data-clr]');if(!b)return;const ta=document.getElementById(b.dataset.clr);if(!ta)return;ta.value='';rcInput({target:ta});});$('#raceSec').addEventListener('change',e=>{rcInput(e);if(e.target.id==='rcLimit'||e.target.id==='rcGoal'){const g=e.target;g.value=g.id==='rcLimit'?fmtHM(+RC.limit||0):(RC.goal?fmtHMS(RC.goal):'');}});
 function rcMsg(t,err){const m=$('#rcMsg');m.textContent=t;m.classList.toggle('err',!!err);}
 $('#rcArm').addEventListener('click',()=>{
-  if(!songs.some(used))return rcMsg('流す曲がありません。曲の一覧で「使う」にチェックを入れてください。',true);
+  if(opt.src==='songs'&&!songs.some(used))return rcMsg('流す曲がありません。曲の一覧で「使う」にチェックを入れてください。',true);
   const w=rcWaveMs();if(!w)return rcMsg('開催日とスタート時刻を入れてください。',true);
   if(!rcEff())return rcMsg('目標タイムを入れてください。',true);
   if(Date.now()>=rcEndMs())return rcMsg('BGMを流す時間（制限時間＋30分）を過ぎています。開催日とスタート時刻を確認してください。',true);
@@ -1625,7 +1688,7 @@ function resumeRace(){const r=resumeSnap;if(!r)return;resumeSnap=null;$('#resume
   if(!R.paused&&songs.some(used))playSong(firstIndex());lockScreen();if(!R.paused)startClicks();lock();
   const pos=posInfo(elapsed()).pos,rmsg=`本番を再開しました。スタートから${sayMin(i.el)}、推定${pos.toFixed(1)}キロ地点です。`;say(rmsg);
   /* the browser may block sound until the screen is touched once: then any touch anywhere starts the music */
-  setTimeout(()=>{if(musicLive()&&audio.paused&&songs.some(used)){INT.on=true;INT.blocked=true;INT.msg=rmsg;renderMusicRes();}},1200);
+  setTimeout(()=>{if(opt.src==='songs'&&musicLive()&&audio.paused&&songs.some(used)){INT.on=true;INT.blocked=true;INT.msg=rmsg;renderMusicRes();}},1200);
   addEv('resume',`再開（推定 ${pos.toFixed(1)}km）`);setTimeout(()=>{try{if(!GPS.on)gpsOn();}catch(e){}},500);renderAll();}
 $('#resumeGo').addEventListener('click',resumeRace);
 $('#resumeNo').addEventListener('click',()=>{const r=resumeSnap;if(!r)return;resumeSnap=null;clearInterval(resumeT);
@@ -1746,8 +1809,57 @@ function checkPracResume(){const r=store.get(PRUN_KEY,null);if(!r||r.v!==1||R.ru
   if(!R.paused&&songs.some(used))playSong(firstIndex());lockScreen();if(!R.paused)startClicks();lock();
   const seg=menu[R.seg],left=segStart(R.seg)+seg.min*60000-el;
   const rmsg=`練習を再開しました。${seg.name}、このステージの残り${sayMin(left)}です。`+(r.od?`走った距離は推定${OD.dist.toFixed(1)}キロです。`:'');say(rmsg);
-  setTimeout(()=>{if(musicLive()&&audio.paused&&songs.some(used)){INT.on=true;INT.blocked=true;INT.msg=rmsg;renderMusicRes();}},1200);
+  setTimeout(()=>{if(opt.src==='songs'&&musicLive()&&audio.paused&&songs.some(used)){INT.on=true;INT.blocked=true;INT.msg=rmsg;renderMusicRes();}},1200);
   renderAll();}
+/* ===================== settings tabs / running screen / sound source ===================== */
+opt.src=['songs','drum','silent'].includes(store.get('cbgm-src','songs'))?store.get('cbgm-src','songs'):'songs';
+let TAB=store.get('cbgm-tab',{});if(!TAB||typeof TAB!=='object')TAB={};
+const TABNAMES={practice:{main:'メニュー'},race:{main:'大会'},relax:{main:'リラックス'}};
+function renderTabs(){let t=TAB[MODE]||'main';if(t==='strat'&&MODE!=='race')t='main';
+  document.querySelectorAll('.stab').forEach(b=>{const k=b.dataset.st;b.hidden=k==='strat'&&MODE!=='race';b.classList.toggle('on',k===t);b.setAttribute('aria-selected',k===t);});
+  const m=$('#stMain');const nm=TABNAMES[MODE].main;if(m.dataset.ja!==nm){m.dataset.ja=nm;m.textContent=nm;}
+  document.querySelectorAll('.tabsec').forEach(x=>x.hidden=x.dataset.tab!==t);}
+$('#stabs').addEventListener('click',e=>{const b=e.target.closest('.stab');if(!b)return;TAB[MODE]=b.dataset.st;store.set('cbgm-tab',TAB);renderTabs();});
+/* lock state on <body> so the panel can hide the buttons that are on the lock bar */
+new MutationObserver(()=>document.body.classList.toggle('locked',!lockLayer.hidden)).observe(lockLayer,{attributes:true,attributeFilter:['hidden']});
+{const _l=liveUI;liveUI=function(){_l();const run=R.running||R.done&&MODE==='race',wait=!R.running&&(RS.pre||RS.armed)&&MODE==='race';
+  document.body.classList.toggle('live',!!(run||wait||RS.pre));document.body.classList.toggle('pre-only',!!wait);
+  document.body.classList.toggle('od-live',MODE==='practice'&&!!opt.outdoor);};}
+/* ---- sound source: songs / drum / silent ---- */
+let noiseBuf=null,drumN=0;
+function noiseB(){if(noiseBuf)return noiseBuf;const ac=getCtx(),n=Math.floor(ac.sampleRate*.3);noiseBuf=ac.createBuffer(1,n,ac.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<n;i++)d[i]=Math.random()*2-1;return noiseBuf;}
+function nz(t,type,freq,dur,v){const ac=getCtx(),sb=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();sb.buffer=noiseB();f.type=type;f.frequency.value=freq;
+  g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);sb.connect(f);f.connect(g);g.connect(ac.destination);sb.start(t);sb.stop(t+dur+.02);}
+function tone(t,type,f0,f1,dur,v){const ac=getCtx(),o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+dur*.6);
+  g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+dur+.02);}
+function drumHit(t,i){const v=Math.max(.0001,opt.vol);
+  if(i%2===0)tone(t,'sine',150,45,.28,v*.95);
+  else{nz(t,'bandpass',1800,.16,v*.55);tone(t,'triangle',220,160,.09,v*.3);}
+  nz(t,'highpass',7000,.04,v*.18);}
+/* steps per minute right now (follows the stage, the race strategy and pace up/down) */
+function curCad(){if(MODE==='race'){const p=racePace();return p?cadFromPace(p):cadFromPace(420);}
+  if(MODE==='practice'){const g=menu[R.seg];if(!g)return null;return RS.spd?cadFromPace(adjPace(g.pace)):g.bpm;}return cadFromPace(420);}
+startClicks=function(){stopClicks();const drum=opt.src==='drum';if(!opt.click&&!drum)return;const ac=getCtx();try{ac.resume();}catch(e){}nextClick=ac.currentTime+.1;drumN=0;
+  clickTimer=setInterval(()=>{const c=curCad();if(!c)return;const spb=60/c;
+    while(nextClick<ac.currentTime+.15){if(drum)drumHit(nextClick,drumN++);if(opt.click)blip(nextClick,1600,.03,opt.clickVol*.6);nextClick+=spb;}},30);};
+{const _ps=playSong;playSong=function(i){if(opt.src!=='songs'){try{audio.pause();}catch(e){}if(opt.src==='drum')startClicks();renderSongs();renderRun();return;}return _ps.apply(this,arguments);};}
+$('#rcDisarm').addEventListener('click',()=>stopClicks());
+function setSrc(v){if(!['songs','drum','silent'].includes(v))return;const was=opt.src;opt.src=v;store.set('cbgm-src',v);
+  const live=(R.running&&!R.paused)||(MODE==='race'&&RS.pre);
+  if(live&&was!==v){stopClicks();if(v==='songs'){if(songs.some(used))playSong(firstIndex());}else{try{audio.pause();}catch(e){}}startClicks();}
+  INT.on=false;renderMusicRes();renderSrc();renderRun();}
+function renderSrc(){document.querySelectorAll('.src-b').forEach(b=>b.classList.toggle('on',b.dataset.src===opt.src));
+  const n={songs:'「使う」にチェックした曲を、ペースに合わせた速さで流します。',drum:'曲は流さず、ペースに合わせた歩数（1分あたり）でドラムを鳴らします。曲の一覧は使いません。',silent:'音楽は流しません。合図音と音声のお知らせだけです。'}[opt.src];
+  const el=$('#srcNote');if(el.dataset.ja!==n){el.dataset.ja=n;el.textContent=n;}
+  const sl=$('#songList'),dp=$('#drop');[sl,dp].forEach(x=>x&&x.classList.toggle('songs-off',opt.src!=='songs'));}
+document.addEventListener('click',e=>{const b=e.target.closest('.src-b');if(b)setSrc(b.dataset.src);});
+{const _rr=renderRun;renderRun=function(){_rr();if(opt.src!=='songs'){const np=$('#nowPlaying');const t=opt.src==='drum'?`ドラム：${curCad()||'—'}歩/分のテンポで鳴らします`:'無音：音楽は流さず、音声のお知らせだけです';if(np.dataset.ja!==t||!np.textContent.includes(String(curCad()||'—'))&&opt.src==='drum'||np.querySelector('*')){np.dataset.ja=t;np.textContent=t;}}else{$('#nowPlaying').dataset.ja='';}};}
+/* Bluetooth/autoplay notices are only for songs */
+{const _m=renderMusicRes;renderMusicRes=function(){if(opt.src!=='songs'&&!(INT.on&&INT.blocked)){$('#musicResume').hidden=true;lockMusic.hidden=true;return;}_m();};}
+{const _r=resumeMusic;resumeMusic=function(auto){if(opt.src==='songs')return _r.apply(this,arguments);
+  try{getCtx().resume().then(()=>{const bl=INT.blocked;INT.on=false;INT.blocked=false;renderMusicRes();if(opt.src==='drum')startClicks();if(bl&&INT.msg)say(INT.msg);});}catch(e){}};}
+setInterval(()=>{if(opt.src==='drum'&&R.running&&!R.paused&&!INT.on){try{if(getCtx().state!=='running'){INT.on=true;INT.blocked=true;renderMusicRes();}}catch(e){}}},2000);
+{const _a=applyModeUI;applyModeUI=function(){_a();renderTabs();renderSrc();};}
 renderAll();loadSaved().then(()=>{checkResume();checkPracResume();renderLog();});setTimeout(()=>{checkResume();checkPracResume();},1500);
 </script>
 <script>
@@ -2141,6 +2253,22 @@ W('食べ物','Food','食物','食物','음식');
 W('水','water','水','水','물');
 W('上書きしました ✓','Overwritten ✓','已覆盖 ✓','已覆寫 ✓','덮어썼습니다 ✓');
 W('保存しました ✓','Saved ✓','已保存 ✓','已儲存 ✓','저장했습니다 ✓');
+W('メニュー','Menu','菜单','菜單','메뉴');
+W('戦略・記録','Strategy & log','策略・记录','策略・記錄','전략・기록');
+W('音・合図','Sound & cues','声音・提示','聲音・提示','소리・신호');
+W('走る前の設定','Settings before running','跑步前的设置','跑步前的設定','달리기 전 설정');
+W('流す音','Sound to play','播放的声音','播放的聲音','재생할 소리');
+W('曲を流す','Songs','播放歌曲','播放歌曲','곡 재생');
+W('手元の曲をペースに合わせて','Your songs, matched to the pace','按配速播放自己的歌曲','按配速播放自己的歌曲','내 곡을 페이스에 맞춰');
+W('ドラム','Drum','鼓点','鼓點','드럼');
+W('曲なし・テンポだけ','No songs, tempo only','无歌曲・仅节奏','無歌曲・僅節奏','곡 없이 템포만');
+W('無音','Silent','静音','靜音','무음');
+W('音声の案内だけ','Voice guidance only','仅语音提示','僅語音提示','음성 안내만');
+W('合図音やお知らせ、クリック音、音量、リズムの微調整です。','Cue sounds, announcements, click sound, volume and rhythm fine-tuning.','提示音、播报、节拍音、音量和节奏微调。','提示音、播報、節拍音、音量和節奏微調。','신호음, 알림, 클릭음, 볼륨, 리듬 미세 조정입니다.');
+W('「使う」にチェックした曲を、ペースに合わせた速さで流します。','Plays the songs checked "Use" at a speed matched to your pace.','以符合配速的速度播放勾选“使用”的歌曲。','以符合配速的速度播放勾選「使用」的歌曲。','"사용"에 체크한 곡을 페이스에 맞춘 속도로 재생합니다.');
+W('曲は流さず、ペースに合わせた歩数（1分あたり）でドラムを鳴らします。曲の一覧は使いません。','No songs: a drum beat plays at the steps per minute for your pace. The song list is not used.','不播放歌曲，以符合配速的步频（每分钟）播放鼓点。不使用歌曲列表。','不播放歌曲，以符合配速的步頻（每分鐘）播放鼓點。不使用歌曲清單。','곡 없이 페이스에 맞춘 걸음 수(1분당)로 드럼을 울립니다. 곡 목록은 사용하지 않습니다.');
+W('音楽は流しません。合図音と音声のお知らせだけです。','No music: only cue sounds and voice announcements.','不播放音乐，只有提示音和语音播报。','不播放音樂，只有提示音和語音播報。','음악은 재생하지 않습니다. 신호음과 음성 알림만 있습니다.');
+W('無音：音楽は流さず、音声のお知らせだけです','Silent: no music, voice announcements only','静音：不播放音乐，只有语音播报','靜音：不播放音樂，只有語音播報','무음: 음악 없이 음성 알림만');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2313,6 +2441,7 @@ P(/^水と、(.+)があります$/,m=>[`Water and ${m[1]} available`,`有水和$
 P(/^(.+)があります$/,m=>{const a=m[1].split('、').map(x=>nm(x));return [`${a.join(', ')} available`,`有${a.join('、')}`,`有${a.join('、')}`,`${a.join(', ')}이(가) 있습니다`];});
 P(/^関門 (\d+)か所$/,m=>[`${m[1]} cutoffs`,`关门点${m[1]}处`,`關門點${m[1]}處`,`관문 ${m[1]}곳`]);
 P(/^給水 (\d+)か所$/,m=>[`${m[1]} aid stations`,`补给站${m[1]}处`,`補給站${m[1]}處`,`급수 ${m[1]}곳`]);
+P(/^ドラム：(\d+|—)歩\/分のテンポで鳴らします$/,m=>[`Drum: playing at ${m[1]} steps/min`,`鼓点：以每分钟${m[1]}步的节奏播放`,`鼓點：以每分鐘${m[1]}步的節奏播放`,`드럼: ${m[1]}보/분 템포로 울립니다`]);
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
