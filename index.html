@@ -1378,7 +1378,7 @@ $('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
     others.forEach(s=>{s.parked=true;if(stash.indexOf(s)<0)stash.push(s);saveMeta(s);});
     songs.forEach(s=>{s.use=pos.has(s.id);s.stages=stg.has(s.id)?stg.get(s.id):'all';});
     songs.sort((a,b)=>(pos.has(a.id)?pos.get(a.id):1e9)-(pos.has(b.id)?pos.get(b.id):1e9));R.song=0;saveOrder();
-    let rcLoaded=false;if(!m.rc&&MODE==='race'){const fp=mlRcFallback(m);if(fp)m.rc=JSON.parse(JSON.stringify(fp.rc));}
+    blurInputs();let rcLoaded=false;if(!m.rc&&MODE==='race'){const fp=mlRcFallback(m);if(fp)m.rc=JSON.parse(JSON.stringify(fp.rc));}
     if(m.rc&&MODE==='race'&&!R.running&&!RS.pre){RC=Object.assign({},RCD,JSON.parse(JSON.stringify(m.rc)));store.set('cbgm-race',RC);menu=virtualMenu();rcLoaded=true;}
     activeML=m.id;flashML(m.id,'読み込みました ✓');saveMLs();const miss=m.songs.length-pos.size;
     const nUse=songs.length,nOther=others.length;
@@ -1429,6 +1429,9 @@ function rcCps(){return String(RC.cps||'').split(/\n/).map(l=>{const m=/^\s*([\d
   if(gs!=null&&sec>=gs)sec-=gs; /* 時刻（例 10:40）で書いた関門は、スタート時刻からの時間に直す */
   return km>0&&sec>0?{km,sec}:null;}).filter(Boolean).sort((a,b)=>a.km-b.km);}
 function rcGunMs(){if(!/^\d{4}-\d\d-\d\d$/.test(RC.date||'')||!/^\d\d:\d\d$/.test(RC.time||''))return null;return new Date(RC.date+'T'+RC.time+':00').getTime();}
+/* phones (iPhone etc.) keep the keyboard input focused when a button is tapped; commit and release it first so loaded values are shown and not written back */
+document.addEventListener('pointerdown',e=>{const btn=e.target.closest&&e.target.closest('button');const a=document.activeElement;if(btn&&a&&a!==btn&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))a.blur();},true);
+function blurInputs(){const a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))a.blur();}
 function setVal(id,v){const el=document.getElementById(id);if(el&&document.activeElement!==el)el.value=v;}
 const MODE_TXT={
   practice:['手元の曲を、練習メニューの1kmペースで走りやすい速さに合わせて、音程を変えずに再生します。',
@@ -1596,7 +1599,7 @@ document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};
     store.set('cbgm-race-presets',racePresets);$('#rpName').value='';rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashRP(p.id,ex?'上書きしました ✓':'保存しました ✓');renderRP();return;}
   if(d.rpdel){if(rpDelArm!==d.rpdel){rpDelArm=d.rpdel;renderRP();return;}const p=racePresets.find(x=>x.id===d.rpdel);racePresets=racePresets.filter(x=>x.id!==d.rpdel);rpDelArm=null;store.set('cbgm-race-presets',racePresets);rpMsg(p?`「${p.name}」を削除しました。`:'');renderRP();return;}
   if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);flashRP(p.id);renderRP();return;}
-  if(d.rpload){if(R.running||RS.pre)return;const p=racePresets.find(x=>x.id===d.rpload);if(!p)return;RC=Object.assign({},RCD,JSON.parse(JSON.stringify(p.rc)));store.set('cbgm-race',RC);
+  if(d.rpload){if(R.running||RS.pre)return;blurInputs();const p=racePresets.find(x=>x.id===d.rpload);if(!p)return;RC=Object.assign({},RCD,JSON.parse(JSON.stringify(p.rc)));store.set('cbgm-race',RC);
     if(MODE==='race')menu=virtualMenu();rpMsg(`「${p.name}」を読み込みました。`);renderAll();return;}});
 {const _a=applyModeUI;applyModeUI=function(){_a();if(MODE==='race'){fillStratN();if(!(document.activeElement&&document.activeElement.dataset&&(document.activeElement.dataset.sto!=null||document.activeElement.dataset.sspd!=null)))renderStrat();renderRP();}};}
 /* ===================== race log / resume / 戦略の自動調整 ===================== */
