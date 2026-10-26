@@ -1320,7 +1320,9 @@ async function confirmSaved(snap,text){await new Promise(r=>setTimeout(r,150));c
   else mlMsg(text+(ok?'（保存を確認しました）':''));}
 const fmtWhen=t=>{const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;};
 function snapshot(name,id){return {id:id||gid(),name,saved:Date.now(),offset:cadOffset,original:opt.original,
-  menu:pMenu().map(({id,name,pace,min})=>({id,name,pace,min})),songs:songs.filter(used).map(s=>({id:s.id,name:s.name,size:s.size,stages:songStages(s)}))};}
+  menu:pMenu().map(({id,name,pace,min})=>({id,name,pace,min})),songs:songs.filter(used).map(s=>({id:s.id,name:s.name,size:s.size,stages:songStages(s)})),
+  /* in race mode the race settings (大会名・時刻・目標・関門・給水・戦略) are saved too */
+  rc:MODE==='race'?JSON.parse(JSON.stringify(RC)):undefined};}
 /* a mylist song is found by id, or by file name + size when the same file was added again */
 const matchSong=(x,arr)=>arr.find(s=>s.id===x.id)||(x.name!=null?arr.find(s=>s.name===x.name&&s.size===x.size):null);
 const findSong=x=>matchSong(x,songs)||matchSong(x,stash);
@@ -1333,7 +1335,7 @@ function renderML(){const list=$('#mlList');if(!list)return;list.hidden=!mylists
   list.innerHTML=mylists.map(m=>{const min=m.menu.reduce((a,s)=>a+ +s.min,0),km=m.menu.reduce((a,s)=>a+s.min*60/s.pace,0);
     const have=m.songs.filter(x=>findSong(x)).length;
     return `<div class="ml${m.id===activeML?' on':''}${mlFlash===m.id?' flash':''}"><div class="ml-info"><b>${esc(m.name)}</b>
-      <span>${m.menu.length}ステージ・${Math.round(min)}分・約${km.toFixed(1)} km・曲 ${have}曲${m.saved?`・保存 ${fmtWhenS(m.saved)}`:''}</span></div>
+      <span>${m.rc?`本番：${esc(m.rc.name||'大会名なし')}${m.rc.goal?' 目標 '+fmtHMS(m.rc.goal):''}・`:''}${m.menu.length}ステージ・${Math.round(min)}分・約${km.toFixed(1)} km・曲 ${have}曲${m.saved?`・保存 ${fmtWhenS(m.saved)}`:''}</span></div>
       <div class="ctrls"><button class="small${mlFlash===m.id&&mlFlashTxt.startsWith('読')?' ok':''}" data-mlload="${m.id}" ${R.running?'disabled':''}>${mlFlash===m.id&&mlFlashTxt.startsWith('読')?mlFlashTxt:'読み込む'}</button>
       <button class="small" data-mladd="${m.id}" title="今の一覧に、このマイリストの曲を重複なしで追加します">追加読込</button>
       <button class="small${mlFlash===m.id&&mlFlashTxt.startsWith('上')?' ok':''}" data-mlsave="${m.id}">${mlFlash===m.id&&mlFlashTxt.startsWith('上')?mlFlashTxt:'上書き'}</button>
@@ -1373,9 +1375,10 @@ $('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
     others.forEach(s=>{s.parked=true;if(stash.indexOf(s)<0)stash.push(s);saveMeta(s);});
     songs.forEach(s=>{s.use=pos.has(s.id);s.stages=stg.has(s.id)?stg.get(s.id):'all';});
     songs.sort((a,b)=>(pos.has(a.id)?pos.get(a.id):1e9)-(pos.has(b.id)?pos.get(b.id):1e9));R.song=0;saveOrder();
+    let rcLoaded=false;if(m.rc&&MODE==='race'&&!R.running&&!RS.pre){RC=Object.assign({},RCD,JSON.parse(JSON.stringify(m.rc)));store.set('cbgm-race',RC);menu=virtualMenu();rcLoaded=true;}
     activeML=m.id;flashML(m.id,'読み込みました ✓');saveMLs();const miss=m.songs.length-pos.size;
     const nUse=songs.length,nOther=others.length;
-    mlMsg(`「${m.name}」を読み込みました。流す曲 ${nUse}曲`+(nOther?`。マイリストに入っていない曲 ${nOther}曲は一覧から外しました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。');renderAll();}});
+    mlMsg(`「${m.name}」を読み込みました。流す曲 ${nUse}曲`+(nOther?`。マイリストに入っていない曲 ${nOther}曲は一覧から外しました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。'+(rcLoaded?'本番の設定（大会名・時刻・目標・関門・給水所・戦略）も読み込みました。':MODE==='race'&&!m.rc?'このマイリストには本番の設定が入っていません。本番の設定を入れてから「上書き」すると、次から一緒に読み込めます。':''));renderAll();}});
 
 /* ---------- mode UI ---------- */
 function say(t){try{if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=1.05;
@@ -1428,7 +1431,7 @@ const MODE_TXT={
     '練習メニュー（ステージ・ペース・時間）、曲の順番とステージの割り当て、リズムの微調整をまとめて登録します。',
     '「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。曲ごとに流すステージも選べます（「全ステージ」か、個別のステージ）。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。'],
   race:['手元の曲を、本番の目標タイム（本番の戦略）のペースで走りやすい速さに合わせて、音程を変えずに再生します。',
-    '「使う」にチェックした曲とその順番、リズムの微調整をまとめて登録します（練習メニューも一緒に登録されます）。',
+    '本番の設定（大会名・時刻・目標・関門・給水所・戦略）と、「使う」にチェックした曲とその順番、リズムの微調整をまとめて登録します。',
     '「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。'],
   relax:['手元の曲を、原曲の速さのまま繰り返し再生します。',
     '「使う」にチェックした曲とその順番をまとめて登録します（練習メニューも一緒に登録されます）。',
@@ -2271,6 +2274,10 @@ W('曲は流さず、ペースに合わせた歩数（1分あたり）でドラ�
 W('音楽は流しません。合図音と音声のお知らせだけです。','No music: only cue sounds and voice announcements.','不播放音乐，只有提示音和语音播报。','不播放音樂，只有提示音和語音播報。','음악은 재생하지 않습니다. 신호음과 음성 알림만 있습니다.');
 W('無音：音楽は流さず、音声のお知らせだけです','Silent: no music, voice announcements only','静音：不播放音乐，只有语音播报','靜音：不播放音樂，只有語音播報','무음: 음악 없이 음성 알림만');
 W('読み込みました ✓','Loaded ✓','已读取 ✓','已讀取 ✓','불러왔습니다 ✓');
+W('本番の設定（大会名・時刻・目標・関門・給水所・戦略）と、「使う」にチェックした曲とその順番、リズムの微調整をまとめて登録します。','Saves the race settings (name, time, target, cutoffs, aid stations, strategy) together with the songs checked "Use", their order and rhythm fine-tuning.','一并保存比赛设置（名称・时间・目标・关门点・补给站・策略）、勾选“使用”的歌曲及顺序和节奏微调。','一併儲存比賽設定（名稱・時間・目標・關門點・補給站・策略）、勾選「使用」的歌曲及順序和節奏微調。','대회 설정(대회명・시각・목표・관문・급수소・전략)과 "사용"에 체크한 곡과 순서, 리듬 미세 조정을 한꺼번에 등록합니다.');
+W('本番の設定（大会名・時刻・目標・関門・給水所・戦略）も読み込みました','Race settings (name, time, target, cutoffs, aid stations, strategy) were loaded too','比赛设置（名称・时间・目标・关门点・补给站・策略）也已读取','比賽設定（名稱・時間・目標・關門點・補給站・策略）也已讀取','대회 설정(대회명・시각・목표・관문・급수소・전략)도 불러왔습니다');
+W('このマイリストには本番の設定が入っていません','This my list has no race settings','此列表中没有比赛设置','此清單中沒有比賽設定','이 마이 리스트에는 대회 설정이 없습니다');
+W('本番の設定を入れてから「上書き」すると、次から一緒に読み込めます','Enter the race settings and press "Overwrite" to load them together next time','输入比赛设置后按“覆盖”，下次即可一起读取','輸入比賽設定後按「覆寫」，下次即可一起讀取','대회 설정을 입력한 뒤 "덮어쓰기"하면 다음부터 함께 불러올 수 있습니다');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2445,6 +2452,7 @@ P(/^関門 (\d+)か所$/,m=>[`${m[1]} cutoffs`,`关门点${m[1]}处`,`關門點$
 P(/^給水 (\d+)か所$/,m=>[`${m[1]} aid stations`,`补给站${m[1]}处`,`補給站${m[1]}處`,`급수 ${m[1]}곳`]);
 P(/^ドラム：(\d+|—)歩\/分のテンポで鳴らします$/,m=>[`Drum: playing at ${m[1]} steps/min`,`鼓点：以每分钟${m[1]}步的节奏播放`,`鼓點：以每分鐘${m[1]}步的節奏播放`,`드럼: ${m[1]}보/분 템포로 울립니다`]);
 P(/^「(.+)」は練習メニューが正しく保存されていないため読み込めません。上書きし直してください。$/,m=>[`"${m[1]}" cannot be loaded because its training menu was not saved correctly. Please overwrite it again.`,`「${m[1]}」的训练菜单未正确保存，无法读取。请重新覆盖。`,`「${m[1]}」的訓練菜單未正確儲存，無法讀取。請重新覆寫。`,`"${m[1]}"은(는) 연습 메뉴가 제대로 저장되지 않아 불러올 수 없습니다. 다시 덮어쓰세요.`]);
+P(/^本番：(.+?)(?: 目標 ([\d:]+))?$/,m=>{const g=m[2]?[` target ${m[2]}`,` 目标 ${m[2]}`,` 目標 ${m[2]}`,` 목표 ${m[2]}`]:['','','',''];return [`Race: ${m[1]}${g[0]}`,`比赛：${m[1]}${g[1]}`,`比賽：${m[1]}${g[2]}`,`대회: ${m[1]}${g[3]}`];});
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
