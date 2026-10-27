@@ -1318,11 +1318,11 @@ let activeML=store.get('cbgm-mylist-active',null);let mlDelArm=null;
 const saveMLs=()=>{store.set('cbgm-mylists',mylists);store.set('cbgm-mylist-active',activeML);};
 function mlMsg(t){$('#mlMsg').textContent=t;$('#mlMsg').classList.remove('err','ow');}
 /* overwrite confirmation: ask in the message area, run fn only on 「上書きする」 */
-let OWP=null;function askOW(elId,name,details,fn){const el=document.getElementById(elId);if(!el)return;OWP={elId,fn};el.classList.remove('err');el.classList.add('ow');
-  el.innerHTML=`<span class="owq"><b data-notr>「${esc(name)}」</b>を、今の設定で上書きしてよいですか？</span>`+details.map(([k,a,b])=>`<span class="owd">${k}<b data-notr>${esc(a)}</b>${b!=null&&b!==a?` → <b data-notr>${esc(b)}</b>`:''}</span>`).join('')+
-  `<span class="owb"><button class="primary-sm" data-owyes>上書きする</button><button class="small" data-owno>やめる</button></span>`;try{el.scrollIntoView({block:'nearest'});}catch(e){}}
-document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-owyes],[data-owno]');if(!t||!OWP)return;const P=OWP;OWP=null;const el=document.getElementById(P.elId);if(el){el.classList.remove('ow');el.textContent='';}
-  if(t.hasAttribute('data-owyes'))P.fn();else if(el)el.textContent='上書きをやめました。';});
+/* overwrite confirmation: the phone's own OK/Cancel dialog (reliable on Android/iPhone) */
+function askOW(elId,name,details,fn){const T=x=>typeof I18N!=='undefined'?I18N.tr(x):x;
+  const txt=`「${name}」`+T('を、今の設定で上書きしてよいですか？')+'\n\n'+details.map(([k,a,b])=>T(k)+(b!=null&&b!==a?`${a} → ${b}`:a)).join('\n');
+  let ok=true;try{ok=window.confirm(txt);}catch(e){ok=true;}
+  const el=document.getElementById(elId);if(ok)fn();else if(el){el.classList.remove('err','ow');el.textContent='上書きをやめました。';}}
 const owGoal=g=>g?fmtHMS(g):'なし';
 function owML(o){const n=songs.filter(used).length,d=[['流す曲の数：',String((o.songs||[]).length),String(n)]];if(MODE==='race')d.unshift(['大会名：',o.rc&&o.rc.name||'なし',RC.name||'なし'],['目標：',owGoal(o.rc&&o.rc.goal),owGoal(RC.goal)]);return d;}
 function owRP(o){const r=o.rc||{};return [['大会名：',r.name||'なし',RC.name||'なし'],['開催日：',r.date||'なし',RC.date||'なし'],['目標：',owGoal(r.goal),owGoal(RC.goal)]];}
