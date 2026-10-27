@@ -225,6 +225,8 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .primary-sm{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700;flex:none}
 .ml-msg{margin:-4px 0 0;font-size:.8rem;color:var(--muted);min-height:1em}
 .ml-msg.err{color:var(--warn);font-weight:700}
+#mlSec{background:rgba(124,92,214,.10);border:1px solid rgba(124,92,214,.40);border-radius:14px;padding:14px 12px;margin:14px 0}#mlSec h2{color:#6a46c8}
+#mlList .ml{border-left:5px solid #7c5cd6}#mlList .ml-songs{display:block;font-size:.78rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 .ml-msg.ow{display:flex;flex-direction:column;gap:6px;margin:4px 0;padding:10px 12px;border:2px solid var(--warn);border-radius:10px;color:var(--fg,inherit);font-size:.9rem}
 .ml-msg.ow .owd{font-size:.82rem;color:var(--muted)}.ml-msg.ow .owd b{color:inherit}.ml-msg.ow .owb{display:flex;gap:8px}.ml-msg.ow .owb button{flex:1;min-height:40px}
 .ml{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid var(--line)}
@@ -431,6 +433,12 @@ body.live .recv{display:none}
     </div>
     <div class="rc-sum" id="rcSum"></div>
     <label class="chk"><input type="checkbox" id="optShuffle" data-shuffle="1"> 曲をシャッフルして流す</label>
+    <div class="rp">
+      <div class="strat-h"><b>本番レース情報・戦略を保存</b><span class="sub">本番レースの情報と戦略（大会名・時刻・目標・関門・給水所・戦略）に名前を付けて保存しておくと、あとで読み込めます。本番モードでだけ保存・読み込みできます。曲は「曲」タブのマイリストで別に登録します。</span></div>
+      <div class="ml-save"><input type="text" id="rpName" maxlength="40" placeholder="保存名（例：水戸2026）" aria-label="保存名"><button class="primary-sm" id="rpSave">保存</button></div>
+      <p class="ml-msg" id="rpMsg"></p>
+      <div class="list" id="rpList" hidden></div>
+    </div>
     <div class="notes rc-notes"><ul>
       <li>ラジコやYouTubeなど、ほかのアプリをこのページから終了させることはできません。スタート5分前にBGMが鳴り始めると、多くのスマホではほかのアプリの音が自動で止まります。止まらないときは手で止めてください。</li>
       <li>待機中と本番中は、このページを開いたまま画面をつけておいてください。画面が消えたりほかのアプリに切り替えたりすると、BGMや音声のお知らせが止まることがあります。</li>
@@ -455,20 +463,14 @@ body.live .recv{display:none}
     <div class="chips" id="presets"></div>
     <div class="list" id="menuList"></div>
     <div><button class="small" id="btnAddSeg">＋ ステージを追加</button></div>
+    <div class="rp">
+      <div class="strat-h"><b>練習メニューの保存</b><span class="sub">練習メニュー（ステージ・ペース・時間）に名前を付けて保存しておくと、あとで読み込めます。練習モードでだけ保存・読み込みできます。曲は「曲」タブのマイリストで別に登録します。</span></div>
+      <div class="ml-save"><input type="text" id="pmName" maxlength="40" placeholder="保存名（例：火曜のペース走）" aria-label="保存名"><button class="primary-sm" id="pmSave">保存</button></div>
+      <p class="ml-msg" id="pmMsg"></p>
+      <div class="list" id="pmList" hidden></div>
+    </div>
   </section>
 
-  <!-- MYLIST -->
-  <section>
-    <div class="sec-head">
-      <div><h2>マイリスト</h2><p class="sub" id="mlTxt">練習メニュー（ステージ・ペース・時間）、曲の順番とステージの割り当て、リズムの微調整をまとめて登録します。</p></div>
-    </div>
-    <div class="ml-save">
-      <input type="text" id="mlName" placeholder="名前（例：火曜のペース走）" maxlength="40" aria-label="マイリストの名前">
-      <button class="primary-sm" id="mlSave">今の設定を登録</button>
-    </div>
-    <p class="ml-msg" id="mlMsg"></p>
-    <div class="list" id="mlList" hidden></div>
-  </section>
 
 
   </div>
@@ -511,6 +513,18 @@ body.live .recv{display:none}
     <input type="file" id="fileIn" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.flac" multiple hidden>
     <div class="drop" id="drop">まだ曲がありません。「曲を追加」から音声ファイル（MP3・M4A・WAV など）を選ぶか、ここにドラッグしてください。<br>ファイルはこの端末の中だけで処理され、どこにも送られません。</div>
     <div class="list" id="songList" hidden></div>
+  </section>
+  <!-- MYLIST -->
+  <section id="mlSec">
+    <div class="sec-head">
+      <div><h2>🎵 曲の登録（マイリスト）</h2><p class="sub" id="mlTxt">流す曲の組み合わせ（「使う」にチェックした曲とその順番、リズムの微調整）に名前を付けて登録します。登録されるのは曲だけで、大会の設定や練習メニューは入りません。練習・本番・リラックスのどれでも使えます。</p></div>
+    </div>
+    <div class="ml-save">
+      <input type="text" id="mlName" placeholder="名前（例：アップテンポ曲）" maxlength="40" aria-label="曲リストの名前">
+      <button class="primary-sm" id="mlSave">今の曲を登録</button>
+    </div>
+    <p class="ml-msg" id="mlMsg"></p>
+    <div class="list" id="mlList" hidden></div>
   </section>
   <div class="notes">
     <b>オフラインで使うとき</b>
@@ -710,7 +724,7 @@ function updateStoreInfo(){const el=$('#storeInfo');if(!el)return;$('#btnClear')
   el.textContent=storeErr?`端末の空き容量が足りず、保存できない曲がありました（保存済み ${n}曲）。曲を減らすと保存できます。`
     :n?`このブラウザに ${n}曲を保存中（約${mb.toFixed(1)} MB${stash.length?`、うち一覧から外した曲 ${stash.length}曲`:''}）。次に開いたときも残ります。`:'';}
 /* settings mirror in IndexedDB: survives where localStorage is unavailable */
-const KV_KEYS=['cbgm-offset','cbgm-menu-pace','cbgm-preset-pace','cbgm-original','cbgm-keeppitch','cbgm-bpm','cbgm-mylists','cbgm-mylist-active','cbgm-hash-done','cbgm-race','cbgm-race-presets','cbgm-race-run','cbgm-race-logs','cbgm-shuffle','cbgm-mode'];
+const KV_KEYS=['cbgm-menu-presets','cbgm-offset','cbgm-menu-pace','cbgm-preset-pace','cbgm-original','cbgm-keeppitch','cbgm-bpm','cbgm-mylists','cbgm-mylist-active','cbgm-hash-done','cbgm-race','cbgm-race-presets','cbgm-race-run','cbgm-race-logs','cbgm-shuffle','cbgm-mode'];
 let hashDone=store.get('cbgm-hash-done','');
 function kvPut(k,v){return tx(['kv'],'readwrite',t=>{t.objectStore('kv').put(JSON.parse(JSON.stringify(v??null)),k);});}
 async function kvCheck(k,id,saved){if(!DB.ok)return null;const r=await tx(['kv'],'readonly',t=>t.objectStore('kv').get(k));
@@ -730,7 +744,8 @@ function applyKV(k,v){switch(k){
   case 'cbgm-hash-done':hashDone=v;break;
   case 'cbgm-race-logs':if(Array.isArray(v)){raceLogs=v.slice(0,1);try{renderLog();}catch(e){}}break;
   case 'cbgm-race-run':break;
-  case 'cbgm-race-presets':if(Array.isArray(v))racePresets=v;break;}}
+  case 'cbgm-race-presets':if(Array.isArray(v))racePresets=v;break;
+  case 'cbgm-menu-presets':if(Array.isArray(v))menuPresets=v;break;}}
 
 /* ---------- menu sent from マラソン大会管理 (#tm.J470x100_M407x150 ...) ---------- */
 const HASH_NAME={W:'ウォームアップ',J:'ジョグ',P:'ペース走',M:'目標ペース',I:'インターバル',R:'つなぎジョグ',B:'ビルドアップ',L:'ロング走',C:'クールダウン'};
@@ -784,7 +799,7 @@ async function syncKV(){const r=await tx(['kv'],'readonly',t=>{const st=t.object
     else if(ls!==undefined)kvPut(k,ls);});
   Object.keys(pendingKV).forEach(k=>{kvPut(k,pendingKV[k]);delete pendingKV[k];});
   renderAll();}
-async function loadSaved(){if(!await idbOpen()){updateStoreInfo();raceExpire();applyHashMenu();migrateRP();renderAll();return;}
+async function loadSaved(){if(!await idbOpen()){updateStoreInfo();raceExpire();applyHashMenu();migrateSplit();renderAll();return;}
   await syncKV();raceExpire();applyHashMenu();renderAll();
   const rq=await tx(['meta'],'readonly',t=>t.objectStore('meta').getAll());
   const list=((rq&&rq.result)||[]).sort((a,b)=>a.order-b.order);
@@ -792,7 +807,7 @@ async function loadSaved(){if(!await idbOpen()){updateStoreInfo();raceExpire();a
   list.forEach((m,i)=>{const blob=reqs&&reqs[i]&&reqs[i].result;if(!blob){delSong(m.id);return;}
     const s={id:m.id,name:m.name,size:m.size,file:blob,url:URL.createObjectURL(blob),bpm:m.bpm??null,dur:m.dur||0,detecting:m.bpm==null||!m.dur,stages:m.stages||'all',use:m.use!==false,parked:!!m.parked};
     (m.shown===false?stash:songs).push(s);if(s.detecting)enqueueDetect(s);});
-  renderSongs();renderRun();updateStoreInfo();migrateRP();renderML();}
+  renderSongs();renderRun();updateStoreInfo();migrateSplit();renderML();renderPM();}
 
 /* ---------- songs per stage ---------- */
 function songStages(s){if(!Array.isArray(s.stages))return 'all';const ids=pMenu().map(g=>g.id);const a=s.stages.filter(x=>ids.includes(x));return a.length?a:'all';}
@@ -963,10 +978,10 @@ function clearMode(k){if(R.running||R.acc>0||RS.pre||RS.armed){clrMsg(k,'走っ�
   if(!clrArm[k]){clrArm[k]=setTimeout(()=>{clrArm[k]=0;renderClr();},4000);renderClr();return;}
   clearTimeout(clrArm[k]);clrArm[k]=0;
   if(k==='practice'){const st={id:gid(),name:'ステージ1',pace:420,bpm:cadFromPace(420),auto:true,min:10};
-    if(MODE==='practice')menu=[st];else practiceMenu=[st];activePreset='custom';saveMenu();setOffset(0);$('#cadOffset').value=0;activeML=null;saveMLs();
-    clrMsg(k,'練習の内容をクリアしました。マイリストに登録してあれば「読み込む」で元に戻せます。');}
+    if(MODE==='practice')menu=[st];else practiceMenu=[st];activePreset='custom';saveMenu();
+    clrMsg(k,'練習の内容をクリアしました。「練習メニューの保存」に保存してあれば「読み込む」で元に戻せます。');}
   else if(k==='race'){RC=Object.assign({},RCD,{strat:[]});store.set('cbgm-race',RC);if(MODE==='race')menu=virtualMenu();
-    clrMsg(k,'本番の内容をクリアしました。マイリストに登録してあれば「読み込む」で元に戻せます。');}
+    clrMsg(k,'本番の内容をクリアしました。「本番レース情報・戦略を保存」に保存してあれば「読み込む」で元に戻せます。');}
   else if(k==='relax'){songs.forEach(x=>{if(x.use!==false){x.use=false;saveMeta(x);}});opt.shuffle=false;store.set('cbgm-shuffle',false);activeML=null;saveMLs();
     clrMsg(k,'曲の「使う」のチェックをすべて外しました。マイリストに登録してあれば「読み込む」で元に戻せます。');}
   renderAll();renderClr();}
@@ -1318,27 +1333,23 @@ function askOW(elId,name,details,fn){const T=x=>typeof I18N!=='undefined'?I18N.t
   let ok=true;try{ok=window.confirm(txt);}catch(e){ok=true;}
   const el=document.getElementById(elId);if(ok)fn();else if(el){el.classList.remove('err','ow');el.textContent='上書きをやめました。';}}
 const owGoal=g=>g?fmtHMS(g):'なし';
-function owML(o){const n=songs.filter(used).length,d=[['流す曲の数：',String((o.songs||[]).length),String(n)]];if(MODE==='race')d.unshift(['大会名：',o.rc&&o.rc.name||'なし',RC.name||'なし'],['目標：',owGoal(o.rc&&o.rc.goal),owGoal(RC.goal)]);return d;}
+function owML(o){return [['流す曲の数：',String((o.songs||[]).length),String(songs.filter(used).length)]];}
 function owRP(o){const r=o.rc||{};return [['大会名：',r.name||'なし',RC.name||'なし'],['開催日：',r.date||'なし',RC.date||'なし'],['目標：',owGoal(r.goal),owGoal(RC.goal)]];}
 async function confirmSaved(snap,text){await new Promise(r=>setTimeout(r,150));const ok=await kvCheck('cbgm-mylists',snap.id,snap.saved);
   if(ok===false){$('#mlMsg').textContent='保存を確認できませんでした。もう一度「上書き」を押してください。';$('#mlMsg').classList.add('err');}
   else mlMsg(text+(ok?'（保存を確認しました）':''));}
 const fmtWhen=t=>{const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;};
 function snapshot(name,id){return {id:id||gid(),name,saved:Date.now(),offset:cadOffset,original:opt.original,
-  menu:pMenu().map(({id,name,pace,min})=>({id,name,pace,min})),songs:songs.filter(used).map(s=>({id:s.id,name:s.name,size:s.size,stages:songStages(s)})),
-  /* in race mode the race settings (大会名・時刻・目標・関門・給水・戦略) are saved too */
-  rc:MODE==='race'?JSON.parse(JSON.stringify(RC)):(()=>{const o=id&&mylists.find(x=>x.id===id);return o&&o.rc?o.rc:undefined;})()};}
-/* 「本番の設定の保存」 was merged into the mylist: move each saved race into a mylist once (attach to a same-name mylist, or make a new one that keeps the song list) */
-function migrateRP(){let ch=false;const n=x=>String(x||'').replace(/[\s　]/g,'');
-  racePresets.forEach(p=>{if(p.migrated||!p.rc)return;const k=n(p.name);
-    const m=mylists.find(x=>n(x.name)===k);
-    if(m){if(!m.rc)m.rc=JSON.parse(JSON.stringify(p.rc));}
-    else mylists.push({id:gid(),name:p.name,saved:p.saved||Date.now(),offset:cadOffset,original:false,menu:pMenu().map(({id,name,pace,min})=>({id,name,pace,min})),songs:[],keepSongs:true,rc:JSON.parse(JSON.stringify(p.rc))});
-    p.migrated=true;ch=true;});
-  if(ch){store.set('cbgm-mylists',mylists);store.set('cbgm-race-presets',racePresets);}}
-/* old mylists without race settings: use the race preset with the same (or similar) name */
-function mlRcFallback(m){const n=x=>String(x||'').replace(/[\s　]/g,'');const k=n(m.name);if(!k)return null;
-  const p=racePresets.find(x=>n(x.name)===k)||racePresets.find(x=>{const q=n(x.name);return q&&(q.includes(k)||k.includes(q));})||racePresets.find(x=>{const q=n(x.rc&&x.rc.name);return q&&(q===k||q.includes(k)||k.includes(q));});return p&&p.rc?p:null;}
+  songs:songs.filter(used).map(s=>{const st=songStages(s);return {id:s.id,name:s.name,size:s.size,stages:st,stn:Array.isArray(st)?st.map(id=>(pMenu().find(g=>g.id===id)||{}).name).filter(Boolean):null};})};}
+/* stage assignment of a registered song → ids of the current practice menu (by id, then by stage name) */
+function mapStages(x){if(!Array.isArray(x.stages))return 'all';const pm=pMenu();let a=x.stages.filter(id=>pm.some(g=>g.id===id));
+  if(!a.length&&Array.isArray(x.stn))a=pm.filter(g=>x.stn.includes(g.name)).map(g=>g.id);return a.length?[...new Set(a)]:'all';}
+/* mylists used to carry the practice menu / race settings too: move them to their own saved lists (once) */
+function migrateSplit(){let ch=false;
+  mylists.forEach(m=>{if(m.rc){if(!racePresets.some(p=>p.name===m.name))racePresets.push({id:gid(),name:m.name,saved:m.saved||Date.now(),rc:m.rc});delete m.rc;delete m.menu;ch=true;}
+    else if(m.menu){if(validMenu(m.menu)&&!m.keepSongs&&!menuPresets.some(p=>p.name===m.name))menuPresets.push({id:gid(),name:m.name,saved:m.saved||Date.now(),menu:m.menu});delete m.menu;ch=true;}});
+  const n0=mylists.length;mylists=mylists.filter(m=>!m.keepSongs);if(mylists.length!==n0)ch=true;
+  if(ch){store.set('cbgm-mylists',mylists);store.set('cbgm-race-presets',racePresets);store.set('cbgm-menu-presets',menuPresets);}}
 /* a mylist song is found by id, or by file name + size when the same file was added again */
 const matchSong=(x,arr)=>arr.find(s=>s.id===x.id)||(x.name!=null?arr.find(s=>s.name===x.name&&s.size===x.size):null);
 const findSong=x=>matchSong(x,songs)||matchSong(x,stash);
@@ -1348,10 +1359,10 @@ function takeOff(s){if(referenced(s)){if(stash.indexOf(s)<0)stash.push(s);saveMe
 function purgeStash(){stash.filter(s=>!referenced(s)&&!s.parked).forEach(s=>{stash.splice(stash.indexOf(s),1);URL.revokeObjectURL(s.url);delSong(s.id);});updateStoreInfo();}
 var mlFlash=null,mlFlashTxt='',mlFlashT=0;function flashML(id,t){mlFlash=id;mlFlashTxt=t;clearTimeout(mlFlashT);mlFlashT=setTimeout(()=>{mlFlash=null;renderML();},2500);setTimeout(()=>{try{$('#mlMsg').scrollIntoView({block:'nearest',behavior:'smooth'});}catch(e){}},50);}
 function renderML(){const list=$('#mlList');if(!list)return;list.hidden=!mylists.length;
-  list.innerHTML=mylists.map(m=>{const min=m.menu.reduce((a,s)=>a+ +s.min,0),km=m.menu.reduce((a,s)=>a+s.min*60/s.pace,0);
+  list.innerHTML=mylists.map(m=>{
     const have=m.songs.filter(x=>findSong(x)).length;
     return `<div class="ml${m.id===activeML?' on':''}${mlFlash===m.id?' flash':''}"><div class="ml-info"><b>${esc(m.name)}</b>
-      <span>${m.rc?`本番：${esc(m.rc.name||'大会名なし')}${m.rc.goal?' 目標 '+fmtHMS(m.rc.goal):''}・`:''}${m.menu.length}ステージ・${Math.round(min)}分・約${km.toFixed(1)} km・曲 ${have}曲${m.saved?`・保存 ${fmtWhenS(m.saved)}`:''}</span></div>
+      <span>🎵 曲 ${have}曲${m.saved?`・保存 ${fmtWhenS(m.saved)}`:''}</span><span class="ml-songs" data-notr>${esc(m.songs.slice(0,3).map(x=>String(x.name||'').replace(/\.[^.]+$/,'')).join('、'))}${m.songs.length>3?' …':''}</span></div>
       <div class="ctrls"><button class="small${mlFlash===m.id&&mlFlashTxt.startsWith('読')?' ok':''}" data-mlload="${m.id}" ${R.running?'disabled':''}>${mlFlash===m.id&&mlFlashTxt.startsWith('読')?mlFlashTxt:'読み込む'}</button>
       <button class="small" data-mladd="${m.id}" title="今の一覧に、このマイリストの曲を重複なしで追加します">追加読込</button>
       <button class="small${mlFlash===m.id&&mlFlashTxt.startsWith('上')?' ok':''}" data-mlsave="${m.id}">${mlFlash===m.id&&mlFlashTxt.startsWith('上')?mlFlashTxt:'上書き'}</button>
@@ -1368,37 +1379,32 @@ $('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
     mlMsg(m?`「${m.name}」を削除しました。`:'');renderML();return;}
   mlDelArm=null;
   if(d.mladd){const m=mylists.find(x=>x.id===d.mladd);if(!m)return;
-    const nameOf=id=>{const g=m.menu.find(x=>x.id===id);return g&&g.name;};
-    const mapSt=st=>{if(!Array.isArray(st))return 'all';const a=st.map(id=>{const g=menu.find(x=>x.id===id)||menu.find(x=>x.name===nameOf(id));return g&&g.id;}).filter(Boolean);return a.length?[...new Set(a)]:'all';};
     let added=0,dup=0,miss=0;
     m.songs.forEach(x=>{const inList=matchSong(x,songs);
       if(inList){dup++;if(!used(inList)){inList.use=true;saveMeta(inList);}return;}
       const s=matchSong(x,stash);if(!s){miss++;return;}
-      stash.splice(stash.indexOf(s),1);s.parked=false;s.use=true;s.stages=mapSt(x.stages);songs.push(s);added++;});
+      stash.splice(stash.indexOf(s),1);s.parked=false;s.use=true;s.stages=mapStages(x);songs.push(s);added++;});
     saveOrder();
-    mlMsg(`「${m.name}」の曲を追加しました。追加 ${added}曲`+(dup?`、すでに一覧にある ${dup}曲は重複しないようにそのままにしました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。練習メニューは変わりません。');
+    mlMsg(`「${m.name}」の曲を追加しました。追加 ${added}曲`+(dup?`、すでに一覧にある ${dup}曲は重複しないようにそのままにしました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。');
     renderSongs();renderRun();renderML();updateStoreInfo();return;}
   if(d.mlsave){const o=mylists.find(x=>x.id===d.mlsave);if(!o)return;askOW('mlMsg',o.name,owML(o),()=>{const i=mylists.findIndex(x=>x.id===o.id);if(i<0)return;mylists[i]=snapshot(o.name,o.id);activeML=o.id;saveMLs();
     flashML(o.id,'上書きしました ✓');renderML();confirmSaved(mylists[i],`「${o.name}」を今の設定で上書きしました。`);});return;}
-  if(d.mlload){if(R.running){mlMsg('走っている間は読み込めません。');return;}const m=mylists.find(x=>x.id===d.mlload);if(!m)return;if(!validMenu(m.menu)){mlMsg(`「${m.name}」は練習メニューが正しく保存されていないため読み込めません。上書きし直してください。`);return;}
+  if(d.mlload){if(R.running){mlMsg('走っている間は読み込めません。');return;}const m=mylists.find(x=>x.id===d.mlload);if(!m)return;
     if(R.acc>0||R.done)reset();
     cadOffset=Math.max(-30,Math.min(30,+m.offset||0));store.set('cbgm-offset',cadOffset);$('#cadOffset').value=cadOffset;
-    {const nm=m.menu.map(toStage);if(MODE==='practice')menu=nm;else practiceMenu=nm;}activePreset='custom';saveMenu();
     opt.original=false;
-    let pos=new Map(),others=[];if(m.keepSongs){songs.forEach(x=>pos.set(x.id,1));}else{
+    let pos=new Map(),others=[];{
     m.songs.forEach(x=>{if(!matchSong(x,songs)){const s=matchSong(x,stash);if(s){stash.splice(stash.indexOf(s),1);s.parked=false;songs.push(s);}}});
-    const stg=new Map();m.songs.forEach((x,i)=>{const s=findSong(x);if(s&&!pos.has(s.id)){pos.set(s.id,i);stg.set(s.id,x.stages);}});
+    const stg=new Map();m.songs.forEach((x,i)=>{const s=findSong(x);if(s&&!pos.has(s.id)){pos.set(s.id,i);stg.set(s.id,mapStages(x));}});
     /* show only this mylist: other songs are kept in this browser but taken off the list */
     others=songs.filter(s=>!pos.has(s.id));songs=songs.filter(s=>pos.has(s.id));
     others.forEach(s=>{s.parked=true;if(stash.indexOf(s)<0)stash.push(s);saveMeta(s);});
     songs.forEach(s=>{s.use=pos.has(s.id);s.stages=stg.has(s.id)?stg.get(s.id):'all';});
     songs.sort((a,b)=>(pos.has(a.id)?pos.get(a.id):1e9)-(pos.has(b.id)?pos.get(b.id):1e9));R.song=0;saveOrder();
     }
-    blurInputs();let rcLoaded=false;if(!m.rc&&MODE==='race'){const fp=mlRcFallback(m);if(fp)m.rc=JSON.parse(JSON.stringify(fp.rc));}
-    if(m.rc&&MODE==='race'&&!R.running&&!RS.pre){RC=Object.assign({},RCD,JSON.parse(JSON.stringify(m.rc)));store.set('cbgm-race',RC);menu=virtualMenu();rcLoaded=true;}
-    activeML=m.id;flashML(m.id,'読み込みました ✓');saveMLs();const miss=m.keepSongs?0:m.songs.length-pos.size;
+    activeML=m.id;flashML(m.id,'読み込みました ✓');saveMLs();const miss=m.songs.length-pos.size;
     const nUse=songs.length,nOther=others.length;
-    mlMsg(`「${m.name}」を読み込みました。流す曲 ${nUse}曲`+(nOther?`。マイリストに入っていない曲 ${nOther}曲は一覧から外しました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。'+(rcLoaded?'本番の設定（大会名・時刻・目標・関門・給水所・戦略）も読み込みました。':MODE==='race'&&m.rc&&(R.running||RS.pre)?'スタート待機中・走っている間は本番の設定は切り替えません。':MODE==='race'&&!m.rc?'このマイリストには本番の設定が入っていません。本番の設定を入れてから「上書き」すると、次から一緒に読み込めます。':''));renderAll();}});
+    mlMsg(`「${m.name}」を読み込みました。流す曲 ${nUse}曲`+(nOther?`。マイリストに入っていない曲 ${nOther}曲は一覧から外しました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。');renderAll();}});
 
 /* ---------- mode UI ---------- */
 function say(t){try{if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=1.05;
@@ -1450,13 +1456,13 @@ function blurInputs(){const a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SEL
 function setVal(id,v){const el=document.getElementById(id);if(el&&document.activeElement!==el)el.value=v;}
 const MODE_TXT={
   practice:['手元の曲を、練習メニューの1kmペースで走りやすい速さに合わせて、音程を変えずに再生します。',
-    '練習メニュー（ステージ・ペース・時間）、曲の順番とステージの割り当て、リズムの微調整をまとめて登録します。',
+    '流す曲の組み合わせ（「使う」にチェックした曲とその順番、リズムの微調整）に名前を付けて登録します。登録されるのは曲だけで、大会の設定や練習メニューは入りません。練習・本番・リラックスのどれでも使えます。',
     '「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。曲ごとに流すステージも選べます（「全ステージ」か、個別のステージ）。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。'],
   race:['手元の曲を、本番の目標タイム（本番の戦略）のペースで走りやすい速さに合わせて、音程を変えずに再生します。',
-    '本番の設定（大会名・時刻・目標・関門・給水所・戦略）と、「使う」にチェックした曲とその順番、リズムの微調整をまとめて登録します。',
+    '流す曲の組み合わせ（「使う」にチェックした曲とその順番、リズムの微調整）に名前を付けて登録します。登録されるのは曲だけで、大会の設定や練習メニューは入りません。練習・本番・リラックスのどれでも使えます。',
     '「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。'],
   relax:['手元の曲を、原曲の速さのまま繰り返し再生します。',
-    '「使う」にチェックした曲とその順番をまとめて登録します（練習メニューも一緒に登録されます）。',
+    '流す曲の組み合わせ（「使う」にチェックした曲とその順番、リズムの微調整）に名前を付けて登録します。登録されるのは曲だけで、大会の設定や練習メニューは入りません。練習・本番・リラックスのどれでも使えます。',
     '「使う」にチェックした曲だけを、原曲の速さで流します。マイリストには、チェックした曲が登録されます。']};
 function applyModeUI(){{const tx=MODE_TXT[MODE]||MODE_TXT.practice;T0('#leadTxt',tx[0]);T0('#mlTxt',tx[1]);T0('#songsTxt',tx[2]);}
   document.querySelectorAll('.mode').forEach(b=>{const me=b.dataset.mode===MODE&&(!b.dataset.io||(b.dataset.io==='out')===!!opt.outdoor);b.classList.toggle('on',me);b.setAttribute('aria-selected',me);b.disabled=!me&&(R.running||R.acc>0||RS.pre||RS.armed);});
@@ -1609,6 +1615,7 @@ function renderRP(){const l=$('#rpList');if(!l)return;l.hidden=!racePresets.leng
       <div class="ctrls"><button class="small" data-rpload="${p.id}" ${R.running||RS.pre?'disabled':''}>読み込む</button><button class="small${rpFlash===p.id?' ok':''}" data-rpsave="${p.id}">${rpFlash===p.id?rpFlashTxt:'上書き'}</button><button class="small${rpDelArm===p.id?' danger':''}" data-rpdel="${p.id}">${rpDelArm===p.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
 const rpSnap=()=>JSON.parse(JSON.stringify(RC));
 document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};
+  if((t.id==='rpSave'||d.rpsave||d.rpload||d.rpdel)&&MODE!=='race')return;
   if(t.id==='rpSave'){const name=$('#rpName').value.trim()||RC.name;if(!name){rpMsg('保存名を入れてください。',true);return;}
     const go=()=>{const ex=racePresets.find(p=>p.name===name),p={id:ex?ex.id:gid(),name,saved:Date.now(),rc:rpSnap()};if(ex)racePresets[racePresets.indexOf(ex)]=p;else racePresets.push(p);
     store.set('cbgm-race-presets',racePresets);$('#rpName').value='';rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashRP(p.id,ex?'上書きしました ✓':'保存しました ✓');renderRP();};
@@ -1617,7 +1624,29 @@ document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};
   if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;askOW('rpMsg',p.name,owRP(p),()=>{p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);flashRP(p.id);renderRP();});return;}
   if(d.rpload){if(R.running||RS.pre)return;blurInputs();const p=racePresets.find(x=>x.id===d.rpload);if(!p)return;RC=Object.assign({},RCD,JSON.parse(JSON.stringify(p.rc)));store.set('cbgm-race',RC);
     if(MODE==='race')menu=virtualMenu();rpMsg(`「${p.name}」を読み込みました。`);renderAll();return;}});
-{const _a=applyModeUI;applyModeUI=function(){_a();if(MODE==='race'){fillStratN();if(!(document.activeElement&&document.activeElement.dataset&&(document.activeElement.dataset.sto!=null||document.activeElement.dataset.sspd!=null)))renderStrat();renderRP();}};}
+/* ---------- saved practice menus (practice mode only) ---------- */
+let menuPresets=store.get('cbgm-menu-presets',[]);if(!Array.isArray(menuPresets))menuPresets=[];let pmDelArm=null,pmFlash=null,pmFlashTxt='',pmFlashT=0;
+function pmMsg(t,err){const m=$('#pmMsg');if(!m)return;m.textContent=t;m.classList.remove('ow');m.classList.toggle('err',!!err);}
+function flashPM(id,txt){pmFlash=id;pmFlashTxt=txt;clearTimeout(pmFlashT);pmFlashT=setTimeout(()=>{pmFlash=null;renderPM();},2500);}
+const pmSum=m=>{const min=m.reduce((a,x)=>a+ +x.min,0),km=m.reduce((a,x)=>a+x.min*60/x.pace,0);return `${m.length}ステージ・${Math.round(min)}分・約${km.toFixed(1)} km`;};
+const pmSnap=()=>pMenu().map(({id,name,pace,min})=>({id,name,pace,min}));
+function renderPM(){const l=$('#pmList');if(!l)return;l.hidden=!menuPresets.length;
+  l.innerHTML=menuPresets.map(p=>`<div class="ml${pmFlash===p.id?' flash':''}"><div class="ml-info"><b>${esc(p.name)}</b><span>${pmSum(p.menu||[])}・保存 ${fmtWhenS(p.saved)}</span></div>
+    <div class="ctrls"><button class="small${pmFlash===p.id&&pmFlashTxt.startsWith('読')?' ok':''}" data-pmload="${p.id}" ${R.running||R.acc>0?'disabled':''}>${pmFlash===p.id&&pmFlashTxt.startsWith('読')?pmFlashTxt:'読み込む'}</button><button class="small${pmFlash===p.id&&!pmFlashTxt.startsWith('読')?' ok':''}" data-pmsave="${p.id}">${pmFlash===p.id&&!pmFlashTxt.startsWith('読')?pmFlashTxt:'上書き'}</button><button class="small${pmDelArm===p.id?' danger':''}" data-pmdel="${p.id}">${pmDelArm===p.id?'本当に削除':'削除'}</button></div></div>`).join('');}
+const owPM=o=>[['練習メニュー：',pmSum(o.menu||[]),pmSum(pmSnap())]];
+document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};if(!(t.id==='pmSave'||d.pmload||d.pmsave||d.pmdel))return;if(MODE!=='practice')return;
+  if(t.id==='pmSave'){const name=$('#pmName').value.trim();if(!name){pmMsg('保存名を入れてください。',true);return;}
+    const go=()=>{const ex=menuPresets.find(p=>p.name===name),p={id:ex?ex.id:gid(),name,saved:Date.now(),menu:pmSnap()};if(ex)menuPresets[menuPresets.indexOf(ex)]=p;else menuPresets.push(p);
+      store.set('cbgm-menu-presets',menuPresets);$('#pmName').value='';pmMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashPM(p.id,ex?'上書きしました ✓':'保存しました ✓');renderPM();};
+    const ex0=menuPresets.find(p=>p.name===name);if(ex0)askOW('pmMsg',name,owPM(ex0),go);else go();return;}
+  if(d.pmdel){if(pmDelArm!==d.pmdel){pmDelArm=d.pmdel;renderPM();return;}const p=menuPresets.find(x=>x.id===d.pmdel);menuPresets=menuPresets.filter(x=>x.id!==d.pmdel);pmDelArm=null;store.set('cbgm-menu-presets',menuPresets);pmMsg(p?`「${p.name}」を削除しました。`:'');renderPM();return;}
+  pmDelArm=null;
+  if(d.pmsave){const p=menuPresets.find(x=>x.id===d.pmsave);if(!p)return;askOW('pmMsg',p.name,owPM(p),()=>{p.menu=pmSnap();p.saved=Date.now();store.set('cbgm-menu-presets',menuPresets);pmMsg(`「${p.name}」を今の練習メニューで上書きしました。`);flashPM(p.id,'上書きしました ✓');renderPM();});return;}
+  if(d.pmload){if(R.running||R.acc>0){pmMsg('走っている間は読み込めません。',true);return;}const p=menuPresets.find(x=>x.id===d.pmload);if(!p||!validMenu(p.menu))return;blurInputs();
+    menu=p.menu.map(toStage);activePreset='custom';saveMenu();pmMsg(`「${p.name}」を読み込みました。`);flashPM(p.id,'読み込みました ✓');renderAll();return;}});
+{const _a=applyModeUI;applyModeUI=function(){_a();if(MODE==='practice')renderPM();
+  {const ml=$('#mlSec');if(ml){if(MODE==='relax'){const r=$('#relaxSec');if(r&&r.nextElementSibling!==ml)r.after(ml);}else{const sl=$('#songList');const sec=sl&&sl.closest('section');if(sec&&sec.nextElementSibling!==ml)sec.after(ml);}}}
+if(MODE==='race'){fillStratN();if(!(document.activeElement&&document.activeElement.dataset&&(document.activeElement.dataset.sto!=null||document.activeElement.dataset.sspd!=null)))renderStrat();renderRP();}};}
 /* ===================== race log / resume / 戦略の自動調整 ===================== */
 /* ---------- 1kmごとのお知らせ（画面の上に重ねて表示） ---------- */
 opt.kmNotice=store.get('cbgm-kmnotice',true)!==false;$('#optKm').checked=opt.kmNotice;
@@ -2310,6 +2339,23 @@ W('開催日：','Date: ','日期：','日期：','개최일: ');
 W('目標：','Target: ','目标：','目標：','목표: ');
 W('流す曲の数：','Songs: ','播放曲目数：','播放曲目數：','재생 곡 수: ');
 W('本番の内容をクリアしました。マイリストに登録してあれば「読み込む」で元に戻せます。','Race settings cleared. If you registered them in a my list, tap "Load" to bring them back.','已清除比赛设置。如已登记到我的列表，可点“读取”恢复。','已清除比賽設定。如已登錄到我的清單，可點「讀取」恢復。','대회 설정을 지웠습니다. 마이 리스트에 등록해 두었다면 "불러오기"로 되돌릴 수 있습니다.');
+W('マイリスト（曲の登録）','My lists (songs)','我的列表（曲目登记）','我的清單（曲目登錄）','마이 리스트(곡 등록)');
+W('「使う」にチェックした曲とその順番、曲ごとのステージの割り当て、リズムの微調整を登録します。練習・本番・リラックスのどれでも使えます（練習メニューと本番の設定は入りません）。','Registers the songs checked "Use", their order, each song\'s stage assignment and the rhythm fine-tuning. Usable in Practice, Race and Relax (the practice menu and race settings are not included).','登记勾选“使用”的曲目及其顺序、各曲的阶段分配和节奏微调。练习、比赛、放松都可使用（不包含练习菜单和比赛设置）。','登錄勾選「使用」的曲目及其順序、各曲的階段分配和節奏微調。練習、比賽、放鬆都可使用（不包含練習菜單和比賽設定）。','"사용"에 체크한 곡과 순서, 곡별 스테이지 지정, 리듬 미세 조정을 등록합니다. 연습·대회·릴랙스 어디서나 쓸 수 있습니다(연습 메뉴와 대회 설정은 들어가지 않습니다).');
+W('練習メニューの保存','Save practice menu','保存练习菜单','儲存練習菜單','연습 메뉴 저장');
+W('練習メニュー（ステージ・ペース・時間）に名前を付けて保存しておくと、あとで読み込めます。練習モードでだけ保存・読み込みできます。曲は「曲」タブのマイリストで別に登録します。','Name and save the practice menu (stages, pace, time) to load it later. Saving and loading work only in Practice mode. Songs are registered separately in My lists on the Songs tab.','为练习菜单（阶段・配速・时间）命名保存后，可以随时读取。仅在练习模式下可保存和读取。曲目在“曲目”标签的我的列表中另行登记。','為練習菜單（階段・配速・時間）命名儲存後，可以隨時讀取。僅在練習模式下可儲存和讀取。曲目在「曲目」分頁的我的清單中另行登錄。','연습 메뉴(스테이지·페이스·시간)에 이름을 붙여 저장해 두면 나중에 불러올 수 있습니다. 연습 모드에서만 저장·불러오기가 됩니다. 곡은 "곡" 탭의 마이 리스트에서 따로 등록합니다.');
+W('大会の設定（大会名・時刻・目標・関門・給水所・戦略）に名前を付けて保存しておくと、あとで読み込めます。本番モードでだけ保存・読み込みできます。曲は「曲」タブのマイリストで別に登録します。','Name and save the race settings (name, time, target, cutoffs, aid stations, strategy) to load them later. Saving and loading work only in Race mode. Songs are registered separately in My lists on the Songs tab.','为比赛设置（名称・时间・目标・关门・补给站・策略）命名保存后，可以随时读取。仅在比赛模式下可保存和读取。曲目在“曲目”标签的我的列表中另行登记。','為比賽設定（名稱・時間・目標・關門・補給站・策略）命名儲存後，可以隨時讀取。僅在比賽模式下可儲存和讀取。曲目在「曲目」分頁的我的清單中另行登錄。','대회 설정(대회명·시각·목표·관문·급수소·전략)에 이름을 붙여 저장해 두면 나중에 불러올 수 있습니다. 대회 모드에서만 저장·불러오기가 됩니다. 곡은 "곡" 탭의 마이 리스트에서 따로 등록합니다.');
+W('保存名（例：火曜のペース走）','Name (e.g. Tuesday pace run)','名称（例：周二配速跑）','名稱（例：週二配速跑）','이름 (예: 화요일 페이스주)');
+W('練習の内容をクリアしました。「練習メニューの保存」に保存してあれば「読み込む」で元に戻せます。','Practice cleared. If you saved it under "Save practice menu", tap "Load" to restore it.','已清除练习内容。如已在“保存练习菜单”中保存，可点“读取”恢复。','已清除練習內容。如已在「儲存練習菜單」中儲存，可點「讀取」恢復。','연습 내용을 지웠습니다. "연습 메뉴 저장"에 저장했다면 "불러오기"로 되돌릴 수 있습니다.');
+W('練習メニュー：','Practice menu: ','练习菜单：','練習菜單：','연습 메뉴: ');
+W('🎵 曲の登録（マイリスト）','🎵 Song lists (my lists)','🎵 曲目登记（我的列表）','🎵 曲目登錄（我的清單）','🎵 곡 등록(마이 리스트)');
+W('流す曲の組み合わせ（「使う」にチェックした曲とその順番、リズムの微調整）に名前を付けて登録します。登録されるのは曲だけで、大会の設定や練習メニューは入りません。練習・本番・リラックスのどれでも使えます。','Name and register a set of songs to play (the songs checked "Use", their order and the rhythm fine-tuning). Only songs are saved — no race settings or practice menu. Usable in Practice, Race and Relax.','为要播放的曲目组合（勾选“使用”的曲目、顺序和节奏微调）命名登记。只保存曲目，不包含比赛设置和练习菜单。练习、比赛、放松都可使用。','為要播放的曲目組合（勾選「使用」的曲目、順序和節奏微調）命名登錄。只儲存曲目，不包含比賽設定和練習菜單。練習、比賽、放鬆都可使用。','재생할 곡 조합("사용"에 체크한 곡과 순서, 리듬 미세 조정)에 이름을 붙여 등록합니다. 곡만 저장되며 대회 설정이나 연습 메뉴는 들어가지 않습니다. 연습·대회·릴랙스 어디서나 쓸 수 있습니다.');
+W('曲リストの名前（例：アップテンポ曲）','Song list name (e.g. Upbeat songs)','曲目列表名称（例：快节奏）','曲目清單名稱（例：快節奏）','곡 리스트 이름 (예: 업템포 곡)');
+W('曲リストの名前','Song list name','曲目列表名称','曲目清單名稱','곡 리스트 이름');
+W('今の曲を登録','Register current songs','登记当前曲目','登錄目前曲目','현재 곡 등록');
+W('名前（例：アップテンポ曲）','Name (e.g. Upbeat songs)','名称（例：快节奏）','名稱（例：快節奏）','이름 (예: 업템포 곡)');
+W('本番レース情報・戦略を保存','Save race info & strategy','保存比赛信息与策略','儲存比賽資訊與策略','대회 정보·전략 저장');
+W('本番レースの情報と戦略（大会名・時刻・目標・関門・給水所・戦略）に名前を付けて保存しておくと、あとで読み込めます。本番モードでだけ保存・読み込みできます。曲は「曲」タブのマイリストで別に登録します。','Name and save the race info and strategy (name, time, target, cutoffs, aid stations, strategy) to load them later. Saving and loading work only in Race mode. Songs are registered separately in My lists on the Songs tab.','为比赛信息与策略（名称・时间・目标・关门・补给站・策略）命名保存后，可以随时读取。仅在比赛模式下可保存和读取。曲目在“曲目”标签的我的列表中另行登记。','為比賽資訊與策略（名稱・時間・目標・關門・補給站・策略）命名儲存後，可以隨時讀取。僅在比賽模式下可儲存和讀取。曲目在「曲目」分頁的我的清單中另行登錄。','대회 정보와 전략(대회명·시각·목표·관문·급수소·전략)에 이름을 붙여 저장해 두면 나중에 불러올 수 있습니다. 대회 모드에서만 저장·불러오기가 됩니다. 곡은 "곡" 탭의 마이 리스트에서 따로 등록합니다.');
+W('本番の内容をクリアしました。「本番レース情報・戦略を保存」に保存してあれば「読み込む」で元に戻せます。','Race settings cleared. If you saved them under "Save race info & strategy", tap "Load" to restore them.','已清除比赛内容。如已在“保存比赛信息与策略”中保存，可点“读取”恢复。','已清除比賽內容。如已在「儲存比賽資訊與策略」中儲存，可點「讀取」恢復。','대회 내용을 지웠습니다. "대회 정보·전략 저장"에 저장했다면 "불러오기"로 되돌릴 수 있습니다.');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2350,6 +2396,7 @@ P(/^合計 ((?:\d+時間)?(?:\d+分)?)$/,m=>[`Total ${dur(m[1])}`,`合计 ${dur(
 P(/^約([\d.]+) ?km$/,m=>[`about ${m[1]} km`,`约${m[1]}公里`,`約${m[1]}公里`,`약 ${m[1]} km`]);
 P(/^((?:\d+時間)?(?:\d+分)?(?:\d+秒)?)$/,m=>m[1]?dur(m[1]):null);
 P(/^曲 (\d+)曲$/,m=>[PL(m[1],'song'),`${m[1]}首歌`,`${m[1]}首歌`,`곡 ${m[1]}곡`]);
+P(/^🎵 曲 (\d+)曲$/,m=>['🎵 '+PL(m[1],'song'),`🎵 ${m[1]}首歌`,`🎵 ${m[1]}首歌`,`🎵 곡 ${m[1]}곡`]);
 P(/^保存 (.+)$/,m=>[`saved ${m[1]}`,`保存于 ${m[1]}`,`儲存於 ${m[1]}`,`저장 ${m[1]}`]);
 P(/^目標 (.+)$/,m=>[`Target ${nm(m[1])}`,`目标 ${nm(m[1])}`,`目標 ${nm(m[1])}`,`목표 ${nm(m[1])}`]);
 P(/^タップ (\d+)$/,m=>[`Tap ${m[1]}`,`轻点 ${m[1]}`,`輕點 ${m[1]}`,`탭 ${m[1]}`]);
@@ -2407,6 +2454,7 @@ const done=(re,en,cn,tw,ko)=>P(re,m=>{const n=q(m[1]),c=`「${m[1]}」`;return [
 done(/^「(.+)」を保存しました$/,n=>`Saved ${n}`,c=>`已保存${c}`,c=>`已儲存${c}`,n=>`${n}을(를) 저장했습니다`);
 done(/^「(.+)」を上書きしました$/,n=>`Overwrote ${n}`,c=>`已覆盖${c}`,c=>`已覆寫${c}`,n=>`${n}을(를) 덮어썼습니다`);
 done(/^「(.+)」を今の設定で上書きしました$/,n=>`Overwrote ${n} with the current settings`,c=>`已用当前设置覆盖${c}`,c=>`已用目前設定覆寫${c}`,n=>`${n}을(를) 현재 설정으로 덮어썼습니다`);
+done(/^「(.+)」を今の練習メニューで上書きしました$/,n=>`Overwrote ${n} with the current practice menu`,c=>`已用当前练习菜单覆盖${c}`,c=>`已用目前練習菜單覆寫${c}`,n=>`${n}을(를) 현재 연습 메뉴로 덮어썼습니다`);
 done(/^「(.+)」を登録しました$/,n=>`Saved ${n}`,c=>`已保存${c}`,c=>`已儲存${c}`,n=>`${n}을(를) 등록했습니다`);
 done(/^「(.+)」を削除しました$/,n=>`Deleted ${n}`,c=>`已删除${c}`,c=>`已刪除${c}`,n=>`${n}을(를) 삭제했습니다`);
 done(/^「(.+)」を読み込みました$/,n=>`Loaded ${n}`,c=>`已读取${c}`,c=>`已讀取${c}`,n=>`${n}을(를) 불러왔습니다`);
