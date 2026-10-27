@@ -564,7 +564,7 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <p class="ver" data-notr translate="no">版 2026-10-27d</p>
+  <p class="ver" data-notr translate="no">版 2026-10-27e</p>
 </div>
 
 <script>
@@ -1624,8 +1624,11 @@ function renderRP(){const l=$('#rpList');if(!l)return;l.hidden=!racePresets.leng
       <div class="ctrls"><button class="small" data-rpload="${p.id}" ${R.running||RS.pre?'disabled':''}>読み込む</button><button class="small${rpFlash===p.id?' ok':''}" data-rpsave="${p.id}">${rpFlash===p.id?rpFlashTxt:'上書き'}</button><button class="small${rpDelArm===p.id?' danger':''}" data-rpdel="${p.id}">${rpDelArm===p.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
 const rpSnap=()=>JSON.parse(JSON.stringify(RC));
 /* after save / load / overwrite: bring the race settings (大会名) to the top of the screen */
-function rpShowTop(t){setTimeout(()=>{const h=$('#raceSec');if(h)try{h.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){h.scrollIntoView();}
-  const n=$('#rcName');if(n){n.classList.remove('rp-hit');void n.offsetWidth;n.classList.add('rp-hit');}clrMsg('race',t);},60);}
+function rpShowTop(t){blurInputs();clrMsg('race',t);const n=$('#rcName');if(n){n.classList.remove('rp-hit');void n.offsetWidth;n.classList.add('rp-hit');}
+  /* phones: wait for the keyboard / dialog to close, then jump (no smooth scroll: it gets cancelled when the screen resizes); repeat once to be sure */
+  const go=()=>{const h=$('#raceSec');if(!h||h.hidden)return;const y=h.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-8;
+    try{window.scrollTo({top:Math.max(0,y),behavior:'auto'});}catch(e){window.scrollTo(0,Math.max(0,y));}};
+  setTimeout(go,120);setTimeout(go,450);setTimeout(go,900);}
 document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};
   if((t.id==='rpSave'||d.rpsave||d.rpload||d.rpdel)&&MODE!=='race')return;
   if(t.id==='rpSave'){const name=$('#rpName').value.trim()||RC.name;if(!name){rpMsg('保存名を入れてください。',true);return;}
