@@ -225,6 +225,8 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .primary-sm{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700;flex:none}
 .ml-msg{margin:-4px 0 0;font-size:.8rem;color:var(--muted);min-height:1em}
 .ml-msg.err{color:var(--warn);font-weight:700}
+.ml-msg.ow{display:flex;flex-direction:column;gap:6px;margin:4px 0;padding:10px 12px;border:2px solid var(--warn);border-radius:10px;color:var(--fg,inherit);font-size:.9rem}
+.ml-msg.ow .owd{font-size:.82rem;color:var(--muted)}.ml-msg.ow .owd b{color:inherit}.ml-msg.ow .owb{display:flex;gap:8px}.ml-msg.ow .owb button{flex:1;min-height:40px}
 .ml{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid var(--line)}
 .ml:first-child{border-top:0}
 .ml.on{background:var(--cur-bg);box-shadow:inset 0 0 0 2px var(--accent)}
@@ -1314,7 +1316,16 @@ preview.addEventListener('ended',()=>{previewId=null;renderSongs();});
 let mylists=store.get('cbgm-mylists',[]);if(!Array.isArray(mylists))mylists=[];
 let activeML=store.get('cbgm-mylist-active',null);let mlDelArm=null;
 const saveMLs=()=>{store.set('cbgm-mylists',mylists);store.set('cbgm-mylist-active',activeML);};
-function mlMsg(t){$('#mlMsg').textContent=t;$('#mlMsg').classList.remove('err');}
+function mlMsg(t){$('#mlMsg').textContent=t;$('#mlMsg').classList.remove('err','ow');}
+/* overwrite confirmation: ask in the message area, run fn only on 「上書きする」 */
+let OWP=null;function askOW(elId,name,details,fn){const el=document.getElementById(elId);if(!el)return;OWP={elId,fn};el.classList.remove('err');el.classList.add('ow');
+  el.innerHTML=`<span class="owq"><b data-notr>「${esc(name)}」</b>を、今の設定で上書きしてよいですか？</span>`+details.map(([k,a,b])=>`<span class="owd">${k}<b data-notr>${esc(a)}</b>${b!=null&&b!==a?` → <b data-notr>${esc(b)}</b>`:''}</span>`).join('')+
+  `<span class="owb"><button class="primary-sm" data-owyes>上書きする</button><button class="small" data-owno>やめる</button></span>`;try{el.scrollIntoView({block:'nearest'});}catch(e){}}
+document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-owyes],[data-owno]');if(!t||!OWP)return;const P=OWP;OWP=null;const el=document.getElementById(P.elId);if(el){el.classList.remove('ow');el.textContent='';}
+  if(t.hasAttribute('data-owyes'))P.fn();else if(el)el.textContent='上書きをやめました。';});
+const owGoal=g=>g?fmtHMS(g):'なし';
+function owML(o){const n=songs.filter(used).length,d=[['流す曲の数：',String((o.songs||[]).length),String(n)]];if(MODE==='race')d.unshift(['大会名：',o.rc&&o.rc.name||'なし',RC.name||'なし'],['目標：',owGoal(o.rc&&o.rc.goal),owGoal(RC.goal)]);return d;}
+function owRP(o){const r=o.rc||{};return [['大会名：',r.name||'なし',RC.name||'なし'],['開催日：',r.date||'なし',RC.date||'なし'],['目標：',owGoal(r.goal),owGoal(RC.goal)]];}
 async function confirmSaved(snap,text){await new Promise(r=>setTimeout(r,150));const ok=await kvCheck('cbgm-mylists',snap.id,snap.saved);
   if(ok===false){$('#mlMsg').textContent='保存を確認できませんでした。もう一度「上書き」を押してください。';$('#mlMsg').classList.add('err');}
   else mlMsg(text+(ok?'（保存を確認しました）':''));}
@@ -1344,9 +1355,10 @@ function renderML(){const list=$('#mlList');if(!list)return;list.hidden=!mylists
       <button class="small${mlFlash===m.id&&mlFlashTxt.startsWith('上')?' ok':''}" data-mlsave="${m.id}">${mlFlash===m.id&&mlFlashTxt.startsWith('上')?mlFlashTxt:'上書き'}</button>
       <button class="small${mlDelArm===m.id?' danger':''}" data-mldel="${m.id}">${mlDelArm===m.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
 $('#mlSave').addEventListener('click',()=>{const name=$('#mlName').value.trim();if(!name){mlMsg('名前を入力してください。');$('#mlName').focus();return;}
-  const ex=mylists.find(m=>m.name===name);const snap=snapshot(name,ex&&ex.id);
-  if(ex)mylists[mylists.indexOf(ex)]=snap;else mylists.push(snap);activeML=snap.id;saveMLs();
-  $('#mlName').value='';renderML();confirmSaved(snap,ex?`「${name}」を今の設定で上書きしました。`:`「${name}」を登録しました。`);});
+  const ex=mylists.find(m=>m.name===name);const go=()=>{const ex2=mylists.find(m=>m.name===name);const snap=snapshot(name,ex2&&ex2.id);
+  if(ex2)mylists[mylists.indexOf(ex2)]=snap;else mylists.push(snap);activeML=snap.id;saveMLs();if(ex2)flashML(snap.id,'上書きしました ✓');
+  $('#mlName').value='';renderML();confirmSaved(snap,ex2?`「${name}」を今の設定で上書きしました。`:`「${name}」を登録しました。`);};
+  if(ex)askOW('mlMsg',name,owML(ex),go);else go();});
 $('#mlName').addEventListener('keydown',e=>{if(e.key==='Enter')$('#mlSave').click();});
 $('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
   if(d.mldel){if(mlDelArm!==d.mldel){mlDelArm=d.mldel;renderML();return;}
@@ -1364,8 +1376,8 @@ $('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
     saveOrder();
     mlMsg(`「${m.name}」の曲を追加しました。追加 ${added}曲`+(dup?`、すでに一覧にある ${dup}曲は重複しないようにそのままにしました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。練習メニューは変わりません。');
     renderSongs();renderRun();renderML();updateStoreInfo();return;}
-  if(d.mlsave){const i=mylists.findIndex(x=>x.id===d.mlsave);if(i<0)return;mylists[i]=snapshot(mylists[i].name,d.mlsave);activeML=d.mlsave;saveMLs();
-    flashML(d.mlsave,'上書きしました ✓');renderML();confirmSaved(mylists[i],`「${mylists[i].name}」を今の設定で上書きしました。`);return;}
+  if(d.mlsave){const o=mylists.find(x=>x.id===d.mlsave);if(!o)return;askOW('mlMsg',o.name,owML(o),()=>{const i=mylists.findIndex(x=>x.id===o.id);if(i<0)return;mylists[i]=snapshot(o.name,o.id);activeML=o.id;saveMLs();
+    flashML(o.id,'上書きしました ✓');renderML();confirmSaved(mylists[i],`「${o.name}」を今の設定で上書きしました。`);});return;}
   if(d.mlload){if(R.running){mlMsg('走っている間は読み込めません。');return;}const m=mylists.find(x=>x.id===d.mlload);if(!m)return;if(!validMenu(m.menu)){mlMsg(`「${m.name}」は練習メニューが正しく保存されていないため読み込めません。上書きし直してください。`);return;}
     if(R.acc>0||R.done)reset();
     cadOffset=Math.max(-30,Math.min(30,+m.offset||0));store.set('cbgm-offset',cadOffset);$('#cadOffset').value=cadOffset;
@@ -1429,8 +1441,7 @@ function rcCps(){return String(RC.cps||'').split(/\n/).map(l=>{const m=/^\s*([\d
   if(gs!=null&&sec>=gs)sec-=gs; /* 時刻（例 10:40）で書いた関門は、スタート時刻からの時間に直す */
   return km>0&&sec>0?{km,sec}:null;}).filter(Boolean).sort((a,b)=>a.km-b.km);}
 function rcGunMs(){if(!/^\d{4}-\d\d-\d\d$/.test(RC.date||'')||!/^\d\d:\d\d$/.test(RC.time||''))return null;return new Date(RC.date+'T'+RC.time+':00').getTime();}
-/* phones (iPhone etc.) keep the keyboard input focused when a button is tapped; commit and release it first so loaded values are shown and not written back */
-document.addEventListener('pointerdown',e=>{const btn=e.target.closest&&e.target.closest('button');const a=document.activeElement;if(btn&&a&&a!==btn&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))a.blur();},true);
+/* phones keep the keyboard input focused when a button is tapped: loaders release it inside their click handler (not on pointerdown, which closes the keyboard mid-tap and loses the click) */
 function blurInputs(){const a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))a.blur();}
 function setVal(id,v){const el=document.getElementById(id);if(el&&document.activeElement!==el)el.value=v;}
 const MODE_TXT={
@@ -1584,7 +1595,7 @@ document.addEventListener('input',e=>{const t=e.target,d=t.dataset||{};if(d.sto=
 document.addEventListener('change',e=>{if(e.target.dataset&&e.target.dataset.sto!=null)renderStrat();});
 /* ---------- saved race settings ---------- */
 let racePresets=store.get('cbgm-race-presets',[]);if(!Array.isArray(racePresets))racePresets=[];let rpDelArm=null;
-function rpMsg(t,err){const m=$('#rpMsg');m.textContent=t;m.classList.toggle('err',!!err);}
+function rpMsg(t,err){const m=$('#rpMsg');m.textContent=t;m.classList.remove('ow');m.classList.toggle('err',!!err);}
 let rpFlash=null,rpFlashT=0;const nLines=t=>String(t||'').split(/\n/).filter(x=>x.trim()).length;
 function fmtWhenS(t){const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;}
 let rpFlashTxt='上書きしました ✓';function flashRP(id,txt){rpFlash=id;rpFlashTxt=txt||'上書きしました ✓';clearTimeout(rpFlashT);rpFlashT=setTimeout(()=>{rpFlash=null;renderRP();},2500);}
@@ -1595,10 +1606,11 @@ function renderRP(){const l=$('#rpList');if(!l)return;l.hidden=!racePresets.leng
 const rpSnap=()=>JSON.parse(JSON.stringify(RC));
 document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};
   if(t.id==='rpSave'){const name=$('#rpName').value.trim()||RC.name;if(!name){rpMsg('保存名を入れてください。',true);return;}
-    const ex=racePresets.find(p=>p.name===name),p={id:ex?ex.id:gid(),name,saved:Date.now(),rc:rpSnap()};if(ex)racePresets[racePresets.indexOf(ex)]=p;else racePresets.push(p);
-    store.set('cbgm-race-presets',racePresets);$('#rpName').value='';rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashRP(p.id,ex?'上書きしました ✓':'保存しました ✓');renderRP();return;}
+    const go=()=>{const ex=racePresets.find(p=>p.name===name),p={id:ex?ex.id:gid(),name,saved:Date.now(),rc:rpSnap()};if(ex)racePresets[racePresets.indexOf(ex)]=p;else racePresets.push(p);
+    store.set('cbgm-race-presets',racePresets);$('#rpName').value='';rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashRP(p.id,ex?'上書きしました ✓':'保存しました ✓');renderRP();};
+    const ex0=racePresets.find(p=>p.name===name);if(ex0)askOW('rpMsg',name,owRP(ex0),go);else go();return;}
   if(d.rpdel){if(rpDelArm!==d.rpdel){rpDelArm=d.rpdel;renderRP();return;}const p=racePresets.find(x=>x.id===d.rpdel);racePresets=racePresets.filter(x=>x.id!==d.rpdel);rpDelArm=null;store.set('cbgm-race-presets',racePresets);rpMsg(p?`「${p.name}」を削除しました。`:'');renderRP();return;}
-  if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);flashRP(p.id);renderRP();return;}
+  if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;askOW('rpMsg',p.name,owRP(p),()=>{p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);flashRP(p.id);renderRP();});return;}
   if(d.rpload){if(R.running||RS.pre)return;blurInputs();const p=racePresets.find(x=>x.id===d.rpload);if(!p)return;RC=Object.assign({},RCD,JSON.parse(JSON.stringify(p.rc)));store.set('cbgm-race',RC);
     if(MODE==='race')menu=virtualMenu();rpMsg(`「${p.name}」を読み込みました。`);renderAll();return;}});
 {const _a=applyModeUI;applyModeUI=function(){_a();if(MODE==='race'){fillStratN();if(!(document.activeElement&&document.activeElement.dataset&&(document.activeElement.dataset.sto!=null||document.activeElement.dataset.sspd!=null)))renderStrat();renderRP();}};}
@@ -2286,6 +2298,13 @@ W('本番の設定（大会名・時刻・目標・関門・給水所・戦略�
 W('このマイリストには本番の設定が入っていません','This my list has no race settings','此列表中没有比赛设置','此清單中沒有比賽設定','이 마이 리스트에는 대회 설정이 없습니다');
 W('スタート待機中・走っている間は本番の設定は切り替えません','Race settings are not switched while waiting to start or running','等待起跑或跑步时不会切换比赛设置','等待起跑或跑步時不會切換比賽設定','출발 대기 중이나 달리는 동안에는 대회 설정을 바꾸지 않습니다');
 W('本番の設定を入れてから「上書き」すると、次から一緒に読み込めます','Enter the race settings and press "Overwrite" to load them together next time','输入比赛设置后按“覆盖”，下次即可一起读取','輸入比賽設定後按「覆寫」，下次即可一起讀取','대회 설정을 입력한 뒤 "덮어쓰기"하면 다음부터 함께 불러올 수 있습니다');
+W('を、今の設定で上書きしてよいですか？',' — overwrite with the current settings?','——要用当前设置覆盖吗？','——要用目前設定覆蓋嗎？','을(를) 현재 설정으로 덮어쓸까요?');
+W('上書きする','Overwrite','覆盖','覆蓋','덮어쓰기');
+W('上書きをやめました','Overwrite canceled','已取消覆盖','已取消覆蓋','덮어쓰기를 취소했습니다');
+W('大会名：','Race: ','比赛名称：','比賽名稱：','대회명: ');
+W('開催日：','Date: ','日期：','日期：','개최일: ');
+W('目標：','Target: ','目标：','目標：','목표: ');
+W('流す曲の数：','Songs: ','播放曲目数：','播放曲目數：','재생 곡 수: ');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
