@@ -231,6 +231,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .ml-msg.err{color:var(--warn);font-weight:700}
 .ver{margin:24px 0 8px;text-align:center;font-size:.72rem;color:var(--muted)}
 @keyframes rphit{0%,60%{box-shadow:0 0 0 4px var(--amber);background:var(--amber-soft)}100%{box-shadow:none}}#rcName.rp-hit{animation:rphit 2.4s ease-out}
+.csv-sel{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.csv-sel select{flex:1 1 200px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
 #mlSec{background:var(--ml-bg);border:3px solid var(--ml-line);border-radius:14px;padding:0 12px 14px;margin:18px 0;overflow:hidden}
 #mlSec h2{margin:0 -12px 8px;padding:12px 14px;background:var(--ml-line);color:#fff;font-size:1.1rem}#mlSec .sub{color:var(--ml-ink)}#mlSec .ml{background:var(--surface)}
 #mlList .ml{border-left:5px solid var(--ml-line)}
@@ -324,7 +325,6 @@ body.live.race-live #nowPlaying,body.live.race-live .opts,body.live.race-live #h
 .od{font-size:.88rem;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:8px 12px;line-height:1.7}.od b{font-family:var(--f-num);font-size:1.05rem}.od .err{color:var(--warn);font-weight:700}
 .recv{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.recv .ml-save{flex:1 1 100%}.recv .ml-msg{flex:1 1 100%;margin:0}.recv .ml-msg:empty{display:none}.recv-s{font-size:.78rem;color:var(--muted)}
 body.live .recv{display:none}
-.csv-sel{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.csv-sel select{flex:1 1 200px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
 .rc-cps{font-weight:400;font-size:.88rem;color:var(--ink);background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:7px 9px;line-height:1.7}
 .rc-cps .muted{color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.head,.run{transition:none}.run.paused .badge{animation:none}}
@@ -473,7 +473,7 @@ body.live .recv{display:none}
     <div class="list" id="menuList"></div>
     <div><button class="small" id="btnAddSeg">＋ ステージを追加</button></div>
     <div class="rp" id="csvBox">
-      <div class="strat-h"><b>CSVを読み込む</b><span class="sub">保存したCSVを選ぶと、ここに表示します。</span></div>
+      <div class="strat-h"><b>練習メニュー・CSVを読み込む</b><span class="sub">保存したCSVを選ぶと、ここに表示します。</span></div>
       <div class="ctrls"><button class="primary-sm" id="csvBtn">CSVファイルを選ぶ</button><input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></div>
       <div class="csv-sel" id="csvSel" hidden></div>
       <p class="ml-msg" id="csvMsg"></p>
@@ -571,7 +571,7 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <p class="ver" data-notr translate="no">版 2026-10-27f</p>
+  <p class="ver" data-notr translate="no">版 2026-10-27g</p>
 </div>
 
 <script>
@@ -2405,6 +2405,10 @@ W('名前（例：アップテンポ曲）','Name (e.g. Upbeat songs)','名称�
 W('本番レース情報・戦略を保存','Save race info & strategy','保存比赛信息与策略','儲存比賽資訊與策略','대회 정보·전략 저장');
 W('本番レースの情報と戦略（大会名・時刻・目標・関門・給水所・戦略）に名前を付けて保存しておくと、あとで読み込めます。本番モードでだけ保存・読み込みできます。曲は「曲」タブのマイリストで別に登録します。','Name and save the race info and strategy (name, time, target, cutoffs, aid stations, strategy) to load them later. Saving and loading work only in Race mode. Songs are registered separately in My lists on the Songs tab.','为比赛信息与策略（名称・时间・目标・关门・补给站・策略）命名保存后，可以随时读取。仅在比赛模式下可保存和读取。曲目在“曲目”标签的我的列表中另行登记。','為比賽資訊與策略（名稱・時間・目標・關門・補給站・策略）命名儲存後，可以隨時讀取。僅在比賽模式下可儲存和讀取。曲目在「曲目」分頁的我的清單中另行登錄。','대회 정보와 전략(대회명·시각·목표·관문·급수소·전략)에 이름을 붙여 저장해 두면 나중에 불러올 수 있습니다. 대회 모드에서만 저장·불러오기가 됩니다. 곡은 "곡" 탭의 마이 리스트에서 따로 등록합니다.');
 W('本番の内容をクリアしました。「本番レース情報・戦略を保存」に保存してあれば「読み込む」で元に戻せます。','Race settings cleared. If you saved them under "Save race info & strategy", tap "Load" to restore them.','已清除比赛内容。如已在“保存比赛信息与策略”中保存，可点“读取”恢复。','已清除比賽內容。如已在「儲存比賽資訊與策略」中儲存，可點「讀取」恢復。','대회 내용을 지웠습니다. "대회 정보·전략 저장"에 저장했다면 "불러오기"로 되돌릴 수 있습니다.');
+W('練習メニュー・CSVを読み込む','Load practice menu from CSV','从CSV读取练习菜单','從CSV讀取練習菜單','연습 메뉴 CSV 불러오기');
+W('保存したCSVを選ぶと、ここに表示します。','Choose a saved CSV to show it here.','选择保存的CSV后会显示在这里。','選擇儲存的CSV後會顯示在這裡。','저장한 CSV를 고르면 여기에 표시합니다.');
+W('CSVファイルを選ぶ','Choose CSV file','选择CSV文件','選擇CSV檔案','CSV 파일 선택');
+W('この日のメニューを表示','Show this day\'s menu','显示这天的菜单','顯示這天的菜單','이 날의 메뉴 표시');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
