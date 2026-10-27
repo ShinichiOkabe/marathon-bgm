@@ -232,6 +232,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .ver{margin:24px 0 8px;text-align:center;font-size:.72rem;color:var(--muted)}
 @keyframes rphit{0%,60%{box-shadow:0 0 0 4px var(--amber);background:var(--amber-soft)}100%{box-shadow:none}}#rcName.rp-hit{animation:rphit 2.4s ease-out}
 .csv-sel{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.csv-sel select{flex:1 1 200px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+.newver{position:fixed;left:8px;right:8px;top:8px;z-index:90;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--amber-soft);border:2px solid var(--amber);color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,.25);font-size:.9rem}.newver span{flex:1 1 180px}.newver[hidden]{display:none}
 #mlSec{background:var(--ml-bg);border:3px solid var(--ml-line);border-radius:14px;padding:0 12px 14px;margin:18px 0;overflow:hidden}
 #mlSec h2{margin:0 -12px 8px;padding:12px 14px;background:var(--ml-line);color:#fff;font-size:1.1rem}#mlSec .sub{color:var(--ml-ink)}#mlSec .ml{background:var(--surface)}
 #mlList .ml{border-left:5px solid var(--ml-line)}
@@ -571,7 +572,7 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <p class="ver" data-notr translate="no">版 2026-10-27g</p>
+  <p class="ver" data-notr translate="no">版 2026-10-27h</p>
 </div>
 
 <script>
@@ -819,6 +820,16 @@ $('#csvFile')&&$('#csvFile').addEventListener('change',async e=>{const f=e.targe
   if(m)csvApply(m.d);else msg.textContent='練習メニュー '+ms.length+'日分を読み込みました（今日以降の分はありません）。';});
 document.addEventListener('click',e=>{if(e.target.id==='csvGo')csvApply($('#csvDay').value);});
 csvRender();
+
+/* ---------- new version check: phones keep showing an old copy, so look for a newer 版 and offer to switch ---------- */
+(function(){if(!/^https?:$/.test(location.protocol))return;const verOf=t=>{const m=/class="ver"[^>]*>([^<]+)</.exec(t);return m?m[1].trim():'';};
+  const cur=(($('.ver')||{}).textContent||'').trim();let shown='';
+  async function chk(){if(R.running||RS.pre||RS.armed||document.hidden)return;let t='';try{const r=await fetch(location.href.split('#')[0],{cache:'reload'});if(!r.ok)return;t=await r.text();}catch(e){return;}
+    const nv=verOf(t);if(!nv||nv===cur||nv===shown)return;shown=nv;let b=$('#newVer');
+    if(!b){b=document.createElement('div');b.id='newVer';b.className='newver';document.body.appendChild(b);}
+    b.innerHTML=`<span>新しい版があります（<b data-notr>${esc(nv)}</b>）。</span><button class="primary-sm" id="newVerGo">新しい版にする</button><button class="small" id="newVerNo">あとで</button>`;b.hidden=false;}
+  document.addEventListener('click',e=>{if(e.target.id==='newVerGo'){if(R.running){return;}location.reload();}else if(e.target.id==='newVerNo'){const b=$('#newVer');if(b)b.hidden=true;}});
+  setTimeout(chk,3000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)chk();});})();
 function recvApply(v){const msg=$('#recvMsg');msg.classList.remove('err');
   if(R.running){msg.textContent='走っている間は受け取れません。';msg.classList.add('err');return false;}
   const t=String(v||'').trim().replace(/^.*#/,'');
@@ -2409,6 +2420,10 @@ W('練習メニュー・CSVを読み込む','Load practice menu from CSV','从CS
 W('保存したCSVを選ぶと、ここに表示します。','Choose a saved CSV to show it here.','选择保存的CSV后会显示在这里。','選擇儲存的CSV後會顯示在這裡。','저장한 CSV를 고르면 여기에 표시합니다.');
 W('CSVファイルを選ぶ','Choose CSV file','选择CSV文件','選擇CSV檔案','CSV 파일 선택');
 W('この日のメニューを表示','Show this day\'s menu','显示这天的菜单','顯示這天的菜單','이 날의 메뉴 표시');
+W('新しい版があります（','A new version is available (','有新版本（','有新版本（','새 버전이 있습니다 (');
+W('）。',').','）。','）。',').');
+W('新しい版にする','Update now','更新到新版本','更新到新版本','새 버전으로');
+W('あとで','Later','稍后','稍後','나중에');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
