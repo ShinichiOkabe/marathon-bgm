@@ -324,6 +324,7 @@ body.live.race-live #nowPlaying,body.live.race-live .opts,body.live.race-live #h
 .od{font-size:.88rem;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:8px 12px;line-height:1.7}.od b{font-family:var(--f-num);font-size:1.05rem}.od .err{color:var(--warn);font-weight:700}
 .recv{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.recv .ml-save{flex:1 1 100%}.recv .ml-msg{flex:1 1 100%;margin:0}.recv .ml-msg:empty{display:none}.recv-s{font-size:.78rem;color:var(--muted)}
 body.live .recv{display:none}
+.csv-sel{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.csv-sel select{flex:1 1 200px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
 .rc-cps{font-weight:400;font-size:.88rem;color:var(--ink);background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:7px 9px;line-height:1.7}
 .rc-cps .muted{color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.head,.run{transition:none}.run.paused .badge{animation:none}}
@@ -471,6 +472,12 @@ body.live .recv{display:none}
     <div class="chips" id="presets"></div>
     <div class="list" id="menuList"></div>
     <div><button class="small" id="btnAddSeg">＋ ステージを追加</button></div>
+    <div class="rp" id="csvBox">
+      <div class="strat-h"><b>CSVを読み込む</b><span class="sub">保存したCSVを選ぶと、ここに表示します。</span></div>
+      <div class="ctrls"><button class="primary-sm" id="csvBtn">CSVファイルを選ぶ</button><input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></div>
+      <div class="csv-sel" id="csvSel" hidden></div>
+      <p class="ml-msg" id="csvMsg"></p>
+    </div>
     <div class="rp">
       <div class="strat-h"><b>練習メニューの保存</b><span class="sub">練習メニュー（ステージ・ペース・時間）に名前を付けて保存しておくと、あとで読み込めます。練習モードでだけ保存・読み込みできます。曲は「曲」タブのマイリストで別に登録します。</span></div>
       <div class="ml-save"><input type="text" id="pmName" maxlength="40" placeholder="保存名（例：火曜のペース走）" aria-label="保存名"><button class="primary-sm" id="pmSave">保存</button></div>
@@ -564,7 +571,7 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <p class="ver" data-notr translate="no">版 2026-10-27e</p>
+  <p class="ver" data-notr translate="no">版 2026-10-27f</p>
 </div>
 
 <script>
@@ -785,6 +792,33 @@ function applyHashMenu(src){if(applyRaceHash(src))return true;const H=readHashMe
 document.addEventListener('click',e=>{if(e.target.id==='hashOk'){$('#hashNote').hidden=true;}
   else if(e.target.id==='hashUndo'&&hashPrev){if(R.running)return;menu=hashPrev.menu;activePreset=hashPrev.preset;hashPrev=null;saveMenu();$('#hashNote').hidden=true;renderAll();}});
 window.addEventListener('hashchange',()=>applyHashMenu());
+/* ---------- CSV file saved by マラソン大会管理 (marathon-bgm-bulk v1) ---------- */
+function csvRows(t){const rows=[];let row=[],f='',q=false;t=String(t).replace(/^﻿/,'');
+  for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}
+    else if(c==='"')q=true;else if(c===','){row.push(f);f='';}else if(c==='\n'||c==='\r'){if(c==='\r'&&t[i+1]==='\n')i++;row.push(f);rows.push(row);row=[];f='';}else f+=c;}
+  if(f||row.length){row.push(f);rows.push(row);}return rows;}
+function csvMenus(text){const rows=csvRows(text);if(!rows.length||rows[0][0]!=='marathon-bgm-bulk')return null;
+  return rows.slice(2).filter(r=>r[0]==='menu'&&/^\d{4}-\d\d-\d\d$/.test(r[1])).map(r=>({d:r[1],text:r[2]||'',token:r[7]||''}));}
+let CSVM=store.get('cbgm-csv-menus',null);
+const csvToday=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
+const csvFd=d=>{const x=new Date(d+'T00:00:00');return (x.getMonth()+1)+'/'+x.getDate()+'（'+'日月火水木金土'[x.getDay()]+'）';};
+function csvRender(){const box=$('#csvSel');if(!box)return;const td=csvToday(),ms=(CSVM||[]).filter(x=>x.d>=td);
+  if(!ms.length){box.hidden=true;box.innerHTML='';return;}box.hidden=false;
+  box.innerHTML=`<select id="csvDay" aria-label="日付">${ms.map(x=>`<option value="${x.d}"${x.d===td?' selected':''}>${csvFd(x.d)} ${esc(x.text)}${x.token?'':'（走る練習なし）'}</option>`).join('')}</select><button class="small" id="csvGo">この日のメニューを表示</button>`;}
+function csvApply(d){const msg=$('#csvMsg');msg.classList.remove('err');const m=(CSVM||[]).find(x=>x.d===d);
+  if(R.running){msg.textContent='走っている間は読み込めません。';msg.classList.add('err');return false;}
+  if(!m){msg.textContent='この日の練習メニューはファイルにありません。';msg.classList.add('err');return false;}
+  if(!m.token||!readHashMenu(m.token)){msg.textContent=csvFd(d)+'は走る練習がありません（'+m.text+'）。';return false;}
+  hashShown='';applyHashMenu(m.token);msg.textContent=csvFd(d)+'の練習メニュー「'+m.text+'」を表示しました。';renderAll();return true;}
+$('#csvBtn')&&$('#csvBtn').addEventListener('click',()=>$('#csvFile').click());
+$('#csvFile')&&$('#csvFile').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;const msg=$('#csvMsg');msg.classList.remove('err');
+  let ms=null;try{ms=csvMenus(await f.text());}catch(err){}
+  if(!ms){msg.textContent='このファイルは読み込めません。マラソン大会管理で保存したCSVを選んでください。';msg.classList.add('err');return;}
+  if(!ms.length){msg.textContent='このファイルには練習メニューが入っていません。';msg.classList.add('err');return;}
+  CSVM=ms;store.set('cbgm-csv-menus',ms);csvRender();const td=csvToday(),m=ms.find(x=>x.d===td)||ms.filter(x=>x.d>=td&&x.token)[0];
+  if(m)csvApply(m.d);else msg.textContent='練習メニュー '+ms.length+'日分を読み込みました（今日以降の分はありません）。';});
+document.addEventListener('click',e=>{if(e.target.id==='csvGo')csvApply($('#csvDay').value);});
+csvRender();
 function recvApply(v){const msg=$('#recvMsg');msg.classList.remove('err');
   if(R.running){msg.textContent='走っている間は受け取れません。';msg.classList.add('err');return false;}
   const t=String(v||'').trim().replace(/^.*#/,'');
