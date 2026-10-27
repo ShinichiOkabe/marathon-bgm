@@ -230,6 +230,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .ml-msg{margin:-4px 0 0;font-size:.8rem;color:var(--muted);min-height:1em}
 .ml-msg.err{color:var(--warn);font-weight:700}
 .ver{margin:24px 0 8px;text-align:center;font-size:.72rem;color:var(--muted)}
+@keyframes rphit{0%,60%{box-shadow:0 0 0 4px var(--amber);background:var(--amber-soft)}100%{box-shadow:none}}#rcName.rp-hit{animation:rphit 2.4s ease-out}
 #mlSec{background:var(--ml-bg);border:3px solid var(--ml-line);border-radius:14px;padding:0 12px 14px;margin:18px 0;overflow:hidden}
 #mlSec h2{margin:0 -12px 8px;padding:12px 14px;background:var(--ml-line);color:#fff;font-size:1.1rem}#mlSec .sub{color:var(--ml-ink)}#mlSec .ml{background:var(--surface)}
 #mlList .ml{border-left:5px solid var(--ml-line)}
@@ -563,7 +564,7 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <p class="ver" data-notr translate="no">版 2026-10-27c</p>
+  <p class="ver" data-notr translate="no">版 2026-10-27d</p>
 </div>
 
 <script>
@@ -1622,16 +1623,19 @@ function renderRP(){const l=$('#rpList');if(!l)return;l.hidden=!racePresets.leng
     return `<div class="ml${rpFlash===p.id?' flash':''}"><div class="ml-info"><b>${esc(p.name)}</b><span>${esc(r.name||'大会名なし')}・${r.date||'日付なし'} ${r.time||''}・${+km.toFixed(3)}km${r.goal?'・目標 '+fmtHMS(r.goal):''}${(r.strat||[]).length?'・戦略 '+r.strat.length+'ステージ':''}${nLines(r.cps)?'・関門 '+nLines(r.cps)+'か所':''}${nLines(r.ws)?'・給水 '+nLines(r.ws)+'か所':''}・保存 ${fmtWhenS(p.saved)}</span></div>
       <div class="ctrls"><button class="small" data-rpload="${p.id}" ${R.running||RS.pre?'disabled':''}>読み込む</button><button class="small${rpFlash===p.id?' ok':''}" data-rpsave="${p.id}">${rpFlash===p.id?rpFlashTxt:'上書き'}</button><button class="small${rpDelArm===p.id?' danger':''}" data-rpdel="${p.id}">${rpDelArm===p.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
 const rpSnap=()=>JSON.parse(JSON.stringify(RC));
+/* after save / load / overwrite: bring the race settings (大会名) to the top of the screen */
+function rpShowTop(t){setTimeout(()=>{const h=$('#raceSec');if(h)try{h.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){h.scrollIntoView();}
+  const n=$('#rcName');if(n){n.classList.remove('rp-hit');void n.offsetWidth;n.classList.add('rp-hit');}clrMsg('race',t);},60);}
 document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};
   if((t.id==='rpSave'||d.rpsave||d.rpload||d.rpdel)&&MODE!=='race')return;
   if(t.id==='rpSave'){const name=$('#rpName').value.trim()||RC.name;if(!name){rpMsg('保存名を入れてください。',true);return;}
     const go=()=>{const ex=racePresets.find(p=>p.name===name),p={id:ex?ex.id:gid(),name,saved:Date.now(),rc:rpSnap()};if(ex)racePresets[racePresets.indexOf(ex)]=p;else racePresets.push(p);
-    store.set('cbgm-race-presets',racePresets);$('#rpName').value='';rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashRP(p.id,ex?'上書きしました ✓':'保存しました ✓');renderRP();};
+    store.set('cbgm-race-presets',racePresets);$('#rpName').value='';rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashRP(p.id,ex?'上書きしました ✓':'保存しました ✓');renderRP();rpShowTop(`「${name}」を${ex?'上書き':'保存'}しました。`);};
     const ex0=racePresets.find(p=>p.name===name);if(ex0)askOW('rpMsg',name,owRP(ex0),go);else go();return;}
   if(d.rpdel){if(rpDelArm!==d.rpdel){rpDelArm=d.rpdel;renderRP();return;}const p=racePresets.find(x=>x.id===d.rpdel);racePresets=racePresets.filter(x=>x.id!==d.rpdel);rpDelArm=null;store.set('cbgm-race-presets',racePresets);rpMsg(p?`「${p.name}」を削除しました。`:'');renderRP();return;}
-  if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;askOW('rpMsg',p.name,owRP(p),()=>{p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);flashRP(p.id);renderRP();});return;}
+  if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;askOW('rpMsg',p.name,owRP(p),()=>{p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);flashRP(p.id);renderRP();rpShowTop(`「${p.name}」を今の設定で上書きしました。`);});return;}
   if(d.rpload){if(R.running||RS.pre)return;blurInputs();const p=racePresets.find(x=>x.id===d.rpload);if(!p)return;RC=Object.assign({},RCD,JSON.parse(JSON.stringify(p.rc)));store.set('cbgm-race',RC);
-    if(MODE==='race')menu=virtualMenu();rpMsg(`「${p.name}」を読み込みました。`);renderAll();return;}});
+    if(MODE==='race')menu=virtualMenu();rpMsg(`「${p.name}」を読み込みました。`);renderAll();rpShowTop(`「${p.name}」を読み込みました。`);return;}});
 /* ---------- saved practice menus (practice mode only) ---------- */
 let menuPresets=store.get('cbgm-menu-presets',[]);if(!Array.isArray(menuPresets))menuPresets=[];let pmDelArm=null,pmFlash=null,pmFlashTxt='',pmFlashT=0;
 function pmMsg(t,err){const m=$('#pmMsg');if(!m)return;m.textContent=t;m.classList.remove('ow');m.classList.toggle('err',!!err);}
