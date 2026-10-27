@@ -25,6 +25,7 @@
   --pause:#c2410c; --pause-ink:#ffffff; --pause-bg:#fff4ec; --pause-soft:#fde3d2;
   --cur-bg:#c9d9fb;
   --f-num:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --ml-bg:#ebe4fb; --ml-line:#8f74de; --ml-ink:#5a3bc2;
   --f-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
@@ -32,13 +33,16 @@
   --accent:#6f9cff; --accent-ink:#0b1420; --accent-soft:#1c2c48; --amber:#f0b44a; --amber-soft:#3a2c12; --warn:#ff8a7a;
   --pause:#ff8a4c; --pause-ink:#1a0d05; --pause-bg:#241811; --pause-soft:#3a2416;
   --cur-bg:#1f4a9a;
+  --ml-bg:#2a2140; --ml-line:#7a63c9; --ml-ink:#c3b2ff;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0d1319; --surface:#151f29; --ink:#e7edf2; --muted:#93a1ad; --line:#2a3743;
   --accent:#6f9cff; --accent-ink:#0b1420; --accent-soft:#1c2c48; --amber:#f0b44a; --amber-soft:#3a2c12; --warn:#ff8a7a;
   --pause:#ff8a4c; --pause-ink:#1a0d05; --pause-bg:#241811; --pause-soft:#3a2416;
   --cur-bg:#1f4a9a;
-  color-scheme:dark}
+  color-scheme:dark;
+  --ml-bg:#2a2140; --ml-line:#7a63c9; --ml-ink:#c3b2ff;
+}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6}
 .wrap{max-width:640px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
@@ -225,8 +229,10 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .primary-sm{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700;flex:none}
 .ml-msg{margin:-4px 0 0;font-size:.8rem;color:var(--muted);min-height:1em}
 .ml-msg.err{color:var(--warn);font-weight:700}
-#mlSec{background:rgba(124,92,214,.10);border:1px solid rgba(124,92,214,.40);border-radius:14px;padding:14px 12px;margin:14px 0}#mlSec h2{color:#6a46c8}
-#mlList .ml{border-left:5px solid #7c5cd6}#mlList .ml-songs{display:block;font-size:.78rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.ver{margin:24px 0 8px;text-align:center;font-size:.72rem;color:var(--muted)}
+#mlSec{background:var(--ml-bg);border:2px solid var(--ml-line);border-radius:14px;padding:14px 12px;margin:14px 0}#mlSec h2{color:var(--ml-ink)}#mlSec .ml{background:var(--surface)}
+#mlList .ml{border-left:5px solid var(--ml-line)}
+#mlList .ml-songs{display:block;font-size:.78rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 .ml-msg.ow{display:flex;flex-direction:column;gap:6px;margin:4px 0;padding:10px 12px;border:2px solid var(--warn);border-radius:10px;color:var(--fg,inherit);font-size:.9rem}
 .ml-msg.ow .owd{font-size:.82rem;color:var(--muted)}.ml-msg.ow .owd b{color:inherit}.ml-msg.ow .owb{display:flex;gap:8px}.ml-msg.ow .owb button{flex:1;min-height:40px}
 .ml{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid var(--line)}
@@ -556,6 +562,7 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
+  <p class="ver" data-notr translate="no">版 2026-10-27b</p>
 </div>
 
 <script>
