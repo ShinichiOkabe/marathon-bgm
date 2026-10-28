@@ -25,6 +25,7 @@
   --pause:#c2410c; --pause-ink:#ffffff; --pause-bg:#fff4ec; --pause-soft:#fde3d2;
   --cur-bg:#c9d9fb;
   --f-num:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --cur-y:#fff3c4;
   --ml-bg:#efe8ff; --ml-line:#6d4fd8; --ml-ink:#4a2fa8;
   --f-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
 }
@@ -33,6 +34,7 @@
   --accent:#6f9cff; --accent-ink:#0b1420; --accent-soft:#1c2c48; --amber:#f0b44a; --amber-soft:#3a2c12; --warn:#ff8a7a;
   --pause:#ff8a4c; --pause-ink:#1a0d05; --pause-bg:#241811; --pause-soft:#3a2416;
   --cur-bg:#1f4a9a;
+  --cur-y:#3d3110;
   --ml-bg:#33285a; --ml-line:#7d5cf0; --ml-ink:#d9ccff;
   color-scheme:dark}}
 :root[data-theme="dark"]{
@@ -41,6 +43,7 @@
   --pause:#ff8a4c; --pause-ink:#1a0d05; --pause-bg:#241811; --pause-soft:#3a2416;
   --cur-bg:#1f4a9a;
   color-scheme:dark;
+  --cur-y:#3d3110;
   --ml-bg:#33285a; --ml-line:#7d5cf0; --ml-ink:#d9ccff;
 }
 *{box-sizing:border-box}
@@ -243,6 +246,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .ml{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid var(--line)}
 .ml:first-child{border-top:0}
 .ml.on{background:var(--cur-bg);box-shadow:inset 0 0 0 2px var(--accent)}
+.list .ml.cur{background:var(--cur-y);box-shadow:inset 0 0 0 2px var(--amber)}.cur-tag{display:inline-block;margin:2px 6px 2px 0;padding:1px 8px;border-radius:99px;background:var(--amber);color:#1a1200;font-size:.72rem;font-weight:700;font-style:normal;vertical-align:middle}
 .ml-info{flex:1 1 180px;min-width:0}
 .ml-info b{display:block;overflow-wrap:anywhere}
 .ml-info span{font-size:.78rem;color:var(--muted)}
@@ -573,7 +577,7 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <p class="ver" data-notr translate="no">版 2026-10-28a</p>
+  <p class="ver" data-notr translate="no">版 2026-10-28b</p>
 </div>
 
 <script>
@@ -742,7 +746,7 @@ function updateStoreInfo(){const el=$('#storeInfo');if(!el)return;$('#btnClear')
   el.textContent=storeErr?`端末の空き容量が足りず、保存できない曲がありました（保存済み ${n}曲）。曲を減らすと保存できます。`
     :n?`このブラウザに ${n}曲を保存中（約${mb.toFixed(1)} MB${stash.length?`、うち一覧から外した曲 ${stash.length}曲`:''}）。次に開いたときも残ります。`:'';}
 /* settings mirror in IndexedDB: survives where localStorage is unavailable */
-const KV_KEYS=['cbgm-menu-presets','cbgm-offset','cbgm-menu-pace','cbgm-preset-pace','cbgm-original','cbgm-keeppitch','cbgm-bpm','cbgm-mylists','cbgm-mylist-active','cbgm-hash-done','cbgm-race','cbgm-race-presets','cbgm-race-run','cbgm-race-logs','cbgm-shuffle','cbgm-mode'];
+const KV_KEYS=['cbgm-rp-active','cbgm-pm-active','cbgm-menu-presets','cbgm-offset','cbgm-menu-pace','cbgm-preset-pace','cbgm-original','cbgm-keeppitch','cbgm-bpm','cbgm-mylists','cbgm-mylist-active','cbgm-hash-done','cbgm-race','cbgm-race-presets','cbgm-race-run','cbgm-race-logs','cbgm-shuffle','cbgm-mode'];
 let hashDone=store.get('cbgm-hash-done','');
 function kvPut(k,v){return tx(['kv'],'readwrite',t=>{t.objectStore('kv').put(JSON.parse(JSON.stringify(v??null)),k);});}
 async function kvCheck(k,id,saved){if(!DB.ok)return null;const r=await tx(['kv'],'readonly',t=>t.objectStore('kv').get(k));
@@ -763,7 +767,9 @@ function applyKV(k,v){switch(k){
   case 'cbgm-race-logs':if(Array.isArray(v)){raceLogs=v.slice(0,1);try{renderLog();}catch(e){}}break;
   case 'cbgm-race-run':break;
   case 'cbgm-race-presets':if(Array.isArray(v))racePresets=v;break;
-  case 'cbgm-menu-presets':if(Array.isArray(v))menuPresets=v;break;}}
+  case 'cbgm-menu-presets':if(Array.isArray(v))menuPresets=v;break;
+  case 'cbgm-rp-active':activeRP=v||null;break;
+  case 'cbgm-pm-active':activePM=v||null;break;}}
 
 /* ---------- menu sent from マラソン大会管理 (#tm.J470x100_M407x150 ...) ---------- */
 const HASH_NAME={W:'ウォームアップ',J:'ジョグ',P:'ペース走',M:'目標ペース',I:'インターバル',R:'つなぎジョグ',B:'ビルドアップ',L:'ロング走',C:'クールダウン'};
@@ -778,7 +784,7 @@ function applyRaceHash(src){let h='';try{h=src!=null?String(src).trim().replace(
   const date=m[1]+'-'+m[2]+'-'+m[3],meters=+m[4],lim=+m[5],name=b64uDecode(m[6]);
   if(RC.date!==date||RC.name!==name){RC.wave=0;RC.goal=0;}
   RC.date=date;RC.name=name||RC.name;RC.ev=meters===42195?'フル':(meters===21098||meters===21097)?'ハーフ':'その他';RC.km=meters/1000;if(lim)RC.limit=Math.round(lim/60);if(m[7]!==undefined)RC.cps=b64uDecode(m[7]);if(m[8]&&+m[8].slice(0,2)<24&&+m[8].slice(2)<60)RC.time=m[8].slice(0,2)+':'+m[8].slice(2);
-  store.set('cbgm-race',RC);hashDone=h;store.set('cbgm-hash-done',hashDone);setMode('race',true);
+  store.set('cbgm-race',RC);hashDone=h;store.set('cbgm-hash-done',hashDone);setActiveRP(null);setMode('race',true);
   const el=$('#hashNote');el.innerHTML=`<span>マラソン大会管理から<b>${esc(RC.name||'大会')}</b>の情報（${RC.ev}・${fmtHM(+RC.limit||0)}制限）を受け取りました。スタート時刻、ウェーブ、目標タイムを確認してください。</span><button class="small" id="hashOk">閉じる</button>`;el.hidden=false;
   renderAll();return true;}
 function hashSame(H){const m=MODE==='practice'?menu:(practiceMenu||menu);return Array.isArray(m)&&m.length===H.stages.length&&m.every((s,i)=>+s.pace===H.stages[i].pace&&+s.min===H.stages[i].min);}
@@ -786,7 +792,7 @@ function applyHashMenu(src){if(applyRaceHash(src))return true;const H=readHashMe
   if(hashSame(H)){if(MODE!=='practice')setMode('practice');if(H.token!==hashShown){hashShown=H.token;const el=$('#hashNote');el.innerHTML=`<span>マラソン大会管理から届いた<b>今日の練習メニュー</b>（${H.stages.length}ステージ）は読み込み済みです。</span><button class="small" id="hashOk">閉じる</button>`;el.hidden=false;}return true;}
   if(MODE!=='practice'&&!setMode('practice',true))return true;
   hashPrev={menu:menu.map(s=>({...s})),preset:activePreset};
-  menu=H.stages.map(s=>({id:gid(),name:s.name,pace:s.pace,bpm:cadFromPace(s.pace),auto:true,min:s.min}));activePreset='custom';saveMenu();
+  menu=H.stages.map(s=>({id:gid(),name:s.name,pace:s.pace,bpm:cadFromPace(s.pace),auto:true,min:s.min}));activePreset='custom';saveMenu();setActivePM(null);
   hashDone=H.token;hashShown=H.token;store.set('cbgm-hash-done',hashDone);
   const tot=menu.reduce((a,s)=>a+s.min,0);
   const el=$('#hashNote');el.innerHTML=`<span>マラソン大会管理から届いた<b>今日の練習メニュー</b>（${menu.length}ステージ・約${Math.round(tot)}分）を読み込みました。</span><button class="small" id="hashUndo">元のメニューに戻す</button><button class="small" id="hashOk">閉じる</button>`;el.hidden=false;
@@ -1033,9 +1039,9 @@ function clearMode(k){if(R.running||R.acc>0||RS.pre||RS.armed){clrMsg(k,'走っ�
   if(!clrArm[k]){clrArm[k]=setTimeout(()=>{clrArm[k]=0;renderClr();},4000);renderClr();return;}
   clearTimeout(clrArm[k]);clrArm[k]=0;
   if(k==='practice'){const st={id:gid(),name:'ステージ1',pace:420,bpm:cadFromPace(420),auto:true,min:10};
-    if(MODE==='practice')menu=[st];else practiceMenu=[st];activePreset='custom';saveMenu();
+    if(MODE==='practice')menu=[st];else practiceMenu=[st];activePreset='custom';saveMenu();setActivePM(null);
     clrMsg(k,'練習の内容をクリアしました。「練習メニューの保存」に保存してあれば「読み込む」で元に戻せます。');}
-  else if(k==='race'){RC=Object.assign({},RCD,{strat:[]});store.set('cbgm-race',RC);if(MODE==='race')menu=virtualMenu();
+  else if(k==='race'){RC=Object.assign({},RCD,{strat:[]});store.set('cbgm-race',RC);setActiveRP(null);if(MODE==='race')menu=virtualMenu();
     clrMsg(k,'本番の内容をクリアしました。「本番レース情報・戦略を保存」に保存してあれば「読み込む」で元に戻せます。');}
   else if(k==='relax'){songs.forEach(x=>{if(x.use!==false){x.use=false;saveMeta(x);}});opt.shuffle=false;store.set('cbgm-shuffle',false);activeML=null;saveMLs();
     clrMsg(k,'曲の「使う」のチェックをすべて外しました。マイリストに登録してあれば「読み込む」で元に戻せます。');}
@@ -1052,7 +1058,7 @@ function menuChanged(){activePreset='custom';saveMenu();
 $('#presets').addEventListener('click',e=>{
   if(e.target.dataset.orig){opt.original=!opt.original;store.set('cbgm-original',opt.original);if(R.running)applyRate(true);renderMenu();renderSongs();renderRun();return;}
   const k=e.target.dataset.p;if(!k||!PRESETS[k])return;
-  const old=menu;menu=fromPreset(k).map(g=>{const o=old.find(x=>x.name===g.name);return o?{...g,id:o.id}:g;});activePreset=k;saveMenu();
+  const old=menu;menu=fromPreset(k).map(g=>{const o=old.find(x=>x.name===g.name);return o?{...g,id:o.id}:g;});activePreset=k;saveMenu();setActivePM(null);
   if(R.running){R.seg=segAt(elapsed());stageChanged();}renderAll();});
 $('#menuList').addEventListener('input',e=>{const f=e.target.dataset.f;if(!f)return;const id=e.target.closest('.row').dataset.id;const s=menu.find(x=>x.id===id);
   if(f==='name')s.name=e.target.value;
@@ -1110,7 +1116,7 @@ function raceClear(el){const name=RC.name;
   if(el!=null){const n=$('#hashNote');n.innerHTML=`<span>${esc(name||'本番')}：ゴール（終了）しました。記録 <b>${fmtHMS(el/1000)}</b>。本番の設定はクリアしました。</span><button class="small" id="hashOk">閉じる</button>`;n.hidden=false;}
   rcMsg('');renderAll();}
 /* a race whose music window (wave start + limit + 30 min) has passed is cleared on open */
-function raceExpire(){const e=rcEndMs();if(e&&Date.now()>e&&!R.running&&!RS.pre){RC=Object.assign({},RCD,{margin:RC.margin,time:RC.time});store.set('cbgm-race',RC);if(MODE==='race')menu=virtualMenu();}}
+function raceExpire(){const e=rcEndMs();if(e&&Date.now()>e&&!R.running&&!RS.pre){RC=Object.assign({},RCD,{margin:RC.margin,time:RC.time});store.set('cbgm-race',RC);setActiveRP(null);if(MODE==='race')menu=virtualMenu();}}
 let stopArm=0;
 /* ---------- distance corrections (km markers) & estimated position ---------- */
 /* plan = strategy (or goal pace) + pace up/down history */
@@ -1659,6 +1665,11 @@ document.addEventListener('input',e=>{const t=e.target,d=t.dataset||{};if(d.sto=
   stratSave();const ts=stratTotalSec();$('#stratSum').textContent=ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。';$('#rcSum').innerHTML=rcSummary();renderRun();});
 document.addEventListener('change',e=>{if(e.target.dataset&&e.target.dataset.sto!=null)renderStrat();});
 /* ---------- saved race settings ---------- */
+/* the saved item that is loaded right now (yellow row); only it can be overwritten */
+var activeRP=store.get('cbgm-rp-active',null),activePM=store.get('cbgm-pm-active',null);
+function setActiveRP(id){activeRP=id||null;store.set('cbgm-rp-active',activeRP);try{renderRP();}catch(e){}}
+function setActivePM(id){activePM=id||null;store.set('cbgm-pm-active',activePM);try{renderPM();}catch(e){}}
+const owNotCur=n=>`「${n}」は今読み込んでいるものではないため上書きできません。別の名前で保存するか、先に「${n}」を読み込んでから上書きしてください。`;
 let racePresets=store.get('cbgm-race-presets',[]);if(!Array.isArray(racePresets))racePresets=[];let rpDelArm=null;
 function rpMsg(t,err){const m=$('#rpMsg');m.textContent=t;m.classList.remove('ow');m.classList.toggle('err',!!err);}
 let rpFlash=null,rpFlashT=0;const nLines=t=>String(t||'').split(/\n/).filter(x=>x.trim()).length;
@@ -1666,8 +1677,8 @@ function fmtWhenS(t){const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()
 let rpFlashTxt='上書きしました ✓';function flashRP(id,txt){rpFlash=id;rpFlashTxt=txt||'上書きしました ✓';clearTimeout(rpFlashT);rpFlashT=setTimeout(()=>{rpFlash=null;renderRP();},2500);}
 function renderRP(){const l=$('#rpList');if(!l)return;l.hidden=!racePresets.length;
   l.innerHTML=racePresets.map(p=>{const r=p.rc||{},km=r.ev==='フル'?42.195:r.ev==='ハーフ'?21.0975:(+r.km||0);
-    return `<div class="ml${rpFlash===p.id?' flash':''}"><div class="ml-info"><b>${esc(p.name)}</b><span>${esc(r.name||'大会名なし')}・${r.date||'日付なし'} ${r.time||''}・${+km.toFixed(3)}km${r.goal?'・目標 '+fmtHMS(r.goal):''}${(r.strat||[]).length?'・戦略 '+r.strat.length+'ステージ':''}${nLines(r.cps)?'・関門 '+nLines(r.cps)+'か所':''}${nLines(r.ws)?'・給水 '+nLines(r.ws)+'か所':''}・保存 ${fmtWhenS(p.saved)}</span></div>
-      <div class="ctrls"><button class="small" data-rpload="${p.id}" ${R.running||RS.pre?'disabled':''}>読み込む</button><button class="small${rpFlash===p.id?' ok':''}" data-rpsave="${p.id}">${rpFlash===p.id?rpFlashTxt:'上書き'}</button><button class="small${rpDelArm===p.id?' danger':''}" data-rpdel="${p.id}">${rpDelArm===p.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
+    const cur=p.id===activeRP;return `<div class="ml${cur?' cur':''}${rpFlash===p.id?' flash':''}"><div class="ml-info"><b>${esc(p.name)}</b>${cur?'<em class="cur-tag">読み込み中</em>':''}<span>${esc(r.name||'大会名なし')}・${r.date||'日付なし'} ${r.time||''}・${+km.toFixed(3)}km${r.goal?'・目標 '+fmtHMS(r.goal):''}${(r.strat||[]).length?'・戦略 '+r.strat.length+'ステージ':''}${nLines(r.cps)?'・関門 '+nLines(r.cps)+'か所':''}${nLines(r.ws)?'・給水 '+nLines(r.ws)+'か所':''}・保存 ${fmtWhenS(p.saved)}</span></div>
+      <div class="ctrls"><button class="small" data-rpload="${p.id}" ${R.running||RS.pre?'disabled':''}>読み込む</button><button class="small${rpFlash===p.id?' ok':''}" data-rpsave="${p.id}" ${cur?'':'disabled title="読み込んだものだけ上書きできます"'}>${rpFlash===p.id?rpFlashTxt:'上書き'}</button><button class="small${rpDelArm===p.id?' danger':''}" data-rpdel="${p.id}">${rpDelArm===p.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
 const rpSnap=()=>JSON.parse(JSON.stringify(RC));
 /* after save / load / overwrite: bring the race settings (大会名) to the top of the screen */
 function rpShowTop(t){blurInputs();clrMsg('race',t);const n=$('#rcName');if(n){n.classList.remove('rp-hit');void n.offsetWidth;n.classList.add('rp-hit');}
@@ -1679,12 +1690,12 @@ document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};
   if((t.id==='rpSave'||d.rpsave||d.rpload||d.rpdel)&&MODE!=='race')return;
   if(t.id==='rpSave'){const name=$('#rpName').value.trim()||RC.name;if(!name){rpMsg('保存名を入れてください。',true);return;}
     const go=()=>{const ex=racePresets.find(p=>p.name===name),p={id:ex?ex.id:gid(),name,saved:Date.now(),rc:rpSnap()};if(ex)racePresets[racePresets.indexOf(ex)]=p;else racePresets.push(p);
-    store.set('cbgm-race-presets',racePresets);$('#rpName').value='';rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashRP(p.id,ex?'上書きしました ✓':'保存しました ✓');renderRP();rpShowTop(`「${name}」を${ex?'上書き':'保存'}しました。`);};
-    const ex0=racePresets.find(p=>p.name===name);if(ex0)askOW('rpMsg',name,owRP(ex0),go);else go();return;}
-  if(d.rpdel){if(rpDelArm!==d.rpdel){rpDelArm=d.rpdel;renderRP();return;}const p=racePresets.find(x=>x.id===d.rpdel);racePresets=racePresets.filter(x=>x.id!==d.rpdel);rpDelArm=null;store.set('cbgm-race-presets',racePresets);rpMsg(p?`「${p.name}」を削除しました。`:'');renderRP();return;}
-  if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;askOW('rpMsg',p.name,owRP(p),()=>{p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);flashRP(p.id);renderRP();rpShowTop(`「${p.name}」を今の設定で上書きしました。`);});return;}
+    store.set('cbgm-race-presets',racePresets);$('#rpName').value='';activeRP=p.id;store.set('cbgm-rp-active',activeRP);rpMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashRP(p.id,ex?'上書きしました ✓':'保存しました ✓');renderRP();rpShowTop(`「${name}」を${ex?'上書き':'保存'}しました。`);};
+    const ex0=racePresets.find(p=>p.name===name);if(ex0&&ex0.id!==activeRP){rpMsg(owNotCur(name),true);return;}if(ex0)askOW('rpMsg',name,owRP(ex0),go);else go();return;}
+  if(d.rpdel){if(rpDelArm!==d.rpdel){rpDelArm=d.rpdel;renderRP();return;}const p=racePresets.find(x=>x.id===d.rpdel);racePresets=racePresets.filter(x=>x.id!==d.rpdel);rpDelArm=null;if(d.rpdel===activeRP){activeRP=null;store.set('cbgm-rp-active',null);}store.set('cbgm-race-presets',racePresets);rpMsg(p?`「${p.name}」を削除しました。`:'');renderRP();return;}
+  if(d.rpsave){const p=racePresets.find(x=>x.id===d.rpsave);if(!p)return;if(p.id!==activeRP){rpMsg(owNotCur(p.name),true);return;}askOW('rpMsg',p.name,owRP(p),()=>{p.rc=rpSnap();p.saved=Date.now();store.set('cbgm-race-presets',racePresets);rpMsg(`「${p.name}」を今の設定で上書きしました。`);flashRP(p.id);renderRP();rpShowTop(`「${p.name}」を今の設定で上書きしました。`);});return;}
   if(d.rpload){if(R.running||RS.pre)return;blurInputs();const p=racePresets.find(x=>x.id===d.rpload);if(!p)return;RC=Object.assign({},RCD,JSON.parse(JSON.stringify(p.rc)));store.set('cbgm-race',RC);
-    if(MODE==='race')menu=virtualMenu();rpMsg(`「${p.name}」を読み込みました。`);renderAll();rpShowTop(`「${p.name}」を読み込みました。`);return;}});
+    if(MODE==='race')menu=virtualMenu();activeRP=p.id;store.set('cbgm-rp-active',activeRP);rpMsg(`「${p.name}」を読み込みました。`);renderAll();rpShowTop(`「${p.name}」を読み込みました。`);return;}});
 /* ---------- saved practice menus (practice mode only) ---------- */
 let menuPresets=store.get('cbgm-menu-presets',[]);if(!Array.isArray(menuPresets))menuPresets=[];let pmDelArm=null,pmFlash=null,pmFlashTxt='',pmFlashT=0;
 function pmMsg(t,err){const m=$('#pmMsg');if(!m)return;m.textContent=t;m.classList.remove('ow');m.classList.toggle('err',!!err);}
@@ -1692,19 +1703,19 @@ function flashPM(id,txt){pmFlash=id;pmFlashTxt=txt;clearTimeout(pmFlashT);pmFlas
 const pmSum=m=>{const min=m.reduce((a,x)=>a+ +x.min,0),km=m.reduce((a,x)=>a+x.min*60/x.pace,0);return `${m.length}ステージ・${Math.round(min)}分・約${km.toFixed(1)} km`;};
 const pmSnap=()=>pMenu().map(({id,name,pace,min})=>({id,name,pace,min}));
 function renderPM(){const l=$('#pmList');if(!l)return;l.hidden=!menuPresets.length;
-  l.innerHTML=menuPresets.map(p=>`<div class="ml${pmFlash===p.id?' flash':''}"><div class="ml-info"><b>${esc(p.name)}</b><span>${pmSum(p.menu||[])}・保存 ${fmtWhenS(p.saved)}</span></div>
-    <div class="ctrls"><button class="small${pmFlash===p.id&&pmFlashTxt.startsWith('読')?' ok':''}" data-pmload="${p.id}" ${R.running||R.acc>0?'disabled':''}>${pmFlash===p.id&&pmFlashTxt.startsWith('読')?pmFlashTxt:'読み込む'}</button><button class="small${pmFlash===p.id&&!pmFlashTxt.startsWith('読')?' ok':''}" data-pmsave="${p.id}">${pmFlash===p.id&&!pmFlashTxt.startsWith('読')?pmFlashTxt:'上書き'}</button><button class="small${pmDelArm===p.id?' danger':''}" data-pmdel="${p.id}">${pmDelArm===p.id?'本当に削除':'削除'}</button></div></div>`).join('');}
+  l.innerHTML=menuPresets.map(p=>{const cur=p.id===activePM;return `<div class="ml${cur?' cur':''}${pmFlash===p.id?' flash':''}"><div class="ml-info"><b>${esc(p.name)}</b>${cur?'<em class="cur-tag">読み込み中</em>':''}<span>${pmSum(p.menu||[])}・保存 ${fmtWhenS(p.saved)}</span></div>
+    <div class="ctrls"><button class="small${pmFlash===p.id&&pmFlashTxt.startsWith('読')?' ok':''}" data-pmload="${p.id}" ${R.running||R.acc>0?'disabled':''}>${pmFlash===p.id&&pmFlashTxt.startsWith('読')?pmFlashTxt:'読み込む'}</button><button class="small${pmFlash===p.id&&!pmFlashTxt.startsWith('読')?' ok':''}" data-pmsave="${p.id}" ${cur?'':'disabled title="読み込んだものだけ上書きできます"'}>${pmFlash===p.id&&!pmFlashTxt.startsWith('読')?pmFlashTxt:'上書き'}</button><button class="small${pmDelArm===p.id?' danger':''}" data-pmdel="${p.id}">${pmDelArm===p.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
 const owPM=o=>[['練習メニュー：',pmSum(o.menu||[]),pmSum(pmSnap())]];
 document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};if(!(t.id==='pmSave'||d.pmload||d.pmsave||d.pmdel))return;if(MODE!=='practice')return;
   if(t.id==='pmSave'){const name=$('#pmName').value.trim();if(!name){pmMsg('保存名を入れてください。',true);return;}
     const go=()=>{const ex=menuPresets.find(p=>p.name===name),p={id:ex?ex.id:gid(),name,saved:Date.now(),menu:pmSnap()};if(ex)menuPresets[menuPresets.indexOf(ex)]=p;else menuPresets.push(p);
-      store.set('cbgm-menu-presets',menuPresets);$('#pmName').value='';pmMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashPM(p.id,ex?'上書きしました ✓':'保存しました ✓');renderPM();};
-    const ex0=menuPresets.find(p=>p.name===name);if(ex0)askOW('pmMsg',name,owPM(ex0),go);else go();return;}
-  if(d.pmdel){if(pmDelArm!==d.pmdel){pmDelArm=d.pmdel;renderPM();return;}const p=menuPresets.find(x=>x.id===d.pmdel);menuPresets=menuPresets.filter(x=>x.id!==d.pmdel);pmDelArm=null;store.set('cbgm-menu-presets',menuPresets);pmMsg(p?`「${p.name}」を削除しました。`:'');renderPM();return;}
+      store.set('cbgm-menu-presets',menuPresets);$('#pmName').value='';activePM=p.id;store.set('cbgm-pm-active',activePM);pmMsg(`「${name}」を${ex?'上書き':'保存'}しました。`);flashPM(p.id,ex?'上書きしました ✓':'保存しました ✓');renderPM();};
+    const ex0=menuPresets.find(p=>p.name===name);if(ex0&&ex0.id!==activePM){pmMsg(owNotCur(name),true);return;}if(ex0)askOW('pmMsg',name,owPM(ex0),go);else go();return;}
+  if(d.pmdel){if(pmDelArm!==d.pmdel){pmDelArm=d.pmdel;renderPM();return;}const p=menuPresets.find(x=>x.id===d.pmdel);menuPresets=menuPresets.filter(x=>x.id!==d.pmdel);pmDelArm=null;if(d.pmdel===activePM){activePM=null;store.set('cbgm-pm-active',null);}store.set('cbgm-menu-presets',menuPresets);pmMsg(p?`「${p.name}」を削除しました。`:'');renderPM();return;}
   pmDelArm=null;
-  if(d.pmsave){const p=menuPresets.find(x=>x.id===d.pmsave);if(!p)return;askOW('pmMsg',p.name,owPM(p),()=>{p.menu=pmSnap();p.saved=Date.now();store.set('cbgm-menu-presets',menuPresets);pmMsg(`「${p.name}」を今の練習メニューで上書きしました。`);flashPM(p.id,'上書きしました ✓');renderPM();});return;}
+  if(d.pmsave){const p=menuPresets.find(x=>x.id===d.pmsave);if(!p)return;if(p.id!==activePM){pmMsg(owNotCur(p.name),true);return;}askOW('pmMsg',p.name,owPM(p),()=>{p.menu=pmSnap();p.saved=Date.now();store.set('cbgm-menu-presets',menuPresets);pmMsg(`「${p.name}」を今の練習メニューで上書きしました。`);flashPM(p.id,'上書きしました ✓');renderPM();});return;}
   if(d.pmload){if(R.running||R.acc>0){pmMsg('走っている間は読み込めません。',true);return;}const p=menuPresets.find(x=>x.id===d.pmload);if(!p||!validMenu(p.menu))return;blurInputs();
-    menu=p.menu.map(toStage);activePreset='custom';saveMenu();pmMsg(`「${p.name}」を読み込みました。`);flashPM(p.id,'読み込みました ✓');renderAll();return;}});
+    menu=p.menu.map(toStage);activePreset='custom';saveMenu();activePM=p.id;store.set('cbgm-pm-active',activePM);pmMsg(`「${p.name}」を読み込みました。`);flashPM(p.id,'読み込みました ✓');renderAll();return;}});
 {const _a=applyModeUI;applyModeUI=function(){_a();if(MODE==='practice')renderPM();
   {const ml=$('#mlSec');if(ml){if(MODE==='relax'){const r=$('#relaxSec');if(r&&r.nextElementSibling!==ml)r.after(ml);}else{const sl=$('#songList');const sec=sl&&sl.closest('section');if(sec&&sec.nextElementSibling!==ml)sec.after(ml);}}}
 if(MODE==='race'){fillStratN();if(!(document.activeElement&&document.activeElement.dataset&&(document.activeElement.dataset.sto!=null||document.activeElement.dataset.sspd!=null)))renderStrat();renderRP();}};}
@@ -2427,6 +2438,8 @@ W('新しい版があります（','A new version is available (','有新版本�
 W('）。',').','）。','）。',').');
 W('新しい版にする','Update now','更新到新版本','更新到新版本','새 버전으로');
 W('あとで','Later','稍后','稍後','나중에');
+W('読み込み中','Loaded','已读取','已讀取','불러온 항목');
+W('読み込んだものだけ上書きできます','Only the loaded item can be overwritten','只能覆盖已读取的项目','只能覆蓋已讀取的項目','불러온 항목만 덮어쓸 수 있습니다');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2604,6 +2617,8 @@ P(/^給水 (\d+)か所$/,m=>[`${m[1]} aid stations`,`补给站${m[1]}处`,`補�
 P(/^ドラム：(\d+|—)歩\/分のテンポで鳴らします$/,m=>[`Drum: playing at ${m[1]} steps/min`,`鼓点：以每分钟${m[1]}步的节奏播放`,`鼓點：以每分鐘${m[1]}步的節奏播放`,`드럼: ${m[1]}보/분 템포로 울립니다`]);
 P(/^「(.+)」は練習メニューが正しく保存されていないため読み込めません。上書きし直してください。$/,m=>[`"${m[1]}" cannot be loaded because its training menu was not saved correctly. Please overwrite it again.`,`「${m[1]}」的训练菜单未正确保存，无法读取。请重新覆盖。`,`「${m[1]}」的訓練菜單未正確儲存，無法讀取。請重新覆寫。`,`"${m[1]}"은(는) 연습 메뉴가 제대로 저장되지 않아 불러올 수 없습니다. 다시 덮어쓰세요.`]);
 P(/^本番：(.+?)(?: 目標 ([\d:]+))?$/,m=>{const g=m[2]?[` target ${m[2]}`,` 目标 ${m[2]}`,` 目標 ${m[2]}`,` 목표 ${m[2]}`]:['','','',''];return [`Race: ${m[1]}${g[0]}`,`比赛：${m[1]}${g[1]}`,`比賽：${m[1]}${g[2]}`,`대회: ${m[1]}${g[3]}`];});
+P(/^「(.+)」は今読み込んでいるものではないため上書きできません$/,m=>[`"${m[1]}" is not the loaded item, so it cannot be overwritten`,`「${m[1]}」不是当前读取的项目，无法覆盖`,`「${m[1]}」不是目前讀取的項目，無法覆蓋`,`"${m[1]}"은(는) 지금 불러온 항목이 아니어서 덮어쓸 수 없습니다`]);
+P(/^別の名前で保存するか、先に「(.+)」を読み込んでから上書きしてください$/,m=>[`Save under another name, or load "${m[1]}" first and then overwrite it`,`请换个名称保存，或先读取「${m[1]}」再覆盖`,`請換個名稱儲存，或先讀取「${m[1]}」再覆蓋`,`다른 이름으로 저장하거나, 먼저 "${m[1]}"을(를) 불러온 뒤 덮어쓰세요`]);
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
