@@ -233,6 +233,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 @keyframes rphit{0%,60%{box-shadow:0 0 0 4px var(--amber);background:var(--amber-soft)}100%{box-shadow:none}}#rcName.rp-hit{animation:rphit 2.4s ease-out}
 .csv-sel{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.csv-sel select{flex:1 1 200px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
 .newver{position:fixed;left:8px;right:8px;top:8px;z-index:90;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--amber-soft);border:2px solid var(--amber);color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,.25);font-size:.9rem}.newver span{flex:1 1 180px}.newver[hidden]{display:none}
+#mlSec[hidden]{display:none}
 #mlSec{background:var(--ml-bg);border:3px solid var(--ml-line);border-radius:14px;padding:0 12px 14px;margin:18px 0;overflow:hidden}
 #mlSec h2{margin:0 -12px 8px;padding:12px 14px;background:var(--ml-line);color:#fff;font-size:1.1rem}#mlSec .sub{color:var(--ml-ink)}#mlSec .ml{background:var(--surface)}
 #mlList .ml{border-left:5px solid var(--ml-line)}
@@ -572,7 +573,7 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <p class="ver" data-notr translate="no">版 2026-10-27h</p>
+  <p class="ver" data-notr translate="no">版 2026-10-28a</p>
 </div>
 
 <script>
@@ -1967,7 +1968,9 @@ function setSrc(v){if(!['songs','drum','silent'].includes(v))return;const was=op
 function renderSrc(){document.querySelectorAll('.src-b').forEach(b=>b.classList.toggle('on',b.dataset.src===opt.src));
   const n={songs:'「使う」にチェックした曲を、ペースに合わせた速さで流します。',drum:'曲は流さず、ペースに合わせた歩数（1分あたり）でドラムを鳴らします。曲の一覧は使いません。',silent:'音楽は流しません。合図音と音声のお知らせだけです。'}[opt.src];
   const el=$('#srcNote');if(el.dataset.ja!==n){el.dataset.ja=n;el.textContent=n;}
-  const sl=$('#songList'),dp=$('#drop');[sl,dp].forEach(x=>x&&x.classList.toggle('songs-off',opt.src!=='songs'));}
+  const sl=$('#songList'),dp=$('#drop');[sl,dp].forEach(x=>x&&x.classList.toggle('songs-off',opt.src!=='songs'));
+  /* drum / silent play no songs, so the song lists (mylists) are not needed */
+  const ml=$('#mlSec');if(ml)ml.hidden=opt.src!=='songs';}
 document.addEventListener('click',e=>{const b=e.target.closest('.src-b');if(b)setSrc(b.dataset.src);});
 {const _rr=renderRun;renderRun=function(){_rr();if(opt.src!=='songs'){const np=$('#nowPlaying');const t=opt.src==='drum'?`ドラム：${curCad()||'—'}歩/分のテンポで鳴らします`:'無音：音楽は流さず、音声のお知らせだけです';if(np.dataset.ja!==t||!np.textContent.includes(String(curCad()||'—'))&&opt.src==='drum'||np.querySelector('*')){np.dataset.ja=t;np.textContent=t;}}else{$('#nowPlaying').dataset.ja='';}};}
 /* Bluetooth/autoplay notices are only for songs */
