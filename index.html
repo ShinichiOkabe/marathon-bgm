@@ -232,6 +232,15 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .primary-sm{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700;flex:none}
 .ml-msg{margin:-4px 0 0;font-size:.8rem;color:var(--muted);min-height:1em}
 .ml-msg.err{color:var(--warn);font-weight:700}
+.helpbtn{margin-left:auto;margin-right:6px;font-weight:700}
+.help-panel{position:fixed;inset:0;z-index:95;background:var(--bg);display:flex;flex-direction:column}.help-panel[hidden]{display:none}
+.help-head{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface)}.help-head b{font-size:1.05rem}.help-head .help-ja{font-size:.75rem;color:var(--muted)}.help-head button{margin-left:auto}
+.help-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 16px 40px}
+.help-toc{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.help-toc a{font-size:.8rem;padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none}
+.help-body{max-width:760px;margin:0 auto;line-height:1.7;font-size:.92rem;color:var(--ink)}.help-body h2{font-size:1.15rem;margin:28px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--accent)}.help-body h3{font-size:1rem;margin:20px 0 6px}.help-body h4{font-size:.95rem;margin:16px 0 6px}
+.help-body table{width:100%;border-collapse:collapse;margin:8px 0 12px;font-size:.85rem}.help-body th,.help-body td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}.help-body th{background:var(--surface)}
+.help-body pre{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:.78rem}.help-body ol,.help-body ul{padding-left:1.4em}.help-body a{color:var(--accent)}
+.support{margin:28px 0 0;text-align:center;font-size:.8rem;color:var(--muted)}.support p{margin:0 0 8px}.support-btn{display:inline-block;padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font-weight:700}
 .ver{margin:24px 0 8px;text-align:center;font-size:.72rem;color:var(--muted)}
 @keyframes rphit{0%,60%{box-shadow:0 0 0 4px var(--amber);background:var(--amber-soft)}100%{box-shadow:none}}#rcName.rp-hit{animation:rphit 2.4s ease-out}
 .csv-sel{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.csv-sel select{flex:1 1 200px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
@@ -340,7 +349,7 @@ body.live .recv{display:none}
 
 <div class="wrap">
   <header>
-    <div class="title-row"><h1>マラソンBGM</h1><button id="btnLock" class="lockbtn" hidden>画面ロック</button><button class="primary-sm" id="rcArm" hidden>本番待機を始める</button><button id="rcDisarm" hidden>待機をやめる</button></div>
+    <div class="title-row"><h1>マラソンBGM</h1><button class="small helpbtn" id="btnHelp" aria-label="使い方ガイド">？ 使い方</button><button id="btnLock" class="lockbtn" hidden>画面ロック</button><button class="primary-sm" id="rcArm" hidden>本番待機を始める</button><button id="rcDisarm" hidden>待機をやめる</button></div>
     <p class="ml-msg" id="rcMsg"></p>
     <p class="sub" id="leadTxt">手元の曲を、練習メニューの1kmペースで走りやすい速さに合わせて、音程を変えずに再生します。</p>
     <div class="resume" id="resumeBox" hidden><div><b>本番の途中で止まっています</b><div id="resumeTxt"></div></div>
@@ -579,9 +588,82 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <p class="ver" data-notr translate="no">版 2026-10-28c</p>
+  <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
+  <p class="ver" data-notr translate="no">版 2026-10-28e</p>
 </div>
 
+<div id="helpPanel" class="help-panel" hidden role="dialog" aria-label="使い方ガイド">
+  <div class="help-head"><b>使い方ガイド</b><span class="help-ja">（日本語のみ）</span><button class="primary-sm" id="helpClose">閉じる</button></div>
+  <div class="help-scroll" id="helpScroll"><nav class="help-toc" id="helpToc" data-notr translate="no"></nav><div class="help-body" id="helpBody" data-notr translate="no">
+<p>マラソンBGMは、スマホの中の自分の曲を、走るペースに合った速さで流すアプリです。音の高さは変わらず、登録もお金も要りません。このガイドは「準備 → 練習 → 本番 → リラックス」の順に並んでいるので、やりたいところから読んでください。</p>
+<h2 id="h-1">1. まず知っておくこと</h2>
+<p>モードは3つです。画面の一番上のボタンで切り替えます。</p>
+<table><thead><tr><th>モード</th><th>使うとき</th><th>曲の速さ</th></tr></thead><tbody><tr><td>1. 練習</td><td>ふだんの練習</td><td>練習メニューのペースに合わせる</td></tr><tr><td>2. 本番</td><td>マラソン大会の当日</td><td>目標タイム（戦略）のペースに合わせる</td></tr><tr><td>3. リラックス</td><td>走らないとき</td><td>元の速さのまま</td></tr></tbody></table>
+<p>保存できるものは3種類で、それぞれ別々に保存します。一つを読み込んでも、ほかの2つは変わりません。</p>
+<table><thead><tr><th>保存するもの</th><th>保存する場所</th><th>使えるモード</th><th>目印</th></tr></thead><tbody><tr><td>曲（流す曲・順番）</td><td>「🎵 曲の登録（マイリスト）」</td><td>練習・本番・リラックス</td><td>紫の枠</td></tr><tr><td>練習メニュー</td><td>「練習メニューの保存」</td><td>練習だけ</td><td>「メニュー」タブの下</td></tr><tr><td>大会の情報と戦略</td><td>「本番レース情報・戦略を保存」</td><td>本番だけ</td><td>「大会」タブの下</td></tr></tbody></table>
+<p>曲の登録（マイリスト）・練習メニュー・本番レース情報の3つとも、今読み込んでいるものが黄色の行になり、「読み込み中」と出ます。「上書き」が押せるのは、その黄色の行だけです（ほかを上書きしたいときは、先にそれを「読み込む」）。どれも「上書き」を押すと、「前 → 後」で何が変わるかが出る確認が出ます。よければ「OK」、やめるときは「キャンセル」を押します。入れた曲や設定はそのスマホの中だけに残り、どこにも送られません。</p>
+<h2 id="h-2">2. 最初の準備（1回だけ）</h2>
+<ol><li>スマホのChromeでこのアプリを開きます。</li><li>Chrome右上の「⋮」→「ホーム画面に追加」を押すと、次からはアイコンで開けます。</li><li>「曲」タブの「曲を追加」を押し、スマホの中の音楽ファイルを選びます。何曲でも選べます。数秒待つと、曲ごとのテンポ（BPM）が自動で測られます。</li><li>流したい曲に「使う」のチェックを入れ、▲▼で順番を並べます。</li><li>紫の枠「🎵 曲の登録（マイリスト）」で名前（例：アップテンポ曲）を入れ、「今の曲を登録」を押します。次からは「読み込む」だけで、その曲の並びに戻ります。読み込むと画面が曲の一覧の位置に移り、一覧がオレンジ色に光ります。</li><li>屋外でGPSを使うときは、位置情報の許可を聞かれたら「許可」を押します。</li></ol>
+<table><thead><tr><th>使える曲</th><th>使えない曲</th></tr></thead><tbody><tr><td>MP3、M4A（AAC）、FLAC、WAV などファイルとして持っている曲、CDから取り込んだ曲</td><td>Apple Music・Spotify・Amazon Musicなどのアプリで「ダウンロード」した曲、コピー制限付きの曲（.m4pなど）</td></tr></tbody></table>
+<p>曲がなくても、「曲」タブの一番上の「流す音」で「ドラム」か「無音」を選べば使えます。</p>
+<h2 id="h-3">3. 画面の見方</h2>
+<p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。</p>
+<table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>リラックス ／ 曲 ／ 音・合図</td></tr></tbody></table>
+<p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
+<p>ページの一番下には「版 2026-10-28e」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<h2 id="h-4">4. 練習で走る</h2>
+<p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
+<ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
+<table><thead><tr><th></th><th>屋内</th><th>屋外（GPS）</th></tr></thead><tbody><tr><td>ステージが進むとき</td><td>決めた時間がたったとき</td><td>決めた距離を走ったとき</td></tr><tr><td>1 kmごとのお知らせとラップ表</td><td>なし</td><td>あり</td></tr></tbody></table>
+<p>屋外では、「GPSの位置をつかみました。」と出てからスタートしてください。走っている途中の「ペースアップ／ダウン」は、時速を0.1 kmずつ変えてテンポを合わせます。「練習の内容をクリア」はメニューだけを空にします（2回押す）。</p>
+<h3>CSVファイルから、日ごとの練習メニューを読み込む</h3>
+<p>下の「CSVの形式」で書いたCSVファイルがあれば、その日の練習メニューを自動で表示できます。場所は「メニュー」タブの「＋ ステージを追加」の下の「練習メニュー・CSVを読み込む」です。</p>
+<ol><li>「CSVファイルを選ぶ」を押し、CSVファイルを選びます。</li><li>今日の練習メニューが、そのまま画面に入ります。今日の分がなければ、次に走る日のメニューが入ります。</li><li>ほかの日にしたいときは、日付の一覧（例：11/3（火） ペース走）から選んで「この日のメニューを表示」を押します。</li></ol>
+<p>一覧に出るのは今日以降の日です。休養日など走らない日には「（走る練習なし）」と付きます。一度読み込んだCSVはスマホに残るので、次の日は日付を選ぶだけです。走っている間は読み込めません。</p>
+<h4>CSVの形式</h4>
+<ul><li>文字コードはUTF-8、区切りはカンマ（,）です。</li><li>1行目の1列目に「marathon-bgm-bulk」と書きます。このファイルだと分かる目印です。</li><li>2行目は見出しの行です。読み込むときは使いません。</li><li>3行目から、1日を1行で書きます。1列目が「menu」の行だけを読み込みます。</li></ul>
+<table><thead><tr><th>列</th><th>書くこと</th><th>例</th></tr></thead><tbody><tr><td>1列目</td><td>menu</td><td>menu</td></tr><tr><td>2列目</td><td>日付（年-月-日）</td><td>2026-11-03</td></tr><tr><td>3列目</td><td>一覧に出す内容</td><td>ペース走</td></tr><tr><td>4〜7列目</td><td>使いません（空でよい）</td><td></td></tr><tr><td>8列目</td><td>練習メニューのコード。空なら「走る練習なし」</td><td>tm.W420x100_P330x400_C450x100</td></tr></tbody></table>
+<p>練習メニューのコードは、「tm.」のあとにステージを「_」でつないで書きます。1つのステージは「種類の記号」「ペース」「x」「時間」を続けて書きます。</p>
+<ul><li><strong>ペース</strong>：1 kmあたりの秒数（150〜900）。例：330 = 5分30秒/km</li><li><strong>時間</strong>：分の10倍。例：100 = 10分、400 = 40分（0.5分きざみ）</li><li>ステージは40個までです。</li></ul>
+<table><thead><tr><th>記号</th><th>種類</th></tr></thead><tbody><tr><td>W</td><td>ウォームアップ</td></tr><tr><td>J</td><td>ジョグ</td></tr><tr><td>P</td><td>ペース走</td></tr><tr><td>M</td><td>目標ペース</td></tr><tr><td>I</td><td>インターバル</td></tr><tr><td>R</td><td>つなぎジョグ</td></tr><tr><td>B</td><td>ビルドアップ</td></tr><tr><td>L</td><td>ロング走</td></tr><tr><td>C</td><td>クールダウン</td></tr></tbody></table>
+<p>例の「tm.W420x100_P330x400_C450x100」は、「ウォームアップ 7:00/kmで10分 → ペース走 5:30/kmで40分 → クールダウン 7:30/kmで10分」です。ファイル全体の例は次のとおりです。</p>
+<pre><code>marathon-bgm-bulk,v1
+種類,日付,内容,,,,,コード
+menu,2026-11-03,ペース走,,,,,tm.W420x100_P330x400_C450x100
+menu,2026-11-04,休養,,,,,
+menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
+<h2 id="h-5">5. 本番（大会）で走る</h2>
+<p>大会当日は「待機 → スタート → ゴール」の3回ボタンを押すだけです。その前に、大会の情報を入れておきます。</p>
+<h3>前日まで：大会の情報を入れて保存する</h3>
+<ol><li>「2. 本番」を押し、「大会」タブに次の表の内容を入れます。</li><li>必要なら「戦略・記録」タブで「目標タイムから○ステージで作る」を押し、区間ごとの時速（戦略）を作ります。</li><li>「大会」タブの下の「本番レース情報・戦略を保存」で保存名（例：水戸2026）を入れ、「保存」を押します。保存すると画面が大会名の位置に戻り、大会名の欄がオレンジ色に光ります。</li><li>流す曲は、紫の枠「🎵 曲の登録（マイリスト）」から「読み込む」で選びます。</li></ol>
+<table><thead><tr><th>項目</th><th>入れるもの</th><th>例</th></tr></thead><tbody><tr><td>大会名・種目</td><td>フル／ハーフ／その他（距離を入力）</td><td>水戸黄門漫遊マラソン、フル</td></tr><tr><td>開催日・スタート時刻</td><td>号砲の時刻</td><td>2026/11/1、9:00</td></tr><tr><td>ウェーブの遅れ</td><td>自分のブロックが号砲の何分後に出るか</td><td>10</td></tr><tr><td>制限時間・目標タイム</td><td>時:分、時:分:秒</td><td>6:00、4:30:00</td></tr><tr><td>関門</td><td>1行に1か所「距離km 閉鎖時刻」</td><td>10 10:40</td></tr><tr><td>給水所・エイド</td><td>1行に1か所「距離km 内容」</td><td>15 水 バナナ</td></tr></tbody></table>
+<p>給水所の「内容」は、「水」は給水、「食」は食べ物、それ以外は書いた品名のままです。入力欄の下の「読み取った…」で、正しく読めたか確かめられます。別の大会に切り替えるときは、「本番レース情報・戦略を保存」の「読み込む」を押します。</p>
+<h3>当日の流れ</h3>
+<ol><li>スタートの少し前に「<strong>本番待機を始める</strong>」を押し、画面はつけたままにします。</li><li>スタートの5分前に音楽が始まり、1分前にGPSが自動でONになります。自分のスタート時刻にはチャイムが鳴ります。</li><li>スタートラインを越えたら「<strong>スタート</strong>」を押します（スタート時刻の1秒前までは押せません）。画面がロックされ、あとは走るだけです。</li><li>ゴールしたら、画面下のバーの「<strong>ゴール</strong>」を長押しします。</li></ol>
+<h3>走っている間の表示</h3>
+<table><thead><tr><th>表示</th><th>意味</th></tr></thead><tbody><tr><td>スタートから</td><td>自分がスタートを押してからの時間</td></tr><tr><td>制限時間まで</td><td>号砲からの制限時間の残り</td></tr><tr><td>推定の現在地</td><td>GPS・1 km通過・目標ペースから計算した今の距離</td></tr><tr><td>次の関門・次の給水</td><td>そこまでの距離、閉鎖までの時間や内容</td></tr><tr><td>30分後の目標距離</td><td>戦略どおりなら30分後にいるはずの距離</td></tr></tbody></table>
+<p>距離の看板を通ったときに「1 km通過」を長押しすると、現在地を正しく直せます。5 kmごとに目標より10分以上遅れていると、直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに）。</p>
+<h2 id="h-6">6. リラックス</h2>
+<p>「使う」にチェックした曲を、元の速さのまま「ストップ」を押すまで繰り返し流します。ストレッチやクールダウンのときに使えます。</p>
+<ol><li>「3. リラックス」を押します。</li><li>「リラックス」タブの下にある紫の枠「🎵 曲の登録（マイリスト）」で、流したい曲の組み合わせを「読み込む」か、新しく登録します。</li><li>順番をバラバラにしたいときは「曲をシャッフルして流す」にチェックし、「再生」を押します。</li></ol>
+<h2 id="h-7">7. 音と音声のお知らせ</h2>
+<p>「曲」タブの一番上の「流す音」で、曲・ドラム・無音を選べます。ドラムと無音では曲を使わないので、紫の枠「🎵 曲の登録（マイリスト）」は表示されません。合図音、音量、リズムの微調整（曲がゆっくりに感じたら「早く」）は「音・合図」タブで変えられます。</p>
+<table><thead><tr><th>流す音</th><th>流れる音</th></tr></thead><tbody><tr><td>曲を流す</td><td>「使う」にチェックした曲を、ペースに合わせた速さで</td></tr><tr><td>ドラム</td><td>曲の代わりに、ペースに合った歩数（例：171歩/分）でドラム</td></tr><tr><td>無音</td><td>音楽なし。合図音と音声のお知らせだけ</td></tr></tbody></table>
+<p>本番では、次のようなときに音声で知らせます。1 kmごとのお知らせは「音・合図」タブで外せます。</p>
+<table><thead><tr><th>いつ</th><th>言うことの例</th></tr></thead><tbody><tr><td>スタート5分前・スタート時刻</td><td>「スタート5分前です」「スタート時刻です」</td></tr><tr><td>1 kmごと</td><td>「17キロ。ラップ6分12秒。」（画面にも大きく表示）</td></tr><tr><td>30分ごと</td><td>「60分経過。戦略では9.8キロ地点です」</td></tr><tr><td>給水所の300 m手前</td><td>「まもなく給水所です。水、バナナがあります」</td></tr><tr><td>戦略を自動で調整したとき</td><td>「直近5キロのペースに合わせて…」</td></tr></tbody></table>
+<h2 id="h-8">8. 記録（ログ）とグラフ</h2>
+<p>本番では、スタート時刻と1 kmごとの通過時間を自動で記録します。見る場所は「本番」→「戦略・記録」タブの「本番のログ」です。</p>
+<ul><li><strong>グラフ</strong>：1 kmごとのペース（実際と目標）と、目標との差が自動で出ます。</li><li><strong>CSVをダウンロード</strong>：Excelで開けるファイルで保存できます。</li></ul>
+<p>残るのは前回の大会1回分です。<strong>次の大会でスタートを押すと消える</strong>ので、残したいときはその前にCSVをダウンロードしてください。</p>
+<h2 id="h-9">9. 困ったとき</h2>
+<table><thead><tr><th>こんなとき</th><th>どうするか</th></tr></thead><tbody><tr><td>走っている途中でスマホの電源が切れた</td><td>マラソンBGMを開き直すだけで、続きから自動で再開します。音が出なければ画面のどこかに触れます</td></tr><tr><td>Bluetoothイヤホンが切れて音楽が止まった</td><td>つながったらオレンジ色の「▶ 音楽を再開」を押します。タイマーは止まっていません</td></tr><tr><td>曲が流れない</td><td>「曲」タブで「使う」にチェックがあるか、「流す音」が「曲を流す」か、スマホの音量を確かめます</td></tr><tr><td>GPSが使えない</td><td>https://shinichiokabe.github.io/marathon-bgm/ で開いているか、Chromeの位置情報が「許可」かを確かめます</td></tr><tr><td>「スタート」が押せない（本番）</td><td>スタート時刻の1秒前までは押せません</td></tr><tr><td>マイリストを読み込んでも大会名が変わらない</td><td>マイリストは曲だけです。大会は「本番レース情報・戦略を保存」の「読み込む」を押します</td></tr><tr><td>「上書き」が押せない</td><td>上書きできるのは黄色の行（読み込み中）だけです。先にその行の「読み込む」を押します</td></tr><tr><td>日本語がおかしい</td><td>ブラウザの自動翻訳を「元の表示」に戻します</td></tr><tr><td>直したはずのところが古いまま</td><td>ページの一番下の「版」を確かめ、古ければChromeのタブを閉じて開き直します</td></tr><tr><td>「このファイルは読み込めません」と出る（CSV）</td><td>「4. 練習で走る」の「CSVの形式」と合っているか、とくに1行目が「marathon-bgm-bulk」で始まっているかを確かめます。Excelなどで開いて保存し直すと、形式が変わって読めなくなることがあります</td></tr></tbody></table>
+<p>待機中と走っている間は、画面をつけたままにしておくと確実です。ほかのアプリに切り替えると、音楽や音声が止まることがあります。</p>
+<h2 id="h-10">10. このアプリを応援する</h2>
+<p>マラソンBGMは無料で使えます。寄付は任意で、寄付をしなくてもすべての機能を使えます。応援していただける場合は、画面の一番下の「☕ このアプリを応援する（PayPal）」から寄付できます。</p>
+<p><strong>寄付先</strong>：<a href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">https://paypal.me/marathonBGM</a></p>
+<p>寄付にはPayPalのアカウントが必要です。日本円での個人間の送金に手数料はかかりません。</p>
+  </div></div>
+</div>
 <script>
 const BOOT={hash:location.hash||'',ref:document.referrer||'',last:''};addEventListener('hashchange',()=>{BOOT.last=location.hash||'';});
 const curHash=()=>location.hash||BOOT.last||BOOT.hash||'';
@@ -829,6 +911,15 @@ $('#csvFile')&&$('#csvFile').addEventListener('change',async e=>{const f=e.targe
   if(m)csvApply(m.d);else msg.textContent='練習メニュー '+ms.length+'日分を読み込みました（今日以降の分はありません）。';});
 document.addEventListener('click',e=>{if(e.target.id==='csvGo')csvApply($('#csvDay').value);});
 csvRender();
+
+/* ---------- in-app guide (help) ---------- */
+{const hp=$('#helpPanel'),hs=$('#helpScroll');
+  {const toc=$('#helpToc');if(toc)toc.innerHTML=[...document.querySelectorAll('#helpBody h2')].map(h=>`<a href="#${h.id}" data-hgo="${h.id}">${esc(h.textContent)}</a>`).join('');}
+  const open=()=>{blurInputs();hp.hidden=false;hs.scrollTop=0;document.body.style.overflow='hidden';};
+  const close=()=>{hp.hidden=true;document.body.style.overflow='';};
+  $('#btnHelp').addEventListener('click',open);$('#helpClose').addEventListener('click',close);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!hp.hidden)close();});
+  hp.addEventListener('click',e=>{const a=e.target.closest('[data-hgo]');if(!a)return;e.preventDefault();const t=document.getElementById(a.dataset.hgo);if(t)hs.scrollTop=t.offsetTop-hs.offsetTop-8;});}
 
 /* ---------- new version check: phones keep showing an old copy, so look for a newer 版 and offer to switch ---------- */
 (function(){if(!/^https?:$/.test(location.protocol))return;const verOf=t=>{const m=/class="ver"[^>]*>([^<]+)</.exec(t);return m?m[1].trim():'';};
@@ -2449,6 +2540,12 @@ W('あとで','Later','稍后','稍後','나중에');
 W('読み込み中','Loaded','已读取','已讀取','불러온 항목');
 W('読み込んだものだけ上書きできます','Only the loaded item can be overwritten','只能覆盖已读取的项目','只能覆蓋已讀取的項目','불러온 항목만 덮어쓸 수 있습니다');
 W('流す曲は「曲」タブの一覧に並んでいます','The songs to play are listed on the Songs tab','要播放的曲目已排在“曲目”标签的列表中','要播放的曲目已排在「曲目」分頁的清單中','재생할 곡은 "곡" 탭 목록에 있습니다');
+W('寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。','Donations are optional. Every feature is free to use without donating.','捐赠是自愿的。不捐赠也可以免费使用全部功能。','捐贈是自願的。不捐贈也可以免費使用全部功能。','기부는 선택입니다. 기부하지 않아도 모든 기능을 무료로 쓸 수 있습니다.');
+W('☕ このアプリを応援する（PayPal）','☕ Support this app (PayPal)','☕ 支持这个应用（PayPal）','☕ 支持這個應用程式（PayPal）','☕ 이 앱 응원하기 (PayPal)');
+W('？ 使い方','? Guide','？ 使用说明','？ 使用說明','? 사용법');
+W('使い方ガイド','User guide','使用说明','使用說明','사용 가이드');
+W('（日本語のみ）','(Japanese only)','（仅日语）','（僅日語）','(일본어만)');
+W('閉じる','Close','关闭','關閉','닫기');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
