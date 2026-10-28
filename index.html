@@ -238,7 +238,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .newver{position:fixed;left:8px;right:8px;top:8px;z-index:90;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--amber-soft);border:2px solid var(--amber);color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,.25);font-size:.9rem}.newver span{flex:1 1 180px}.newver[hidden]{display:none}
 #mlSec[hidden]{display:none}
 #mlSec{background:var(--ml-bg);border:3px solid var(--ml-line);border-radius:14px;padding:0 12px 14px;margin:18px 0;overflow:hidden}
-#mlSec h2{margin:0 -12px 8px;padding:12px 14px;background:var(--ml-line);color:#fff;font-size:1.1rem}#mlSec .sub{color:var(--ml-ink)}#mlSec .ml{background:var(--surface)}
+#mlSec h2{margin:0 -12px 8px;padding:12px 14px;background:var(--ml-line);color:#fff;font-size:1.1rem}#mlSec .sub{color:var(--ml-ink)}#mlSec .ml{background:var(--surface)}#mlSec .ml.cur{background:var(--cur-y)}
 #mlList .ml{border-left:5px solid var(--ml-line)}
 #mlList .ml-songs{display:block;font-size:.78rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 .ml-msg.ow{display:flex;flex-direction:column;gap:6px;margin:4px 0;padding:10px 12px;border:2px solid var(--warn);border-radius:10px;color:var(--fg,inherit);font-size:.9rem}
@@ -246,6 +246,8 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .ml{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid var(--line)}
 .ml:first-child{border-top:0}
 .ml.on{background:var(--cur-bg);box-shadow:inset 0 0 0 2px var(--accent)}
+@keyframes mlhit{0%,60%{box-shadow:0 0 0 4px var(--amber)}100%{box-shadow:none}}#songList.ml-hit{animation:mlhit 2.4s ease-out;border-radius:12px}
+.ml-load-note{margin:0;padding:8px 12px;border-radius:10px;background:var(--cur-y);border:2px solid var(--amber);font-size:.88rem;font-weight:700}.ml-load-note[hidden]{display:none}
 .list .ml.cur{background:var(--cur-y);box-shadow:inset 0 0 0 2px var(--amber)}.cur-tag{display:inline-block;margin:2px 6px 2px 0;padding:1px 8px;border-radius:99px;background:var(--amber);color:#1a1200;font-size:.72rem;font-weight:700;font-style:normal;vertical-align:middle}
 .ml-info{flex:1 1 180px;min-width:0}
 .ml-info b{display:block;overflow-wrap:anywhere}
@@ -577,7 +579,7 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <p class="ver" data-notr translate="no">版 2026-10-28b</p>
+  <p class="ver" data-notr translate="no">版 2026-10-28c</p>
 </div>
 
 <script>
@@ -1422,17 +1424,17 @@ var mlFlash=null,mlFlashTxt='',mlFlashT=0;function flashML(id,t){mlFlash=id;mlFl
 function renderML(){const list=$('#mlList');if(!list)return;list.hidden=!mylists.length;
   list.innerHTML=mylists.map(m=>{
     const have=m.songs.filter(x=>findSong(x)).length;
-    return `<div class="ml${m.id===activeML?' on':''}${mlFlash===m.id?' flash':''}"><div class="ml-info"><b>${esc(m.name)}</b>
+    const cur=m.id===activeML;return `<div class="ml${cur?' cur':''}${mlFlash===m.id?' flash':''}"><div class="ml-info"><b>${esc(m.name)}</b>${cur?'<em class="cur-tag">読み込み中</em>':''}
       <span>🎵 曲 ${have}曲${m.saved?`・保存 ${fmtWhenS(m.saved)}`:''}</span><span class="ml-songs" data-notr>${esc(m.songs.slice(0,3).map(x=>String(x.name||'').replace(/\.[^.]+$/,'')).join('、'))}${m.songs.length>3?' …':''}</span></div>
       <div class="ctrls"><button class="small${mlFlash===m.id&&mlFlashTxt.startsWith('読')?' ok':''}" data-mlload="${m.id}" ${R.running?'disabled':''}>${mlFlash===m.id&&mlFlashTxt.startsWith('読')?mlFlashTxt:'読み込む'}</button>
       <button class="small" data-mladd="${m.id}" title="今の一覧に、このマイリストの曲を重複なしで追加します">追加読込</button>
-      <button class="small${mlFlash===m.id&&mlFlashTxt.startsWith('上')?' ok':''}" data-mlsave="${m.id}">${mlFlash===m.id&&mlFlashTxt.startsWith('上')?mlFlashTxt:'上書き'}</button>
+      <button class="small${mlFlash===m.id&&mlFlashTxt.startsWith('上')?' ok':''}" data-mlsave="${m.id}" ${cur?'':'disabled title="読み込んだものだけ上書きできます"'}>${mlFlash===m.id&&mlFlashTxt.startsWith('上')?mlFlashTxt:'上書き'}</button>
       <button class="small${mlDelArm===m.id?' danger':''}" data-mldel="${m.id}">${mlDelArm===m.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
 $('#mlSave').addEventListener('click',()=>{const name=$('#mlName').value.trim();if(!name){mlMsg('名前を入力してください。');$('#mlName').focus();return;}
   const ex=mylists.find(m=>m.name===name);const go=()=>{const ex2=mylists.find(m=>m.name===name);const snap=snapshot(name,ex2&&ex2.id);
   if(ex2)mylists[mylists.indexOf(ex2)]=snap;else mylists.push(snap);activeML=snap.id;saveMLs();if(ex2)flashML(snap.id,'上書きしました ✓');
   $('#mlName').value='';renderML();confirmSaved(snap,ex2?`「${name}」を今の設定で上書きしました。`:`「${name}」を登録しました。`);};
-  if(ex)askOW('mlMsg',name,owML(ex),go);else go();});
+  if(ex&&ex.id!==activeML){mlMsg(owNotCur(name));$('#mlMsg').classList.add('err');return;}if(ex)askOW('mlMsg',name,owML(ex),go);else go();});
 $('#mlName').addEventListener('keydown',e=>{if(e.key==='Enter')$('#mlSave').click();});
 $('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
   if(d.mldel){if(mlDelArm!==d.mldel){mlDelArm=d.mldel;renderML();return;}
@@ -1448,7 +1450,7 @@ $('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
     saveOrder();
     mlMsg(`「${m.name}」の曲を追加しました。追加 ${added}曲`+(dup?`、すでに一覧にある ${dup}曲は重複しないようにそのままにしました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。');
     renderSongs();renderRun();renderML();updateStoreInfo();return;}
-  if(d.mlsave){const o=mylists.find(x=>x.id===d.mlsave);if(!o)return;askOW('mlMsg',o.name,owML(o),()=>{const i=mylists.findIndex(x=>x.id===o.id);if(i<0)return;mylists[i]=snapshot(o.name,o.id);activeML=o.id;saveMLs();
+  if(d.mlsave){const o=mylists.find(x=>x.id===d.mlsave);if(!o)return;if(o.id!==activeML){mlMsg(owNotCur(o.name));$('#mlMsg').classList.add('err');return;}askOW('mlMsg',o.name,owML(o),()=>{const i=mylists.findIndex(x=>x.id===o.id);if(i<0)return;mylists[i]=snapshot(o.name,o.id);activeML=o.id;saveMLs();
     flashML(o.id,'上書きしました ✓');renderML();confirmSaved(mylists[i],`「${o.name}」を今の設定で上書きしました。`);});return;}
   if(d.mlload){if(R.running){mlMsg('走っている間は読み込めません。');return;}const m=mylists.find(x=>x.id===d.mlload);if(!m)return;
     if(R.acc>0||R.done)reset();
@@ -1465,7 +1467,13 @@ $('#mlList').addEventListener('click',e=>{const d=e.target.dataset;
     }
     activeML=m.id;flashML(m.id,'読み込みました ✓');saveMLs();const miss=m.songs.length-pos.size;
     const nUse=songs.length,nOther=others.length;
-    mlMsg(`「${m.name}」を読み込みました。流す曲 ${nUse}曲`+(nOther?`。マイリストに入っていない曲 ${nOther}曲は一覧から外しました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。');renderAll();}});
+    mlMsg(`「${m.name}」を読み込みました。流す曲 ${nUse}曲`+(nOther?`。マイリストに入っていない曲 ${nOther}曲は一覧から外しました`:'')+(miss?`（削除済みの曲 ${miss}曲は省きました）`:'')+'。'+(MODE==='relax'?'流す曲は「曲」タブの一覧に並んでいます。':''));renderAll();mlShowSongs(`「${m.name}」を読み込みました。流す曲 ${nUse}曲が、この一覧に並んでいます。`);}});
+/* after loading a song list: show where the songs went (the song list above), like the race settings jump */
+function mlShowSongs(t){if(MODE==='relax')return;blurInputs();const sl=$('#songList');const sec=sl&&sl.closest('section');if(!sec)return;
+  let n=$('#mlLoadNote');if(!n){n=document.createElement('p');n.id='mlLoadNote';n.className='ml-load-note';sl.before(n);}n.textContent=t;n.hidden=false;clearTimeout(n._t);n._t=setTimeout(()=>{n.hidden=true;},12000);
+  sl.classList.remove('ml-hit');void sl.offsetWidth;sl.classList.add('ml-hit');
+  const go=()=>{const y=sec.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-8;try{window.scrollTo({top:Math.max(0,y),behavior:'auto'});}catch(e){window.scrollTo(0,Math.max(0,y));}};
+  setTimeout(go,120);setTimeout(go,450);setTimeout(go,900);}
 
 /* ---------- mode UI ---------- */
 function say(t){try{if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=1.05;
@@ -2440,6 +2448,7 @@ W('新しい版にする','Update now','更新到新版本','更新到新版本'
 W('あとで','Later','稍后','稍後','나중에');
 W('読み込み中','Loaded','已读取','已讀取','불러온 항목');
 W('読み込んだものだけ上書きできます','Only the loaded item can be overwritten','只能覆盖已读取的项目','只能覆蓋已讀取的項目','불러온 항목만 덮어쓸 수 있습니다');
+W('流す曲は「曲」タブの一覧に並んでいます','The songs to play are listed on the Songs tab','要播放的曲目已排在“曲目”标签的列表中','要播放的曲目已排在「曲目」分頁的清單中','재생할 곡은 "곡" 탭 목록에 있습니다');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2619,6 +2628,7 @@ P(/^「(.+)」は練習メニューが正しく保存されていないため読
 P(/^本番：(.+?)(?: 目標 ([\d:]+))?$/,m=>{const g=m[2]?[` target ${m[2]}`,` 目标 ${m[2]}`,` 目標 ${m[2]}`,` 목표 ${m[2]}`]:['','','',''];return [`Race: ${m[1]}${g[0]}`,`比赛：${m[1]}${g[1]}`,`比賽：${m[1]}${g[2]}`,`대회: ${m[1]}${g[3]}`];});
 P(/^「(.+)」は今読み込んでいるものではないため上書きできません$/,m=>[`"${m[1]}" is not the loaded item, so it cannot be overwritten`,`「${m[1]}」不是当前读取的项目，无法覆盖`,`「${m[1]}」不是目前讀取的項目，無法覆蓋`,`"${m[1]}"은(는) 지금 불러온 항목이 아니어서 덮어쓸 수 없습니다`]);
 P(/^別の名前で保存するか、先に「(.+)」を読み込んでから上書きしてください$/,m=>[`Save under another name, or load "${m[1]}" first and then overwrite it`,`请换个名称保存，或先读取「${m[1]}」再覆盖`,`請換個名稱儲存，或先讀取「${m[1]}」再覆蓋`,`다른 이름으로 저장하거나, 먼저 "${m[1]}"을(를) 불러온 뒤 덮어쓰세요`]);
+P(/^流す曲 (\d+)曲が、この一覧に並んでいます$/,m=>[`${PL(m[1],'song')} to play are now in this list`,`要播放的${m[1]}首歌已排在此列表中`,`要播放的${m[1]}首歌已排在此清單中`,`재생할 곡 ${m[1]}곡이 이 목록에 있습니다`]);
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
