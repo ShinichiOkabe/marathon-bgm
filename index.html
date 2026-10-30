@@ -70,6 +70,8 @@ section{display:flex;flex-direction:column;gap:12px}
 .run{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px}
 .seg-line{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
 .seg-name{font-weight:700;font-size:1.05rem}
+.seg-line.race{justify-content:flex-start}.seg-line.race .seg-name{order:-1}
+.f .hint{display:block;margin-top:3px;font-size:.72rem;font-weight:400;line-height:1.4;color:var(--muted)}
 .big{font-family:var(--f-num);font-weight:700;font-size:clamp(4.2rem,22vw,6.5rem);line-height:.9;letter-spacing:.01em;font-variant-numeric:tabular-nums}
 .big-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .target{text-align:right}
@@ -394,7 +396,7 @@ body.live .recv{display:none}
     </div>
     <div class="stats">
       <div class="stat"><div class="label" id="st1Label">全体の残り</div><div class="v num" id="totLeft">45:00</div><div class="s" id="totDist"></div></div>
-      <div class="stat next"><div class="label" id="st2Label">次のステージ</div><div class="v" id="nextSeg">一定速走 180</div></div>
+      <div class="stat next"><div class="label" id="st2Label">次のステージ</div><div class="v" id="nextSeg">一定速走 180</div><div class="s" id="nextSub"></div></div>
       <div class="stat pos" id="posStat" hidden><div class="label">推定の現在地</div><div class="v num" id="posNow">—</div><div class="s" id="posSub"></div></div>
       <div class="stat cp" id="cpStat" hidden><div class="label">次の関門</div><div class="v num" id="cpNext">—</div><div class="s" id="cpSub"></div></div>
       <div class="stat auto" id="autoStat" hidden><div class="label" id="autoLbl">戦略を自動で調整中</div><div class="v num" id="autoNow">—</div><div class="s" id="autoSub"></div><button class="small" id="autoRevert">元の戦略に戻す</button></div>
@@ -447,8 +449,8 @@ body.live .recv{display:none}
       <label class="f" id="rcKmWrap">距離（km）<input type="number" id="rcKm" min="1" max="250" step="0.1" inputmode="decimal"></label>
       <label class="f">開催日<input type="date" id="rcDate"></label>
       <label class="f">スタート時刻<input type="time" id="rcTime"></label>
-      <label class="f">ウェーブの遅れ（分）<input type="number" id="rcWave" min="0" max="180" step="1" inputmode="numeric"></label>
-      <label class="f">制限時間（時:分）<input type="text" id="rcLimit" placeholder="6:00" autocomplete="off"></label>
+      <label class="f">ウェーブの遅れ（分）<input type="number" id="rcWave" min="0" max="180" step="1" inputmode="numeric"><span class="hint">先頭ウェーブのスタートから、自分が並ぶブロックのウェーブがスタートするまでの分数。ウェーブがない大会は0</span></label>
+      <label class="f">制限時間（時:分）<input type="text" id="rcLimit" placeholder="6:00" autocomplete="off"><span class="hint">ウェーブスタートの大会は、大会の制限時間に「先頭ウェーブから最終ウェーブがスタートするまでの時間差」を足して入れます（例：6:00＋20分→6:20）</span></label>
       <label class="f">目標タイム（時:分:秒）<input type="text" id="rcGoal" placeholder="4:59:00" autocomplete="off"></label>
       <label class="f">ロスタイム分の余裕（分）<input type="number" id="rcMargin" min="0" max="30" step="1" inputmode="numeric"></label>
       <label class="f wide">関門（任意）「距離km　号砲からの制限時間」または「距離km　閉鎖時刻」を1行ずつ
@@ -597,7 +599,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-10-29a</p>
+  <p class="ver" data-notr translate="no">版 2026-10-30a</p>
 </div>
 
 <div id="helpPanel" class="help-panel" hidden role="dialog" aria-label="使い方ガイド">
@@ -618,7 +620,7 @@ body.live .recv{display:none}
 <p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。</p>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>リラックス ／ 曲 ／ 音・合図</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
-<p>ページの一番下には「版 2026-10-28e」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-10-30a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
@@ -644,12 +646,13 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>大会当日は「待機 → スタート → ゴール」の3回ボタンを押すだけです。その前に、大会の情報を入れておきます。</p>
 <h3>前日まで：大会の情報を入れて保存する</h3>
 <ol><li>「2. 本番」を押し、「大会」タブに次の表の内容を入れます。</li><li>必要なら「戦略・記録」タブで「目標タイムから○ステージで作る」を押し、区間ごとの時速（戦略）を作ります。</li><li>「大会」タブの下の「本番レース情報・戦略を保存」で保存名（例：水戸2026）を入れ、「保存」を押します。保存すると画面が大会名の位置に戻り、大会名の欄がオレンジ色に光ります。</li><li>流す曲は、紫の枠「🎵 曲の登録（マイリスト）」から「読み込む」で選びます。</li></ol>
-<table><thead><tr><th>項目</th><th>入れるもの</th><th>例</th></tr></thead><tbody><tr><td>大会名・種目</td><td>フル／ハーフ／その他（距離を入力）</td><td>水戸黄門漫遊マラソン、フル</td></tr><tr><td>開催日・スタート時刻</td><td>号砲の時刻</td><td>2026/11/1、9:00</td></tr><tr><td>ウェーブの遅れ</td><td>自分のブロックが号砲の何分後に出るか</td><td>10</td></tr><tr><td>制限時間・目標タイム</td><td>時:分、時:分:秒</td><td>6:00、4:30:00</td></tr><tr><td>関門</td><td>1行に1か所「距離km 閉鎖時刻」</td><td>10 10:40</td></tr><tr><td>給水所・エイド</td><td>1行に1か所「距離km 内容」</td><td>15 水 バナナ</td></tr></tbody></table>
+<table><thead><tr><th>項目</th><th>入れるもの</th><th>例</th></tr></thead><tbody><tr><td>大会名・種目</td><td>フル／ハーフ／その他（距離を入力）</td><td>水戸黄門漫遊マラソン、フル</td></tr><tr><td>開催日・スタート時刻</td><td>号砲の時刻</td><td>2026/11/1、9:00</td></tr><tr><td>ウェーブの遅れ</td><td>先頭ウェーブのスタートから、自分が並ぶブロックのウェーブがスタートするまでの分数（ウェーブがない大会は0）</td><td>10</td></tr><tr><td>制限時間</td><td>時:分。ウェーブスタートの大会は、大会の制限時間に「先頭ウェーブから最終ウェーブがスタートするまでの時間差」を足して入れる</td><td>6:00＋20分→6:20</td></tr><tr><td>目標タイム</td><td>時:分:秒</td><td>4:30:00</td></tr><tr><td>関門</td><td>1行に1か所「距離km 閉鎖時刻」</td><td>10 10:40</td></tr><tr><td>給水所・エイド</td><td>1行に1か所「距離km 内容」</td><td>15 水 バナナ</td></tr></tbody></table>
 <p>給水所の「内容」は、「水」は給水、「食」は食べ物、それ以外は書いた品名のままです。入力欄の下の「読み取った…」で、正しく読めたか確かめられます。別の大会に切り替えるときは、「本番レース情報・戦略を保存」の「読み込む」を押します。</p>
 <h3>当日の流れ</h3>
 <ol><li>スタートの少し前に「<strong>本番待機を始める</strong>」を押し、画面はつけたままにします。</li><li>スタートの5分前に音楽が始まり、1分前にGPSが自動でONになります。自分のスタート時刻にはチャイムが鳴ります。</li><li>スタートラインを越えたら「<strong>スタート</strong>」を押します（スタート時刻の1秒前までは押せません）。画面がロックされ、あとは走るだけです。</li><li>ゴールしたら、画面下のバーの「<strong>ゴール</strong>」を長押しします。</li></ol>
 <h3>走っている間の表示</h3>
 <table><thead><tr><th>表示</th><th>意味</th></tr></thead><tbody><tr><td>スタートから</td><td>自分がスタートを押してからの時間</td></tr><tr><td>制限時間まで</td><td>号砲からの制限時間の残り</td></tr><tr><td>推定の現在地</td><td>GPS・1 km通過・目標ペースから計算した今の距離</td></tr><tr><td>次の関門・次の給水</td><td>そこまでの距離、閉鎖までの時間や内容</td></tr><tr><td>30分後の目標距離</td><td>戦略どおりなら30分後にいるはずの距離</td></tr></tbody></table>
+<p><strong>ネットタイムとグロスタイム</strong>：走っている間の大きなタイマーは、自分が「スタート」を押してからの時間（ネットタイム）です。ゴールすると、グロスタイムも表示します。グロスタイムは「スタート時刻＋ウェーブの遅れ」（自分のウェーブのスタート）からの時間で、ネットタイムにロスタイム（ウェーブのスタートから自分がスタートラインを通るまで）を足したものです。グロスタイムはログとCSVにも残ります。</p>
 <p>距離の看板を通ったときに「1 km通過」を長押しすると、現在地を正しく直せます。5 kmごとに目標より10分以上遅れていると、直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに）。</p>
 <h2 id="h-6">6. リラックス</h2>
 <p>「使う」にチェックした曲を、元の速さのまま「ストップ」を押すまで繰り返し流します。ストレッチやクールダウンのときに使えます。</p>
@@ -661,7 +664,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>いつ</th><th>言うことの例</th></tr></thead><tbody><tr><td>スタート5分前・スタート時刻</td><td>「スタート5分前です」「スタート時刻です」</td></tr><tr><td>1 kmごと</td><td>「17キロ。ラップ6分12秒。」（画面にも大きく表示）</td></tr><tr><td>30分ごと</td><td>「60分経過。戦略では9.8キロ地点です」</td></tr><tr><td>給水所の300 m手前</td><td>「まもなく給水所です。水、バナナがあります」</td></tr><tr><td>戦略を自動で調整したとき</td><td>「直近5キロのペースに合わせて…」</td></tr></tbody></table>
 <h2 id="h-8">8. 記録（ログ）とグラフ</h2>
 <p>本番では、スタート時刻と1 kmごとの通過時間を自動で記録します。見る場所は「本番」→「戦略・記録」タブの「本番のログ」です。</p>
-<ul><li><strong>グラフ</strong>：1 kmごとのペース（実際と目標）と、目標との差が自動で出ます。</li><li><strong>CSVをダウンロード</strong>：Excelで開けるファイルで保存できます。</li></ul>
+<ul><li><strong>グラフ</strong>：1 kmごとのペース（実際と目標）と、目標との差が自動で出ます。</li><li><strong>表</strong>：1 kmごとの経過（ネット）とグロスの時間が並びます。上の行にネットタイム・グロスタイム・ロスタイムも出ます。</li><li><strong>CSVをダウンロード</strong>：Excelで開けるファイルで保存できます。</li></ul>
 <p>残るのは前回の大会1回分です。<strong>次の大会でスタートを押すと消える</strong>ので、残したいときはその前にCSVをダウンロードしてください。</p>
 <h2 id="h-9">9. 困ったとき</h2>
 <table><thead><tr><th>こんなとき</th><th>どうするか</th></tr></thead><tbody><tr><td>走っている途中でスマホの電源が切れた</td><td>マラソンBGMを開き直すだけで、続きから自動で再開します。音が出なければ画面のどこかに触れます</td></tr><tr><td>Bluetoothイヤホンが切れて音楽が止まった</td><td>つながったらオレンジ色の「▶ 音楽を再開」を押します。タイマーは止まっていません</td></tr><tr><td>曲が流れない</td><td>「曲」タブで「使う」にチェックがあるか、「流す音」が「曲を流す」か、スマホの音量を確かめます</td></tr><tr><td>GPSが使えない</td><td>https://shinichiokabe.github.io/marathon-bgm/ で開いているか、Chromeの位置情報が「許可」かを確かめます</td></tr><tr><td>「スタート」が押せない（本番）</td><td>スタート時刻の1秒前までは押せません</td></tr><tr><td>マイリストを読み込んでも大会名が変わらない</td><td>マイリストは曲だけです。大会は「本番レース情報・戦略を保存」の「読み込む」を押します</td></tr><tr><td>「上書き」が押せない</td><td>上書きできるのは黄色の行（読み込み中）だけです。先にその行の「読み込む」を押します</td></tr><tr><td>日本語がおかしい</td><td>ブラウザの自動翻訳を「元の表示」に戻します</td></tr><tr><td>直したはずのところが古いまま</td><td>ページの一番下の「版」を確かめ、古ければChromeのタブを閉じて開き直します</td></tr><tr><td>「このファイルは読み込めません」と出る（CSV）</td><td>「4. 練習で走る」の「CSVの形式」と合っているか、とくに1行目が「marathon-bgm-bulk」で始まっているかを確かめます。Excelなどで開いて保存し直すと、形式が変わって読めなくなることがあります</td></tr></tbody></table>
@@ -1065,7 +1068,7 @@ function renderRun(){
   let doneKm=0;for(let k=0;k<menu.length;k++){const st=segStart(k),len=menu[k].min*60000;doneKm+=Math.max(0,Math.min(el-st,len))/1000/menu[k].pace;}
   $('#totDist').textContent=`残り 約${Math.max(0,totKm-doneKm).toFixed(1)} km ／ 全 ${totKm.toFixed(1)} km`;
   $('#runPanel').classList.toggle('paused',R.running&&R.paused);
-  const nx=menu[i+1];$('#nextSeg').textContent=R.done?'—':(nx?`${nx.name}　${fmtPace(nx.pace)} /km`:'これで最後です');
+  const nx=menu[i+1];$('#nextSeg').textContent=R.done?'—':(nx?`${nx.name}　${fmtPace(nx.pace)} /km`:'これで最後です');{const ns=$('#nextSub');if(ns)ns.textContent='';}
   $('#axisEnd').textContent=fmt(tot);
   const head=$('#head');if(head)head.style.left=(tot?el/tot*100:0)+'%';
   document.querySelectorAll('.blk').forEach((b,k)=>b.classList.toggle('cur',k===i&&(R.running||R.acc>0)&&!R.done));
@@ -1651,7 +1654,7 @@ const live=R.running||RS.pre;document.body.classList.toggle('live',!!live);docum
 function renderRunMode(){liveUI();const rp=$('#runPanel');rp.classList.toggle('m-race',MODE==='race');rp.classList.toggle('m-relax',MODE==='relax');
   const T=(id,t)=>{$(id).textContent=t;};
   $('#goalStat').hidden=$('#goalStat2').hidden=MODE!=='race';$('#cpStat').hidden=MODE!=='race'||!rcCps().length;$('#wsStat').hidden=MODE!=='race'||!rcWs().length;
-  $('#segLine').hidden=false;
+  $('#segLine').hidden=false;$('#segLine').classList.remove('race');
   if(MODE==='practice'){T('#bigLabel','このステージの残り');T('#tgtLabel','目標ペース');T('#st1Label','全体の残り');T('#st2Label','次のステージ');return;}
   let now=Date.now();
   const el=elapsed(),used2=songs.filter(used).length;
@@ -1662,9 +1665,10 @@ function renderRunMode(){liveUI();const rp=$('#runPanel');rp.classList.toggle('m
   /* race: show only meaningful status (no plain 「本番」 label) */
   const stTxt=R.done?(RS.dnf?'ゴール（終了）':'完了'):R.running?'':RS.pre?'まもなくスタート（BGM再生中）':RS.armed?'待機中':'';
   const nmTxt=R.done?'おつかれさまでした':(RC.name||'');
-  T('#segCount',stTxt);T('#segName',nmTxt);$('#segLine').hidden=!stTxt&&!nmTxt&&!(R.running&&R.paused);
+  T('#segCount',stTxt);T('#segName',nmTxt);$('#segLine').hidden=!stTxt&&!nmTxt&&!(R.running&&R.paused);$('#segLine').classList.add('race');
   const idle=raceIdle();
-  if(R.running||R.done){T('#bigLabel','スタートから');$('#segLeft').textContent=fmt(R.done?R.acc:el);}
+  const fl=ms=>fmt(Math.round(ms/1000)*1000);/* finished times: whole seconds, same as the log */
+  if(R.running||R.done){T('#bigLabel',R.done?'ネットタイム（スタートから）':'スタートから');$('#segLeft').textContent=R.done?fl(R.acc):fmt(el);}
   else if(idle){T('#bigLabel','スタートまで');$('#segLeft').textContent='0:00';}
   else if(w&&now<w){T('#bigLabel','スタートまで');$('#segLeft').textContent=fmt(w-now);}
   else if(w){T('#bigLabel','スタート時刻から');$('#segLeft').textContent=fmt(now-w);}
@@ -1674,7 +1678,9 @@ function renderRunMode(){liveUI();const rp=$('#runPanel');rp.classList.toggle('m
   T('#st1Label',R.done&&RS.endAt?'ゴール時の制限時間まで':'制限時間まで');const lim=(+RC.limit||0)*60000;const g0=rcGunMs(),lossMs=RS.startAt&&g0?RS.startAt-g0:0;const rem=g0&&lim?g0+lim-now:(R.running&&lim?lim-el-lossMs:null);
   $('#totLeft').textContent=idle?'0:00':rem==null?'—':fmt(rem);
   $('#totDist').textContent=R.running&&e?`予定では 約${(baseSpdAt(0)?planPos(el):el/1000/e).toFixed(1)} km 地点 ／ 全 ${+km.toFixed(2)} km`:`全 ${+km.toFixed(2)} km ／ 目標 ${RC.goal?fmtHMS(RC.goal):'未入力'}`;
-  T('#st2Label','ロスタイム');$('#nextSeg').textContent=RS.startAt&&w?fmt(Math.max(0,RS.startAt-w)):'スタートで計測';
+  /* gross time = from (start time + wave minutes) = start loss + net; shown at the goal */
+  if(R.done&&RS.startAt&&w){const loss=Math.max(0,RS.startAt-w);T('#st2Label','グロスタイム');$('#nextSeg').textContent=fl(loss+R.acc);T('#nextSub',`ロスタイム ${fl(loss)}（ウェーブのスタートから）`);}
+  else{T('#nextSub','');T('#st2Label','ロスタイム');$('#nextSeg').textContent=RS.startAt&&w?fmt(Math.max(0,RS.startAt-w)):'スタートで計測';}
   {const run=R.running||R.done,t=run?(R.done?R.acc:el):0,kmAt=ms=>baseSpdAt(0)?Math.min(km,planPos(ms)):e?Math.min(km,ms/1000/e):null,cut=v=>v==null?'—':v.toFixed(1)+' km';
     $('#goalNow').textContent=run&&kmAt(t)>=0.05?cut(kmAt(t)):'—';
     const t30=t+1800000,k30=kmAt(t30);$('#goal30').textContent=cut(k30);
@@ -1897,7 +1903,7 @@ function runLoad(){const r=store.get(RUN_KEY,null);return r&&r.v===1&&r.startAt?
 function archiveRace(log,ev,meta){if(!log||(!log.length&&!(ev||[]).length))return;const id='L'+meta.startAt;raceLogs=raceLogs.filter(x=>x.id!==id);
   raceLogs=[Object.assign({id,log,ev},meta)];store.set(LOGS_KEY,raceLogs);}
 function archiveCurrent(result){if(!RS.startAt)return;addEv(result==='goal'?'goal':result==='limit'?'limit':'end',result==='goal'?'ゴール（終了）':result==='limit'?'制限時間で終了':'終了');
-  archiveRace(RS.log,RS.ev,{name:RC.name,date:RC.date,startAt:RS.startAt,endAt:Date.now(),km:rcKm(),goal:RC.goal,el:Math.round(R.done?R.acc:rawEl())});runDrop();logSelId=raceLogs.length?raceLogs[0].id:'cur';renderLog();}
+  archiveRace(RS.log,RS.ev,{name:RC.name,date:RC.date,startAt:RS.startAt,endAt:Date.now(),km:rcKm(),goal:RC.goal,waveAt:rcWaveMs(),el:Math.round(R.done?R.acc:rawEl())});runDrop();logSelId=raceLogs.length?raceLogs[0].id:'cur';renderLog();}
 {const _s=start;start=function(){const fresh=R.done||(!R.running&&R.acc===0);const r=_s.apply(this,arguments);
   if(MODE==='race'&&fresh&&R.running&&RS.startAt){raceLogs=[];store.set(LOGS_KEY,raceLogs);RS.log=[];RS.ev=[];RS.auto=null;RS.autoOff=false;RS.goalLogged=false;logSelId='cur';addEv('start','スタート');renderLog();}return r;};}
 {const _p=pause;pause=function(){const r=_p.apply(this,arguments);if(MODE==='race'&&RS.startAt){addEv('pause','一時停止');}return r;};}
@@ -1927,10 +1933,12 @@ function resumeRace(){const r=resumeSnap;if(!r)return;resumeSnap=null;$('#resume
   addEv('resume',`再開（推定 ${pos.toFixed(1)}km）`);setTimeout(()=>{try{if(!GPS.on)gpsOn();}catch(e){}},500);renderAll();}
 $('#resumeGo').addEventListener('click',resumeRace);
 $('#resumeNo').addEventListener('click',()=>{const r=resumeSnap;if(!r)return;resumeSnap=null;clearInterval(resumeT);
-  archiveRace(r.log,(r.ev||[]).concat([{type:'end',msg:'再開しないで終了',t:r.acc,at:Date.now()}]),{name:r.name,date:r.date,startAt:r.startAt,endAt:Date.now(),km:r.km,el:resumeInfo(r).el});runDrop();$('#resumeBox').hidden=true;renderLog();});
+  archiveRace(r.log,(r.ev||[]).concat([{type:'end',msg:'再開しないで終了',t:r.acc,at:Date.now()}]),{name:r.name,date:r.date,startAt:r.startAt,endAt:Date.now(),km:r.km,waveAt:rcWaveMs(),el:resumeInfo(r).el});runDrop();$('#resumeBox').hidden=true;renderLog();});
 /* ---------- log view: table, chart, CSV ---------- */
 let logSelId='cur';
-function curLogData(){if(RS.startAt&&(RS.log||[]).length+(RS.ev||[]).length&&(R.running||!raceLogs.some(x=>x.startAt===RS.startAt)))return {id:'cur',name:RC.name,date:RC.date,startAt:RS.startAt,km:rcKm(),log:RS.log||[],ev:RS.ev||[],el:Math.round(R.done?R.acc:rawEl()),live:R.running};return null;}
+function curLogData(){if(RS.startAt&&(RS.log||[]).length+(RS.ev||[]).length&&(R.running||!raceLogs.some(x=>x.startAt===RS.startAt)))return {id:'cur',name:RC.name,date:RC.date,startAt:RS.startAt,km:rcKm(),waveAt:rcWaveMs(),log:RS.log||[],ev:RS.ev||[],el:Math.round(R.done?R.acc:rawEl()),live:R.running};return null;}
+/* start loss = own start press − (start time + wave minutes); gross = loss + net */
+function lossOf(d){return d&&d.waveAt&&d.startAt?Math.max(0,d.startAt-d.waveAt):null;}
 function logData(){if(logSelId==='cur')return curLogData()||raceLogs[0]||null;return raceLogs.find(x=>x.id===logSelId)||curLogData()||raceLogs[0]||null;}
 function logRows(d){let pt=0,pk=0;return (d.log||[]).map(x=>{const lap=x.t-pt,dk=x.km-pk;pt=x.t;pk=x.km;return Object.assign({},x,{lap,pace:dk>0?lap/1000/dk:null,diff:x.tgt!=null?x.t-x.tgt:null});});}
 const sgn=ms=>(ms>=0?'+':'−')+fmt(Math.abs(ms));
@@ -1939,12 +1947,12 @@ function renderLog(){const sel=$('#logSel');if(!sel)return;const cur=curLogData(
   sel.innerHTML=opts.join('')||'<option value="">まだログはありません</option>';const d=logData();
   if(d)sel.value=d.id==='cur'?'cur':d.id;$('#logCsv').disabled=$('#logDel').disabled=!d||d.id==='cur'&&cur&&cur.live;
   if(!d){$('#logInfo').textContent='本番でスタートを押すと、ここに記録が残ります。';$('#logChart').innerHTML='';$('#logTable').innerHTML='';return;}
-  const rows=logRows(d);$('#logInfo').textContent=`スタート ${ymd(d.startAt)}　記録 ${rows.length}地点`+(d.el?`　経過 ${hms(d.el)}`:'');
+  const rows=logRows(d),ls=lossOf(d);$('#logInfo').textContent=`スタート ${ymd(d.startAt)}　記録 ${rows.length}地点`+(d.el?`　ネット ${hms(d.el)}`:'')+(d.el&&ls!=null?`　グロス ${hms(d.el+ls)}`:'')+(ls!=null?`　ロスタイム ${hms(ls)}`:'');
   $('#logChart').innerHTML=logChart(rows,d);
   const evs=(d.ev||[]).filter(e=>!['start'].includes(e.type));
-  $('#logTable').innerHTML=`<table><thead><tr><th>km</th><th>経過</th><th>ラップ</th><th>目標との差</th><th>記録方法</th></tr></thead><tbody>`+
-    rows.map(x=>`<tr><td>${x.km}</td><td>${hms(x.t)}</td><td>${x.pace?fmtPace(x.pace):'—'}</td><td class="${x.diff!=null&&x.diff>60000?'late':''}">${x.diff!=null?sgn(x.diff):'—'}</td><td class="src">${x.src}</td></tr>`).join('')+
-    evs.map(e=>`<tr class="ev"><td colspan="5">${clock(e.at)}　${esc(e.msg||e.type)}</td></tr>`).join('')+`</tbody></table>`;}
+  $('#logTable').innerHTML=`<table><thead><tr><th>km</th><th>経過</th><th>グロス</th><th>ラップ</th><th>目標との差</th><th>記録方法</th></tr></thead><tbody>`+
+    rows.map(x=>`<tr><td>${x.km}</td><td>${hms(x.t)}</td><td>${ls!=null?hms(x.t+ls):'—'}</td><td>${x.pace?fmtPace(x.pace):'—'}</td><td class="${x.diff!=null&&x.diff>60000?'late':''}">${x.diff!=null?sgn(x.diff):'—'}</td><td class="src">${x.src}</td></tr>`).join('')+
+    evs.map(e=>`<tr class="ev"><td colspan="6">${clock(e.at)}　${esc(e.msg||e.type)}</td></tr>`).join('')+`</tbody></table>`;}
 function logChart(rows,d){const pts=rows.filter(x=>x.pace);if(pts.length<2)return '<div class="sub">1km以上進むと、ここにグラフを表示します。</div>';
   const W=360,H=150,l=40,r=8,t=8,b=20,lastK=pts[pts.length-1].km,maxK=Math.min(Math.max(5,Math.ceil(lastK/5)*5),Math.max(d.km||lastK,lastK)),X=k=>l+(W-l-r)*k/maxK;
   const pc=pts.map(x=>x.pace),tp=pts.map((x,i)=>{const p0=i?pts[i-1]:{km:0,tgt:0};return x.tgt!=null&&p0.tgt!=null?(x.tgt-p0.tgt)/1000/(x.km-p0.km):null;}).filter(v=>v);
@@ -1964,8 +1972,8 @@ function logChart(rows,d){const pts=rows.filter(x=>x.pace);if(pts.length<2)retur
   const evm=(d.ev||[]).filter(e=>e.type==='auto').map(e=>`<line x1="${X(e.km)}" x2="${X(e.km)}" y1="${t}" y2="${H-b}" stroke="var(--warn)" stroke-dasharray="3 3"/>`).join('');
   return g1+`<div class="chart-t">目標との差（＋は遅れ）</div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="目標との差">${dgrid.join('')}${xt.join('')}${area}${evm}</svg>`;}
 function logCsv(){const d=logData();if(!d)return;const rows=logRows(d);const T_=x=>{try{return typeof I18N!=='undefined'?I18N.tr(String(x)):x;}catch(e){return x;}};const q=v=>`"${String(T_(v)).replace(/"/g,'""')}"`;
-  const L=[['大会',d.name||''],['スタート',ymd(d.startAt)],['距離(km)',d.km||''],[],['km','時刻','経過','ラップ','ラップのペース(/km)','目標の経過','目標との差','記録方法']];
-  rows.forEach(x=>L.push([x.km,clock(x.at),hms(x.t),hms(x.lap),x.pace?fmtPace(x.pace):'',x.tgt!=null?hms(x.tgt):'',x.diff!=null?sgn(x.diff):'',x.src]));
+  const ls=lossOf(d);const L=[['大会',d.name||''],['スタート',ymd(d.startAt)],['ウェーブのスタート',d.waveAt?ymd(d.waveAt):''],['ロスタイム',ls!=null?hms(ls):''],['ネットタイム',d.el?hms(d.el):''],['グロスタイム',d.el&&ls!=null?hms(d.el+ls):''],['距離(km)',d.km||''],[],['km','時刻','経過','グロス経過','ラップ','ラップのペース(/km)','目標の経過','目標との差','記録方法']];
+  rows.forEach(x=>L.push([x.km,clock(x.at),hms(x.t),ls!=null?hms(x.t+ls):'',hms(x.lap),x.pace?fmtPace(x.pace):'',x.tgt!=null?hms(x.tgt):'',x.diff!=null?sgn(x.diff):'',x.src]));
   if((d.ev||[]).length){L.push([]);L.push(['時刻','経過','km','できごと']);d.ev.forEach(e=>L.push([clock(e.at),hms(e.t||0),e.km??'',e.msg||e.type]));}
   const csv='﻿'+L.map(r=>r.map(q).join(',')).join('\r\n');const a=document.createElement('a');const dt=new Date(d.startAt);
   a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`marathon-log-${dt.getFullYear()}${String(dt.getMonth()+1).padStart(2,'0')}${String(dt.getDate()).padStart(2,'0')}-${(d.name||'race').replace(/[\\/:*?"<>|\s]+/g,'_')}.csv`;
@@ -2555,6 +2563,14 @@ W('使い方ガイド','User guide','使用说明','使用說明','사용 가이
 W('（日本語のみ）','(Japanese only)','（仅日语）','（僅日語）','(일본어만)');
 W('閉じる','Close','关闭','關閉','닫기');
 W('マラソンBGM｜走るペースに合わせて手持ちの曲を流す無料アプリ','Marathon BGM — play your own songs at your running pace (free)','马拉松BGM｜按跑步配速播放你自己的歌曲（免费）','馬拉松BGM｜依跑步配速播放你自己的歌曲（免費）','마라톤BGM｜달리기 페이스에 맞춰 내 곡을 재생하는 무료 앱');
+W('先頭ウェーブのスタートから、自分が並ぶブロックのウェーブがスタートするまでの分数。ウェーブがない大会は0','Minutes from the first wave\'s start to the start of your block\'s wave. 0 if the race has no waves','从第一波起跑到你所在区块的波次起跑的分钟数。没有分波的比赛填0','從第一波起跑到你所在區塊的波次起跑的分鐘數。沒有分波的比賽填0','첫 웨이브 출발부터 내 블록 웨이브 출발까지의 분. 웨이브가 없으면 0');
+W('ウェーブスタートの大会は、大会の制限時間に「先頭ウェーブから最終ウェーブがスタートするまでの時間差」を足して入れます（例：6:00＋20分→6:20）','For wave starts, add the gap between the first and last wave starts to the race time limit (e.g. 6:00 + 20 min → 6:20)','分波起跑的比赛，请在比赛限时上加上“第一波到最后一波起跑的时间差”（例：6:00＋20分→6:20）','分波起跑的比賽，請在比賽限時上加上「第一波到最後一波起跑的時間差」（例：6:00＋20分→6:20）','웨이브 출발 대회는 제한 시간에 "첫 웨이브와 마지막 웨이브의 출발 시간 차"를 더해 입력합니다(예: 6:00+20분→6:20)');
+W('ネットタイム（スタートから）','Net time (from your start)','净成绩（从起跑）','淨成績（從起跑）','넷 타임(출발부터)');
+W('ネットタイム','Net time','净成绩','淨成績','넷 타임');
+W('グロスタイム','Gross time','枪声成绩','槍聲成績','그로스 타임');
+W('グロス','Gross','枪声','槍聲','그로스');
+W('グロス経過','Gross elapsed','枪声用时','槍聲用時','그로스 경과');
+W('ウェーブのスタート','Wave start','波次起跑','波次起跑','웨이브 출발');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2698,7 +2714,7 @@ P(/^(.+)：スタートから ([\d:]+)(?:（最後の記録 ([\d.]+)km・([\d:]+
   return [`${n}: ${m[2]} since start${l[0]}. Press "Resume race" to estimate your position from the log, continue, and turn GPS on.`,`${n}：起跑后 ${m[2]}${l[1]}。按“继续比赛”将根据记录推测当前位置并继续播放，同时打开GPS。`,`${n}：起跑後 ${m[2]}${l[2]}。按「繼續比賽」將根據記錄推測目前位置並繼續播放，同時開啟GPS。`,`${n}: 출발 후 ${m[2]}${l[3]}. "대회 재개"를 누르면 기록으로 현재 위치를 추정해 이어서 재생하고 GPS도 켭니다.`];});
 P(/^走行中：(.+)$/,m=>[`Running: ${nm(m[1])}`,`进行中：${nm(m[1])}`,`進行中：${nm(m[1])}`,`진행 중: ${nm(m[1])}`]);
 P(/^今回：(.+)$/,m=>[`This race: ${nm(m[1])}`,`本次：${nm(m[1])}`,`本次：${nm(m[1])}`,`이번: ${nm(m[1])}`]);
-P(/^スタート (\d.+)$/,m=>[`Start ${m[1]}`,`起跑 ${m[1]}`,`起跑 ${m[1]}`,`출발 ${m[1]}`]);
+P(/^スタート (\d[^　]*)$/,m=>[`Start ${m[1]}`,`起跑 ${m[1]}`,`起跑 ${m[1]}`,`출발 ${m[1]}`]);
 P(/^記録 (\d+)地点$/,m=>[`${m[1]} points recorded`,`记录 ${m[1]}处`,`記錄 ${m[1]}處`,`기록 ${m[1]}지점`]);
 P(/^([+−-]?\d+)分$/,m=>[`${m[1]} min`,`${m[1]}分`,`${m[1]}分`,`${m[1]}분`]);
 P(/^([\d.]+)km 目標より(.+)遅れ → 完走優先 時速([\d.]+)km（(.+)\/km）$/,m=>{const v=dur(m[2]);return [`${m[1]} km: ${v} behind target → finish-first ${m[3]} km/h (${m[4]}/km)`,`${m[1]}公里 比目标慢${v} → 完赛优先 时速${m[3]}公里（${m[4]}/公里）`,`${m[1]}公里 比目標慢${v} → 完賽優先 時速${m[3]}公里（${m[4]}/公里）`,`${m[1]}km 목표보다 ${v} 늦음 → 완주 우선 시속 ${m[3]}km (${m[4]}/km)`];});
@@ -2735,6 +2751,11 @@ P(/^本番：(.+?)(?: 目標 ([\d:]+))?$/,m=>{const g=m[2]?[` target ${m[2]}`,` 
 P(/^「(.+)」は今読み込んでいるものではないため上書きできません$/,m=>[`"${m[1]}" is not the loaded item, so it cannot be overwritten`,`「${m[1]}」不是当前读取的项目，无法覆盖`,`「${m[1]}」不是目前讀取的項目，無法覆蓋`,`"${m[1]}"은(는) 지금 불러온 항목이 아니어서 덮어쓸 수 없습니다`]);
 P(/^別の名前で保存するか、先に「(.+)」を読み込んでから上書きしてください$/,m=>[`Save under another name, or load "${m[1]}" first and then overwrite it`,`请换个名称保存，或先读取「${m[1]}」再覆盖`,`請換個名稱儲存，或先讀取「${m[1]}」再覆蓋`,`다른 이름으로 저장하거나, 먼저 "${m[1]}"을(를) 불러온 뒤 덮어쓰세요`]);
 P(/^流す曲 (\d+)曲が、この一覧に並んでいます$/,m=>[`${PL(m[1],'song')} to play are now in this list`,`要播放的${m[1]}首歌已排在此列表中`,`要播放的${m[1]}首歌已排在此清單中`,`재생할 곡 ${m[1]}곡이 이 목록에 있습니다`]);
+P(/^グロスタイム（ロス ([\d:]+)）$/,m=>[`Gross time (loss ${m[1]})`,`枪声成绩（损失 ${m[1]}）`,`槍聲成績（損失 ${m[1]}）`,`그로스 타임(로스 ${m[1]})`]);
+P(/^ネット (.+)$/,m=>[`Net ${m[1]}`,`净 ${m[1]}`,`淨 ${m[1]}`,`넷 ${m[1]}`]);
+P(/^グロス (.+)$/,m=>[`Gross ${m[1]}`,`枪声 ${m[1]}`,`槍聲 ${m[1]}`,`그로스 ${m[1]}`]);
+P(/^ロスタイム ([\d:]+)（ウェーブのスタートから）$/,m=>[`Start loss ${m[1]} (from your wave start)`,`起跑损失 ${m[1]}（从波次起跑）`,`起跑損失 ${m[1]}（從波次起跑）`,`로스타임 ${m[1]}(웨이브 출발부터)`]);
+P(/^ロスタイム (.+)$/,m=>[`Start loss ${m[1]}`,`起跑损失 ${m[1]}`,`起跑損失 ${m[1]}`,`로스타임 ${m[1]}`]);
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
