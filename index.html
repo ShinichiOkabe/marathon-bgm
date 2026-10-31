@@ -147,7 +147,7 @@ body.locked #spdRow,body.locked #fixRow,body.locked .run>.ctrls,body.locked #mus
 .kmtoast{position:fixed;left:0;right:0;margin:0 auto;width:max-content;max-width:calc(100% - 32px);white-space:nowrap;top:18%;z-index:80;pointer-events:none;min-width:12em;text-align:center;padding:16px 28px;border-radius:20px;background:rgba(20,32,43,.92);color:#fff;box-shadow:0 10px 40px rgba(0,0,0,.35)}
 .kmtoast.show{animation:kmin .35s ease-out}@keyframes kmin{from{opacity:0;transform:translateY(-12px) scale(.96)}to{opacity:1;transform:none}}
 .kmtoast .kk{font-family:var(--f-num);font-size:3.2rem;font-weight:800;line-height:1.05}.kmtoast .kl{font-family:var(--f-num);font-size:1.9rem;font-weight:700;margin-top:4px}
-.kmtoast .kd{font-size:1rem;margin-top:6px;opacity:.9}.kmtoast .kd.late{color:#ffb38a;font-weight:700}.kmtoast .kd.fast{color:#9be7b0;font-weight:700}
+.kmtoast .kp{font-size:1rem;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.25)}.kmtoast .kd{font-size:1rem;margin-top:6px;opacity:.9}.kmtoast .kd.late{color:#ffb38a;font-weight:700}.kmtoast .kd.fast{color:#9be7b0;font-weight:700}
 .musicres{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;padding:16px 10px;font-size:1.3rem;font-weight:800;color:#fff;background:var(--warn);border:0;border-radius:14px;margin:6px 0}.musicres small{font-size:.8rem;font-weight:600}
 .lock-bar .musicres{flex:1 1 100%;margin:0}
 .lock-bar .spdlock{display:flex;gap:8px;flex:1 1 100%}.lock-bar .spdlock .unlock{flex:1;padding:12px 4px;font-size:1rem}
@@ -599,7 +599,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-10-30b</p>
+  <p class="ver" data-notr translate="no">版 2026-10-31a</p>
 </div>
 
 <div id="helpPanel" class="help-panel" hidden role="dialog" aria-label="使い方ガイド">
@@ -620,7 +620,7 @@ body.live .recv{display:none}
 <p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。</p>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>リラックス ／ 曲 ／ 音・合図</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
-<p>ページの一番下には「版 2026-10-30b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-10-31a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
@@ -660,7 +660,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h2 id="h-7">7. 音と音声のお知らせ</h2>
 <p>「曲」タブの一番上の「流す音」で、曲・ドラム・無音を選べます。ドラムと無音では曲を使わないので、紫の枠「🎵 曲の登録（マイリスト）」は表示されません。合図音、音量、リズムの微調整（曲がゆっくりに感じたら「早く」）は「音・合図」タブで変えられます。</p>
 <table><thead><tr><th>流す音</th><th>流れる音</th></tr></thead><tbody><tr><td>曲を流す</td><td>「使う」にチェックした曲を、ペースに合わせた速さで</td></tr><tr><td>ドラム</td><td>曲の代わりに、ペースに合った歩数（例：171歩/分）でドラム</td></tr><tr><td>無音</td><td>音楽なし。合図音と音声のお知らせだけ</td></tr></tbody></table>
-<p>本番では、次のようなときに音声で知らせます。1 kmごとのお知らせは「音・合図」タブで外せます。</p>
+<p>本番では、次のようなときに音声で知らせます。1 kmごとのお知らせは「音・合図」タブで外せます。1 kmごとに画面に出るラップの表示には、直近1 kmのペースをそのまま続けたときのゴール予想（ネットタイムとゴールの時刻）も出ます。制限時間に間に合わない予想のときは、そのことも表示します。</p>
 <table><thead><tr><th>いつ</th><th>言うことの例</th></tr></thead><tbody><tr><td>スタート5分前・スタート時刻</td><td>「スタート5分前です」「スタート時刻です」</td></tr><tr><td>1 kmごと</td><td>「17キロ。ラップ6分12秒。」（画面にも大きく表示）</td></tr><tr><td>30分ごと</td><td>「60分経過。戦略では9.8キロ地点です」</td></tr><tr><td>給水所の300 m手前</td><td>「まもなく給水所です。水、バナナがあります」</td></tr><tr><td>戦略を自動で調整したとき</td><td>「直近5キロのペースに合わせて…」</td></tr></tbody></table>
 <h2 id="h-8">8. 記録（ログ）とグラフ</h2>
 <p>本番では、スタート時刻と1 kmごとの通過時間を自動で記録します。見る場所は「本番」→「戦略・記録」タブの「本番のログ」です。</p>
@@ -1844,9 +1844,14 @@ if(MODE==='race'){fillStratN();if(!(document.activeElement&&document.activeEleme
 opt.kmNotice=store.get('cbgm-kmnotice',true)!==false;$('#optKm').checked=opt.kmNotice;
 $('#optKm').addEventListener('change',e=>{opt.kmNotice=e.target.checked;store.set('cbgm-kmnotice',opt.kmNotice);});
 const kmT=document.createElement('div');kmT.className='kmtoast';kmT.hidden=true;kmT.setAttribute('role','status');document.body.appendChild(kmT);let kmTT=0;
-function kmToast(km,lapMs,diffMs,est){const d=diffMs==null?'':Math.abs(diffMs)<5000?'<div class="kd">目標どおり</div>':`<div class="kd ${diffMs>0?'late':'fast'}">目標より ${diffMs>0?'+':'−'}${fmt(Math.abs(diffMs))}</div>`;
-  kmT.innerHTML=`<div class="kk">${km} km</div><div class="kl">ラップ ${fmtPace(lapMs/1000)}</div>${est?'<div class="kd">推定</div>':''}${d}`;kmT.hidden=false;
+function kmToast(km,lapMs,diffMs,est,pred){const d=diffMs==null?'':Math.abs(diffMs)<5000?'<div class="kd">目標どおり</div>':`<div class="kd ${diffMs>0?'late':'fast'}">目標より ${diffMs>0?'+':'−'}${fmt(Math.abs(diffMs))}</div>`;
+  kmT.innerHTML=`<div class="kk">${km} km</div><div class="kl">ラップ ${fmtPace(lapMs/1000)}</div>${est?'<div class="kd">推定</div>':''}${d}${pred||''}`;kmT.hidden=false;
   kmT.classList.remove('show');void kmT.offsetWidth;kmT.classList.add('show');clearTimeout(kmTT);kmTT=setTimeout(()=>{kmT.hidden=true;},7000);}
+/* 直近1kmのペースを続けたときのゴール予想（ネットタイム・ゴール時刻） */
+function predHtml(row,lap){const tot=rcKm();if(!(lap>0)||!tot||row.km>=tot-0.01)return '';
+  const net=row.t+(tot-row.km)*lap,at=RS.startAt+net,g=rcGunMs(),lim=(+RC.limit||0)*60000,over=g&&lim&&at>g+lim;
+  const sec=Math.round(net/1000);
+  return `<div class="kp">このペースならゴール ${fmtHMS(sec)}（${clock(at)}着）</div>`+(over?'<div class="kd late">制限時間に間に合いません</div>':'');}
 const LOGS_KEY='cbgm-race-logs',RUN_KEY='cbgm-race-run';
 let raceLogs=store.get(LOGS_KEY,[]);if(!Array.isArray(raceLogs))raceLogs=[];raceLogs=raceLogs.slice(0,1);
 const hms=ms=>fmtHMS(Math.max(0,ms)/1000);
@@ -1864,7 +1869,7 @@ function raceLogTick(el){if(!RS.startAt)return;RS.log=RS.log||[];const P=posInfo
     if(j%5===0)autoCheck(row);}
   if(L.length>added0&&opt.kmNotice!==false){const row=L[L.length-1],prev=L.length>1?L[L.length-2]:{km:0,t:0},lap=row.t-prev.t,est=row.src==='推定';
     const justFixed=!est&&!P.gps&&P.last&&Math.abs(P.last.km-row.km)<1e-6&&el-P.last.t<5000;
-    if(!justFixed)say(`${est?'推定':''}${row.km}キロ。ラップ${sayPace(lap/1000)}。`);kmToast(row.km,lap,!est&&row.tgt!=null?row.t-row.tgt:null,est);}
+    if(!justFixed)say(`${est?'推定':''}${row.km}キロ。ラップ${sayPace(lap/1000)}。`);kmToast(row.km,lap,!est&&row.tgt!=null?row.t-row.tgt:null,est,predHtml(row,lap));}
   {const real=[{km:0,t:0}].concat((RS.fix||[]).map(f=>({km:f.km,t:f.t}))).sort((a,b)=>a.km-b.km);
    L.forEach(x=>{if(x.src!=='推定')return;let a=null,c=null;for(const r of real){if(r.km<=x.km+1e-6)a=r;else{c=r;break;}}
      if(a&&c&&c.t>a.t){const t=Math.round(a.t+(c.t-a.t)*(x.km-a.km)/(c.km-a.km));if(Math.abs(t-x.t)>1000){x.t=t;x.at=RS.startAt+t;}}});}
@@ -2584,6 +2589,7 @@ W('曲を一時停止','Pause music','暂停音乐','暫停音樂','음악 일�
 W('曲を再開（時計は進んでいます）','Resume music (clock still running)','恢复音乐（计时继续）','恢復音樂（計時持續）','음악 재개(시계는 계속 진행)');
 W('曲を一時停止（時計は止まりません）','Music paused (clock keeps running)','音乐暂停（计时不停）','音樂暫停（計時不停）','음악 일시정지(시계는 멈추지 않음)');
 W('曲を再開','Music resumed','音乐恢复','音樂恢復','음악 재개');
+W('制限時間に間に合いません','You will miss the time limit','赶不上关门时间','趕不上關門時間','제한 시간에 늦습니다');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2769,6 +2775,7 @@ P(/^ネット (.+)$/,m=>[`Net ${m[1]}`,`净 ${m[1]}`,`淨 ${m[1]}`,`넷 ${m[1]}`
 P(/^グロス (.+)$/,m=>[`Gross ${m[1]}`,`枪声 ${m[1]}`,`槍聲 ${m[1]}`,`그로스 ${m[1]}`]);
 P(/^ロスタイム ([\d:]+)（ウェーブのスタートから）$/,m=>[`Start loss ${m[1]} (from your wave start)`,`起跑损失 ${m[1]}（从波次起跑）`,`起跑損失 ${m[1]}（從波次起跑）`,`로스타임 ${m[1]}(웨이브 출발부터)`]);
 P(/^ロスタイム (.+)$/,m=>[`Start loss ${m[1]}`,`起跑损失 ${m[1]}`,`起跑損失 ${m[1]}`,`로스타임 ${m[1]}`]);
+P(/^このペースならゴール ([\d:]+)（([\d:]+)着）$/,m=>[`At this pace: finish ${m[1]} (${m[2]})`,`按此配速完赛 ${m[1]}（${m[2]}到达）`,`按此配速完賽 ${m[1]}（${m[2]}抵達）`,`이 페이스면 골 ${m[1]}(${m[2]} 도착)`]);
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
