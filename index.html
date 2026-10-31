@@ -9,12 +9,12 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="マラソンBGM">
 <title>マラソンBGM｜走るペースに合わせて手持ちの曲を流す無料アプリ</title>
-<meta name="description" content="マラソンBGMは、スマホの中の自分の曲（MP3など）を、走るペースに合ったテンポで音程を変えずに流す無料のWebアプリです。練習メニュー、マラソン大会本番の目標タイム・関門・給水所、GPS、1kmごとの音声案内に対応。登録不要でオフラインでも使えます。">
+<meta name="description" content="マラソンBGMは、スマホの中の自分の曲（MP3など）を、走るペースに合ったテンポで音程を変えずに流す無料のWebアプリです。練習メニュー、マラソン大会本番の目標タイム・関門・給水所、GPS、1km毎の音声案内に対応。登録不要でオフラインでも使えます。">
 <link rel="canonical" href="https://shinichiokabe.github.io/marathon-bgm/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shinichiokabe.github.io/marathon-bgm/">
 <meta property="og:title" content="マラソンBGM｜走るペースに合わせて手持ちの曲を流す無料アプリ">
-<meta property="og:description" content="マラソンBGMは、スマホの中の自分の曲（MP3など）を、走るペースに合ったテンポで音程を変えずに流す無料のWebアプリです。練習メニュー、マラソン大会本番の目標タイム・関門・給水所、GPS、1kmごとの音声案内に対応。登録不要でオフラインでも使えます。">
+<meta property="og:description" content="マラソンBGMは、スマホの中の自分の曲（MP3など）を、走るペースに合ったテンポで音程を変えずに流す無料のWebアプリです。練習メニュー、マラソン大会本番の目標タイム・関門・給水所、GPS、1km毎の音声案内に対応。登録不要でオフラインでも使えます。">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -71,7 +71,7 @@ section{display:flex;flex-direction:column;gap:12px}
 .seg-line{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
 .seg-name{font-weight:700;font-size:1.05rem}
 .seg-line.race{justify-content:flex-start}.seg-line.race .seg-name{order:-1}
-.f .hint{display:block;margin-top:3px;font-size:.72rem;font-weight:400;line-height:1.4;color:var(--muted)}
+#optVibNote:empty{display:none}#optVibNote{display:block;font-size:.72rem;color:var(--muted);margin-top:2px}.f .hint{display:block;margin-top:3px;font-size:.72rem;font-weight:400;line-height:1.4;color:var(--muted)}
 .big{font-family:var(--f-num);font-weight:700;font-size:clamp(4.2rem,22vw,6.5rem);line-height:.9;letter-spacing:.01em;font-variant-numeric:tabular-nums}
 .big-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .target{text-align:right}
@@ -107,7 +107,7 @@ section{display:flex;flex-direction:column;gap:12px}
 .srow .sp{font-family:var(--f-num);font-size:1rem;color:var(--muted)}
 .srow.cur{background:var(--cur-bg);border-radius:8px;padding:8px 4px} 
 .od table.laps{width:100%;border-collapse:collapse;margin-top:8px;font-family:var(--f-num);font-size:.95rem}.od table.laps th{font-family:inherit;font-size:.75rem;color:var(--muted);font-weight:600;text-align:right;padding:2px 6px}.od table.laps td{text-align:right;padding:3px 6px;border-top:1px solid var(--line)}.od table.laps td.late{color:var(--warn);font-weight:700}.od table.laps td.fast{color:var(--accent);font-weight:700}
-.stabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:-8px}
+.stabs[hidden]{display:none}.stabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:-8px}
 .stab{flex:1 1 0;min-width:0;border:0;border-bottom:3px solid transparent;border-radius:10px 10px 0 0;background:none;padding:10px 4px;font-weight:700;color:var(--muted);margin-bottom:-2px}
 .stab:hover{border-color:transparent;border-bottom-color:var(--line)}
 .stab.on{color:var(--ink);border-bottom-color:var(--accent);background:var(--accent-soft)}
@@ -255,7 +255,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 @keyframes rphit{0%,60%{box-shadow:0 0 0 4px var(--amber);background:var(--amber-soft)}100%{box-shadow:none}}#rcName.rp-hit{animation:rphit 2.4s ease-out}
 .csv-sel{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.csv-sel select{flex:1 1 200px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
 .newver{position:fixed;left:8px;right:8px;top:8px;z-index:90;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--amber-soft);border:2px solid var(--amber);color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,.25);font-size:.9rem}.newver span{flex:1 1 180px}.newver[hidden]{display:none}
-#mlSec[hidden]{display:none}
+#mlSec[hidden],#songsSec[hidden]{display:none}
 #mlSec{background:var(--ml-bg);border:3px solid var(--ml-line);border-radius:14px;padding:0 12px 14px;margin:18px 0;overflow:hidden}
 #mlSec h2{margin:0 -12px 8px;padding:12px 14px;background:var(--ml-line);color:#fff;font-size:1.1rem}#mlSec .sub{color:var(--ml-ink)}#mlSec .ml{background:var(--surface)}#mlSec .ml.cur{background:var(--cur-y)}
 #mlList .ml{border-left:5px solid var(--ml-line)}
@@ -522,12 +522,12 @@ body.live .recv{display:none}
       <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。</span></div>
       <div id="stratList"></div>
       <div class="ctrls"><button class="small" id="stratAdd">＋ ステージを追加</button><span class="sauto">目標タイムから<select id="stratN" aria-label="作るステージ数"></select>で<button class="small" id="stratAuto">作る</button></span><button class="small" id="stratClear">戦略を消す</button></div>
-      <label class="chk"><input type="checkbox" id="rcAutoSafe"> 5kmごとに、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）</label>
+      <label class="chk"><input type="checkbox" id="rcAutoSafe"> 5km毎に、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）</label>
       <p class="ml-msg err" id="stratMsg"></p>
       <div class="sub" id="stratSum"></div>
     </div>
     <div class="rp rlog">
-      <div class="strat-h"><b>本番のログ</b><span class="sub">スタート時刻と1kmごとの通過時間を記録します。途中でスマホの電源が切れても、ページを開き直すと記録から今の位置を推測して続きから再開できます。前回の大会の記録は、次の大会でスタートを押すまで、ここでグラフを見たりダウンロードしたりできます。</span></div>
+      <div class="strat-h"><b>本番のログ</b><span class="sub">スタート時刻と1km毎の通過時間を記録します。途中でスマホの電源が切れても、ページを開き直すと記録から今の位置を推測して続きから再開できます。前回の大会の記録は、次の大会でスタートを押すまで、ここでグラフを見たりダウンロードしたりできます。</span></div>
       <div class="ctrls"><select id="logSel" aria-label="ログを選ぶ"></select><button class="small" id="logCsv">CSVをダウンロード</button><button class="small" id="logDel">このログを削除</button></div>
       <div id="logInfo" class="sub"></div>
       <div id="logChart"></div>
@@ -542,7 +542,7 @@ body.live .recv{display:none}
       <p class="sub" id="srcNote"></p>
     </div>
   <!-- SONGS -->
-  <section>
+  <section id="songsSec">
     <div class="sec-head">
       <div><h2>曲</h2><p class="sub" id="songsTxt">「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。曲ごとに流すステージも選べます（「全ステージ」か、個別のステージ）。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。</p></div>
       <div class="ctrls"><button id="btnAdd">曲を追加</button><button id="btnShuffle" hidden>シャッフル</button><button id="btnClear" hidden>すべてクリア</button></div>
@@ -583,7 +583,8 @@ body.live .recv{display:none}
     <div class="sec-head"><div><h2>音・合図</h2><p class="sub">合図音やお知らせ、クリック音、音量、リズムの微調整です。</p></div></div>
     <div class="opts opts-v">
       <label><input type="checkbox" id="optCue" checked> ステージの切り替えで合図音</label>
-      <label><input type="checkbox" id="optKm" checked> 1kmごとにお知らせ（音声と画面）</label>
+      <label><input type="checkbox" id="optKm" checked> 1km毎にお知らせ（音声と画面）</label>
+      <label id="optVibRow" hidden><input type="checkbox" id="optVib"> 1km毎にバイブレーション<span class="hint" id="optVibNote"></span></label>
       <label><input type="checkbox" id="optClick"> クリック音</label>
       <label><input type="checkbox" id="optPitch"> 音程を保つ（オフの方が音がきれい）</label>
       <label>曲の音量 <input type="range" id="optVol" min="0" max="1" step="0.05" value="0.75"></label>
@@ -599,7 +600,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-10-31a</p>
+  <p class="ver" data-notr translate="no">版 2026-10-31e</p>
 </div>
 
 <div id="helpPanel" class="help-panel" hidden role="dialog" aria-label="使い方ガイド">
@@ -618,13 +619,13 @@ body.live .recv{display:none}
 <p>曲がなくても、「曲」タブの一番上の「流す音」で「ドラム」か「無音」を選べば使えます。</p>
 <h2 id="h-3">3. 画面の見方</h2>
 <p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。</p>
-<table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>リラックス ／ 曲 ／ 音・合図</td></tr></tbody></table>
+<table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
-<p>ページの一番下には「版 2026-10-31a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-10-31e」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
-<table><thead><tr><th></th><th>屋内</th><th>屋外（GPS）</th></tr></thead><tbody><tr><td>ステージが進むとき</td><td>決めた時間がたったとき</td><td>決めた距離を走ったとき</td></tr><tr><td>1 kmごとのお知らせとラップ表</td><td>なし</td><td>あり</td></tr></tbody></table>
+<table><thead><tr><th></th><th>屋内</th><th>屋外（GPS）</th></tr></thead><tbody><tr><td>ステージが進むとき</td><td>決めた時間がたったとき</td><td>決めた距離を走ったとき</td></tr><tr><td>1 km毎のお知らせとラップ表</td><td>なし</td><td>あり</td></tr></tbody></table>
 <p>屋外では、「GPSの位置をつかみました。」と出てからスタートしてください。走っている途中の「ペースアップ／ダウン」は、時速を0.1 kmずつ変えてテンポを合わせます。「練習の内容をクリア」はメニューだけを空にします（2回押す）。</p>
 <h3>CSVファイルから、日ごとの練習メニューを読み込む</h3>
 <p>下の「CSVの形式」で書いたCSVファイルがあれば、その日の練習メニューを自動で表示できます。場所は「メニュー」タブの「＋ ステージを追加」の下の「練習メニュー・CSVを読み込む」です。</p>
@@ -653,18 +654,18 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h3>走っている間の表示</h3>
 <table><thead><tr><th>表示</th><th>意味</th></tr></thead><tbody><tr><td>スタートから</td><td>自分がスタートを押してからの時間</td></tr><tr><td>制限時間まで</td><td>号砲からの制限時間の残り</td></tr><tr><td>推定の現在地</td><td>GPS・1 km通過・目標ペースから計算した今の距離</td></tr><tr><td>次の関門・次の給水</td><td>そこまでの距離、閉鎖までの時間や内容</td></tr><tr><td>30分後の目標距離</td><td>戦略どおりなら30分後にいるはずの距離</td></tr></tbody></table>
 <p><strong>ネットタイムとグロスタイム</strong>：走っている間の大きなタイマーは、自分が「スタート」を押してからの時間（ネットタイム）です。ゴールすると、グロスタイムも表示します。グロスタイムは「スタート時刻＋ウェーブの遅れ」（自分のウェーブのスタート）からゴールまでの時間で、ネットタイムは、自分がスタートラインを通過してからゴールまでの時間です。本番では、走っている間に曲を一時停止しても時計は止まりません。グロスタイムはログとCSVにも残ります。</p>
-<p>距離の看板を通ったときに「1 km通過」を長押しすると、現在地を正しく直せます。5 kmごとに目標より10分以上遅れていると、直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに）。</p>
+<p>距離の看板を通ったときに「1 km通過」を長押しすると、現在地を正しく直せます。5 km毎に目標より10分以上遅れていると、直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに）。</p>
 <h2 id="h-6">6. リラックス</h2>
 <p>「使う」にチェックした曲を、元の速さのまま「ストップ」を押すまで繰り返し流します。ストレッチやクールダウンのときに使えます。</p>
-<ol><li>「3. リラックス」を押します。</li><li>「リラックス」タブの下にある紫の枠「🎵 曲の登録（マイリスト）」で、流したい曲の組み合わせを「読み込む」か、新しく登録します。</li><li>順番をバラバラにしたいときは「曲をシャッフルして流す」にチェックし、「再生」を押します。</li></ol>
+<ol><li>「3. リラックス」を押します。</li><li>リラックスにはタブがなく、設定と曲が1つの画面にまとまっています。本番の「曲」タブと同じ並びで、曲を追加する場所・曲の一覧・紫の枠「🎵 曲の登録（マイリスト）」が続きます。マイリストで流したい曲の組み合わせを「読み込む」か、新しく登録します。</li><li>順番をバラバラにしたいときは「曲をシャッフルして流す」にチェックし、「再生」を押します。</li></ol>
 <h2 id="h-7">7. 音と音声のお知らせ</h2>
-<p>「曲」タブの一番上の「流す音」で、曲・ドラム・無音を選べます。ドラムと無音では曲を使わないので、紫の枠「🎵 曲の登録（マイリスト）」は表示されません。合図音、音量、リズムの微調整（曲がゆっくりに感じたら「早く」）は「音・合図」タブで変えられます。</p>
+<p>「曲」タブの一番上の「流す音」で、曲・ドラム・無音を選べます。ドラムと無音では曲を使わないので、曲の一覧（曲を追加）、紫の枠「🎵 曲の登録（マイリスト）」、「曲の先頭へ」「次の曲」のボタンは表示されません。合図音、音量、リズムの微調整（曲がゆっくりに感じたら「早く」）は「音・合図」タブで変えられます。</p>
 <table><thead><tr><th>流す音</th><th>流れる音</th></tr></thead><tbody><tr><td>曲を流す</td><td>「使う」にチェックした曲を、ペースに合わせた速さで</td></tr><tr><td>ドラム</td><td>曲の代わりに、ペースに合った歩数（例：171歩/分）でドラム</td></tr><tr><td>無音</td><td>音楽なし。合図音と音声のお知らせだけ</td></tr></tbody></table>
-<p>本番では、次のようなときに音声で知らせます。1 kmごとのお知らせは「音・合図」タブで外せます。1 kmごとに画面に出るラップの表示には、直近1 kmのペースをそのまま続けたときのゴール予想（ネットタイムとゴールの時刻）も出ます。制限時間に間に合わない予想のときは、そのことも表示します。</p>
-<table><thead><tr><th>いつ</th><th>言うことの例</th></tr></thead><tbody><tr><td>スタート5分前・スタート時刻</td><td>「スタート5分前です」「スタート時刻です」</td></tr><tr><td>1 kmごと</td><td>「17キロ。ラップ6分12秒。」（画面にも大きく表示）</td></tr><tr><td>30分ごと</td><td>「60分経過。戦略では9.8キロ地点です」</td></tr><tr><td>給水所の300 m手前</td><td>「まもなく給水所です。水、バナナがあります」</td></tr><tr><td>戦略を自動で調整したとき</td><td>「直近5キロのペースに合わせて…」</td></tr></tbody></table>
+<p>本番では、次のようなときに音声で知らせます。1 km毎のお知らせは「音・合図」タブで外せます。「1km毎にバイブレーション」にチェックを入れると、1 km毎に1回ブルッと震えます（本番と練習の屋外。Androidのみ。iPhoneは非対応）。1 km毎に画面に出るラップの表示には、直近1 kmのペースをそのまま続けたときのゴール予想（ネットタイムとゴールの時刻）も出ます。制限時間に間に合わない予想のときは、そのことも表示します。</p>
+<table><thead><tr><th>いつ</th><th>言うことの例</th></tr></thead><tbody><tr><td>スタート5分前・スタート時刻</td><td>「スタート5分前です」「スタート時刻です」</td></tr><tr><td>1 km毎</td><td>「17キロ。ラップ6分12秒。」（画面にも大きく表示）</td></tr><tr><td>30分ごと</td><td>「60分経過。戦略では9.8キロ地点です」</td></tr><tr><td>給水所の300 m手前</td><td>「まもなく給水所です。水、バナナがあります」</td></tr><tr><td>戦略を自動で調整したとき</td><td>「直近5キロのペースに合わせて…」</td></tr></tbody></table>
 <h2 id="h-8">8. 記録（ログ）とグラフ</h2>
-<p>本番では、スタート時刻と1 kmごとの通過時間を自動で記録します。見る場所は「本番」→「戦略・記録」タブの「本番のログ」です。</p>
-<ul><li><strong>グラフ</strong>：1 kmごとのペース（実際と目標）と、目標との差が自動で出ます。</li><li><strong>表</strong>：1 kmごとの経過（ネット）とグロスの時間が並びます。上の行にネットタイム・グロスタイム・ロスタイムも出ます。</li><li><strong>CSVをダウンロード</strong>：Excelで開けるファイルで保存できます。</li></ul>
+<p>本番では、スタート時刻と1 km毎の通過時間を自動で記録します。見る場所は「本番」→「戦略・記録」タブの「本番のログ」です。</p>
+<ul><li><strong>グラフ</strong>：1 km毎のペース（実際と目標）と、目標との差が自動で出ます。</li><li><strong>表</strong>：1 km毎の経過（ネット）とグロスの時間が並びます。上の行にネットタイム・グロスタイム・ロスタイムも出ます。</li><li><strong>CSVをダウンロード</strong>：Excelで開けるファイルで保存できます。</li></ul>
 <p>残るのは前回の大会1回分です。<strong>次の大会でスタートを押すと消える</strong>ので、残したいときはその前にCSVをダウンロードしてください。</p>
 <h2 id="h-9">9. 困ったとき</h2>
 <table><thead><tr><th>こんなとき</th><th>どうするか</th></tr></thead><tbody><tr><td>走っている途中でスマホの電源が切れた</td><td>マラソンBGMを開き直すだけで、続きから自動で再開します。音が出なければ画面のどこかに触れます</td></tr><tr><td>Bluetoothイヤホンが切れて音楽が止まった</td><td>つながったらオレンジ色の「▶ 音楽を再開」を押します。タイマーは止まっていません</td></tr><tr><td>曲が流れない</td><td>「曲」タブで「使う」にチェックがあるか、「流す音」が「曲を流す」か、スマホの音量を確かめます</td></tr><tr><td>GPSが使えない</td><td>https://shinichiokabe.github.io/marathon-bgm/ で開いているか、Chromeの位置情報が「許可」かを確かめます</td></tr><tr><td>「スタート」が押せない（本番）</td><td>スタート時刻の1秒前までは押せません</td></tr><tr><td>マイリストを読み込んでも大会名が変わらない</td><td>マイリストは曲だけです。大会は「本番レース情報・戦略を保存」の「読み込む」を押します</td></tr><tr><td>「上書き」が押せない</td><td>上書きできるのは黄色の行（読み込み中）だけです。先にその行の「読み込む」を押します</td></tr><tr><td>日本語がおかしい</td><td>ブラウザの自動翻訳を「元の表示」に戻します</td></tr><tr><td>直したはずのところが古いまま</td><td>ページの一番下の「版」を確かめ、古ければChromeのタブを閉じて開き直します</td></tr><tr><td>「このファイルは読み込めません」と出る（CSV）</td><td>「4. 練習で走る」の「CSVの形式」と合っているか、とくに1行目が「marathon-bgm-bulk」で始まっているかを確かめます。Excelなどで開いて保存し直すと、形式が変わって読めなくなることがあります</td></tr></tbody></table>
@@ -1389,7 +1390,7 @@ function odFix(p){if(!OD.active)return;const c=p.coords;OD.acc=c.accuracy;OD.msg
     if(OD.dist>=OD.kmNext){const lap=raw-OD.kmT;OD.kmT=raw;const i=segAt(odEl(OD.dist)),tp=menu[i]?menu[i].pace:null;
       (OD.laps=OD.laps||[]).push({km:OD.kmNext,lap,t:raw,tp:tp?tp*1000:null,name:menu[i]?menu[i].name:''});
       let m=`${OD.kmNext}キロ。この1キロは${sayPace(lap/1000)}`;if(tp){const df=Math.round(lap/1000-tp);m+=Math.abs(df)<5?'、目標どおりです。':`、目標より${Math.abs(df)}秒${df<0?'速い':'遅い'}です。`;}
-      if(opt.kmNotice!==false){say(m);kmToast(OD.kmNext,lap,tp?lap-tp*1000:null,false);}OD.kmNext=Math.floor(OD.dist)+1;}}}
+      if(opt.kmVib)kmVibrate();if(opt.kmNotice!==false){say(m);kmToast(OD.kmNext,lap,tp?lap-tp*1000:null,false);}OD.kmNext=Math.floor(OD.dist)+1;}}}
 {const _s=start;start=function(){const fresh=R.done||(!R.running&&R.acc===0);if(MODE==='practice'&&opt.outdoor&&fresh)odStart();
   else if(MODE==='practice'&&opt.outdoor&&OD.active)OD.pt=null;return _s.apply(this,arguments);};
  const _r=reset;reset=function(){odStop();return _r.apply(this,arguments);};
@@ -1837,12 +1838,18 @@ document.addEventListener('click',e=>{const t=e.target,d=t.dataset||{};if(!(t.id
   if(d.pmload){if(R.running||R.acc>0){pmMsg('走っている間は読み込めません。',true);return;}const p=menuPresets.find(x=>x.id===d.pmload);if(!p||!validMenu(p.menu))return;blurInputs();
     menu=p.menu.map(toStage);activePreset='custom';saveMenu();activePM=p.id;store.set('cbgm-pm-active',activePM);pmMsg(`「${p.name}」を読み込みました。`);flashPM(p.id,'読み込みました ✓');renderAll();return;}});
 {const _a=applyModeUI;applyModeUI=function(){_a();if(MODE==='practice')renderPM();
-  {const ml=$('#mlSec');if(ml){if(MODE==='relax'){const r=$('#relaxSec');if(r&&r.nextElementSibling!==ml)r.after(ml);}else{const sl=$('#songList');const sec=sl&&sl.closest('section');if(sec&&sec.nextElementSibling!==ml)sec.after(ml);}}}
+  {const ml=$('#mlSec');if(ml){{const sl=$('#songList');const sec=sl&&sl.closest('section');if(sec&&sec.nextElementSibling!==ml)sec.after(ml);}}}
 if(MODE==='race'){fillStratN();if(!(document.activeElement&&document.activeElement.dataset&&(document.activeElement.dataset.sto!=null||document.activeElement.dataset.sspd!=null)))renderStrat();renderRP();}};}
 /* ===================== race log / resume / 戦略の自動調整 ===================== */
-/* ---------- 1kmごとのお知らせ（画面の上に重ねて表示） ---------- */
+/* ---------- 1km毎のお知らせ（画面の上に重ねて表示） ---------- */
 opt.kmNotice=store.get('cbgm-kmnotice',true)!==false;$('#optKm').checked=opt.kmNotice;
 $('#optKm').addEventListener('change',e=>{opt.kmNotice=e.target.checked;store.set('cbgm-kmnotice',opt.kmNotice);});
+/* 本番：1km毎にバイブレーション（Vibration API。iPhoneのSafariなどは非対応） */
+const canVib=typeof navigator.vibrate==='function';
+opt.kmVib=store.get('cbgm-kmvib',false)===true;$('#optVib').checked=opt.kmVib&&canVib;$('#optVib').disabled=!canVib;
+if(!canVib)$('#optVibNote').textContent='この端末・ブラウザはバイブレーションに対応していません';
+$('#optVib').addEventListener('change',e=>{opt.kmVib=e.target.checked;store.set('cbgm-kmvib',opt.kmVib);if(opt.kmVib)kmVibrate();});
+function kmVibrate(){if(!canVib)return;try{navigator.vibrate(400);}catch(_){}}
 const kmT=document.createElement('div');kmT.className='kmtoast';kmT.hidden=true;kmT.setAttribute('role','status');document.body.appendChild(kmT);let kmTT=0;
 function kmToast(km,lapMs,diffMs,est,pred){const d=diffMs==null?'':Math.abs(diffMs)<5000?'<div class="kd">目標どおり</div>':`<div class="kd ${diffMs>0?'late':'fast'}">目標より ${diffMs>0?'+':'−'}${fmt(Math.abs(diffMs))}</div>`;
   kmT.innerHTML=`<div class="kk">${km} km</div><div class="kl">ラップ ${fmtPace(lapMs/1000)}</div>${est?'<div class="kd">推定</div>':''}${d}${pred||''}`;kmT.hidden=false;
@@ -1867,6 +1874,7 @@ function raceLogTick(el){if(!RS.startAt)return;RS.log=RS.log||[];const P=posInfo
   for(let j=lastKm+1;j<=k;j++){let t;if(P.last&&Math.abs(P.last.km-j)<1e-6)t=P.last.t;else t=lastT+(el-lastT)*((j-lastKm)/Math.max(1e-6,pos-lastKm));
     t=Math.min(el,Math.max(lastT,t));const tg=origSecAt(j);const row={km:j,t:Math.round(t),at:RS.startAt+Math.round(t),src:srcOf(P),tgt:tg!=null?Math.round(tg*1000):null};L.push(row);
     if(j%5===0)autoCheck(row);}
+  if(L.length>added0&&MODE==='race'&&opt.kmVib&&R.running)kmVibrate();
   if(L.length>added0&&opt.kmNotice!==false){const row=L[L.length-1],prev=L.length>1?L[L.length-2]:{km:0,t:0},lap=row.t-prev.t,est=row.src==='推定';
     const justFixed=!est&&!P.gps&&P.last&&Math.abs(P.last.km-row.km)<1e-6&&el-P.last.t<5000;
     if(!justFixed)say(`${est?'推定':''}${row.km}キロ。ラップ${sayPace(lap/1000)}。`);kmToast(row.km,lap,!est&&row.tgt!=null?row.t-row.tgt:null,est,predHtml(row,lap));}
@@ -1876,8 +1884,8 @@ function raceLogTick(el){if(!RS.startAt)return;RS.log=RS.log||[];const P=posInfo
   const km=rcKm();if(pos>=km-0.01&&!RS.goalLogged&&L.length&&L[L.length-1].km<km){RS.goalLogged=true;const tg=origSecAt(km);L.push({km:+km.toFixed(3),t:Math.round(el),at:RS.startAt+Math.round(el),src:srcOf(P),tgt:tg!=null?Math.round(tg*1000):null});}
   const nf=(RS.fix||[]).length;if(nf!==RS._fixN||Date.now()-(RS.savedAt||0)>5000){RS._fixN=nf;runSave();}}
 function addEv(type,msg,extra){(RS.ev=RS.ev||[]).push(Object.assign({type,msg,t:Math.round(rawEl()),at:Date.now(),km:+posInfo(elapsed()).pos.toFixed(2)},extra||{}));runSave();}
-/* 5kmごと：目標より10分以上遅れていたら、完走を優先した速さに切り替える */
-/* 5kmごと：目標より10分以上遅れていたら、直近5kmのペースで戦略を変更。そのペースでは制限時間（関門）に間に合わないときは、完走できる速さに調整する */
+/* 5km毎：目標より10分以上遅れていたら、完走を優先した速さに切り替える */
+/* 5km毎：目標より10分以上遅れていたら、直近5kmのペースで戦略を変更。そのペースでは制限時間（関門）に間に合わないときは、完走できる速さに調整する */
 function autoCheck(row){if(RC.autoSafe===false||RS.autoOff||row.src==='推定'||row.tgt==null)return;
   /* 目標より10分以上遅れているときだけ変更する */
   if(row.t-row.tgt<600000)return;
@@ -1976,7 +1984,7 @@ function logChart(rows,d){const pts=rows.filter(x=>x.pace);if(pts.length<2)retur
   const line=(arr,col,dash)=>`<polyline fill="none" stroke="${col}" stroke-width="2.5" ${dash?'stroke-dasharray="6 4"':''} points="${arr.map(([k,v])=>X(k).toFixed(1)+','+Y(v).toFixed(1)).join(' ')}"/>`;
   const act=pts.map(x=>[x.km-(x.km-(x.km>1?x.km-1:0))/2,x.pace]);
   const tg=[];pts.forEach((x,i)=>{const p0=i?pts[i-1]:{km:0,tgt:0};if(x.tgt!=null&&p0.tgt!=null){const v=(x.tgt-p0.tgt)/1000/(x.km-p0.km);tg.push([p0.km,v],[x.km,v]);}});
-  const g1=`<div class="chart-t">1kmごとのペース（上ほど速い）</div><div class="lg"><span><i style="background:var(--accent)"></i>実際</span><span><i style="background:var(--warn)"></i>目標</span></div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="1kmごとのペース">${grid.join('')}${xt.join('')}${tg.length?line(tg,'var(--warn)',true):''}${line(act,'var(--accent)')}</svg>`;
+  const g1=`<div class="chart-t">1km毎のペース（上ほど速い）</div><div class="lg"><span><i style="background:var(--accent)"></i>実際</span><span><i style="background:var(--warn)"></i>目標</span></div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="1km毎のペース">${grid.join('')}${xt.join('')}${tg.length?line(tg,'var(--warn)',true):''}${line(act,'var(--accent)')}</svg>`;
   const df=rows.filter(x=>x.diff!=null);if(df.length<2)return g1;
   const dv=df.map(x=>x.diff/60000);let dlo=Math.min(0,...dv),dhi=Math.max(0,...dv);if(dhi-dlo<4){dhi+=2;dlo-=2;}
   const DY=v=>t+(H-t-b)*(dhi-v)/(dhi-dlo);const zero=DY(0);
@@ -2071,10 +2079,12 @@ function checkPracResume(){const r=store.get(PRUN_KEY,null);if(!r||r.v!==1||R.ru
 opt.src=['songs','drum','silent'].includes(store.get('cbgm-src','songs'))?store.get('cbgm-src','songs'):'songs';
 let TAB=store.get('cbgm-tab',{});if(!TAB||typeof TAB!=='object')TAB={};
 const TABNAMES={practice:{main:'メニュー'},race:{main:'大会'},relax:{main:'リラックス'}};
-function renderTabs(){let t=TAB[MODE]||'main';if(t==='strat'&&MODE!=='race')t='main';
-  document.querySelectorAll('.stab').forEach(b=>{const k=b.dataset.st;b.hidden=k==='strat'&&MODE!=='race';b.classList.toggle('on',k===t);b.setAttribute('aria-selected',k===t);});
+function renderTabs(){let t=TAB[MODE]||'main';if(t==='strat'&&MODE!=='race')t='main';if(t==='sound'&&MODE==='relax')t='main';
+  document.querySelectorAll('.stab').forEach(b=>{const k=b.dataset.st;b.hidden=(k==='strat'&&MODE!=='race')||(k==='sound'&&MODE==='relax');b.classList.toggle('on',k===t);b.setAttribute('aria-selected',k===t);});
   const m=$('#stMain');const nm=TABNAMES[MODE].main;if(m.dataset.ja!==nm){m.dataset.ja=nm;m.textContent=nm;}
-  document.querySelectorAll('.tabsec').forEach(x=>x.hidden=x.dataset.tab!==t);}
+  /* relax: no tabs — the relax settings and the songs (same layout as the race 曲 tab) on one page */
+  const one=MODE==='relax';$('#stabs').hidden=one;
+  document.querySelectorAll('.tabsec').forEach(x=>x.hidden=one?!(x.dataset.tab==='main'||x.dataset.tab==='songs'):x.dataset.tab!==t);}
 $('#stabs').addEventListener('click',e=>{const b=e.target.closest('.stab');if(!b)return;TAB[MODE]=b.dataset.st;store.set('cbgm-tab',TAB);renderTabs();});
 /* lock state on <body> so the panel can hide the buttons that are on the lock bar */
 new MutationObserver(()=>document.body.classList.toggle('locked',!lockLayer.hidden)).observe(lockLayer,{attributes:true,attributeFilter:['hidden']});
@@ -2108,7 +2118,8 @@ function setSrc(v){if(!['songs','drum','silent'].includes(v))return;const was=op
 function renderSrc(){document.querySelectorAll('.src-b').forEach(b=>b.classList.toggle('on',b.dataset.src===opt.src));
   const n={songs:'「使う」にチェックした曲を、ペースに合わせた速さで流します。',drum:'曲は流さず、ペースに合わせた歩数（1分あたり）でドラムを鳴らします。曲の一覧は使いません。',silent:'音楽は流しません。合図音と音声のお知らせだけです。'}[opt.src];
   const el=$('#srcNote');if(el.dataset.ja!==n){el.dataset.ja=n;el.textContent=n;}
-  const sl=$('#songList'),dp=$('#drop');[sl,dp].forEach(x=>x&&x.classList.toggle('songs-off',opt.src!=='songs'));
+  /* drum / silent play no songs, so the song list itself is hidden too */
+  const ssec=$('#songsSec');if(ssec)ssec.hidden=opt.src!=='songs';['#btnSongTop','#btnNextSong'].forEach(q=>{const x=$(q);if(x)x.hidden=opt.src!=='songs';});
   /* drum / silent play no songs, so the song lists (mylists) are not needed */
   const ml=$('#mlSec');if(ml)ml.hidden=opt.src!=='songs';}
 document.addEventListener('click',e=>{const b=e.target.closest('.src-b');if(b)setSrc(b.dataset.src);});
@@ -2118,7 +2129,10 @@ document.addEventListener('click',e=>{const b=e.target.closest('.src-b');if(b)se
 {const _r=resumeMusic;resumeMusic=function(auto){if(opt.src==='songs')return _r.apply(this,arguments);
   try{getCtx().resume().then(()=>{const bl=INT.blocked;INT.on=false;INT.blocked=false;renderMusicRes();if(opt.src==='drum')startClicks();if(bl&&INT.msg)say(INT.msg);});}catch(e){}};}
 setInterval(()=>{if(opt.src==='drum'&&R.running&&!R.paused&&!INT.on){try{if(getCtx().state!=='running'){INT.on=true;INT.blocked=true;renderMusicRes();}}catch(e){}}},2000);
-{const _a=applyModeUI;applyModeUI=function(){_a();renderTabs();renderSrc();};}
+{const _a=applyModeUI;applyModeUI=function(){const want=MODE==='relax'?'songs':(['songs','drum','silent'].includes(store.get('cbgm-src','songs'))?store.get('cbgm-src','songs'):'songs');const chg=opt.src!==want&&!R.running;if(chg)opt.src=want;
+  _a();renderTabs();renderSrc();if(chg){renderSongs();renderRun();}const ss=document.querySelector('.srcsel');if(ss)ss.hidden=MODE==='relax';vibRowUI();};}
+function vibRowUI(){const r=$('#optVibRow');if(r)r.hidden=!(MODE==='race'||(MODE==='practice'&&opt.outdoor));}
+{const _sc3=startClicks;startClicks=function(){if(MODE==='relax'){stopClicks();return;}return _sc3.apply(this,arguments);};}
 renderAll();loadSaved().then(()=>{checkResume();checkPracResume();renderLog();});setTimeout(()=>{checkResume();checkPracResume();},1500);
 </script>
 <script>
@@ -2440,12 +2454,12 @@ W('区間（km）','Section (km)','区间（公里）','區間（公里）','구
 W('ペース','Pace','配速','配速','페이스');
 W('完走優先に自動で切り替え中','Auto-switched to finish-first','已自动切换为完赛优先','已自動切換為完賽優先','완주 우선으로 자동 전환 중');
 W('元の戦略に戻す','Back to original strategy','恢复原策略','恢復原策略','원래 전략으로 되돌리기');
-W('5kmごとに目標より10分以上遅れていたら、完走優先の戦略に自動で切り替える','Every 5 km, if 10+ min behind target, switch automatically to a finish-first strategy','每5公里若落后目标10分钟以上，自动切换为完赛优先策略','每5公里若落後目標10分鐘以上，自動切換為完賽優先策略','5km마다 목표보다 10분 이상 늦으면 완주 우선 전략으로 자동 전환');
+W('5km毎に目標より10分以上遅れていたら、完走優先の戦略に自動で切り替える','Every 5 km, if 10+ min behind target, switch automatically to a finish-first strategy','每5公里若落后目标10分钟以上，自动切换为完赛优先策略','每5公里若落後目標10分鐘以上，自動切換為完賽優先策略','5km마다 목표보다 10분 이상 늦으면 완주 우선 전략으로 자동 전환');
 W('本番の途中で止まっています','The race was interrupted','比赛中途已中断','比賽中途已中斷','대회 도중에 멈춰 있습니다');
 W('本番を再開する','Resume race','继续比赛','繼續比賽','대회 재개');
 W('再開しない（記録だけ残す）','Do not resume (keep the log)','不继续（仅保留记录）','不繼續（僅保留記錄）','재개하지 않음 (기록만 남기기)');
 W('本番のログ','Race log','比赛记录','比賽記錄','대회 로그');
-W('スタート時刻と1kmごとの通過時間を記録します。途中でスマホの電源が切れても、ページを開き直すと記録から今の位置を推測して続きから再開できます。','Records the start time and the time at each km. If your phone turns off mid-race, reopen the page to estimate your position from the log and resume.','记录起跑时间和每公里的通过时间。比赛中手机关机后，重新打开页面即可根据记录推测当前位置并继续。','記錄起跑時間和每公里的通過時間。比賽中手機關機後，重新開啟頁面即可根據記錄推測目前位置並繼續。','출발 시각과 1km마다의 통과 시간을 기록합니다. 도중에 휴대폰이 꺼져도 페이지를 다시 열면 기록으로 현재 위치를 추정해 이어서 재개할 수 있습니다.');
+W('スタート時刻と1km毎の通過時間を記録します。途中でスマホの電源が切れても、ページを開き直すと記録から今の位置を推測して続きから再開できます。','Records the start time and the time at each km. If your phone turns off mid-race, reopen the page to estimate your position from the log and resume.','记录起跑时间和每公里的通过时间。比赛中手机关机后，重新打开页面即可根据记录推测当前位置并继续。','記錄起跑時間和每公里的通過時間。比賽中手機關機後，重新開啟頁面即可根據記錄推測目前位置並繼續。','출발 시각과 1km마다의 통과 시간을 기록합니다. 도중에 휴대폰이 꺼져도 페이지를 다시 열면 기록으로 현재 위치를 추정해 이어서 재개할 수 있습니다.');
 W('ログを選ぶ','Choose a log','选择记录','選擇記錄','로그 선택');
 W('CSVをダウンロード','Download CSV','下载CSV','下載CSV','CSV 다운로드');
 W('このログを削除','Delete this log','删除此记录','刪除此記錄','이 로그 삭제');
@@ -2460,7 +2474,7 @@ W('補正','fix','校正','校正','보정');
 W('まだログはありません','No logs yet','还没有记录','還沒有記錄','아직 로그가 없습니다');
 W('本番でスタートを押すと、ここに記録が残ります。','Press Start in race mode and the log appears here.','在比赛模式按开始后，记录会显示在这里。','在比賽模式按開始後，記錄會顯示在這裡。','대회에서 시작을 누르면 여기에 기록이 남습니다.');
 W('1km以上進むと、ここにグラフを表示します。','A chart appears here after 1 km or more.','跑完1公里以上后会在这里显示图表。','跑完1公里以上後會在這裡顯示圖表。','1km 이상 진행하면 여기에 그래프를 표시합니다.');
-W('1kmごとのペース（上ほど速い）','Pace per km (higher = faster)','每公里配速（越高越快）','每公里配速（越高越快）','1km마다의 페이스 (위일수록 빠름)');
+W('1km毎のペース（上ほど速い）','Pace per km (higher = faster)','每公里配速（越高越快）','每公里配速（越高越快）','1km마다의 페이스 (위일수록 빠름)');
 W('実際','Actual','实际','實際','실제');
 W('目標','Target','目标','目標','목표');
 W('目標との差（＋は遅れ）','Difference from target (+ = behind)','与目标之差（＋为落后）','與目標之差（＋為落後）','목표와의 차 (+는 늦음)');
@@ -2484,16 +2498,16 @@ W('Bluetoothが切れて音楽が止まりました。イヤホンがつなが�
 W('音楽を再開しました','Music resumed','音乐已继续播放','音樂已繼續播放','음악을 재개했습니다');
 W('音楽が止まった（Bluetoothが切れた可能性）','Music stopped (Bluetooth may have disconnected)','音乐停止（可能是蓝牙断开）','音樂停止（可能是藍牙斷開）','음악이 멈춤 (블루투스가 끊겼을 수 있음)');
 W('音楽を再開','Music resumed','继续播放音乐','繼續播放音樂','음악 재개');
-W('スタート時刻と1kmごとの通過時間を記録します。途中でスマホの電源が切れても、ページを開き直すと記録から今の位置を推測して続きから再開できます。前回の大会の記録は、次の大会でスタートを押すまで、ここでグラフを見たりダウンロードしたりできます。','Records the start time and the time at each km. If your phone turns off mid-race, reopen the page to estimate your position from the log and resume. The previous race log stays here (chart and download) until you press Start in the next race.','记录起跑时间和每公里的通过时间。比赛中手机关机后，重新打开页面即可根据记录推测当前位置并继续。上一场比赛的记录在下一场比赛按开始之前，可以在这里查看图表和下载。','記錄起跑時間和每公里的通過時間。比賽中手機關機後，重新開啟頁面即可根據記錄推測目前位置並繼續。上一場比賽的記錄在下一場比賽按開始之前，可以在這裡查看圖表和下載。','출발 시각과 1km마다의 통과 시간을 기록합니다. 도중에 휴대폰이 꺼져도 페이지를 다시 열면 기록으로 현재 위치를 추정해 이어서 재개할 수 있습니다. 이전 대회 기록은 다음 대회에서 시작을 누를 때까지 여기서 그래프를 보거나 다운로드할 수 있습니다.');
+W('スタート時刻と1km毎の通過時間を記録します。途中でスマホの電源が切れても、ページを開き直すと記録から今の位置を推測して続きから再開できます。前回の大会の記録は、次の大会でスタートを押すまで、ここでグラフを見たりダウンロードしたりできます。','Records the start time and the time at each km. If your phone turns off mid-race, reopen the page to estimate your position from the log and resume. The previous race log stays here (chart and download) until you press Start in the next race.','记录起跑时间和每公里的通过时间。比赛中手机关机后，重新打开页面即可根据记录推测当前位置并继续。上一场比赛的记录在下一场比赛按开始之前，可以在这里查看图表和下载。','記錄起跑時間和每公里的通過時間。比賽中手機關機後，重新開啟頁面即可根據記錄推測目前位置並繼續。上一場比賽的記錄在下一場比賽按開始之前，可以在這裡查看圖表和下載。','출발 시각과 1km마다의 통과 시간을 기록합니다. 도중에 휴대폰이 꺼져도 페이지를 다시 열면 기록으로 현재 위치를 추정해 이어서 재개할 수 있습니다. 이전 대회 기록은 다음 대회에서 시작을 누를 때까지 여기서 그래프를 보거나 다운로드할 수 있습니다.');
 W('画面のどこかに触れると音楽が始まります','Touch anywhere on the screen to start the music','触摸屏幕任意位置即可开始播放音乐','觸摸螢幕任意位置即可開始播放音樂','화면 아무 곳이나 터치하면 음악이 시작됩니다');
 W('練習を再開しました','Training resumed','训练已继续','訓練已繼續','연습을 재개했습니다');
-W('1kmごとにお知らせ（音声と画面）','Announce every 1 km (voice and screen)','每1公里提示（语音和画面）','每1公里提示（語音和畫面）','1km마다 알림 (음성과 화면)');
+W('1km毎にお知らせ（音声と画面）','Announce every 1 km (voice and screen)','每1公里提示（语音和画面）','每1公里提示（語音和畫面）','1km마다 알림 (음성과 화면)');
 W('直近5kmのペースに自動で変更中','Auto-adjusted to your last 5 km pace','已自动调整为最近5公里的配速','已自動調整為最近5公里的配速','최근 5km 페이스로 자동 변경 중');
 W('BGMのテンポ（直近5kmのペース）','BGM tempo (last 5 km pace)','BGM节奏（最近5公里配速）','BGM節奏（最近5公里配速）','BGM 템포 (최근 5km 페이스)');
-W('5kmごとに、直近5kmのペースで戦略を自動で変更する（そのペースで制限時間を超えるときは完走優先に切り替える）','Every 5 km, automatically change the strategy to your last 5 km pace (switch to finish-first if that pace would exceed the time limit)','每5公里自动按最近5公里的配速调整策略（若该配速会超过关门时间则切换为完赛优先）','每5公里自動按最近5公里的配速調整策略（若該配速會超過關門時間則切換為完賽優先）','5km마다 최근 5km 페이스로 전략을 자동 변경 (그 페이스로 제한 시간을 넘으면 완주 우선으로 전환)');
+W('5km毎に、直近5kmのペースで戦略を自動で変更する（そのペースで制限時間を超えるときは完走優先に切り替える）','Every 5 km, automatically change the strategy to your last 5 km pace (switch to finish-first if that pace would exceed the time limit)','每5公里自动按最近5公里的配速调整策略（若该配速会超过关门时间则切换为完赛优先）','每5公里自動按最近5公里的配速調整策略（若該配速會超過關門時間則切換為完賽優先）','5km마다 최근 5km 페이스로 전략을 자동 변경 (그 페이스로 제한 시간을 넘으면 완주 우선으로 전환)');
 W('このペースでは制限時間に間に合いません','At this pace you will not make the time limit','按此配速无法在关门时间内完赛','按此配速無法在關門時間內完賽','이 페이스로는 제한 시간에 맞추지 못합니다');
-W('5kmごとに、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で変更する（そのペースで制限時間を超えるときは完走優先に切り替える）','Every 5 km, if you are 10+ min behind target, automatically change the strategy to your last 5 km pace (switch to finish-first if that pace would exceed the time limit)','每5公里若落后目标10分钟以上，自动按最近5公里的配速调整策略（若该配速会超过关门时间则切换为完赛优先）','每5公里若落後目標10分鐘以上，自動按最近5公里的配速調整策略（若該配速會超過關門時間則切換為完賽優先）','5km마다 목표보다 10분 이상 늦으면 최근 5km 페이스로 전략을 자동 변경 (그 페이스로 제한 시간을 넘으면 완주 우선으로 전환)');
-W('5kmごとに、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）','Every 5 km, if you are 10+ min behind target, automatically adjust the strategy to your last 5 km pace (if that pace would exceed the time limit, adjust to a speed that lets you finish)','每5公里若落后目标10分钟以上，自动按最近5公里的配速调整策略（若该配速会超过关门时间，则调整为能完赛的速度）','每5公里若落後目標10分鐘以上，自動按最近5公里的配速調整策略（若該配速會超過關門時間，則調整為能完賽的速度）','5km마다 목표보다 10분 이상 늦으면 최근 5km 페이스로 전략을 자동 조정 (그 페이스로 제한 시간을 넘으면 완주할 수 있는 속도로 조정)');
+W('5km毎に、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で変更する（そのペースで制限時間を超えるときは完走優先に切り替える）','Every 5 km, if you are 10+ min behind target, automatically change the strategy to your last 5 km pace (switch to finish-first if that pace would exceed the time limit)','每5公里若落后目标10分钟以上，自动按最近5公里的配速调整策略（若该配速会超过关门时间则切换为完赛优先）','每5公里若落後目標10分鐘以上，自動按最近5公里的配速調整策略（若該配速會超過關門時間則切換為完賽優先）','5km마다 목표보다 10분 이상 늦으면 최근 5km 페이스로 전략을 자동 변경 (그 페이스로 제한 시간을 넘으면 완주 우선으로 전환)');
+W('5km毎に、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）','Every 5 km, if you are 10+ min behind target, automatically adjust the strategy to your last 5 km pace (if that pace would exceed the time limit, adjust to a speed that lets you finish)','每5公里若落后目标10分钟以上，自动按最近5公里的配速调整策略（若该配速会超过关门时间，则调整为能完赛的速度）','每5公里若落後目標10分鐘以上，自動按最近5公里的配速調整策略（若該配速會超過關門時間，則調整為能完賽的速度）','5km마다 목표보다 10분 이상 늦으면 최근 5km 페이스로 전략을 자동 조정 (그 페이스로 제한 시간을 넘으면 완주할 수 있는 속도로 조정)');
 W('BGMのテンポ（自動調整）','BGM tempo (auto-adjusted)','BGM节奏（自动调整）','BGM節奏（自動調整）','BGM 템포 (자동 조정)');
 W('戦略を自動で調整中','Strategy auto-adjusted','策略自动调整中','策略自動調整中','전략 자동 조정 중');
 W('直近5km分を表示しています（終了後にすべて表示）','Showing the last 5 km (all laps after you finish)','显示最近5公里（结束后显示全部）','顯示最近5公里（結束後顯示全部）','최근 5km만 표시 중 (종료 후 모두 표시)');
@@ -2590,6 +2604,8 @@ W('曲を再開（時計は進んでいます）','Resume music (clock still run
 W('曲を一時停止（時計は止まりません）','Music paused (clock keeps running)','音乐暂停（计时不停）','音樂暫停（計時不停）','음악 일시정지(시계는 멈추지 않음)');
 W('曲を再開','Music resumed','音乐恢复','音樂恢復','음악 재개');
 W('制限時間に間に合いません','You will miss the time limit','赶不上关门时间','趕不上關門時間','제한 시간에 늦습니다');
+W('1km毎にバイブレーション','Vibrate every 1 km','每1公里振动','每1公里震動','1km마다 진동');
+W('この端末・ブラウザはバイブレーションに対応していません','This device/browser does not support vibration','此设备/浏览器不支持振动','此裝置/瀏覽器不支援震動','이 기기/브라우저는 진동을 지원하지 않습니다');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
