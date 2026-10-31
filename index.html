@@ -242,7 +242,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .primary-sm{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700;flex:none}
 .ml-msg{margin:-4px 0 0;font-size:.8rem;color:var(--muted);min-height:1em}
 .ml-msg.err{color:var(--warn);font-weight:700}
-.helpbtn{margin-left:auto;margin-right:6px;font-weight:700}
+.helpbtn{margin-left:auto;margin-right:6px;font-weight:700}.kcalbtn{margin-left:auto;display:flex;flex-direction:column;align-items:center;line-height:1.15;font-weight:700;padding:4px 10px}.kcalbtn small{font-weight:400;font-size:.7rem;color:var(--muted)}.kcalbtn.on small{color:var(--accent);font-weight:700}.kcalbtn+.helpbtn{margin-left:0}.kcal-panel{position:fixed;inset:0;z-index:96;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}.kcal-panel[hidden]{display:none}.kcal-card{background:var(--surface);color:var(--ink);border-radius:16px;padding:18px;width:100%;max-width:360px;box-shadow:0 10px 40px rgba(0,0,0,.3)}.kcal-card h2{margin:0 0 6px;font-size:1.1rem}.kcal-card .sub{font-size:.8rem;color:var(--muted);line-height:1.5}.kcal-card label{display:block;margin:12px 0 4px;font-weight:700}.kcal-card input{width:100%;font-size:1.3rem;padding:8px 10px;box-sizing:border-box}.kcal-card .row{display:flex;gap:8px;margin-top:14px;justify-content:flex-end}.kcal{margin:6px 0 2px;font-size:1rem;font-weight:700;color:var(--accent)}
 .help-panel{position:fixed;inset:0;z-index:95;background:var(--bg);display:flex;flex-direction:column}.help-panel[hidden]{display:none}
 .help-head{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface)}.help-head b{font-size:1.05rem}.help-head .help-ja{font-size:.75rem;color:var(--muted)}.help-head button{margin-left:auto}
 .help-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 16px 40px}
@@ -359,7 +359,7 @@ body.live .recv{display:none}
 
 <div class="wrap">
   <header>
-    <div class="title-row"><h1>マラソンBGM</h1><button class="small helpbtn" id="btnHelp" aria-label="使い方ガイド">？ 使い方</button><button id="btnLock" class="lockbtn" hidden>画面ロック</button><button class="primary-sm" id="rcArm" hidden>本番待機を始める</button><button id="rcDisarm" hidden>待機をやめる</button></div>
+    <div class="title-row"><h1>マラソンBGM</h1><button class="small kcalbtn" id="btnKcal"><span>カロリー計算</span><small id="kcalState">計算しない</small></button><button class="small helpbtn" id="btnHelp" aria-label="使い方ガイド">？ 使い方</button><button id="btnLock" class="lockbtn" hidden>画面ロック</button><button class="primary-sm" id="rcArm" hidden>本番待機を始める</button><button id="rcDisarm" hidden>待機をやめる</button></div>
     <p class="ml-msg" id="rcMsg"></p>
     <p class="sub" id="leadTxt">手元の曲を、練習メニューの1kmペースで走りやすい速さに合わせて、音程を変えずに再生します。</p>
     <div class="resume" id="resumeBox" hidden><div><b>本番の途中で止まっています</b><div id="resumeTxt"></div></div>
@@ -420,6 +420,7 @@ body.live .recv{display:none}
     </div>
     <div class="od" id="odBox" hidden></div>
     <button class="musicres" id="musicResume" hidden>▶ 音楽を再開<small>Bluetoothが切れて音楽が止まりました。イヤホンがつながったら押してください</small></button>
+    <div class="kcal" id="kcalLine" hidden></div>
     <div class="now" id="nowPlaying">曲を追加すると、ここに再生中の曲と速度の倍率が出ます。</div>
     <div class="ctrls">
       <button class="primary" id="btnStart">スタート</button>
@@ -600,9 +601,17 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-10-31e</p>
+  <p class="ver" data-notr translate="no">版 2026-10-31f</p>
 </div>
 
+<div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
+  <div class="kcal-card"><h2>カロリー計算</h2>
+    <p class="sub">体重を入れると、練習の終了時と本番のゴール時に消費カロリー（目安）を表示し、本番のログにも書き出します。空にすると計算しません。</p>
+    <label for="kcalW">体重（kg）</label><input type="number" id="kcalW" inputmode="decimal" min="20" max="200" step="0.1" placeholder="例：60">
+    <p class="sub" id="kcalMsg"></p>
+    <p class="sub">目安の計算：体重（kg）× 走った距離（km）。心拍数・年齢・坂道などは入らないので、実際とは1〜2割ずれることがあります。体重はこのブラウザの中だけに保存し、この画面以外には表示しません。</p>
+    <div class="row"><button id="kcalClear">クリア</button><button class="primary-sm" id="kcalClose">閉じる</button></div></div>
+</div>
 <div id="helpPanel" class="help-panel" hidden role="dialog" aria-label="使い方ガイド">
   <div class="help-head"><b>使い方ガイド</b><span class="help-ja">（日本語のみ）</span><button class="primary-sm" id="helpClose">閉じる</button></div>
   <div class="help-scroll" id="helpScroll"><nav class="help-toc" id="helpToc" data-notr translate="no"></nav><div class="help-body" id="helpBody" data-notr translate="no">
@@ -613,6 +622,7 @@ body.live .recv{display:none}
 <p>保存できるものは3種類で、それぞれ別々に保存します。一つを読み込んでも、ほかの2つは変わりません。</p>
 <table><thead><tr><th>保存するもの</th><th>保存する場所</th><th>使えるモード</th><th>目印</th></tr></thead><tbody><tr><td>曲（流す曲・順番）</td><td>「🎵 曲の登録（マイリスト）」</td><td>練習・本番・リラックス</td><td>紫の枠</td></tr><tr><td>練習メニュー</td><td>「練習メニューの保存」</td><td>練習だけ</td><td>「メニュー」タブの下</td></tr><tr><td>大会の情報と戦略</td><td>「本番レース情報・戦略を保存」</td><td>本番だけ</td><td>「大会」タブの下</td></tr></tbody></table>
 <p>曲の登録（マイリスト）・練習メニュー・本番レース情報の3つとも、今読み込んでいるものが黄色の行になり、「読み込み中」と出ます。「上書き」が押せるのは、その黄色の行だけです（ほかを上書きしたいときは、先にそれを「読み込む」）。どれも「上書き」を押すと、「前 → 後」で何が変わるかが出る確認が出ます。よければ「OK」、やめるときは「キャンセル」を押します。入れた曲や設定はそのスマホの中だけに残り、どこにも送られません。</p>
+<h3>消費カロリー（目安）</h3><p>画面の右上の「カロリー計算」を押して体重（kg）を入れ、「閉じる」を押すと、ボタンの下が「計算する」に変わります。練習が終わったときと本番のゴール時に「消費カロリー（目安） 約○○ kcal」と表示し、本番のログとCSVにも書き出します。走っている途中は表示しません。計算は「体重 × 走った距離」の目安です。体重を空にすると「計算しない」に戻ります。体重は「カロリー計算」の画面でしか表示しません。</p>
 <h2 id="h-2">2. 最初の準備（1回だけ）</h2>
 <ol><li>スマホのChromeでこのアプリを開きます。</li><li>Chrome右上の「⋮」→「ホーム画面に追加」を押すと、次からはアイコンで開けます。</li><li>「曲」タブの「曲を追加」を押し、スマホの中の音楽ファイルを選びます。何曲でも選べます。数秒待つと、曲ごとのテンポ（BPM）が自動で測られます。</li><li>流したい曲に「使う」のチェックを入れ、▲▼で順番を並べます。</li><li>紫の枠「🎵 曲の登録（マイリスト）」で名前（例：アップテンポ曲）を入れ、「今の曲を登録」を押します。次からは「読み込む」だけで、その曲の並びに戻ります。読み込むと画面が曲の一覧の位置に移り、一覧がオレンジ色に光ります。</li><li>屋外でGPSを使うときは、位置情報の許可を聞かれたら「許可」を押します。</li></ol>
 <table><thead><tr><th>使える曲</th><th>使えない曲</th></tr></thead><tbody><tr><td>MP3、M4A（AAC）、FLAC、WAV などファイルとして持っている曲、CDから取り込んだ曲</td><td>Apple Music・Spotify・Amazon Musicなどのアプリで「ダウンロード」した曲、コピー制限付きの曲（.m4pなど）</td></tr></tbody></table>
@@ -621,7 +631,7 @@ body.live .recv{display:none}
 <p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。</p>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
-<p>ページの一番下には「版 2026-10-31e」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-10-31f」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
@@ -930,6 +940,14 @@ csvRender();
   const open=()=>{blurInputs();hp.hidden=false;hs.scrollTop=0;document.body.style.overflow='hidden';};
   const close=()=>{hp.hidden=true;document.body.style.overflow='';};
   $('#btnHelp').addEventListener('click',open);$('#helpClose').addEventListener('click',close);
+  /* ---- カロリー計算（体重はこのパネルでだけ表示） ---- */
+  const kp=$('#kcalPanel'),kw=$('#kcalW');
+  const kOpen=()=>{blurInputs();kw.value=opt.weight||'';$('#kcalMsg').textContent='';kp.hidden=false;};
+  const kClose=()=>{const v=String(kw.value).trim();if(v===''){setWeight(null);}else{const n=+v;if(!(n>=20&&n<=200)){$('#kcalMsg').textContent='20〜200 kgの範囲で入れてください';$('#kcalMsg').classList.add('err');return;}setWeight(Math.round(n*10)/10);}
+    $('#kcalMsg').classList.remove('err');kw.blur();kp.hidden=true;};
+  $('#btnKcal').addEventListener('click',kOpen);$('#kcalClose').addEventListener('click',kClose);$('#kcalClear').addEventListener('click',()=>{kw.value='';});
+  kw.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();kClose();}});
+  kp.addEventListener('click',e=>{if(e.target===kp)kClose();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!hp.hidden)close();});
   hp.addEventListener('click',e=>{const a=e.target.closest('[data-hgo]');if(!a)return;e.preventDefault();const t=document.getElementById(a.dataset.hgo);if(t)hs.scrollTop=t.offsetTop-hs.offsetTop-8;});}
 
@@ -1849,6 +1867,16 @@ const canVib=typeof navigator.vibrate==='function';
 opt.kmVib=store.get('cbgm-kmvib',false)===true;$('#optVib').checked=opt.kmVib&&canVib;$('#optVib').disabled=!canVib;
 if(!canVib)$('#optVibNote').textContent='この端末・ブラウザはバイブレーションに対応していません';
 $('#optVib').addEventListener('change',e=>{opt.kmVib=e.target.checked;store.set('cbgm-kmvib',opt.kmVib);if(opt.kmVib)kmVibrate();});
+/* カロリー計算：体重（kg）。未入力なら計算しない */
+{const w=+store.get('cbgm-weight',0);opt.weight=w>=20&&w<=200?w:null;}
+function setWeight(w){opt.weight=w;store.set('cbgm-weight',w||0);renderKcalBtn();try{renderRun();renderLog();}catch(_){}}
+function renderKcalBtn(){const on=!!opt.weight;$('#kcalState').textContent=on?'計算する':'計算しない';$('#btnKcal').classList.toggle('on',on);}
+renderKcalBtn();
+function practiceKm(){return menu.reduce((a,x)=>a+kmOf(x),0);}
+function renderKcal(){const el=$('#kcalLine');if(!el)return;let k=null;
+  if(R.done&&opt.weight){if(MODE==='practice')k=kcalOf(opt.weight,practiceKm());else if(MODE==='race')k=kcalOf(opt.weight,raceRunKm());}
+  el.hidden=k==null;if(k!=null)$('#kcalLine').textContent=`消費カロリー（目安） ${kcalTxt(k)}`;}
+{const _rr=renderRun;renderRun=function(){_rr.apply(this,arguments);renderKcal();};}
 function kmVibrate(){if(!canVib)return;try{navigator.vibrate(400);}catch(_){}}
 const kmT=document.createElement('div');kmT.className='kmtoast';kmT.hidden=true;kmT.setAttribute('role','status');document.body.appendChild(kmT);let kmTT=0;
 function kmToast(km,lapMs,diffMs,est,pred){const d=diffMs==null?'':Math.abs(diffMs)<5000?'<div class="kd">目標どおり</div>':`<div class="kd ${diffMs>0?'late':'fast'}">目標より ${diffMs>0?'+':'−'}${fmt(Math.abs(diffMs))}</div>`;
@@ -1923,7 +1951,7 @@ function runLoad(){const r=store.get(RUN_KEY,null);return r&&r.v===1&&r.startAt?
 function archiveRace(log,ev,meta){if(!log||(!log.length&&!(ev||[]).length))return;const id='L'+meta.startAt;raceLogs=raceLogs.filter(x=>x.id!==id);
   raceLogs=[Object.assign({id,log,ev},meta)];store.set(LOGS_KEY,raceLogs);}
 function archiveCurrent(result){if(!RS.startAt)return;addEv(result==='goal'?'goal':result==='limit'?'limit':'end',result==='goal'?'ゴール（終了）':result==='limit'?'制限時間で終了':'終了');
-  archiveRace(RS.log,RS.ev,{name:RC.name,date:RC.date,startAt:RS.startAt,endAt:Date.now(),km:rcKm(),goal:RC.goal,waveAt:rcWaveMs(),el:Math.round(R.done?R.acc:rawEl())});runDrop();logSelId=raceLogs.length?raceLogs[0].id:'cur';renderLog();}
+  archiveRace(RS.log,RS.ev,{name:RC.name,date:RC.date,startAt:RS.startAt,endAt:Date.now(),km:rcKm(),goal:RC.goal,waveAt:rcWaveMs(),el:Math.round(R.done?R.acc:rawEl()),kcal:kcalOf(opt.weight,raceRunKm())});runDrop();logSelId=raceLogs.length?raceLogs[0].id:'cur';renderLog();}
 {const _s=start;start=function(){const fresh=R.done||(!R.running&&R.acc===0);const r=_s.apply(this,arguments);
   if(MODE==='race'&&fresh&&R.running&&RS.startAt){raceLogs=[];store.set(LOGS_KEY,raceLogs);RS.log=[];RS.ev=[];RS.auto=null;RS.autoOff=false;RS.goalLogged=false;logSelId='cur';addEv('start','スタート');renderLog();}return r;};}
 {const _p=pause;pause=function(){const r=_p.apply(this,arguments);if(MODE==='race'&&RS.startAt){addEv('pause','一時停止');}return r;};}
@@ -1956,8 +1984,12 @@ $('#resumeNo').addEventListener('click',()=>{const r=resumeSnap;if(!r)return;res
   archiveRace(r.log,(r.ev||[]).concat([{type:'end',msg:'再開しないで終了',t:r.acc,at:Date.now()}]),{name:r.name,date:r.date,startAt:r.startAt,endAt:Date.now(),km:r.km,waveAt:rcWaveMs(),el:resumeInfo(r).el});runDrop();$('#resumeBox').hidden=true;renderLog();});
 /* ---------- log view: table, chart, CSV ---------- */
 let logSelId='cur';
-function curLogData(){if(RS.startAt&&(RS.log||[]).length+(RS.ev||[]).length&&(R.running||!raceLogs.some(x=>x.startAt===RS.startAt)))return {id:'cur',name:RC.name,date:RC.date,startAt:RS.startAt,km:rcKm(),waveAt:rcWaveMs(),log:RS.log||[],ev:RS.ev||[],el:Math.round(R.done?R.acc:rawEl()),live:R.running};return null;}
+function curLogData(){if(RS.startAt&&(RS.log||[]).length+(RS.ev||[]).length&&(R.running||!raceLogs.some(x=>x.startAt===RS.startAt)))return {id:'cur',name:RC.name,date:RC.date,startAt:RS.startAt,km:rcKm(),waveAt:rcWaveMs(),log:RS.log||[],ev:RS.ev||[],el:Math.round(R.done?R.acc:rawEl()),live:R.running,kcal:R.done?kcalOf(opt.weight,raceRunKm()):null};return null;}
 /* start loss = own start press − (start time + wave minutes); gross = loss + net */
+/* ---- 消費カロリー（目安）= 体重kg × 距離km ---- */
+function kcalOf(w,km){return w>0&&km>0?Math.round(w*km/10)*10:null;}
+function kcalTxt(k){return k==null?'':`約${k.toLocaleString('ja-JP')} kcal`;}
+function raceRunKm(){if(!RS.startAt)return 0;const tot=rcKm();let p=0;try{p=posInfo(R.done?R.acc:rawEl()).pos;}catch(_){}const L=RS.log||[];const lk=L.length?L[L.length-1].km:0;return Math.min(tot,Math.max(p,lk));}
 function gsum(a,b){return Math.round(a/1000)*1000+Math.round(b/1000)*1000;}
 function lossOf(d){return d&&d.waveAt&&d.startAt?Math.max(0,d.startAt-d.waveAt):null;}
 function logData(){if(logSelId==='cur')return curLogData()||raceLogs[0]||null;return raceLogs.find(x=>x.id===logSelId)||curLogData()||raceLogs[0]||null;}
@@ -1968,7 +2000,7 @@ function renderLog(){const sel=$('#logSel');if(!sel)return;const cur=curLogData(
   sel.innerHTML=opts.join('')||'<option value="">まだログはありません</option>';const d=logData();
   if(d)sel.value=d.id==='cur'?'cur':d.id;$('#logCsv').disabled=$('#logDel').disabled=!d||d.id==='cur'&&cur&&cur.live;
   if(!d){$('#logInfo').textContent='本番でスタートを押すと、ここに記録が残ります。';$('#logChart').innerHTML='';$('#logTable').innerHTML='';return;}
-  const rows=logRows(d),ls=lossOf(d);$('#logInfo').textContent=`スタート ${ymd(d.startAt)}　記録 ${rows.length}地点`+(d.el?`　ネット ${hms(d.el)}`:'')+(d.el&&ls!=null?`　グロス ${hms(gsum(d.el,ls))}`:'')+(ls!=null?`　ロスタイム ${hms(ls)}`:'');
+  const rows=logRows(d),ls=lossOf(d);$('#logInfo').textContent=`スタート ${ymd(d.startAt)}　記録 ${rows.length}地点`+(d.el?`　ネット ${hms(d.el)}`:'')+(d.el&&ls!=null?`　グロス ${hms(gsum(d.el,ls))}`:'')+(ls!=null?`　ロスタイム ${hms(ls)}`:'')+(d.kcal?`　消費カロリー ${kcalTxt(d.kcal)}`:'');
   $('#logChart').innerHTML=logChart(rows,d);
   const evs=(d.ev||[]).filter(e=>!['start'].includes(e.type));
   $('#logTable').innerHTML=`<table><thead><tr><th>km</th><th>経過</th><th>グロス</th><th>ラップ</th><th>目標との差</th><th>記録方法</th></tr></thead><tbody>`+
@@ -1993,7 +2025,7 @@ function logChart(rows,d){const pts=rows.filter(x=>x.pace);if(pts.length<2)retur
   const evm=(d.ev||[]).filter(e=>e.type==='auto').map(e=>`<line x1="${X(e.km)}" x2="${X(e.km)}" y1="${t}" y2="${H-b}" stroke="var(--warn)" stroke-dasharray="3 3"/>`).join('');
   return g1+`<div class="chart-t">目標との差（＋は遅れ）</div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="目標との差">${dgrid.join('')}${xt.join('')}${area}${evm}</svg>`;}
 function logCsv(){const d=logData();if(!d)return;const rows=logRows(d);const T_=x=>{try{return typeof I18N!=='undefined'?I18N.tr(String(x)):x;}catch(e){return x;}};const q=v=>`"${String(T_(v)).replace(/"/g,'""')}"`;
-  const ls=lossOf(d);const L=[['大会',d.name||''],['スタート',ymd(d.startAt)],['ウェーブのスタート',d.waveAt?ymd(d.waveAt):''],['ロスタイム',ls!=null?hms(ls):''],['ネットタイム',d.el?hms(d.el):''],['グロスタイム',d.el&&ls!=null?hms(gsum(d.el,ls)):''],['距離(km)',d.km||''],[],['km','時刻','経過','グロス経過','ラップ','ラップのペース(/km)','目標の経過','目標との差','記録方法']];
+  const ls=lossOf(d);const L=[['大会',d.name||''],['スタート',ymd(d.startAt)],['ウェーブのスタート',d.waveAt?ymd(d.waveAt):''],['ロスタイム',ls!=null?hms(ls):''],['ネットタイム',d.el?hms(d.el):''],['グロスタイム',d.el&&ls!=null?hms(gsum(d.el,ls)):''],['距離(km)',d.km||'']].concat(d.kcal?[['消費カロリー(目安・kcal)',d.kcal]]:[],[[],['km','時刻','経過','グロス経過','ラップ','ラップのペース(/km)','目標の経過','目標との差','記録方法']]);
   rows.forEach(x=>L.push([x.km,clock(x.at),hms(x.t),ls!=null?hms(gsum(x.t,ls)):'',hms(x.lap),x.pace?fmtPace(x.pace):'',x.tgt!=null?hms(x.tgt):'',x.diff!=null?sgn(x.diff):'',x.src]));
   if((d.ev||[]).length){L.push([]);L.push(['時刻','経過','km','できごと']);d.ev.forEach(e=>L.push([clock(e.at),hms(e.t||0),e.km??'',e.msg||e.type]));}
   const csv='﻿'+L.map(r=>r.map(q).join(',')).join('\r\n');const a=document.createElement('a');const dt=new Date(d.startAt);
@@ -2606,6 +2638,15 @@ W('曲を再開','Music resumed','音乐恢复','音樂恢復','음악 재개');
 W('制限時間に間に合いません','You will miss the time limit','赶不上关门时间','趕不上關門時間','제한 시간에 늦습니다');
 W('1km毎にバイブレーション','Vibrate every 1 km','每1公里振动','每1公里震動','1km마다 진동');
 W('この端末・ブラウザはバイブレーションに対応していません','This device/browser does not support vibration','此设备/浏览器不支持振动','此裝置/瀏覽器不支援震動','이 기기/브라우저는 진동을 지원하지 않습니다');
+W('カロリー計算','Calories','卡路里计算','卡路里計算','칼로리 계산');
+W('計算しない','Off','不计算','不計算','계산 안 함');
+W('計算する','On','计算','計算','계산함');
+W('体重（kg）','Body weight (kg)','体重（kg）','體重（kg）','체중(kg)');
+W('体重を入れると、練習の終了時と本番のゴール時に消費カロリー（目安）を表示し、本番のログにも書き出します。空にすると計算しません。','Enter your weight to show estimated calories burned when a practice ends and at the race finish (also written to the race log). Leave it empty to turn this off.','输入体重后，练习结束时和正式比赛到达终点时显示消耗卡路里（参考值），并写入比赛记录。留空则不计算。','輸入體重後，練習結束時和正式比賽抵達終點時顯示消耗卡路里（參考值），並寫入比賽紀錄。留空則不計算。','체중을 입력하면 연습 종료 시와 실전 골인 시 소비 칼로리(목안)를 표시하고 실전 로그에도 기록합니다. 비워 두면 계산하지 않습니다.');
+W('目安の計算：体重（kg）× 走った距離（km）。心拍数・年齢・坂道などは入らないので、実際とは1〜2割ずれることがあります。体重はこのブラウザの中だけに保存し、この画面以外には表示しません。','Estimate: weight (kg) × distance run (km). Heart rate, age, hills etc. are not included, so it can differ by 10–20%. Your weight is stored only in this browser and shown only on this screen.','估算：体重（kg）× 跑步距离（km）。不包含心率、年龄、坡道等，可能与实际相差1〜2成。体重只保存在此浏览器中，仅在此画面显示。','估算：體重（kg）× 跑步距離（km）。不包含心率、年齡、坡道等，可能與實際相差1〜2成。體重只保存在此瀏覽器中，僅在此畫面顯示。','계산 기준: 체중(kg) × 달린 거리(km). 심박수·나이·언덕 등은 포함되지 않아 실제와 10〜20% 차이가 날 수 있습니다. 체중은 이 브라우저에만 저장되며 이 화면에서만 표시됩니다.');
+W('クリア','Clear','清除','清除','지우기');
+W('20〜200 kgの範囲で入れてください','Enter a value between 20 and 200 kg','请输入20〜200 kg之间的数值','請輸入20〜200 kg之間的數值','20〜200 kg 범위로 입력하세요');
+W('消費カロリー(目安・kcal)','Calories burned (est., kcal)','消耗卡路里（参考・kcal）','消耗卡路里（參考・kcal）','소비 칼로리(목안·kcal)');
 
 /* helpers */
 const nm=x=>{const r=tr1(x);return r==null?x:r;};
@@ -2792,6 +2833,8 @@ P(/^グロス (.+)$/,m=>[`Gross ${m[1]}`,`枪声 ${m[1]}`,`槍聲 ${m[1]}`,`그�
 P(/^ロスタイム ([\d:]+)（ウェーブのスタートから）$/,m=>[`Start loss ${m[1]} (from your wave start)`,`起跑损失 ${m[1]}（从波次起跑）`,`起跑損失 ${m[1]}（從波次起跑）`,`로스타임 ${m[1]}(웨이브 출발부터)`]);
 P(/^ロスタイム (.+)$/,m=>[`Start loss ${m[1]}`,`起跑损失 ${m[1]}`,`起跑損失 ${m[1]}`,`로스타임 ${m[1]}`]);
 P(/^このペースならゴール ([\d:]+)（([\d:]+)着）$/,m=>[`At this pace: finish ${m[1]} (${m[2]})`,`按此配速完赛 ${m[1]}（${m[2]}到达）`,`按此配速完賽 ${m[1]}（${m[2]}抵達）`,`이 페이스면 골 ${m[1]}(${m[2]} 도착)`]);
+P(/^消費カロリー（目安） 約([\d,]+) kcal$/,m=>[`Calories burned (est.) about ${m[1]} kcal`,`消耗卡路里（参考） 约${m[1]} kcal`,`消耗卡路里（參考） 約${m[1]} kcal`,`소비 칼로리(목안) 약 ${m[1]} kcal`]);
+P(/^消費カロリー 約([\d,]+) kcal$/,m=>[`Calories about ${m[1]} kcal`,`卡路里 约${m[1]} kcal`,`卡路里 約${m[1]} kcal`,`칼로리 약 ${m[1]} kcal`]);
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
