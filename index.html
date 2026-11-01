@@ -601,7 +601,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-01a</p>
+  <p class="ver" data-notr translate="no">版 2026-11-01b</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -613,7 +613,7 @@ body.live .recv{display:none}
     <div class="row"><button id="kcalClear">クリア</button><button class="primary-sm" id="kcalClose">閉じる</button></div></div>
 </div>
 <div id="helpPanel" class="help-panel" hidden role="dialog" aria-label="使い方ガイド">
-  <div class="help-head"><b>使い方ガイド</b><span class="help-ja">（日本語のみ）</span><button class="primary-sm" id="helpClose">閉じる</button></div>
+  <div class="help-head"><b>使い方ガイド</b><span class="help-ja" id="helpLangNote" data-notr>（日本語）</span><button class="primary-sm" id="helpClose">閉じる</button></div>
   <div class="help-scroll" id="helpScroll"><nav class="help-toc" id="helpToc" data-notr translate="no"></nav><div class="help-body" id="helpBody" data-notr translate="no">
 <p>マラソンBGMは、スマホの中の自分の曲を、走るペースに合った速さで流すアプリです。音の高さは変わらず、登録もお金も要りません。このガイドは「準備 → 練習 → 本番 → リラックス」の順に並んでいるので、やりたいところから読んでください。</p>
 <h2 id="h-1">1. まず知っておくこと</h2>
@@ -628,10 +628,10 @@ body.live .recv{display:none}
 <table><thead><tr><th>使える曲</th><th>使えない曲</th></tr></thead><tbody><tr><td>MP3、M4A（AAC）、FLAC、WAV などファイルとして持っている曲、CDから取り込んだ曲</td><td>Apple Music・Spotify・Amazon Musicなどのアプリで「ダウンロード」した曲、コピー制限付きの曲（.m4pなど）</td></tr></tbody></table>
 <p>曲がなくても、「曲」タブの一番上の「流す音」で「ドラム」か「無音」を選べば使えます。</p>
 <h2 id="h-3">3. 画面の見方</h2>
-<p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。</p>
+<p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。日本語以外を選ぶと、この使い方ガイドは英語版になります。</p>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
-<p>ページの一番下には「版 2026-11-01a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-01b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
@@ -684,7 +684,77 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>マラソンBGMは無料で使えます。寄付は任意で、寄付をしなくてもすべての機能を使えます。応援していただける場合は、画面の一番下の「☕ このアプリを応援する（PayPal）」から寄付できます。</p>
 <p><strong>寄付先</strong>：<a href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">https://paypal.me/marathonBGM</a></p>
 <p>寄付にはPayPalのアカウントが必要です。日本円での個人間の送金に手数料はかかりません。</p>
-  </div></div>
+  </div><div class="help-body" id="helpBodyEn" data-notr translate="no" lang="en" hidden>
+<p>Marathon BGM plays the music on your phone at a speed that matches your running pace. The pitch does not change, and no sign-up or payment is needed. This guide follows the order "Setup → Training → Race → Relax", so start wherever you like.</p>
+<h2 id="e-1">1. The basics</h2>
+<p>There are three modes. Switch between them with the buttons at the top of the screen.</p>
+<table><thead><tr><th>Mode</th><th>When to use</th><th>Song speed</th></tr></thead><tbody><tr><td>1. Training</td><td>Everyday training</td><td>Matches the pace of your training menu</td></tr><tr><td>2. Race</td><td>Marathon race day</td><td>Matches the pace of your target time (strategy)</td></tr><tr><td>3. Relax</td><td>When you are not running</td><td>Original speed</td></tr></tbody></table>
+<p>You can save three kinds of things, each separately. Loading one does not change the other two.</p>
+<table><thead><tr><th>What</th><th>Where to save</th><th>Modes</th><th>Look for</th></tr></thead><tbody><tr><td>Songs (which songs, in what order)</td><td>"🎵 Song lists (my lists)"</td><td>Training, Race, Relax</td><td>Purple box</td></tr><tr><td>Training menu</td><td>"Save practice menu"</td><td>Training only</td><td>Below the "Menu" tab</td></tr><tr><td>Race info and strategy</td><td>"Save race info &amp; strategy"</td><td>Race only</td><td>Below the "Race" tab</td></tr></tbody></table>
+<p>For all three, the item that is currently loaded is shown as a yellow row marked "Loaded". You can press "Overwrite" only on that yellow row (to overwrite another one, "Load" it first). When you press "Overwrite", a confirmation shows what will change ("before → after"). Press "OK" to go ahead or "Cancel" to stop. Your songs and settings stay only on your phone and are not sent anywhere.</p>
+<h3>Calories burned (estimate)</h3><p>Press "Calories" at the top right, enter your body weight (kg) and press "Close". The label under the button changes to "On". When a training session ends and when you finish a race, the app shows "Calories burned (est.) about ○○ kcal" and also writes it to the race log and CSV. It is not shown while you are running. The estimate is "weight × distance run". Clear the weight to turn it "Off" again. Your weight is shown only on the "Calories" screen.</p>
+<h2 id="e-2">2. First-time setup (once only)</h2>
+<ol><li>Open this app in Chrome on your phone.</li><li>In Chrome, tap "⋮" at the top right → "Add to Home screen" to open it from an icon next time.</li><li>On the "Songs" tab, press "Add songs" and choose music files on your phone. You can choose as many as you like. After a few seconds, each song's tempo (BPM) is measured automatically.</li><li>Check "Use" for the songs you want to play, and sort them with ▲▼.</li><li>In the purple box "🎵 Song lists (my lists)", enter a name (e.g. Up-tempo) and press "Register current songs". Next time, just press "Load" to get that set of songs back. After loading, the screen moves to the song list, which glows orange.</li><li>To use GPS outdoors, press "Allow" when asked for location permission.</li></ol>
+<table><thead><tr><th>Songs you can use</th><th>Songs you cannot use</th></tr></thead><tbody><tr><td>Music you have as files, such as MP3, M4A (AAC), FLAC or WAV, and songs ripped from CDs</td><td>Songs "downloaded" in apps such as Apple Music, Spotify or Amazon Music, and copy-protected songs (.m4p etc.)</td></tr></tbody></table>
+<p>Even without songs, you can use the app by choosing "Drum" or "Silent" under "Sound to play" at the top of the "Songs" tab.</p>
+<h2 id="e-3">3. The screen</h2>
+<p>From top to bottom: the mode buttons, the running display (timer and Start), and the settings tabs. Use "🌐" at the top right to switch between Japanese, English, Chinese and Korean.</p>
+<table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
+<p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Passed 1 km, GPS, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-01b" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<h2 id="e-4">4. Training</h2>
+<p>For each stage of your training menu, songs play at a tempo that makes that pace easy to run.</p>
+<ol><li>Press "1. Training" and choose "Indoor (stages advance by time)" or "Outdoor (advance by GPS distance)".</li><li>On the "Menu" tab, choose "Steady run", "LSD", "Build-up" or "Jog", or enter a pace (min per km) and time for each stage.</li><li>Save menus you use often with "Save practice menu" below: enter a name (e.g. Tuesday pace run) and press "Save". Next time, just press "Load".</li><li>Press "Start". A beep sounds when the stage changes, and the tempo changes too.</li><li>When you are done, long-press "Unlock" and press "Reset". The app stops automatically when the menu is finished.</li></ol>
+<table><thead><tr><th></th><th>Indoor</th><th>Outdoor (GPS)</th></tr></thead><tbody><tr><td>When the stage advances</td><td>When the set time has passed</td><td>When you have run the set distance</td></tr><tr><td>Every-1-km notices and lap table</td><td>No</td><td>Yes</td></tr></tbody></table>
+<p>Outdoors, start after the message saying the GPS position has been found. "Pace up / Pace down" while running changes the speed by 0.1 km/h at a time and adjusts the tempo. "Clear training" empties only the menu (press twice).</p>
+<h3>Load a daily training menu from a CSV file</h3>
+<p>If you have a CSV file written in the "CSV format" below, the day's training menu can be shown automatically. It is on the "Menu" tab, under "+ Add stage": "Load practice menu from CSV".</p>
+<ol><li>Press "Choose CSV file" and pick the CSV file.</li><li>Today's training menu is entered on the screen. If there is nothing for today, the menu for the next running day is entered.</li><li>To use another day, choose it from the date list (e.g. 11/3 (Tue) Pace run) and press "Show this day's menu".</li></ol>
+<p>The list shows today and later days. Rest days without running are marked as having no running. A CSV you have loaded stays on your phone, so next day you only need to choose the date. You cannot load while running.</p>
+<h4>CSV format</h4>
+<ul><li>Character encoding UTF-8, separated by commas (,).</li><li>Write "marathon-bgm-bulk" in the first column of line 1. This marks the file as one for this app.</li><li>Line 2 is a header line and is not used when loading.</li><li>From line 3, write one day per line. Only lines whose first column is "menu" are loaded.</li></ul>
+<table><thead><tr><th>Column</th><th>What to write</th><th>Example</th></tr></thead><tbody><tr><td>1</td><td>menu</td><td>menu</td></tr><tr><td>2</td><td>Date (year-month-day)</td><td>2026-11-03</td></tr><tr><td>3</td><td>Text shown in the list</td><td>Pace run</td></tr><tr><td>4–7</td><td>Not used (can be empty)</td><td></td></tr><tr><td>8</td><td>Training menu code. Empty means "no running"</td><td>tm.W420x100_P330x400_C450x100</td></tr></tbody></table>
+<p>A training menu code is "tm." followed by stages joined with "_". Each stage is written as "type letter", "pace", "x", "time".</p>
+<ul><li><strong>Pace</strong>: seconds per km (150–900). Example: 330 = 5:30/km</li><li><strong>Time</strong>: minutes × 10. Example: 100 = 10 min, 400 = 40 min (0.5-minute steps)</li><li>Up to 40 stages.</li></ul>
+<table><thead><tr><th>Letter</th><th>Type</th></tr></thead><tbody><tr><td>W</td><td>Warm-up</td></tr><tr><td>J</td><td>Jog</td></tr><tr><td>P</td><td>Pace run</td></tr><tr><td>M</td><td>Target pace</td></tr><tr><td>I</td><td>Interval</td></tr><tr><td>R</td><td>Recovery jog</td></tr><tr><td>B</td><td>Build-up</td></tr><tr><td>L</td><td>Long run</td></tr><tr><td>C</td><td>Cool-down</td></tr></tbody></table>
+<p>The example "tm.W420x100_P330x400_C450x100" means "Warm-up 10 min at 7:00/km → Pace run 40 min at 5:30/km → Cool-down 10 min at 7:30/km". A whole file looks like this:</p>
+<pre><code>marathon-bgm-bulk,v1
+type,date,text,,,,,code
+menu,2026-11-03,Pace run,,,,,tm.W420x100_P330x400_C450x100
+menu,2026-11-04,Rest,,,,,
+menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
+<h2 id="e-5">5. Race day</h2>
+<p>On race day you only press three buttons: standby → start → finish. Before that, enter the race information.</p>
+<h3>Before race day: enter and save the race information</h3>
+<ol><li>Press "2. Race" and enter the items in the table below on the "Race" tab.</li><li>If you like, on the "Strategy &amp; log" tab use "From target time: … stages" to create a speed for each section (strategy).</li><li>Under the "Race" tab, enter a name (e.g. Mito 2026) in "Save race info &amp; strategy" and press "Save". After saving, the screen returns to the race name, which glows orange.</li><li>Choose the songs to play with "Load" in the purple box "🎵 Song lists (my lists)".</li></ol>
+<table><thead><tr><th>Item</th><th>What to enter</th><th>Example</th></tr></thead><tbody><tr><td>Race name / event</td><td>Full / Half / Other (enter the distance)</td><td>Mito Komon Marathon, Full</td></tr><tr><td>Date / start time</td><td>Time of the starting gun</td><td>2026/11/1, 9:00</td></tr><tr><td>Wave delay</td><td>Minutes from the start of the first wave until the wave of your block starts (0 if the race has no waves)</td><td>10</td></tr><tr><td>Time limit</td><td>h:mm. For wave starts, add "the time between the first and the last wave start" to the race's time limit</td><td>6:00 + 20 min → 6:20</td></tr><tr><td>Target time</td><td>h:mm:ss</td><td>4:30:00</td></tr><tr><td>Cutoffs</td><td>One per line: "distance-km closing-time"</td><td>10 10:40</td></tr><tr><td>Aid stations</td><td>One per line: "distance-km contents"</td><td>15 water banana</td></tr></tbody></table>
+<p>For aid station contents, "水" means water, "食" means food, and anything else is shown as written. Check below the input box that it was read correctly. To switch to another race, press "Load" in "Save race info &amp; strategy".</p>
+<h3>On the day</h3>
+<ol><li>Shortly before the start, press "<strong>Start race standby</strong>" and keep the screen on.</li><li>Music starts 5 minutes before the start, and GPS turns on automatically 1 minute before. A chime sounds at your start time.</li><li>When you cross the start line, press "<strong>Start</strong>" (it cannot be pressed until 1 second before your start time). The screen locks, and all you have to do is run.</li><li>After you finish, long-press "<strong>Finish</strong>" in the bar at the bottom.</li></ol>
+<h3>What you see while running</h3>
+<table><thead><tr><th>Display</th><th>Meaning</th></tr></thead><tbody><tr><td>Since start</td><td>Time since you pressed Start</td></tr><tr><td>Until time limit</td><td>Time left in the time limit, counted from the gun</td></tr><tr><td>Estimated position</td><td>Your current distance, calculated from GPS, "Passed 1 km" and the target pace</td></tr><tr><td>Next cutoff / Next aid station</td><td>Distance to it, time until closing, or what is there</td></tr><tr><td>Target distance in 30 min</td><td>Where you should be in 30 minutes if you follow the strategy</td></tr></tbody></table>
+<p><strong>Net time and gross time</strong>: the big timer while running is the time since you pressed "Start" (net time). When you finish, gross time is shown as well. Gross time is the time from "start time + wave delay" (the start of your wave) to the finish; net time is the time from when you crossed the start line to the finish. In a race, the clock does not stop even if you pause the music while running. Gross time is also kept in the log and CSV.</p>
+<p>When you pass a distance marker, long-press "Passed 1 km" to correct your position. Every 5 km, if you are 10 or more minutes behind target, the strategy is adjusted automatically to your pace over the last 5 km (or to a speed that lets you finish if you might exceed the time limit).</p>
+<h2 id="e-6">6. Relax</h2>
+<p>Plays the songs checked "Use" at their original speed, repeating until you press "Stop". Use it for stretching or cooling down.</p>
+<ol><li>Press "3. Relax".</li><li>Relax has no tabs: the settings and songs are on one screen. In the same order as the Race "Songs" tab come the place to add songs, the song list, and the purple box "🎵 Song lists (my lists)". "Load" a set of songs from a my list, or register a new one.</li><li>To play in random order, check "Shuffle songs" and press "Play".</li></ol>
+<h2 id="e-7">7. Sounds and voice notices</h2>
+<p>Under "Sound to play" at the top of the "Songs" tab, choose Songs, Drum or Silent. Drum and Silent do not use songs, so the song list ("Add songs"), the purple box "🎵 Song lists (my lists)" and the "Restart song" / "Next song" buttons are not shown. Beeps, volume and fine-tuning of the rhythm (press "Faster" if the songs feel slow) are on the "Sound &amp; cues" tab.</p>
+<table><thead><tr><th>Sound to play</th><th>What you hear</th></tr></thead><tbody><tr><td>Songs</td><td>The songs checked "Use", at a speed matched to your pace</td></tr><tr><td>Drum</td><td>Instead of songs, a drum at the step rate for your pace (e.g. 171 steps/min)</td></tr><tr><td>Silent</td><td>No music; only beeps and voice notices</td></tr></tbody></table>
+<p>In a race, the app tells you things by voice at the times below. You can turn off the every-1-km notice on the "Sound &amp; cues" tab. Check "Vibrate every 1 km" to get one short vibration every 1 km (Race and outdoor Training; Android only, not supported on iPhone). The lap shown on screen every 1 km also shows a finish prediction (net time and clock time at the finish) if you keep the pace of the last 1 km. If the prediction misses the time limit, that is shown too.</p>
+<table><thead><tr><th>When</th><th>Example of what is said</th></tr></thead><tbody><tr><td>5 minutes before the start / at the start time</td><td>"5 minutes to the start" / "It is your start time"</td></tr><tr><td>Every 1 km</td><td>"17 kilometers. Lap 6 minutes 12 seconds." (also shown large on screen)</td></tr><tr><td>Every 30 minutes</td><td>"60 minutes elapsed. The strategy puts you at 9.8 km."</td></tr><tr><td>300 m before an aid station</td><td>"Aid station soon. Water and bananas."</td></tr><tr><td>When the strategy is adjusted automatically</td><td>"Adjusted to your pace over the last 5 kilometers…"</td></tr></tbody></table>
+<h2 id="e-8">8. Log and graphs</h2>
+<p>In a race, the start time and the time at every 1 km are recorded automatically. Find them under "Race" → "Strategy &amp; log" tab → "Race log".</p>
+<ul><li><strong>Graphs</strong>: pace for every 1 km (actual and target), and the difference from the target, are drawn automatically.</li><li><strong>Table</strong>: elapsed time (net) and gross time for every 1 km. The top line also shows net time, gross time and start loss.</li><li><strong>Download CSV</strong>: save it as a file you can open in Excel.</li></ul>
+<p>Only the last race is kept. <strong>It is deleted when you press Start in your next race</strong>, so download the CSV before then if you want to keep it.</p>
+<h2 id="e-9">9. Troubleshooting</h2>
+<table><thead><tr><th>Problem</th><th>What to do</th></tr></thead><tbody><tr><td>My phone turned off while running</td><td>Just open Marathon BGM again; it resumes automatically. If there is no sound, tap anywhere on the screen</td></tr><tr><td>My Bluetooth earphones disconnected and the music stopped</td><td>When they reconnect, press the orange "▶ Resume music". The timer has not stopped</td></tr><tr><td>Songs do not play</td><td>On the "Songs" tab, check that "Use" is checked, that "Sound to play" is "Songs", and the phone's volume</td></tr><tr><td>GPS does not work</td><td>Check that you opened https://shinichiokabe.github.io/marathon-bgm/ and that Chrome's location permission is "Allow"</td></tr><tr><td>I cannot press "Start" (race)</td><td>It cannot be pressed until 1 second before your start time</td></tr><tr><td>Loading a my list does not change the race name</td><td>My lists are songs only. For a race, press "Load" in "Save race info &amp; strategy"</td></tr><tr><td>I cannot press "Overwrite"</td><td>Only the yellow row ("Loaded") can be overwritten. Press "Load" on that row first</td></tr><tr><td>The text looks wrong</td><td>Turn off the browser's automatic translation (show original)</td></tr><tr><td>A fix does not seem to be there</td><td>Check the version label ("版 …") at the bottom of the page. If it is old, close the Chrome tab and open it again</td></tr><tr><td>"This file cannot be loaded" (CSV)</td><td>Check that it matches the "CSV format" in "4. Training", especially that line 1 starts with "marathon-bgm-bulk". Opening and re-saving in Excel etc. can change the format so it can no longer be read</td></tr></tbody></table>
+<p>During standby and while running, keeping the screen on is the safest. Switching to another app may stop the music and voice.</p>
+<h2 id="e-10">10. Support this app</h2>
+<p>Marathon BGM is free. Donations are optional, and all features work without donating. If you would like to support it, use "☕ Support this app (PayPal)" at the bottom of the screen.</p>
+<p><strong>Donate</strong>: <a href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">https://paypal.me/marathonBGM</a></p>
+<p>A PayPal account is needed to donate.</p>
+</div></div>
 </div>
 <script>
 const BOOT={hash:location.hash||'',ref:document.referrer||'',last:''};addEventListener('hashchange',()=>{BOOT.last=location.hash||'';});
@@ -936,8 +1006,11 @@ csvRender();
 
 /* ---------- in-app guide (help) ---------- */
 {const hp=$('#helpPanel'),hs=$('#helpScroll');
-  {const toc=$('#helpToc');if(toc)toc.innerHTML=[...document.querySelectorAll('#helpBody h2')].map(h=>`<a href="#${h.id}" data-hgo="${h.id}">${esc(h.textContent)}</a>`).join('');}
-  const open=()=>{blurInputs();hp.hidden=false;hs.scrollTop=0;document.body.style.overflow='hidden';};
+  /* Japanese guide for 日本語, English guide for every other language */
+  const helpLang=()=>{const en=typeof I18N!=='undefined'&&I18N.lang&&I18N.lang!=='ja';$('#helpBody').hidden=en;$('#helpBodyEn').hidden=!en;$('#helpLangNote').textContent=en?'(English)':'（日本語）';
+    const toc=$('#helpToc');if(toc)toc.innerHTML=[...document.querySelectorAll(en?'#helpBodyEn h2':'#helpBody h2')].map(h=>`<a href="#${h.id}" data-hgo="${h.id}">${esc(h.textContent)}</a>`).join('');};
+  helpLang();
+  const open=()=>{blurInputs();helpLang();hp.hidden=false;hs.scrollTop=0;document.body.style.overflow='hidden';};
   const close=()=>{hp.hidden=true;document.body.style.overflow='';};
   $('#btnHelp').addEventListener('click',open);$('#helpClose').addEventListener('click',close);
   /* ---- カロリー計算（体重はこのパネルでだけ表示） ---- */
