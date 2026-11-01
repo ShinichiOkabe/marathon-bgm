@@ -469,7 +469,6 @@ body.live .recv{display:none}
       <div class="f wide">読み取った給水所・エイド<div class="rc-cps" id="rcWsView"></div><button class="small" type="button" data-clr="rcWs">給水所・エイドをすべてクリア</button></div>
     </div>
     <div class="rc-sum" id="rcSum"></div>
-    <label class="chk"><input type="checkbox" id="optShuffle" data-shuffle="1"> 曲をシャッフルして流す</label>
     <div class="rp">
       <div class="strat-h"><b>本番レース情報・戦略を保存</b><span class="sub">本番レースの情報と戦略（大会名・時刻・目標・関門・給水所・戦略）に名前を付けて保存しておくと、あとで読み込めます。本番モードでだけ保存・読み込みできます。曲は「曲」タブのマイリストで別に登録します。</span></div>
       <div class="ml-save"><input type="text" id="rpName" maxlength="40" placeholder="保存名（例：水戸2026）" aria-label="保存名"><button class="primary-sm" id="rpSave">保存</button></div>
@@ -548,6 +547,7 @@ body.live .recv{display:none}
       <div><h2>曲</h2><p class="sub" id="songsTxt">「使う」にチェックした曲だけを流します。マイリストには、チェックした曲が登録されます。曲ごとに流すステージも選べます（「全ステージ」か、個別のステージ）。BPMは自動で測り、ずれていたら試聴しながら「タップ」で直せます。</p></div>
       <div class="ctrls"><button id="btnAdd">曲を追加</button><button id="btnShuffle" hidden>シャッフル</button><button id="btnClear" hidden>すべてクリア</button></div>
     </div>
+    <label class="chk" id="shufRow"><input type="checkbox" id="optShuffle" data-shuffle="1"> 曲をシャッフルして流す</label>
     <div class="confirm" id="clearConfirm" hidden>
       <span>一覧の曲をすべてクリアしますか？マイリストで使っている曲はこのブラウザに残り、マイリストを読み込むと一覧に戻ります。それ以外の曲は削除します（端末にある元のファイルは消えません）。</span>
       <div class="ctrls"><button class="danger" id="clearYes">すべてクリア</button><button id="clearNo">やめる</button></div>
@@ -601,7 +601,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-01b</p>
+  <p class="ver" data-notr translate="no">版 2026-11-01c</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -631,7 +631,7 @@ body.live .recv{display:none}
 <p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。日本語以外を選ぶと、この使い方ガイドは英語版になります。</p>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
-<p>ページの一番下には「版 2026-11-01b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-01c」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
@@ -701,7 +701,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>From top to bottom: the mode buttons, the running display (timer and Start), and the settings tabs. Use "🌐" at the top right to switch between Japanese, English, Chinese and Korean.</p>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Passed 1 km, GPS, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-01b" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-01c" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h2 id="e-4">4. Training</h2>
 <p>For each stage of your training menu, songs play at a tempo that makes that pace easy to run.</p>
 <ol><li>Press "1. Training" and choose "Indoor (stages advance by time)" or "Outdoor (advance by GPS distance)".</li><li>On the "Menu" tab, choose "Steady run", "LSD", "Build-up" or "Jog", or enter a pace (min per km) and time for each stage.</li><li>Save menus you use often with "Save practice menu" below: enter a name (e.g. Tuesday pace run) and press "Save". Next time, just press "Load".</li><li>Press "Start". A beep sounds when the stage changes, and the tempo changes too.</li><li>When you are done, long-press "Unlock" and press "Reset". The app stops automatically when the menu is finished.</li></ol>
@@ -2235,7 +2235,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('.src-b');if(b)se
   try{getCtx().resume().then(()=>{const bl=INT.blocked;INT.on=false;INT.blocked=false;renderMusicRes();if(opt.src==='drum')startClicks();if(bl&&INT.msg)say(INT.msg);});}catch(e){}};}
 setInterval(()=>{if(opt.src==='drum'&&R.running&&!R.paused&&!INT.on){try{if(getCtx().state!=='running'){INT.on=true;INT.blocked=true;renderMusicRes();}}catch(e){}}},2000);
 {const _a=applyModeUI;applyModeUI=function(){const want=MODE==='relax'?'songs':(['songs','drum','silent'].includes(store.get('cbgm-src','songs'))?store.get('cbgm-src','songs'):'songs');const chg=opt.src!==want&&!R.running;if(chg)opt.src=want;
-  _a();renderTabs();renderSrc();if(chg){renderSongs();renderRun();}const ss=document.querySelector('.srcsel');if(ss)ss.hidden=MODE==='relax';vibRowUI();};}
+  _a();renderTabs();renderSrc();if(chg){renderSongs();renderRun();}const ss=document.querySelector('.srcsel');if(ss)ss.hidden=MODE==='relax';const sr=$('#shufRow');if(sr)sr.hidden=MODE!=='race';vibRowUI();};}
 function vibRowUI(){const r=$('#optVibRow');if(r)r.hidden=!(MODE==='race'||(MODE==='practice'&&opt.outdoor));}
 {const _sc3=startClicks;startClicks=function(){if(MODE==='relax'){stopClicks();return;}return _sc3.apply(this,arguments);};}
 renderAll();loadSaved().then(()=>{checkResume();checkPracResume();renderLog();});setTimeout(()=>{checkResume();checkPracResume();},1500);
