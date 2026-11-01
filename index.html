@@ -601,7 +601,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-10-31f</p>
+  <p class="ver" data-notr translate="no">版 2026-11-01a</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -631,7 +631,7 @@ body.live .recv{display:none}
 <p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。</p>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
-<p>ページの一番下には「版 2026-10-31f」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-01a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
@@ -2020,7 +2020,7 @@ function logChart(rows,d){const pts=rows.filter(x=>x.pace);if(pts.length<2)retur
   const df=rows.filter(x=>x.diff!=null);if(df.length<2)return g1;
   const dv=df.map(x=>x.diff/60000);let dlo=Math.min(0,...dv),dhi=Math.max(0,...dv);if(dhi-dlo<4){dhi+=2;dlo-=2;}
   const DY=v=>t+(H-t-b)*(dhi-v)/(dhi-dlo);const zero=DY(0);
-  const area=`<path d="M${X(0)},${zero} ${df.map(x=>'L'+X(x.km).toFixed(1)+','+DY(x.diff/60000).toFixed(1)).join(' ')} L${X(df[df.length-1].km)},${zero} Z" fill="var(--warn)" fill-opacity=".18" stroke="var(--warn)" stroke-width="2"/>`;
+  const area=`<path d="M${X(0)},${zero} ${df.map(x=>'L'+X(x.km).toFixed(1)+','+DY(x.diff/60000).toFixed(1)).join(' ')} L${X(df[df.length-1].km)},${zero} Z" fill="var(--warn)" fill-opacity=".18" stroke="none"/><path d="M${X(0)},${zero} ${df.map(x=>'L'+X(x.km).toFixed(1)+','+DY(x.diff/60000).toFixed(1)).join(' ')}" fill="none" stroke="var(--warn)" stroke-width="2"/>`;
   const dgrid=[];const ds=dhi-dlo>40?10:dhi-dlo>15?5:dhi-dlo>6?2:1;for(let v=Math.ceil(dlo/ds)*ds;v<=dhi;v+=ds)dgrid.push(`<line x1="${l}" x2="${W-r}" y1="${DY(v)}" y2="${DY(v)}" stroke="currentColor" stroke-opacity="${v?'.12':'.45'}"/><text x="${l-6}" y="${DY(v)+4}" text-anchor="end" font-size="10" fill="currentColor" fill-opacity=".6">${v>0?'+':''}${v}分</text>`);
   const evm=(d.ev||[]).filter(e=>e.type==='auto').map(e=>`<line x1="${X(e.km)}" x2="${X(e.km)}" y1="${t}" y2="${H-b}" stroke="var(--warn)" stroke-dasharray="3 3"/>`).join('');
   return g1+`<div class="chart-t">目標との差（＋は遅れ）</div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="目標との差">${dgrid.join('')}${xt.join('')}${area}${evm}</svg>`;}
