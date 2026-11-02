@@ -362,6 +362,33 @@ body.hist .wrap>*:not(header):not(#histSec),body.hist #ioRow,body.hist #hashNote
 .del-row.sel{background:var(--ink);color:var(--surface)}.del-row.dis{opacity:.5;cursor:default}
 .del-ask{display:flex;flex-direction:column;gap:6px;border:2px solid var(--warn);border-radius:10px;padding:10px 12px;background:var(--pause-bg)}.del-ask b{color:var(--warn);font-size:1rem}
 #delBox .ctrls button{margin-top:0}
+.ag-open{font-weight:700;border-color:var(--accent);color:var(--accent)}.ag-open[aria-expanded="true"]{background:var(--accent);color:var(--accent-ink)}
+.ag{display:flex;flex-direction:column;gap:10px}.ag .f{display:flex;flex-direction:column;gap:3px;font-size:.78rem;color:var(--muted);font-weight:700}
+.ag select,.ag input[type=text],.dform input{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%;min-width:0}
+.ag-days summary{cursor:pointer;font-size:.85rem;font-weight:700;color:var(--accent)}.ag-dayrow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:8px 0}
+.ag-dayrow button{margin:0;padding:6px 0;font-weight:700;border-radius:8px}.ag-dayrow button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.ag-sel{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ag-sel label{display:flex;flex-direction:column;gap:3px;font-size:.75rem;color:var(--muted);font-weight:700}
+.ag-kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ag-kpi div{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}.ag-kpi span{font-size:.72rem;color:var(--muted);font-weight:700}
+.ag-kpi b{display:block;font:700 1.45rem/1.15 var(--f-num)}.ag-kpi i{font-style:normal;font-size:.75rem;color:var(--muted)}
+.ag-bar{height:10px;background:var(--line);border-radius:5px;overflow:hidden}.ag-bar i{display:block;height:100%;background:var(--accent);border-radius:5px}
+.ag-wk{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:.72rem}.ag-wk div{border:1px solid var(--line);border-radius:8px;padding:3px 0;background:var(--surface)}
+.ag-wk b{display:block;font:700 1rem var(--f-num)}.ag-wk .done{background:var(--accent-soft);border-color:var(--accent)}.ag-wk .today{outline:2px solid var(--amber);background:var(--amber-soft)}.ag-wk .rest{color:var(--muted)}
+.ag-go{width:100%;padding:12px;font-size:1rem}
+.ag-why{font-size:.85rem;background:var(--accent-soft);border-radius:8px;padding:8px 10px;line-height:1.6}
+.ag-stg{display:grid;grid-template-columns:24px 1fr auto auto;gap:8px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.ag-stg .n{font:700 .85rem var(--f-num);color:var(--accent-ink);background:var(--accent);border-radius:50%;width:24px;height:24px;display:grid;place-items:center}.ag-stg .pc{font:700 1.15rem var(--f-num)}.ag-stg .km{font:600 1rem var(--f-num);color:var(--muted)}
+.ag-sum{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:.85rem;border-top:1px solid var(--line);padding-top:6px}.ag-sum b{font:700 1.1rem var(--f-num)}
+.ag-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ag-btns button{margin:0}
+.ag svg,.dist svg{width:100%;height:auto;display:block}
+.dist{display:flex;flex-direction:column;gap:12px}.dcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.dh{font-size:.95rem}.dleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.72rem;color:var(--muted)}.dleg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.k-out{background:var(--accent)}.k-in{background:var(--ml-line)}.k-race{background:var(--warn)}.k-goal{background:var(--amber)}
+.dtw{max-height:360px;overflow:auto}.dtw table{width:100%;border-collapse:collapse;font-size:.85rem}.dtw th{font-size:.72rem;color:var(--muted);text-align:left;padding:4px 3px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface)}
+.dtw td{padding:6px 3px;border-bottom:1px solid var(--line);vertical-align:middle}.dtw td.r{text-align:right;font:600 1rem var(--f-num)}.dtw td.t{font-family:var(--f-num);white-space:nowrap}
+.dbd{font-size:.68rem;font-weight:700;border-radius:999px;padding:1px 7px;border:1px solid currentColor;white-space:nowrap}.dbd.race{color:var(--warn)}.dbd.out{color:var(--accent)}.dbd.in{color:var(--ml-line)}
+.dsrc{font-size:.68rem;color:var(--muted)}.dtw button{margin:0;padding:2px 8px;font-size:.72rem}
+.dform{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dform .f{display:flex;flex-direction:column;gap:3px;font-size:.75rem;color:var(--muted);font-weight:700;min-width:0}.dform .wide{grid-column:1/-1}
+.dkpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dkpi div{border:1px solid var(--line);border-radius:10px;padding:8px 10px}.dkpi span{font-size:.72rem;color:var(--muted);font-weight:700}.dkpi b{display:block;font:700 1.45rem/1.15 var(--f-num)}.dkpi i{font-style:normal;font-size:.75rem;color:var(--muted)}
 .rlog .pdel{margin:0 0 0 8px;padding:2px 8px;font-size:.72rem;font-family:var(--f-body);font-weight:400}
 .mode:disabled{opacity:.45}
 .rc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -414,7 +441,7 @@ body.live .recv{display:none}
   </header>
   <section id="histSec" class="hist-sec" hidden>
     <div class="hist-h"><b>実績</b><span class="sub">一覧から選ぶと、表・グラフ・高低差を表示します。地図は「地図を表示」を押したときだけ読み込みます。</span></div>
-    <div class="kind-tabs" id="histKind" role="tablist" aria-label="記録の種類"><button type="button" role="tab" data-kind="race">本番</button><button type="button" role="tab" data-kind="prac">練習</button></div>
+    <div class="kind-tabs" id="histKind" role="tablist" aria-label="記録の種類"><button type="button" role="tab" data-kind="race">本番</button><button type="button" role="tab" data-kind="prac">練習</button><button type="button" role="tab" data-kind="dist">走行距離</button></div>
     <div class="cloud" id="cloudBox">
       <label class="cloud-row" for="cloudSvc"><span>保存先</span><select id="cloudSvc"></select></label>
       <div class="sub" id="cloudMsg"></div>
@@ -426,6 +453,20 @@ body.live .recv{display:none}
       <div class="sub">以前の版で「CSVをダウンロード」した本番ログを取り込み、表示できる範囲で表示します。</div>
       <div class="ctrls"><button class="small" type="button" id="impBtn">CSVを選ぶ</button><input type="file" id="impCsv" accept=".csv,text/csv" multiple hidden></div>
       <div class="sub" id="impMsg"></div>
+    </div>
+    <div id="distBox" class="dist" hidden>
+      <div class="dcard" id="dGoal"></div>
+      <div class="dcard"><b class="dh">月ごとの走行距離</b><div id="dChart"></div>
+        <div class="dleg"><span><i class="k-out"></i>屋外の練習</span><span><i class="k-in"></i>屋内（機材）</span><span><i class="k-race"></i>本番</span><span><i class="k-goal"></i>月の目標</span></div></div>
+      <div class="dcard"><b class="dh">走行距離の記録</b><div class="dtw" id="dList"></div></div>
+      <div class="dcard"><b class="dh">屋内の練習を記録する</b>
+        <div class="dform">
+          <label class="f" for="diDate">日付<input type="date" id="diDate"></label>
+          <label class="f" for="diTime">開始時刻<input type="time" id="diTime"></label>
+          <label class="f wide" for="diMach">トレーニング機材名<input type="text" id="diMach" list="diMachList" maxlength="40" placeholder="例）ジムのトレッドミル" autocomplete="off"><datalist id="diMachList"></datalist></label>
+          <label class="f wide" for="diKm">距離（km）<input type="number" id="diKm" min="0.1" max="200" step="0.1" inputmode="decimal" placeholder="例）8.0"></label>
+        </div>
+        <button class="primary-sm" type="button" id="diAdd">記録する</button><p class="ml-msg" id="diMsg"></p></div>
     </div>
     <div id="histHost"></div>
     <div class="cloud" id="delBox">
@@ -562,6 +603,25 @@ body.live .recv{display:none}
       <div class="clr-wrap"><button class="small clr" data-clear="practice">練習の内容をクリア</button><p class="ml-msg" id="clrMsg-practice"></p></div>
     </div>
     <div class="chips" id="presets"></div>
+    <div><button class="small ag-open" type="button" id="agOpen" aria-expanded="false">自動生成</button></div>
+    <div class="ag" id="agPanel" hidden>
+      <div class="rp">
+        <div class="strat-h"><b>練習メニューの自動生成</b><span class="sub">目標の大会と目標タイムから、今週の練習距離を決め、本日の練習メニューを作ります。</span></div>
+        <label class="f" for="agRace">目標の大会（保存されている本番レース情報から選ぶ）<select id="agRace"></select></label>
+        <div class="sub" id="agRaceInfo"></div>
+        <label class="f" for="agGoal">目標タイム<input type="text" id="agGoal" inputmode="numeric" placeholder="例）3:30:00" autocomplete="off"></label>
+        <div class="sub" id="agPace"></div>
+        <details class="ag-days"><summary>練習する曜日の設定</summary>
+          <div class="ag-dayrow" id="agDays"></div>
+          <div class="ag-sel"><label for="agLsd">LSD（長い距離）の曜日<select id="agLsd"></select></label><label for="agPaceDay">ペース走の曜日<select id="agPaceDay"></select></label></div>
+        </details>
+        <p class="ml-msg err" id="agMsg"></p>
+      </div>
+      <div class="rp" id="agWeek"></div>
+      <button class="primary-sm ag-go" type="button" id="agGo">本日の練習メニューを自動生成する</button>
+      <div class="rp" id="agResult" hidden></div>
+      <div class="rp" id="agPlan" hidden></div>
+    </div>
     <div class="list" id="menuList"></div>
     <div><button class="small" id="btnAddSeg">＋ ステージを追加</button></div>
     <div class="rp" id="csvBox">
@@ -713,6 +773,11 @@ body.live .recv{display:none}
 <table><thead><tr><th></th><th>屋内</th><th>屋外（GPS）</th></tr></thead><tbody><tr><td>ステージが進むとき</td><td>決めた時間がたったとき</td><td>決めた距離を走ったとき</td></tr><tr><td>1 km毎のお知らせとラップ表</td><td>なし</td><td>あり</td></tr></tbody></table>
 <p>屋外では、「GPSの位置をつかみました。」と出てからスタートしてください。走っている途中の「ペースアップ／ダウン」は、時速を0.1 kmずつ変えてテンポを合わせます。「練習の内容をクリア」はメニューだけを空にします（2回押す）。</p>
 <p><strong>曲の順番とシャッフル</strong>：練習には「曲をシャッフルして流す」はありません。練習では、曲ごとに流すステージ（「全ステージ」か、個別のステージ）を選べて、ステージが変わるとそのステージ用の曲を、「曲」タブで▲▼で並べた順に流すためです。流す順番を変えたいときは、▲▼で並べ替えてください。シャッフルは、本番（「曲」タブの「曲を追加」の下）とリラックスで使えます。</p>
+<h3>練習メニューを自動で作る</h3>
+<p>「メニュー」タブの「自動生成」を押すと、目標の大会に向けた本日の練習メニューを作れます。</p>
+<ol><li>「目標の大会」で、保存されている本番レース情報から大会を選びます（「2. 本番」の「大会」タブで、開催日と距離を入れて保存した大会が出ます）。</li><li>「目標タイム」を確かめます。大会に目標タイムを入れてあればそれが入ります。変えることもできます。</li><li>必要なら「練習する曜日の設定」で、走る曜日（初期は火曜が休み）、LSDの曜日（初期は土曜）、ペース走の曜日（初期は水曜）を選びます。</li><li>「今週の練習距離」に、今週の目標距離・ここまでの距離・曜日ごとの実績が出ます。</li><li>「本日の練習メニューを自動生成する」を押すと、今日のメニューと、そうした理由が出ます。「このメニューで走る」を押すと、練習メニューがそのステージに入れ替わります。「作り直す」を押すと、ジョグ・ペース走・LSDを順に入れ替えて作り直します。</li></ol>
+<p>週の目標距離は、「走行距離」の記録の最近4週の平均から始め、週に最大10%ずつ増やします。4週に1回は距離を落とす回復週、大会前の3週は距離を減らす調整期間です。いちばん多い週の距離は目標タイムで決まります。今日の距離は、今週の残り距離を残りの練習日で分けて決めます（LSDの日は多め、ペース走の日はやや多め）。ペースは、ジョグとLSDが目標ペースより1分10〜20秒ほど遅く、ペース走は目標ペース（距離を増やしている時期は＋10秒）です。</p>
+<p>自動生成のメニューは、一般的な練習の考え方に沿った目安です。体調や脚の状態に合わせて、ステージの距離やペースを変えて使ってください。</p>
 <h3>屋外の練習を記録に残す</h3>
 <p>「屋外（GPSの距離で進む）」で走った練習は、終わったときに「この練習を記録に残しますか？」と聞かれます。メニューを最後まで走って終わったときと、途中で「リセット」を押して終えたときの両方です（200 m未満のときは聞きません）。</p>
 <ol><li>走った距離・タイム・平均ペースとスタート日時が表示されます。</li><li>「スタートした場所」には、スタート地点の住所（市区町村と町名）が自動で入ります。「大濠公園」のように、わかりやすい名前に書き換えても構いません。ネットにつながっていないときは空欄になり、空のまま保存すると、あとでネットにつながったときに自動で入ります。</li><li>「保存する」を押すと、「4. 実績」の「練習」に、場所名とスタート日時の名前で残ります（例：2026/11/2 6:30 福岡市中央区大濠公園）。残さないときは「保存しない」を押します。</li></ol>
@@ -775,6 +840,10 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>この版より前に「CSVをダウンロード」で保存した本番ログも、「4. 実績」に取り込めます。</p>
 <ol><li>「4. 実績」の「旧データの取り込み」にある「CSVを選ぶ」を押します。</li><li>保存しておいたCSVファイルを選びます。複数のファイルをまとめて選ぶこともできます。日本語・英語など、どの表示言語で書き出したCSVでも取り込めます。</li><li>「取り込みました。」と出たら、一覧にその大会が加わります。同じ大会をもう一度選んだときは「すでに取り込み済みです。」と出て、二重には入りません。</li></ol>
 <p>以前の版のCSVには位置が入っていないため、表示できるのはグラフ・表・前半後半（中間点は1 km毎の時刻から推定）・できごとまでで、地図・高低差・天気は出ません。この版で書き出したCSVを取り込んだ場合は、1 km毎の位置から大まかな地図と高低差も出ます。保存先がDropboxなら、取り込んだ記録もDropboxに保存されます。</p>
+<h3>走行距離の記録</h3>
+<p>「4. 実績」の「走行距離」で、走った距離の記録と月ごとの合計を見られます。</p>
+<ul><li><strong>自動で記録</strong>：本番と屋外の練習は、終わったときに日付・開始時刻・大会名または練習場所・距離を自動で記録します。屋外の練習で「保存しない」を選んだときも、距離だけは記録します。</li><li><strong>屋内の練習</strong>：トレッドミルなど屋内の練習は、「屋内の練習を記録する」で日付・開始時刻・トレーニング機材名・距離を入れて「記録する」を押します。前に使った機材名は候補から選べます。</li><li><strong>目標の達成状況</strong>：今月と今週の距離を、自動生成で決めた月・週の目標と並べて表示します。</li><li><strong>月ごとの走行距離</strong>：直近6か月の合計を、屋外・屋内・本番で色分けしたグラフで表示します。オレンジの点と線は月の目標です。</li><li><strong>削除</strong>：記録の「削除」を押し、「もう一度押すと削除」と出たらもう一度押すと消せます。本番や練習のログを削除しても、走行距離の記録は残ります。</li></ul>
+<p>保存先がDropboxのときは、走行距離の記録もDropboxに保存し、スマホとパソコンで同じ記録を見られます。</p>
 <h3>実績データを削除する</h3>
 <p>「4. 実績」の一番下の「実績データの削除」で、表示中の種類（本番か練習）の記録をまとめて削除できます。</p>
 <ol><li>「削除する記録を選ぶ」を押すと、記録の一覧が出ます。</li><li>削除する記録にチェックを入れます（「すべて選ぶ」もあります）。</li><li>「選んだ記録を削除」を押すと、選んだ記録が反転して表示され、「本当に削除しますか？」と聞かれます。</li><li>「削除します」を押したときだけ削除します。「やめる」を押すと選び直せます。</li></ol>
@@ -824,6 +893,11 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th></th><th>Indoor</th><th>Outdoor (GPS)</th></tr></thead><tbody><tr><td>When the stage advances</td><td>When the set time has passed</td><td>When you have run the set distance</td></tr><tr><td>Every-1-km notices and lap table</td><td>No</td><td>Yes</td></tr></tbody></table>
 <p>Outdoors, start after the message saying the GPS position has been found. "Pace up / Pace down" while running changes the speed by 0.1 km/h at a time and adjusts the tempo. "Clear training" empties only the menu (press twice).</p>
 <p><strong>Song order and shuffle</strong>: Training has no "Shuffle songs". In Training you can choose which stages each song plays in ("All stages" or particular stages), and when the stage changes, the songs for that stage play in the order you arranged with ▲▼ on the "Songs" tab. To change the order, rearrange the songs with ▲▼. Shuffle is available in Race (on the "Songs" tab, below "Add songs") and in Relax.</p>
+<h3>Auto-generate a training menu</h3>
+<p>Press "Auto plan" on the "Menu" tab to make today's menu toward your target race.</p>
+<ol><li>Under "Target race", choose a race from your saved race info (races saved with a date and distance on "2. Race" → "Race" tab appear here).</li><li>Check the "Goal time". The race's goal time is filled in if you entered one; you can change it.</li><li>If needed, use "Training days" to choose your running days (Tuesday is a rest day at first), the LSD day (Saturday at first) and the pace run day (Wednesday at first).</li><li>"This week's distance" shows this week's target, the distance so far and each day's distance.</li><li>Press "Generate today's menu" to see today's menu and why it was chosen. "Run this menu" replaces your training menu with those stages. "Remake" cycles through jog, pace run and LSD.</li></ol>
+<p>The weekly target starts from your average of the last 4 weeks in "Distance" and grows by up to 10% a week. Every 4th week is a lighter recovery week, and the 3 weeks before the race taper off. The peak week depends on your goal time. Today's distance is the rest of this week's target split over the remaining running days (more on the LSD day, a little more on the pace run day). Jog and LSD are about 1:10 to 1:20 per km slower than goal pace; the pace run is at goal pace (+10 s while building up distance).</p>
+<p>Generated menus are a general guide. Adjust the stage distances and paces to how you and your legs feel.</p>
 <h3>Save outdoor training runs</h3>
 <p>When an "Outdoor (GPS distance)" training run ends, you are asked "Save this training run?". This happens both when you finish the whole menu and when you end early with "Reset" (not under 200 m).</p>
 <ol><li>The distance, time, average pace and start date and time are shown.</li><li>"Start location" is filled in automatically with the address of the start point (city and district). You can change it to a name you recognize, such as a park name. When offline it is left blank; if you save it blank, it is filled in automatically once online.</li><li>Press "Save" to keep it under "Training" in "4. Results", named with the place and start date and time. Press "Don't save" to discard it.</li></ol>
@@ -886,6 +960,10 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>Race logs you saved with "Download CSV" in an earlier version can also be added to "4. Results".</p>
 <ol><li>In "4. Results", press "Choose CSV" under "Import old data".</li><li>Choose the saved CSV file. You can choose several files at once. CSVs exported in any display language (Japanese, English and so on) can be imported.</li><li>When it says "Imported.", the race is added to the list. If you choose the same race again, it says "Already imported." and is not added twice.</li></ol>
 <p>CSVs from earlier versions contain no positions, so you get the graphs, table, halves (halfway estimated from the time at each km) and events, but no map, elevation or weather. A CSV exported from this version also gives a rough map and elevation from the position at each km. With Dropbox chosen, imported logs are saved to Dropbox too.</p>
+<h3>Distance records</h3>
+<p>"Distance" in "4. Results" shows each run's distance and monthly totals.</p>
+<ul><li><strong>Automatic</strong>: races and outdoor training runs are logged with the date, start time, race name or place, and distance when they end. Outdoor runs are logged even if you choose "Don't save".</li><li><strong>Indoor training</strong>: for a treadmill or other machine, enter the date, start time, machine name and distance under "Log indoor training" and press "Log". Machines you used before can be picked from the list.</li><li><strong>Progress to goal</strong>: this month's and this week's distance next to the targets set by the auto plan.</li><li><strong>Distance by month</strong>: totals for the last 6 months, colored by outdoor, indoor and race. The orange dots and line are monthly targets.</li><li><strong>Delete</strong>: press "Delete" on a record, then press it again when it says "Press again to delete". Deleting a race or training log does not delete its distance record.</li></ul>
+<p>With Dropbox chosen, distance records are saved to Dropbox too, so your phone and computer show the same records.</p>
 <h3>Delete logs</h3>
 <p>Use "Delete logs" at the bottom of "4. Results" to delete several logs of the kind shown (race or training) at once.</p>
 <ol><li>Press "Choose logs to delete" to see the list.</li><li>Check the logs to delete ("Select all" is also available).</li><li>Press "Delete selected". The chosen logs are highlighted and you are asked "Really delete?".</li><li>They are deleted only when you press "Delete". Press "Cancel" to choose again.</li></ol>
@@ -2771,6 +2849,182 @@ function syncGpsTurns(d){if(!d||!d.geo||d.live||d.id==='cur'||d.geo.gtDone)retur
   G.pass.sort((a,b)=>a.km-b.km);return true;}
 {const _a=archiveRace;archiveRace=function(){const r=_a.apply(this,arguments);try{const d=raceLogs[0];if(d&&syncGpsTurns(d))store.set(LOGS_KEY,raceLogs);}catch(e){}return r;};}
 {const _g=geoRender;geoRender=function(d){try{if(d&&!d.loading&&d.geo&&!d.geo.gtDone&&!d.live&&d.id!=='cur'&&syncGpsTurns(d)&&raceLogs.includes(d)){logChanged(d);}}catch(e){}return _g.apply(this,arguments);};}
+/* ===================== 走行距離実績（本番・屋外の練習は自動、屋内は手入力） ===================== */
+const DIST_KEY='cbgm-dist-log',DIST_DEL='cbgm-dist-del';
+let distLog=store.get(DIST_KEY,[]);if(!Array.isArray(distLog))distLog=[];
+let distDel=store.get(DIST_DEL,[]);if(!Array.isArray(distDel))distDel=[];
+function distSave(){distLog.sort((a,b)=>b.at-a.at);store.set(DIST_KEY,distLog);store.set(DIST_DEL,distDel.slice(-500));}
+const DAYMS=86400000;
+function dayStart(t){const d=new Date(t);d.setHours(0,0,0,0);return d.getTime();}
+function weekStart(t){const d=new Date(dayStart(t));const w=(d.getDay()+6)%7;return d.getTime()-w*DAYMS;}   /* 週は月曜から */
+const wkKey=t=>ymdISO(weekStart(t));
+/* 実績（本番・練習のログ）から走行距離の記録を作る：ログを消しても距離の記録は残る */
+function logKm(d){if(kindOf(d)==='prac')return +d.km||0;const L=d.log||[],last=L[L.length-1];return last?+last.km:0;}
+function distEnsure(){let ch=false;
+  raceLogs.forEach(d=>{if(!d||d.loading||!d.startAt)return;const id=d.id;if(distDel.includes(id))return;const km=logKm(d);if(!(km>=0.2))return;
+    const k=kindOf(d)==='prac'?'out':'race',nm=d.name||(k==='race'?'本番':'屋外の練習');let r=distLog.find(x=>x.id===id);
+    if(!r){distLog.push({id,at:d.startAt,kind:k,name:nm,km:+km.toFixed(2),auto:true});ch=true;}
+    else if(r.auto&&((r.nameAuto&&d.name&&r.name!==d.name)||Math.abs(r.km-km)>0.01)){if(d.name&&r.nameAuto){r.name=d.name;r.nameAuto=false;}r.km=+km.toFixed(2);ch=true;}});
+  if(ch)distSave();return ch;}
+/* 屋外の練習：保存しなかった場合も距離だけは残す（場所名はネットにつながっていれば調べる） */
+{const _po=pracOffer;pracOffer=function(d){try{if(d&&d.km>=0.2&&!distLog.some(x=>x.id===d.id)&&!distDel.includes(d.id)){const r={id:d.id,at:d.startAt,kind:'out',name:'屋外の練習',nameAuto:true,km:+(+d.km).toFixed(2),auto:true};distLog.push(r);distSave();
+    if(d.geo&&d.geo.sp)placeName(d.geo.sp).then(n=>{if(n&&r.nameAuto){r.name=n;distSave();distRender();}});}}catch(e){}return _po.apply(this,arguments);};}
+function distAddIndoor(at,mach,km){const r={id:'I'+at+'-'+Math.random().toString(36).slice(2,6),at,kind:'in',name:mach,km:+km.toFixed(2),auto:false};distLog.push(r);distSave();try{distSync();}catch(e){}return r;}
+const distIn=(a,b)=>distLog.filter(x=>x.at>=a&&x.at<b).reduce((s,x)=>s+(+x.km||0),0);
+/* ---- Dropboxに保存（distance.json）：両方の記録を合わせる ---- */
+async function distSync(){if(!CLOUD||CLOUD.svc==='none'||!navigator.onLine||!cloudSigned(CLOUD.svc))return;
+  try{const t=await cloudCall('get','distance.json');let rem={v:1,list:[],del:[]};if(t){try{rem=JSON.parse(t);}catch(e){}}
+    const del=new Set([...(rem.del||[]),...distDel]);let ch=false;
+    (rem.list||[]).forEach(x=>{if(!del.has(x.id)&&!distLog.some(y=>y.id===x.id)){distLog.push(x);ch=true;}});
+    const before=distLog.length;distLog=distLog.filter(x=>!del.has(x.id));if(distLog.length!==before)ch=true;distDel=[...del];
+    if(ch)distSave();
+    const out=JSON.stringify({v:1,list:distLog,del:distDel.slice(-500)});if(out!==t)await cloudCall('put','distance.json',out);
+    if(ch){distRender();try{agRender();}catch(e){}}}catch(e){}}
+{const _cs=cloudSync;cloudSync=async function(){const r=await _cs.apply(this,arguments);try{await distSync();}catch(e){}return r;};}
+/* ===================== 練習メニューの自動生成 ===================== */
+const PLAN_KEY='cbgm-plan';
+var PLAN=Object.assign({race:null,goal:0,run:[1,0,1,1,1,1,1],lsd:5,paceDay:2,hist:{}},store.get(PLAN_KEY,{})||{});   /* run[0]=月 … run[6]=日 */
+const planSave=()=>store.set(PLAN_KEY,PLAN);
+const WD=['月','火','水','木','金','土','日'];
+const dowMon=t=>(new Date(t).getDay()+6)%7;
+function presetKm(rc){return rc.ev==='フル'?42.195:rc.ev==='ハーフ'?21.0975:(+rc.km||0);}
+function planRaces(){return racePresets.filter(p=>p.rc&&/^\d{4}-\d\d-\d\d$/.test(p.rc.date||'')&&presetKm(p.rc)>0).map(p=>({id:p.id,name:p.rc.name||p.name,date:p.rc.date,time:p.rc.time,km:presetKm(p.rc),goal:+p.rc.goal||0,at:new Date(p.rc.date+'T'+(p.rc.time||'09:00')+':00').getTime()})).sort((a,b)=>a.at-b.at);}
+function planTarget(){const L=planRaces(),now=Date.now();let r=L.find(x=>x.id===PLAN.race);if(!r)r=L.find(x=>x.at>now)||null;return r;}
+/* 週ごとの目標距離：最近4週の平均から週に最大10%ずつ増やし、4週に1回は回復週、大会前3週は調整期間 */
+function peakFor(goal,km){const h=goal/3600*(42.195/Math.max(5,km));let pk=h<=3?80:h<=3.5?65:h<=4?55:h<=4.5?45:40;if(km<30)pk*=0.7;if(km<15)pk*=0.7;return Math.round(pk);}
+function planWeeks(r,goal){const w0=weekStart(Date.now()),wr=weekStart(r.at),n=Math.max(1,Math.round((wr-w0)/(7*DAYMS))+1);
+  let base=0,c=0;for(let k=1;k<=4;k++){const a=w0-k*7*DAYMS,v=distIn(a,a+7*DAYMS);base+=v;if(v>0)c++;}
+  base=c?base/4:0;const peak=peakFor(goal,r.km);if(base<peak*0.45)base=Math.max(base,Math.round(peak*0.45));
+  const W=[];let cur=base,last=base;
+  for(let i=0;i<n;i++){const left=n-1-i;let t,ph;
+    if(left===0){t=Math.round(peak*0.3);ph='race';}
+    else if(left<=2){t=Math.round(peak*(left===2?0.75:0.55));ph='taper';}
+    else{const build=i%4===3;if(build){t=Math.round(last*0.8);ph='recover';}else{cur=Math.min(peak,cur*(i?1.1:1));t=Math.round(cur);last=t;ph=t>=peak*0.9?'peak':'base';}}
+    W.push({at:w0+i*7*DAYMS,km:t,ph});}
+  return {weeks:W,peak,base:Math.round(base)};}
+const PH={base:'土台づくり',peak:'距離を走り込む',recover:'回復',taper:'調整',race:'大会'};
+/* 本日のメニュー：今週の残り距離を、残りの練習日で分ける（LSDの日は多め、ペース走は少し多め） */
+function planToday(variant){const r=planTarget();if(!r)return {err:'目標の大会を選んでください。'};const goal=PLAN.goal||r.goal;if(!(goal>0))return {err:'目標タイムを入れてください。'};
+  if(r.at<dayStart(Date.now()))return {err:'目標の大会の開催日が過ぎています。別の大会を選んでください。'};
+  const gp=goal/r.km,P=planWeeks(r,goal),wk=P.weeks[0],now=Date.now(),w0=weekStart(now),today=dowMon(now),t0=dayStart(now);
+  PLAN.hist[ymdISO(w0)]=wk.km;planSave();
+  const doneWeek=distIn(w0,w0+7*DAYMS),doneToday=distIn(t0,t0+DAYMS),rem=Math.max(0,wk.km-doneWeek);
+  const raceDay=weekStart(r.at)===w0?dowMon(r.at):7;
+  const days=[];for(let d=today;d<7&&d<raceDay;d++)if(PLAN.run[d]||d===today)days.push(d);
+  const role=d=>d===PLAN.lsd&&wk.ph!=='race'?'lsd':d===PLAN.paceDay?'pace':'jog',wt={lsd:2.2,pace:1.3,jog:1};
+  let type=role(today);const order=['jog','pace','lsd'];if(variant)type=order[(order.indexOf(type)+variant)%3];
+  const rest=!PLAN.run[today];const sumW=days.reduce((a,d)=>a+wt[d===today?type:role(d)],0)||1;
+  let km=rem*wt[type]/sumW,why=[];
+  const lim={jog:[4,14],pace:[6,16],lsd:[12,Math.max(14,Math.min(32,Math.round(P.peak*0.45)))]}[type];
+  if(rest){type=variant?type:'jog';km=5;why.push('今日は休養日の設定です。走るなら軽いジョグにします。');}
+  else if(rem<=0){type='jog';km=5;why.push('今週の目標距離は達成しています。今日は体をほぐす軽いジョグにします。');}
+  else{km=Math.min(lim[1],Math.max(lim[0],km));why.push(`今週の残り ${rem.toFixed(1)}km を、${days.map(d=>WD[d]).join('・')}の${days.length}日で走ります。`);
+    why.push(type==='lsd'?'今日は長い距離をゆっくり走るLSDの日です。':type==='pace'?'今日は目標に近いペースで走るペース走の日です。':'今日は楽なペースのジョグです。'+(days.some(d=>d!==today&&role(d)==='lsd')?'週末の長い距離（LSD）に備えて、距離は控えめにします。':''));}
+  if(doneToday>0)why.push(`今日はすでに ${doneToday.toFixed(1)}km 走っています。`);
+  why.push(`大会まで${P.weeks.length-1}週。今週は「${PH[wk.ph]}」の週です（目標 ${wk.km}km）。`);
+  km=Math.round(km*2)/2;
+  const jogP=Math.min(900,Math.round(gp+80)),lsdP=Math.min(900,Math.round(gp+70)),paceP=Math.round(gp+(wk.ph==='base'||wk.ph==='recover'?10:0));
+  const st=[];const add=(name,pace,k)=>{if(k>0.05)st.push({name,pace,km:k});};
+  if(type==='lsd'){add('ジョグ（ウォームアップ）',jogP,1);add('LSD',lsdP,km-1);}
+  else if(type==='pace'){const wu=km>=8?2:1.5;add('ジョグ（ウォームアップ）',jogP,wu);add(paceP>Math.round(gp)?'一定速走（目標ペース+10秒）':'一定速走（目標ペース）',paceP,Math.max(2,km-2*wu));add('ジョグ（クールダウン）',jogP,wu);}
+  else add('ジョグ',jogP,km);
+  const stages=st.map(x=>({id:gid(),name:x.name,pace:x.pace,bpm:cadFromPace(x.pace),auto:true,min:Math.max(0.5,Math.round(x.km*x.pace/60*2)/2)}));
+  return {r,goal,gp,P,wk,doneWeek,rem,days,type,km:stages.reduce((a,s)=>a+kmOf(s),0),stages,why,variant:variant||0};}
+let AG={open:false,res:null,variant:0};
+function agRaceOpts(){const L=planRaces(),now=Date.now(),t=planTarget();
+  $('#agRace').innerHTML=L.length?L.map(r=>`<option value="${r.id}"${t&&t.id===r.id?' selected':''}>${esc(r.name)}（${r.date}・${+r.km.toFixed(3)}km）${r.at<now?'（終了）':''}</option>`).join(''):'<option value="">保存されている本番レース情報がありません</option>';}
+function agRender(){const pan=$('#agPanel');if(!pan||pan.hidden)return;agRaceOpts();
+  const r=planTarget(),info=$('#agRaceInfo');
+  if(!r){info.textContent='「2. 本番」の「大会」タブで、開催日と距離を入れて本番レース情報を保存すると、ここで選べます。';$('#agWeek').innerHTML='';$('#agGo').disabled=true;return;}
+  const wks=Math.max(0,Math.round((weekStart(r.at)-weekStart(Date.now()))/(7*DAYMS)));const goal=PLAN.goal||r.goal;
+  info.innerHTML=`<span>開催日</span> ${r.date}　<span>あと</span> <b class="num">${wks}</b> <span>週</span>`;
+  const g=$('#agGoal');if(document.activeElement!==g)g.value=goal?fmtHMS(goal):'';
+  $('#agPace').innerHTML=goal?`<span>目標ペース</span> <b class="num">${fmtPace(goal/r.km)}</b>/km`:'';
+  $('#agDays').innerHTML=WD.map((w,i)=>`<button type="button" class="small${PLAN.run[i]?' on':''}" data-agday="${i}" aria-pressed="${!!PLAN.run[i]}">${w}</button>`).join('');
+  const dopt=sel=>WD.map((w,i)=>`<option value="${i}"${i===sel?' selected':''}>${w}</option>`).join('');$('#agLsd').innerHTML=dopt(PLAN.lsd);$('#agPaceDay').innerHTML=dopt(PLAN.paceDay);
+  $('#agGo').disabled=!goal;
+  if(!goal){$('#agWeek').innerHTML='';return;}
+  const P=planWeeks(r,goal),wk=P.weeks[0],w0=weekStart(Date.now()),done=distIn(w0,w0+7*DAYMS),today=dowMon(Date.now());
+  const cells=WD.map((w,i)=>{const a=w0+i*DAYMS,v=distIn(a,a+DAYMS);const cls=i===today?'today':v>0?'done':!PLAN.run[i]?'rest':'';
+    return `<div class="${cls}">${w}<b>${v>0?v.toFixed(1):!PLAN.run[i]?'休':i===today?'?':'—'}</b></div>`;}).join('');
+  $('#agWeek').innerHTML=`<div class="strat-h"><b>今週の練習距離</b></div><div class="ag-kpi"><div><span>今週の目標</span><b>${wk.km} km</b><i>${P.base?`<span>最近4週の平均</span> ${P.base}km/<span>週</span>`:''}</i></div><div><span>ここまで</span><b>${done.toFixed(1)} km</b><i><span>残り</span> ${Math.max(0,wk.km-done).toFixed(1)} km</i></div></div>
+    <div class="ag-bar"><i style="width:${Math.min(100,done/Math.max(1,wk.km)*100)}%"></i></div><div class="ag-wk">${cells}</div>
+    <div class="sub"><span>練習する曜日</span>：${WD.filter((w,i)=>PLAN.run[i]).join(' ')}　<span>LSD</span>：${WD[PLAN.lsd]}　<span>ペース走</span>：${WD[PLAN.paceDay]}</div>`;}
+function agShow(res){const box=$('#agResult'),pl=$('#agPlan');if(res.err){$('#agMsg').textContent=res.err;box.hidden=pl.hidden=true;return;}$('#agMsg').textContent='';
+  const d=new Date(),tot=res.stages.reduce((a,s)=>a+ +s.min,0),maxP=Math.max(...res.stages.map(s=>3600/s.pace));
+  box.hidden=false;box.innerHTML=`<div class="strat-h"><b>本日（${d.getMonth()+1}/${d.getDate()} ${WD[dowMon(d)]}）の練習メニュー</b></div>
+    <div class="ag-why">${res.why.map(esc).join('<br>')}</div>
+    ${res.stages.map((s,i)=>`<div class="ag-stg"><span class="n">${i+1}</span><b>${esc(s.name)}</b><span class="pc">${fmtPace(s.pace)}</span><span class="km">${kmOf(s).toFixed(1)}km</span></div>`).join('')}
+    <svg viewBox="0 0 340 50" aria-hidden="true">${(()=>{let x=0;return res.stages.map(s=>{const w=340*s.min/tot,h=46*(3600/s.pace)/maxP;const r=`<rect x="${x+1}" y="${50-h}" width="${Math.max(1,w-2)}" height="${h}" rx="3" fill="var(--accent)"/>`;x+=w;return r;}).join('');})()}</svg>
+    <div class="ag-sum"><span><span>合計</span> <b>${res.km.toFixed(1)} km</b></span><span><span>約</span> <b>${Math.round(tot)}</b> <span>分</span></span><span><span>今週</span> <b>${(res.doneWeek+res.km).toFixed(1)}</b>/${res.wk.km}km</span></div>
+    <div class="ag-btns"><button class="primary-sm" type="button" id="agUse">このメニューで走る</button><button class="small" type="button" id="agAgain">作り直す</button></div>
+    <div class="sub">各ステージの距離・ペースは、ふだんのメニューと同じように変更できます。「作り直す」を押すと、ジョグ・ペース走・LSDを順に入れ替えて作ります。</div>`;
+  const W=res.P.weeks,mx=Math.max(...W.map(w=>w.km),1),bw=Math.min(22,320/W.length-2);let lastM=-1;
+  const bars=W.map((w,i)=>{const x=14+i*(bw+2),h=70*w.km/mx,m=new Date(w.at).getMonth();let lab='';if(m!==lastM){lastM=m;lab=`<text x="${x}" y="104" font-size="10" fill="currentColor" fill-opacity=".6">${m+1}月</text>`;}
+    return `<rect x="${x}" y="${88-h}" width="${bw}" height="${h}" fill="${i===0?'var(--amber)':'var(--accent-soft)'}" stroke="var(--accent)" stroke-width="${i===0?0:1}"/>${lab}`;}).join('');
+  const pk=W.findIndex(w=>w.km===mx);
+  pl.hidden=false;pl.innerHTML=`<div class="strat-h"><b>今後の週ごとの目標距離</b></div><svg viewBox="0 0 340 108" role="img" aria-label="週ごとの目標距離"><text x="0" y="10" font-size="10" fill="currentColor" fill-opacity=".6">km/<tspan>週</tspan></text>${bars}
+    <text x="14" y="${84-70*W[0].km/mx}" font-size="10" fill="currentColor">${W[0].km}</text><text x="${14+pk*(bw+2)}" y="${84-70}" font-size="10" fill="currentColor">${mx}</text></svg>
+    <div class="sub"><span>オレンジが今週</span>。4週に1回は距離を落とす回復週、大会前の3週は距離を減らす調整期間にします。<span>いちばん多い週</span> ${mx}km。</div>`;}
+$('#agOpen').addEventListener('click',()=>{const p=$('#agPanel');p.hidden=!p.hidden;$('#agOpen').setAttribute('aria-expanded',!p.hidden);if(!p.hidden)agRender();});
+$('#agRace').addEventListener('change',e=>{PLAN.race=e.target.value||null;const r=planTarget();PLAN.goal=r&&r.goal||PLAN.goal;planSave();AG.res=null;$('#agResult').hidden=$('#agPlan').hidden=true;agRender();});
+$('#agGoal').addEventListener('change',e=>{const v=parseHMS(e.target.value);if(v>600){PLAN.goal=v;planSave();$('#agMsg').textContent='';}else if(String(e.target.value).trim())$('#agMsg').textContent='目標タイムは「3:30:00」のように入れてください。';agRender();});
+$('#agDays').addEventListener('click',e=>{const b=e.target.closest('[data-agday]');if(!b)return;const i=+b.dataset.agday;PLAN.run[i]=PLAN.run[i]?0:1;if(!PLAN.run.some(Boolean))PLAN.run[i]=1;planSave();agRender();});
+$('#agLsd').addEventListener('change',e=>{PLAN.lsd=+e.target.value;planSave();agRender();});
+$('#agPaceDay').addEventListener('change',e=>{PLAN.paceDay=+e.target.value;planSave();agRender();});
+$('#agGo').addEventListener('click',()=>{AG.variant=0;AG.res=planToday(0);agShow(AG.res);agRender();});
+$('#agResult').addEventListener('click',e=>{
+  if(e.target.id==='agAgain'){AG.variant=(AG.variant+1)%3;AG.res=planToday(AG.variant);agShow(AG.res);}
+  else if(e.target.id==='agUse'&&AG.res&&AG.res.stages){if(R.running||R.acc>0){$('#agMsg').textContent='走っている間は入れ替えられません。';return;}
+    menu=AG.res.stages.map(s=>Object.assign({},s));activePreset='custom';saveMenu();setActivePM(null);renderAll();
+    const m=$('#agMsg');m.classList.remove('err');m.textContent='本日の練習メニューにしました。下のステージで内容を確認できます。';setTimeout(()=>{m.classList.add('err');},8000);
+    try{$('#menuList').scrollIntoView({block:'start'});}catch(_){}}});
+/* ===================== 4. 実績 →「走行距離」 ===================== */
+function distRender(){const box=$('#distBox');if(!box||box.hidden)return;distEnsure();
+  const now=Date.now(),r=planTarget(),goal=PLAN.goal||(r&&r.goal)||0,w0=weekStart(now),d0=new Date(now),m0=new Date(d0.getFullYear(),d0.getMonth(),1).getTime(),m1=new Date(d0.getFullYear(),d0.getMonth()+1,1).getTime();
+  const wkDone=distIn(w0,w0+7*DAYMS),mDone=distIn(m0,m1);let wkT=null,mT=null;
+  /* 週ごとの目標：過去の週は記録しておいた目標、今週以降は今の計画 */
+  const WT=Object.assign({},PLAN.hist||{});
+  if(r&&goal&&r.at>=dayStart(now)){const P=planWeeks(r,goal);wkT=P.weeks[0].km;PLAN.hist[ymdISO(w0)]=wkT;planSave();P.weeks.forEach(w=>{WT[ymdISO(w.at)]=w.km;});}
+  const monthTarget=(a,b)=>{let tg=0,n=0;Object.entries(WT).forEach(([k,v])=>{const t=new Date(k+'T00:00:00').getTime(),ov=Math.max(0,Math.min(b,t+7*DAYMS)-Math.max(a,t));if(ov>0){tg+=v*ov/(7*DAYMS);n++;}});return n?Math.round(tg):null;};
+  mT=wkT?monthTarget(m0,m1):null;
+  $('#dGoal').innerHTML=`<b class="dh">目標の達成状況</b>${r&&goal?`<div class="sub">${esc(r.name)} <span>まで</span> ${Math.max(0,Math.round((weekStart(r.at)-w0)/(7*DAYMS)))}<span>週</span>・<span>目標</span> ${fmtHMS(goal)}</div>`:'<div class="sub">「1. 練習」の「自動生成」で目標の大会と目標タイムを選ぶと、週と月の目標距離を表示します。</div>'}
+    <div class="dkpi"><div><span>今月（${d0.getMonth()+1}月）</span><b>${mDone.toFixed(1)} km</b><i>${mT?`<span>月の目標</span> ${mT}km`:''}</i></div><div><span>今週</span><b>${wkDone.toFixed(1)} km</b><i>${wkT?`<span>目標</span> ${wkT}km（${Math.round(wkDone/wkT*100)}%）`:''}</i></div></div>`;
+  /* 月ごとのグラフ（直近6か月、種類ごとに積み上げ） */
+  const months=[];for(let i=5;i>=0;i--){const a=new Date(d0.getFullYear(),d0.getMonth()-i,1).getTime(),b=new Date(d0.getFullYear(),d0.getMonth()-i+1,1).getTime();
+    const by=k=>distLog.filter(x=>x.kind===k&&x.at>=a&&x.at<b).reduce((s,x)=>s+x.km,0);
+    months.push({m:new Date(a).getMonth()+1,out:by('out'),in:by('in'),race:by('race'),tg:monthTarget(a,b)});}
+  const mx=Math.max(50,...months.map(m=>Math.max(m.out+m.in+m.race,m.tg||0)))*1.1,H=110,X=i=>34+i*51,Y=v=>12+H*(1-v/mx),st=mx>400?100:mx>200?50:mx>100?25:10;
+  let g='';for(let v=0;v<=mx;v+=st)g+=`<line x1="30" x2="336" y1="${Y(v)}" y2="${Y(v)}" stroke="currentColor" stroke-opacity=".12"/><text x="26" y="${Y(v)+3}" text-anchor="end" font-size="10" fill="currentColor" fill-opacity=".6">${v}</text>`;
+  const bars=months.map((m,i)=>{let y=Y(0),o='';[['race','var(--warn)'],['out','var(--accent)'],['in','var(--ml-line)']].forEach(([k,c])=>{const h=H*m[k]/mx;if(h>0){y-=h;o+=`<rect x="${X(i)}" y="${y}" width="26" height="${h}" fill="${c}"/>`;}});
+    const t=m.out+m.in+m.race;return o+(t?`<text x="${X(i)+13}" y="${y-3}" text-anchor="middle" font-size="10" fill="currentColor">${Math.round(t)}</text>`:'')+`<text x="${X(i)+13}" y="${Y(0)+14}" text-anchor="middle" font-size="10" fill="currentColor" fill-opacity=".6">${m.m}月</text>`;}).join('');
+  const tl=months.map((m,i)=>m.tg?[X(i)+13,Y(m.tg)]:null);const segs=[];let cur=[];tl.forEach(p=>{if(p)cur.push(p);else{if(cur.length)segs.push(cur);cur=[];}});if(cur.length)segs.push(cur);
+  const line=segs.map(sg=>sg.length>1?`<polyline points="${sg.map(p=>p.join(',')).join(' ')}" fill="none" stroke="var(--amber)" stroke-width="2" stroke-dasharray="5 4"/>`:'').join('')+tl.filter(Boolean).map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="var(--amber)"/>`).join('');
+  $('#dChart').innerHTML=`<svg viewBox="0 0 340 ${H+30}" role="img" aria-label="月ごとの走行距離">${g}${bars}${line}</svg>`;
+  /* 記録の一覧 */
+  const KN={race:'本番',out:'屋外',in:'屋内'};
+  $('#dList').innerHTML=distLog.length?`<table><thead><tr><th>日付・開始</th><th>種類</th><th>大会名・場所・機材</th><th style="text-align:right">km</th><th></th></tr></thead><tbody>`+
+    distLog.map(x=>{const t=new Date(x.at);return `<tr><td class="t">${t.getFullYear()!==d0.getFullYear()?t.getFullYear()+'/':''}${t.getMonth()+1}/${t.getDate()} ${t.getHours()}:${String(t.getMinutes()).padStart(2,'0')}</td><td><span class="dbd ${x.kind}">${KN[x.kind]}</span></td><td>${esc(x.name||'')}<div class="dsrc">${x.auto?'自動で記録':'手入力'}</div></td><td class="r">${(+x.km).toFixed(1)}</td><td><button class="small" type="button" data-ddel="${esc(x.id)}">${DD.arm===x.id?'もう一度押すと削除':'削除'}</button></td></tr>`;}).join('')+'</tbody></table>'
+    :'<div class="sub">まだ記録はありません。本番と屋外の練習は自動で記録し、屋内の練習は下で記録できます。</div>';
+  const ms=[...new Set(distLog.filter(x=>x.kind==='in').map(x=>x.name))];$('#diMachList').innerHTML=ms.map(n=>`<option value="${esc(n)}">`).join('');
+  const dd=$('#diDate'),dt=$('#diTime');if(!dd.value)dd.value=ymdISO(now);if(!dt.value){const n=new Date();dt.value=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
+  const mc=$('#diMach');if(!mc.value&&ms.length){const lastIn=distLog.find(x=>x.kind==='in');if(lastIn)mc.value=lastIn.name;}}
+const DD={arm:null,t:0};
+$('#dList').addEventListener('click',e=>{const b=e.target.closest('[data-ddel]');if(!b)return;const id=b.dataset.ddel;
+  if(DD.arm!==id){DD.arm=id;clearTimeout(DD.t);DD.t=setTimeout(()=>{DD.arm=null;distRender();},3000);distRender();return;}
+  DD.arm=null;distLog=distLog.filter(x=>x.id!==id);if(!distDel.includes(id))distDel.push(id);distSave();distRender();try{distSync();}catch(_){}});
+$('#diAdd').addEventListener('click',()=>{const m=$('#diMsg'),dv=$('#diDate').value,tv=$('#diTime').value||'00:00',mach=$('#diMach').value.trim(),km=parseFloat($('#diKm').value);
+  m.classList.add('err');
+  if(!/^\d{4}-\d\d-\d\d$/.test(dv)){m.textContent='日付を入れてください。';return;}
+  if(!mach){m.textContent='トレーニング機材名を入れてください（例：ジムのトレッドミル）。';return;}
+  if(!(km>0&&km<=200)){m.textContent='距離を0.1〜200の数字で入れてください（例：8.0）。';return;}
+  const at=new Date(dv+'T'+tv+':00').getTime();distAddIndoor(at,mach,km);$('#diKm').value='';m.classList.remove('err');m.textContent=`${mach} ${km.toFixed(1)}km を記録しました。`;distRender();});
+/* 「走行距離」タブの表示切り替え */
+{const _h=histKindUI;histKindUI=function(){const r=_h.apply(this,arguments);const dist=HIST.kind==='dist';
+  ['histHost','delBox'].forEach(id=>{const e=document.getElementById(id);if(e)e.hidden=dist;});const ib=$('#impBox');if(ib&&dist)ib.hidden=true;
+  $('#distBox').hidden=!dist;if(dist)distRender();return r;};}
+{const _rl=renderLog;renderLog=function(){const r=_rl.apply(this,arguments);try{if(distEnsure()&&HIST.kind==='dist')distRender();}catch(e){}return r;};}
+try{distEnsure();}catch(e){}
 /* ---------- 旧データの取り込み：「CSVをダウンロード」で書き出した本番ログ（以前の版・この版、どの言語でも）を実績に加える ----------
    見出しは書き出したときの言語で変わるので、列の並び順で読み取る。 */
 function csvRows(t){t=String(t).replace(/^﻿/,'');const rows=[];let row=[],cur='',q=false;
@@ -3348,6 +3602,91 @@ P(/^選んだ (\d+)件の記録を削除します。(Dropboxからも削除し�
 P(/^(\d+)件の記録を削除しました。$/,m=>[`Deleted ${m[1]} log(s).`,`已删除${m[1]}条记录。`,`已刪除${m[1]}筆記錄。`,`${m[1]}건의 기록을 삭제했습니다.`]);
 W('折り返し（GPS検出）','Turnaround (GPS)','折返点（GPS检测）','折返點（GPS偵測）','반환점 (GPS 감지)');
 W('GPSで確認','GPS confirmed','GPS已确认','GPS已確認','GPS 확인');
+W('自動生成','Auto plan','自动生成','自動生成','자동 생성');
+W('練習メニューの自動生成','Auto-generate a training menu','自动生成训练菜单','自動生成訓練菜單','연습 메뉴 자동 생성');
+W('目標の大会と目標タイムから、今週の練習距離を決め、本日の練習メニューを作ります。','Sets this week\'s distance from your target race and goal time, and makes today\'s menu.','根据目标比赛和目标时间，决定本周训练距离并生成今天的训练菜单。','根據目標比賽和目標時間，決定本週訓練距離並生成今天的訓練菜單。','목표 대회와 목표 시간으로 이번 주 연습 거리를 정하고 오늘의 연습 메뉴를 만듭니다.');
+W('目標の大会（保存されている本番レース情報から選ぶ）','Target race (from saved race info)','目标比赛（从已保存的比赛信息中选择）','目標比賽（從已儲存的比賽資訊中選擇）','목표 대회 (저장된 대회 정보에서 선택)');
+W('目標タイム','Goal time','目标时间','目標時間','목표 시간');
+W('練習する曜日の設定','Training days','训练日设置','訓練日設定','연습 요일 설정');
+W('LSD（長い距離）の曜日','LSD (long run) day','LSD（长距离）日','LSD（長距離）日','LSD(장거리) 요일');
+W('ペース走の曜日','Pace run day','配速跑日','配速跑日','페이스주 요일');
+W('本日の練習メニューを自動生成する','Generate today\'s menu','自动生成今天的训练菜单','自動生成今天的訓練菜單','오늘의 연습 메뉴 자동 생성');
+W('今週の練習距離','This week\'s distance','本周训练距离','本週訓練距離','이번 주 연습 거리');
+W('今週の目標','This week\'s target','本周目标','本週目標','이번 주 목표');
+W('ここまで','So far','目前','目前','지금까지');
+W('残り','Left','剩余','剩餘','남음');
+W('最近4週の平均','Last 4 weeks avg','最近4周平均','最近4週平均','최근 4주 평균');
+W('週','week','周','週','주');
+W('練習する曜日','Training days','训练日','訓練日','연습 요일');
+W('あと','in','还有','還有','앞으로');
+W('約','about','约','約','약');
+W('今週','This week','本周','本週','이번 주');
+W('このメニューで走る','Run this menu','用这个菜单跑','用這個菜單跑','이 메뉴로 달리기');
+W('作り直す','Remake','重新生成','重新生成','다시 만들기');
+W('各ステージの距離・ペースは、ふだんのメニューと同じように変更できます。「作り直す」を押すと、ジョグ・ペース走・LSDを順に入れ替えて作ります。','You can change each stage\'s distance and pace as usual. "Remake" cycles through jog, pace run and LSD.','各阶段的距离和配速可以像平常一样修改。按“重新生成”会依次切换慢跑、配速跑和LSD。','各階段的距離和配速可以像平常一樣修改。按「重新生成」會依序切換慢跑、配速跑和LSD。','각 스테이지의 거리·페이스는 평소처럼 바꿀 수 있습니다. "다시 만들기"를 누르면 조깅·페이스주·LSD를 차례로 바꿔 만듭니다.');
+W('今後の週ごとの目標距離','Weekly targets ahead','今后每周目标距离','今後每週目標距離','앞으로의 주별 목표 거리');
+W('オレンジが今週','Orange is this week','橙色为本周','橙色為本週','주황색이 이번 주');
+W('。4週に1回は距離を落とす回復週、大会前の3週は距離を減らす調整期間にします。','. Every 4th week is a lighter recovery week, and the last 3 weeks before the race taper off.','。每4周安排1次减量恢复周，赛前3周为减量调整期。','。每4週安排1次減量恢復週，賽前3週為減量調整期。','. 4주에 한 번은 거리를 줄이는 회복 주, 대회 전 3주는 거리를 줄이는 조정 기간입니다.');
+W('いちばん多い週','Peak week','最多的一周','最多的一週','가장 많은 주');
+W('今日は休養日の設定です。走るなら軽いジョグにします。','Today is set as a rest day. If you run, keep it to an easy jog.','今天设为休息日。如果要跑，就轻松慢跑。','今天設為休息日。如果要跑，就輕鬆慢跑。','오늘은 휴식일로 설정되어 있습니다. 달린다면 가벼운 조깅으로 합니다.');
+W('今週の目標距離は達成しています。今日は体をほぐす軽いジョグにします。','This week\'s target is done. Today is an easy jog to loosen up.','本周目标距离已达成。今天轻松慢跑放松身体。','本週目標距離已達成。今天輕鬆慢跑放鬆身體。','이번 주 목표 거리를 달성했습니다. 오늘은 몸을 푸는 가벼운 조깅입니다.');
+W('今日は長い距離をゆっくり走るLSDの日です。','Today is an LSD day: a long, slow run.','今天是慢速长距离的LSD日。','今天是慢速長距離的LSD日。','오늘은 긴 거리를 천천히 달리는 LSD 날입니다.');
+W('今日は目標に近いペースで走るペース走の日です。','Today is a pace run close to your goal pace.','今天是接近目标配速的配速跑日。','今天是接近目標配速的配速跑日。','오늘은 목표에 가까운 페이스로 달리는 페이스주 날입니다.');
+W('今日は楽なペースのジョグです。','Today is an easy-pace jog.','今天是轻松配速的慢跑。','今天是輕鬆配速的慢跑。','오늘은 편한 페이스의 조깅입니다.');
+W('今日は楽なペースのジョグです。週末の長い距離（LSD）に備えて、距離は控えめにします。','Today is an easy-pace jog, kept short to save energy for the long run (LSD).','今天是轻松配速的慢跑，为周末的长距离（LSD）保留体力，距离较短。','今天是輕鬆配速的慢跑，為週末的長距離（LSD）保留體力，距離較短。','오늘은 편한 페이스의 조깅입니다. 주말의 장거리(LSD)에 대비해 거리를 줄입니다.');
+W('目標の大会を選んでください。','Choose a target race.','请选择目标比赛。','請選擇目標比賽。','목표 대회를 선택해 주세요.');
+W('目標の大会の開催日が過ぎています。別の大会を選んでください。','The target race date has passed. Choose another race.','目标比赛日期已过，请选择其他比赛。','目標比賽日期已過，請選擇其他比賽。','목표 대회 날짜가 지났습니다. 다른 대회를 선택해 주세요.');
+W('目標タイムは「3:30:00」のように入れてください。','Enter the goal time like "3:30:00".','请按“3:30:00”的格式输入目标时间。','請依「3:30:00」的格式輸入目標時間。','목표 시간은 "3:30:00"처럼 입력해 주세요.');
+W('「2. 本番」の「大会」タブで、開催日と距離を入れて本番レース情報を保存すると、ここで選べます。','Save race info with a date and distance on "2. Race" → "Race" tab to choose it here.','在“2. 比赛”的“比赛”标签中输入日期和距离并保存比赛信息后，即可在此选择。','在「2. 比賽」的「比賽」分頁中輸入日期和距離並儲存比賽資訊後，即可在此選擇。','"2. 대회"의 "대회" 탭에서 날짜와 거리를 넣어 대회 정보를 저장하면 여기서 고를 수 있습니다.');
+W('保存されている本番レース情報がありません','No saved race info','没有已保存的比赛信息','沒有已儲存的比賽資訊','저장된 대회 정보가 없습니다');
+W('走っている間は入れ替えられません。','Cannot replace while running.','跑步中无法替换。','跑步中無法替換。','달리는 중에는 바꿀 수 없습니다.');
+W('本日の練習メニューにしました。下のステージで内容を確認できます。','Set as today\'s menu. Check the stages below.','已设为今天的训练菜单。可在下方阶段中确认内容。','已設為今天的訓練菜單。可在下方階段中確認內容。','오늘의 연습 메뉴로 했습니다. 아래 스테이지에서 내용을 확인할 수 있습니다.');
+W('ジョグ（ウォームアップ）','Jog (warm-up)','慢跑（热身）','慢跑（熱身）','조깅 (워밍업)');
+W('ジョグ（クールダウン）','Jog (cool-down)','慢跑（放松）','慢跑（放鬆）','조깅 (쿨다운)');
+W('一定速走（目標ペース+10秒）','Steady run (goal pace +10s)','匀速跑（目标配速+10秒）','勻速跑（目標配速+10秒）','일정 속도주 (목표 페이스+10초)');
+W('一定速走（目標ペース）','Steady run (goal pace)','匀速跑（目标配速）','勻速跑（目標配速）','일정 속도주 (목표 페이스)');
+W('走行距離','Distance','跑步距离','跑步距離','주행 거리');
+W('目標の達成状況','Progress to goal','目标达成情况','目標達成情況','목표 달성 현황');
+W('月ごとの走行距離','Distance by month','每月跑步距离','每月跑步距離','월별 주행 거리');
+W('屋外の練習','Outdoor training','户外训练','戶外訓練','실외 연습');
+W('屋内（機材）','Indoor (machine)','室内（器材）','室內（器材）','실내 (기구)');
+W('月の目標','Monthly target','月目标','月目標','월 목표');
+W('走行距離の記録','Distance records','跑步距离记录','跑步距離記錄','주행 거리 기록');
+W('屋内の練習を記録する','Log indoor training','记录室内训练','記錄室內訓練','실내 연습 기록');
+W('日付','Date','日期','日期','날짜');
+W('開始時刻','Start time','开始时刻','開始時刻','시작 시각');
+W('トレーニング機材名','Machine name','器材名称','器材名稱','기구 이름');
+W('例）ジムのトレッドミル','e.g. Gym treadmill','例）健身房跑步机','例）健身房跑步機','예) 헬스장 러닝머신');
+W('例）8.0','e.g. 8.0','例）8.0','例）8.0','예) 8.0');
+W('記録する','Log','记录','記錄','기록하기');
+W('日付・開始','Date / start','日期·开始','日期·開始','날짜·시작');
+W('種類','Type','类型','類型','종류');
+W('大会名・場所・機材','Race / place / machine','比赛名·地点·器材','比賽名·地點·器材','대회명·장소·기구');
+W('屋外','Outdoor','户外','戶外','실외');
+W('屋内','Indoor','室内','室內','실내');
+W('自動で記録','Auto','自动记录','自動記錄','자동 기록');
+W('手入力','Manual','手动输入','手動輸入','수동 입력');
+W('まだ記録はありません。本番と屋外の練習は自動で記録し、屋内の練習は下で記録できます。','No records yet. Races and outdoor training are logged automatically; log indoor training below.','还没有记录。比赛和户外训练会自动记录，室内训练可在下方记录。','還沒有記錄。比賽和戶外訓練會自動記錄，室內訓練可在下方記錄。','아직 기록이 없습니다. 대회와 실외 연습은 자동으로 기록되고, 실내 연습은 아래에서 기록할 수 있습니다.');
+W('「1. 練習」の「自動生成」で目標の大会と目標タイムを選ぶと、週と月の目標距離を表示します。','Choose a target race and goal time in "1. Training" → "Auto plan" to see weekly and monthly targets.','在“1. 训练”的“自动生成”中选择目标比赛和目标时间后，会显示每周和每月的目标距离。','在「1. 訓練」的「自動生成」中選擇目標比賽和目標時間後，會顯示每週和每月的目標距離。','"1. 연습"의 "자동 생성"에서 목표 대회와 목표 시간을 고르면 주·월 목표 거리를 표시합니다.');
+W('まで','until','距','距','까지');
+W('日付を入れてください。','Enter a date.','请输入日期。','請輸入日期。','날짜를 입력해 주세요.');
+W('トレーニング機材名を入れてください（例：ジムのトレッドミル）。','Enter the machine name (e.g. gym treadmill).','请输入器材名称（例：健身房跑步机）。','請輸入器材名稱（例：健身房跑步機）。','기구 이름을 입력해 주세요 (예: 헬스장 러닝머신).');
+W('距離を0.1〜200の数字で入れてください（例：8.0）。','Enter a distance from 0.1 to 200 (e.g. 8.0).','请输入0.1〜200的距离（例：8.0）。','請輸入0.1〜200的距離（例：8.0）。','거리를 0.1~200 사이 숫자로 입력해 주세요 (예: 8.0).');
+W('月','Mon','周一','週一','월');
+W('火','Tue','周二','週二','화');
+W('木','Thu','周四','週四','목');
+W('金','Fri','周五','週五','금');
+W('土','Sat','周六','週六','토');
+W('日','Sun','周日','週日','일');
+W('休','Rest','休','休','휴');
+P(/^(\d+)月$/,m=>[['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[1]-1]||m[0],`${m[1]}月`,`${m[1]}月`,`${m[1]}월`]);
+P(/^今月（(\d+)月）$/,m=>[`This month (${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[1]-1]})`,`本月（${m[1]}月）`,`本月（${m[1]}月）`,`이번 달 (${m[1]}월)`]);
+P(/^本日（(\d+)\/(\d+) (.)）の練習メニュー$/,m=>{const D={月:['Mon','周一','週一','월'],火:['Tue','周二','週二','화'],水:['Wed','周三','週三','수'],木:['Thu','周四','週四','목'],金:['Fri','周五','週五','금'],土:['Sat','周六','週六','토'],日:['Sun','周日','週日','일']}[m[3]]||[m[3],m[3],m[3],m[3]];return [`Today's menu (${D[0]} ${m[1]}/${m[2]})`,`今天（${m[1]}/${m[2]} ${D[1]}）的训练菜单`,`今天（${m[1]}/${m[2]} ${D[2]}）的訓練菜單`,`오늘(${m[1]}/${m[2]} ${D[3]})의 연습 메뉴`];});
+P(/^今週の残り ([\d.]+)km を、(.+)の(\d+)日で走ります。$/,m=>[`Run the remaining ${m[1]} km this week over ${m[3]} day(s).`,`本周剩余${m[1]}公里，分${m[3]}天跑完。`,`本週剩餘${m[1]}公里，分${m[3]}天跑完。`,`이번 주 남은 ${m[1]}km를 ${m[3]}일 동안 달립니다.`]);
+P(/^今日はすでに ([\d.]+)km 走っています。$/,m=>[`You have already run ${m[1]} km today.`,`今天已经跑了${m[1]}公里。`,`今天已經跑了${m[1]}公里。`,`오늘 이미 ${m[1]}km 달렸습니다.`]);
+P(/^大会まで(\d+)週。今週は「(.+)」の週です（目標 (\d+)km）。$/,m=>{const ph={'土台づくり':['base building','打基础','打基礎','기초 다지기'],'距離を走り込む':['high mileage','跑量积累','跑量累積','거리 늘리기'],'回復':['recovery','恢复','恢復','회복'],'調整':['taper','调整','調整','조정'],'大会':['race','比赛','比賽','대회']}[m[2]]||[m[2],m[2],m[2],m[2]];return [`${m[1]} weeks to the race. This is a ${ph[0]} week (target ${m[3]} km).`,`距比赛还有${m[1]}周。本周是“${ph[1]}”周（目标${m[3]}公里）。`,`距比賽還有${m[1]}週。本週是「${ph[2]}」週（目標${m[3]}公里）。`,`대회까지 ${m[1]}주. 이번 주는 "${ph[3]}" 주입니다 (목표 ${m[3]}km).`];});
+P(/^(.+) ([\d.]+)km を記録しました。$/,m=>[`Logged ${m[1]} ${m[2]} km.`,`已记录${m[1]} ${m[2]}公里。`,`已記錄${m[1]} ${m[2]}公里。`,`${m[1]} ${m[2]}km를 기록했습니다.`]);
+W('合計','Total','合计','合計','합계');
 W('4. 実績','4. Results','4. 成绩','4. 成績','4. 기록');
 W('一覧から選ぶと、表・グラフ・高低差を表示します。地図は「地図を表示」を押したときだけ読み込みます。','Choose a race to see its table, charts and elevation. The map loads only when you press "Show map".','从列表中选择即可查看表格、图表和高低差。地图仅在按下“显示地图”时加载。','從列表中選擇即可查看表格、圖表和高低差。地圖僅在按下「顯示地圖」時載入。','목록에서 고르면 표·그래프·고저차를 표시합니다. 지도는 "지도 표시"를 눌렀을 때만 불러옵니다.');
 W('保存先','Save to','保存位置','儲存位置','저장 위치');
