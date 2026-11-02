@@ -344,6 +344,10 @@ body.hist .wrap>*:not(header):not(#histSec),body.hist #ioRow,body.hist #hashNote
 .rlog .cmp-row{align-items:center;gap:8px}.rlog .cmp-l{font-size:.8rem;font-weight:700;color:var(--ml-ink)}.rlog .cmp-row select{flex:1;min-width:0}
 .rlog th.cmp{color:var(--ml-ink)}.rlog td.cmp{background:color-mix(in srgb,var(--ml-bg) 45%,transparent)}.rlog td.cmp-f{color:var(--accent);font-weight:700}.rlog td.cmp-s{color:var(--warn);font-weight:700}
 .rlog .cmp-half{flex-basis:100%;color:var(--ml-ink);font-size:.82rem}.rlog .cmp-half b{font-size:.95rem}
+.kind-tabs{display:flex;gap:6px}.kind-tabs button{flex:1;margin:0;font-weight:700;padding:8px 6px;border-radius:10px}.kind-tabs button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.psave{position:fixed;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom,0px));z-index:95;display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:14px;background:var(--surface);border:2px solid var(--accent);color:var(--ink);box-shadow:0 6px 24px rgba(0,0,0,.3);max-width:560px;margin:0 auto}
+.psave b.t{font-size:1.05rem}.psave .sum{font-family:var(--f-num);font-size:1rem}.psave label{display:flex;flex-direction:column;gap:3px;font-size:.8rem;font-weight:700;color:var(--muted)}
+.psave input{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px}.psave .ctrls{display:flex;gap:8px}.psave .ctrls button{flex:1;margin:0}
 .rlog .pdel{margin:0 0 0 8px;padding:2px 8px;font-size:.72rem;font-family:var(--f-body);font-weight:400}
 .mode:disabled{opacity:.45}
 .rc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -396,6 +400,7 @@ body.live .recv{display:none}
   </header>
   <section id="histSec" class="hist-sec" hidden>
     <div class="hist-h"><b>実績</b><span class="sub">一覧から選ぶと、表・グラフ・高低差を表示します。地図は「地図を表示」を押したときだけ読み込みます。</span></div>
+    <div class="kind-tabs" id="histKind" role="tablist" aria-label="記録の種類"><button type="button" role="tab" data-kind="race">本番</button><button type="button" role="tab" data-kind="prac">練習</button></div>
     <div class="cloud" id="cloudBox">
       <label class="cloud-row" for="cloudSvc"><span>保存先</span><select id="cloudSvc"></select></label>
       <div class="sub" id="cloudMsg"></div>
@@ -650,7 +655,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-02a</p>
+  <p class="ver" data-notr translate="no">版 2026-11-02b</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -680,13 +685,17 @@ body.live .recv{display:none}
 <p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。日本語以外を選ぶと、この使い方ガイドは英語版になります。</p>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
-<p>ページの一番下には「版 2026-11-02a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-02b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
 <table><thead><tr><th></th><th>屋内</th><th>屋外（GPS）</th></tr></thead><tbody><tr><td>ステージが進むとき</td><td>決めた時間がたったとき</td><td>決めた距離を走ったとき</td></tr><tr><td>1 km毎のお知らせとラップ表</td><td>なし</td><td>あり</td></tr></tbody></table>
 <p>屋外では、「GPSの位置をつかみました。」と出てからスタートしてください。走っている途中の「ペースアップ／ダウン」は、時速を0.1 kmずつ変えてテンポを合わせます。「練習の内容をクリア」はメニューだけを空にします（2回押す）。</p>
 <p><strong>曲の順番とシャッフル</strong>：練習には「曲をシャッフルして流す」はありません。練習では、曲ごとに流すステージ（「全ステージ」か、個別のステージ）を選べて、ステージが変わるとそのステージ用の曲を、「曲」タブで▲▼で並べた順に流すためです。流す順番を変えたいときは、▲▼で並べ替えてください。シャッフルは、本番（「曲」タブの「曲を追加」の下）とリラックスで使えます。</p>
+<h3>屋外の練習を記録に残す</h3>
+<p>「屋外（GPSの距離で進む）」で走った練習は、終わったときに「この練習を記録に残しますか？」と聞かれます。メニューを最後まで走って終わったときと、途中で「リセット」を押して終えたときの両方です（200 m未満のときは聞きません）。</p>
+<ol><li>走った距離・タイム・平均ペースとスタート日時が表示されます。</li><li>「スタートした場所」には、スタート地点の住所（市区町村と町名）が自動で入ります。「大濠公園」のように、わかりやすい名前に書き換えても構いません。ネットにつながっていないときは空欄になり、空のまま保存すると、あとでネットにつながったときに自動で入ります。</li><li>「保存する」を押すと、「4. 実績」の「練習」に、場所名とスタート日時の名前で残ります（例：2026/11/2 6:30 福岡市中央区大濠公園）。残さないときは「保存しない」を押します。</li></ol>
+<p>練習の記録でも、本番と同じように1 km毎のラップ、ペースのグラフ、高低差、天気、地図（「地図を表示」を押したとき）を見られます。同じ場所の前の練習と比べることもできます。屋内の練習は距離を測らないため、記録には残りません。</p>
 <h3>CSVファイルから、日ごとの練習メニューを読み込む</h3>
 <p>下の「CSVの形式」で書いたCSVファイルがあれば、その日の練習メニューを自動で表示できます。場所は「メニュー」タブの「＋ ステージを追加」の下の「練習メニュー・CSVを読み込む」です。</p>
 <ol><li>「CSVファイルを選ぶ」を押し、CSVファイルを選びます。</li><li>今日の練習メニューが、そのまま画面に入ります。今日の分がなければ、次に走る日のメニューが入ります。</li><li>ほかの日にしたいときは、日付の一覧（例：11/3（火） ペース走）から選んで「この日のメニューを表示」を押します。</li></ol>
@@ -729,9 +738,9 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>天気は、ゴールしたあと、このアプリを開いた状態でネットにつながったときに、気象データ（Open-Meteo）から自動で取得します。スタート前かレース中に一度もGPSをONにしなかったときは、走った場所がわからないため取得できません。</p>
 <p>いらない折り返しの行は、表の「削除」を押し、「もう一度押すと削除」と出たらもう一度押すと消せます。</p>
 <h3>「4. 実績」で過去の記録を見る</h3>
-<p>画面の一番上の「4. 実績」を押すと、ほかの表示が隠れて、過去の本番の記録だけになります。一覧から大会を選ぶと、上と同じグラフ・前半後半・高低差・表を見られます。地図は最初は出ず、「地図を表示」を押したときだけ出ます。「1. 練習」「2. 本番」「3. リラックス」を押すと元の画面に戻ります。本番の待機中や走っている間は「4. 実績」は押せません。</p>
+<p>画面の一番上の「4. 実績」を押すと、ほかの表示が隠れて、過去の記録だけになります。上の「本番」「練習」で、見る記録の種類を切り替えます。一覧から大会を選ぶと、上と同じグラフ・前半後半・高低差・表を見られます。地図は最初は出ず、「地図を表示」を押したときだけ出ます。「1. 練習」「2. 本番」「3. リラックス」を押すと元の画面に戻ります。本番の待機中や走っている間は「4. 実績」は押せません。</p>
 <p>「4. 実績」の一番上の「保存先」で、記録をどこに残すかを選べます。</p>
-<table><thead><tr><th>保存先</th><th>このスマホに残る記録</th><th>向いている人</th></tr></thead><tbody><tr><td>なし（この端末だけ）</td><td>最新20件。21件目からは古いものから消えます</td><td>このスマホだけで見られればよい人</td></tr><tr><td>Dropbox</td><td>直近5件。全部の記録はDropboxに残ります</td><td>記録をずっと残したい人、パソコンでも見たい人</td></tr></tbody></table>
+<table><thead><tr><th>保存先</th><th>このスマホに残る記録</th><th>向いている人</th></tr></thead><tbody><tr><td>なし（この端末だけ）</td><td>本番は最新20件、練習は最新50件。それを超えると古いものから消えます</td><td>このスマホだけで見られればよい人</td></tr><tr><td>Dropbox</td><td>本番・練習それぞれ直近5件。全部の記録はDropboxに残ります</td><td>記録をずっと残したい人、パソコンでも見たい人</td></tr></tbody></table>
 <p>「なし」のままだと、スマホを変えたり、ブラウザのデータを消したりすると記録も消えます。大事な記録はCSVをダウンロードしておくか、次のDropboxに保存してください。</p>
 <h4>以前の版の記録（CSV）を取り込む</h4>
 <p>この版より前に「CSVをダウンロード」で保存した本番ログも、「4. 実績」に取り込めます。</p>
@@ -775,13 +784,17 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>From top to bottom: the mode buttons, the running display (timer and Start), and the settings tabs. Use "🌐" at the top right to switch between Japanese, English, Chinese and Korean.</p>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Passed 1 km, GPS, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-02a" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-02b" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h2 id="e-4">4. Training</h2>
 <p>For each stage of your training menu, songs play at a tempo that makes that pace easy to run.</p>
 <ol><li>Press "1. Training" and choose "Indoor (stages advance by time)" or "Outdoor (advance by GPS distance)".</li><li>On the "Menu" tab, choose "Steady run", "LSD", "Build-up" or "Jog", or enter a pace (min per km) and time for each stage.</li><li>Save menus you use often with "Save practice menu" below: enter a name (e.g. Tuesday pace run) and press "Save". Next time, just press "Load".</li><li>Press "Start". A beep sounds when the stage changes, and the tempo changes too.</li><li>When you are done, long-press "Unlock" and press "Reset". The app stops automatically when the menu is finished.</li></ol>
 <table><thead><tr><th></th><th>Indoor</th><th>Outdoor (GPS)</th></tr></thead><tbody><tr><td>When the stage advances</td><td>When the set time has passed</td><td>When you have run the set distance</td></tr><tr><td>Every-1-km notices and lap table</td><td>No</td><td>Yes</td></tr></tbody></table>
 <p>Outdoors, start after the message saying the GPS position has been found. "Pace up / Pace down" while running changes the speed by 0.1 km/h at a time and adjusts the tempo. "Clear training" empties only the menu (press twice).</p>
 <p><strong>Song order and shuffle</strong>: Training has no "Shuffle songs". In Training you can choose which stages each song plays in ("All stages" or particular stages), and when the stage changes, the songs for that stage play in the order you arranged with ▲▼ on the "Songs" tab. To change the order, rearrange the songs with ▲▼. Shuffle is available in Race (on the "Songs" tab, below "Add songs") and in Relax.</p>
+<h3>Save outdoor training runs</h3>
+<p>When an "Outdoor (GPS distance)" training run ends, you are asked "Save this training run?". This happens both when you finish the whole menu and when you end early with "Reset" (not under 200 m).</p>
+<ol><li>The distance, time, average pace and start date and time are shown.</li><li>"Start location" is filled in automatically with the address of the start point (city and district). You can change it to a name you recognize, such as a park name. When offline it is left blank; if you save it blank, it is filled in automatically once online.</li><li>Press "Save" to keep it under "Training" in "4. Results", named with the place and start date and time. Press "Don't save" to discard it.</li></ol>
+<p>Training logs show the same laps per km, pace graph, elevation, weather and map ("Show map") as race logs, and can be compared with earlier runs from the same place. Indoor training does not measure distance, so it is not logged.</p>
 <h3>Load a daily training menu from a CSV file</h3>
 <p>If you have a CSV file written in the "CSV format" below, the day's training menu can be shown automatically. It is on the "Menu" tab, under "+ Add stage": "Load practice menu from CSV".</p>
 <ol><li>Press "Choose CSV file" and pick the CSV file.</li><li>Today's training menu is entered on the screen. If there is nothing for today, the menu for the next running day is entered.</li><li>To use another day, choose it from the date list (e.g. 11/3 (Tue) Pace run) and press "Show this day's menu".</li></ol>
@@ -824,9 +837,9 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>Weather is fetched automatically from weather data (Open-Meteo) after the finish, when the app is open and online. If GPS was never turned on before or during the race, the location is unknown and weather cannot be fetched.</p>
 <p>To remove an unneeded turnaround row, press "Delete" in the table, then press it again when it says "Press again to delete".</p>
 <h3>Look back at past races in "4. Results"</h3>
-<p>Press "4. Results" at the top of the screen. Everything else is hidden and only your past race logs are shown. Choose a race from the list to see the same graphs, halves, elevation and table as above. The map is not shown at first; it appears only when you press "Show map". Press "1. Training", "2. Race" or "3. Relax" to go back. "4. Results" cannot be pressed while a race is armed or running.</p>
+<p>Press "4. Results" at the top of the screen. Everything else is hidden and only your past logs are shown. Use "Race" and "Training" at the top to switch between kinds of logs. Choose a race from the list to see the same graphs, halves, elevation and table as above. The map is not shown at first; it appears only when you press "Show map". Press "1. Training", "2. Race" or "3. Relax" to go back. "4. Results" cannot be pressed while a race is armed or running.</p>
 <p>"Save to" at the top of "4. Results" decides where your logs are kept.</p>
-<table><thead><tr><th>Save to</th><th>Logs kept on this phone</th><th>Best for</th></tr></thead><tbody><tr><td>None (this device only)</td><td>The latest 20. From the 21st, the oldest are deleted</td><td>People who only look at logs on this phone</td></tr><tr><td>Dropbox</td><td>The latest 5. Every log is kept in Dropbox</td><td>People who want to keep all logs, or view them on a computer</td></tr></tbody></table>
+<table><thead><tr><th>Save to</th><th>Logs kept on this phone</th><th>Best for</th></tr></thead><tbody><tr><td>None (this device only)</td><td>The latest 20 race logs and 50 training logs. Beyond that, the oldest are deleted</td><td>People who only look at logs on this phone</td></tr><tr><td>Dropbox</td><td>The latest 5 of each kind. Every log is kept in Dropbox</td><td>People who want to keep all logs, or view them on a computer</td></tr></tbody></table>
 <p>With "None", your logs are lost if you change phones or clear the browser's data. Download the CSV for important races, or save them to Dropbox as described below.</p>
 <h4>Import logs from an earlier version (CSV)</h4>
 <p>Race logs you saved with "Download CSV" in an earlier version can also be added to "4. Results".</p>
@@ -1046,7 +1059,7 @@ function applyKV(k,v){switch(k){
   case 'cbgm-mylists':if(Array.isArray(v))mylists=v;break;
   case 'cbgm-mylist-active':activeML=v;break;
   case 'cbgm-hash-done':hashDone=v;break;
-  case 'cbgm-race-logs':if(Array.isArray(v)){raceLogs=v.slice(0,20);try{renderLog();}catch(e){}}break;
+  case 'cbgm-race-logs':if(Array.isArray(v)){raceLogs=v.slice(0,70);try{renderLog();}catch(e){}}break;
   case 'cbgm-race-run':break;
   case 'cbgm-race-presets':if(Array.isArray(v))racePresets=v;break;
   case 'cbgm-menu-presets':if(Array.isArray(v))menuPresets=v;break;
@@ -2067,8 +2080,8 @@ function predHtml(row,lap){const tot=rcKm();if(!(lap>0)||!tot||row.km>=tot-0.01)
   const net=row.t+(tot-row.km)*lap,at=RS.startAt+net,g=rcGunMs(),lim=(+RC.limit||0)*60000,over=g&&lim&&at>g+lim;
   const sec=Math.round(net/1000);
   return `<div class="kp">このペースならゴール ${fmtHMS(sec)}（${clock(at)}着）</div>`+(over?'<div class="kd late">制限時間に間に合いません</div>':'');}
-const LOGS_KEY='cbgm-race-logs',RUN_KEY='cbgm-race-run',LOG_MAX=20;
-let raceLogs=store.get(LOGS_KEY,[]);if(!Array.isArray(raceLogs))raceLogs=[];raceLogs=raceLogs.slice(0,LOG_MAX);
+const LOGS_KEY='cbgm-race-logs',RUN_KEY='cbgm-race-run',LOG_MAX=20,PRAC_MAX=50;
+let raceLogs=store.get(LOGS_KEY,[]);if(!Array.isArray(raceLogs))raceLogs=[];raceLogs=raceLogs.slice(0,LOG_MAX+PRAC_MAX);
 const hms=ms=>fmtHMS(Math.max(0,ms)/1000);
 const ymd=at=>{const d=new Date(at);return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()} ${clock(at)}`;};
 const clock=at=>{const d=new Date(at);return [d.getHours(),d.getMinutes(),d.getSeconds()].map((x,i)=>i?String(x).padStart(2,'0'):x).join(':');};
@@ -2129,7 +2142,7 @@ function runSave(){if(MODE!=='race'||!RS.startAt||R.done)return;RS.savedAt=Date.
 function runDrop(){try{localStorage.removeItem(RUN_KEY);}catch(e){}store.set(RUN_KEY,null);}
 function runLoad(){const r=store.get(RUN_KEY,null);return r&&r.v===1&&r.startAt?r:null;}
 function archiveRace(log,ev,meta){if(!log||(!log.length&&!(ev||[]).length))return;const id='L'+meta.startAt;raceLogs=raceLogs.filter(x=>x.id!==id);
-  raceLogs=[Object.assign({id,log,ev},meta)].concat(raceLogs).slice(0,LOG_MAX);store.set(LOGS_KEY,raceLogs);}
+  raceLogs=[Object.assign({id,log,ev},meta)].concat(raceLogs);trimLogs();store.set(LOGS_KEY,raceLogs);}
 function archiveCurrent(result){if(!RS.startAt)return;addEv(result==='goal'?'goal':result==='limit'?'limit':'end',result==='goal'?'ゴール（終了）':result==='limit'?'制限時間で終了':'終了');
   archiveRace(RS.log,RS.ev,{name:RC.name,date:RC.date,startAt:RS.startAt,endAt:Date.now(),km:rcKm(),goal:RC.goal,waveAt:rcWaveMs(),geo:RS.geo||null,el:Math.round(R.done?R.acc:rawEl()),kcal:kcalOf(opt.weight,raceRunKm())});runDrop();logSelId=raceLogs.length?raceLogs[0].id:'cur';renderLog();}
 {const _s=start;start=function(){const fresh=R.done||(!R.running&&R.acc===0);
@@ -2175,17 +2188,19 @@ function kcalTxt(k){return k==null?'':`約${k.toLocaleString('ja-JP')} kcal`;}
 function raceRunKm(){if(!RS.startAt)return 0;const tot=rcKm();let p=0;try{p=posInfo(R.done?R.acc:rawEl()).pos;}catch(_){}const L=RS.log||[];const lk=L.length?L[L.length-1].km:0;return Math.min(tot,Math.max(p,lk));}
 function gsum(a,b){return Math.round(a/1000)*1000+Math.round(b/1000)*1000;}
 function lossOf(d){return d&&d.waveAt&&d.startAt?Math.max(0,d.startAt-d.waveAt):null;}
-function logData(){if(logSelId==='cur')return curLogData()||raceLogs[0]||null;return raceLogs.find(x=>x.id===logSelId)||cloudLog(logSelId)||curLogData()||raceLogs[0]||null;}
+function logData(){const race=HIST.kind!=='prac',pool=raceLogs.filter(x=>kindOf(x)===HIST.kind),cur=race?curLogData():null;
+  if(logSelId==='cur')return cur||pool[0]||null;return pool.find(x=>x.id===logSelId)||cloudLog(logSelId)||cur||pool[0]||null;}
 function logRows(d){let pt=0,pk=0;return (d.log||[]).map(x=>{const lap=x.t-pt,dk=x.km-pk;pt=x.t;pk=x.km;return Object.assign({},x,{lap,pace:dk>0?lap/1000/dk:null,diff:x.tgt!=null?x.t-x.tgt:null});});}
 const sgn=ms=>(ms>=0?'+':'−')+fmt(Math.abs(ms));
 function renderLog(){const sel=$('#logSel');if(!sel)return;const cur=curLogData();
-  const opts=(cur?[`<option value="cur">${cur.live?'走行中：':'今回：'}${esc(cur.name||'本番')}</option>`]:[]).concat(raceLogs.map(x=>{const d=new Date(x.startAt);return `<option value="${x.id}">${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()} ${esc(x.name||'本番')}（${hms(x.el||0)}）</option>`;}),cloudOpts());
+  const isP=HIST.kind==='prac';try{histKindUI();}catch(e){}
+  const opts=(cur&&!isP?[`<option value="cur">${cur.live?'走行中：':'今回：'}${esc(cur.name||'本番')}</option>`]:[]).concat(raceLogs.filter(x=>kindOf(x)===HIST.kind).map(x=>`<option value="${x.id}">${logLabel(x)}</option>`),cloudOpts());
   sel.innerHTML=opts.join('')||'<option value="">まだログはありません</option>';const d=logData();
   if(d)sel.value=d.id==='cur'?'cur':d.id;$('#logCsv').disabled=$('#logDel').disabled=!d||d.id==='cur'&&cur&&cur.live;
   if(d&&d.loading){$('#logCsv').disabled=$('#logDel').disabled=true;$('#logInfo').textContent=d.failed?'クラウドから読み込めませんでした。ネットにつながっているか確認してください。':'クラウドから読み込んでいます…';$('#logChart').innerHTML='';$('#logTable').innerHTML='';try{geoRender(null);}catch(e){}return;}
-  if(!d){try{cmpPrep(null);}catch(e){}$('#logInfo').textContent='本番でスタートを押すと、ここに記録が残ります。';$('#logChart').innerHTML='';$('#logTable').innerHTML='';try{geoRender(null);}catch(e){}return;}
+  if(!d){try{cmpPrep(null);}catch(e){}$('#logInfo').textContent=isP?'屋外の練習が終わったときに「保存する」を選ぶと、ここに記録が残ります。':'本番でスタートを押すと、ここに記録が残ります。';$('#logChart').innerHTML='';$('#logTable').innerHTML='';try{geoRender(null);}catch(e){}return;}
   try{cmpPrep(d);}catch(e){CMP.cur=null;}
-  const rows=logRows(d),ls=lossOf(d);$('#logInfo').textContent=`スタート ${ymd(d.startAt)}　記録 ${rows.length}地点`+(d.el?`　ネット ${hms(d.el)}`:'')+(d.el&&ls!=null?`　グロス ${hms(gsum(d.el,ls))}`:'')+(ls!=null?`　ロスタイム ${hms(ls)}`:'')+(d.kcal?`　消費カロリー ${kcalTxt(d.kcal)}`:'');
+  const rows=logRows(d),ls=lossOf(d);$('#logInfo').textContent=`スタート ${ymd(d.startAt)}　記録 ${rows.length}地点`+(d.el?`　ネット ${hms(d.el)}`:'')+(d.el&&ls!=null?`　グロス ${hms(gsum(d.el,ls))}`:'')+(ls!=null?`　ロスタイム ${hms(ls)}`:'')+(d.kcal?`　消費カロリー ${kcalTxt(d.kcal)}`:'')+(d.menu?`　メニュー ${d.menu}`:'')+(isP&&d.km?`　距離 ${(+d.km).toFixed(2)} km`:'');
   $('#logChart').innerHTML=logChart(rows,d);
   const evs=(d.ev||[]).filter(e=>!['start'].includes(e.type));
   const wxOn=wxHas(d),pr=geoPass(d),C=CMP.cur,nc=6+(wxOn?3:0)+(C?3:0);
@@ -2414,7 +2429,7 @@ $('#logTable').addEventListener('click',e=>{const b=e.target.closest('[data-pdel
   d.geo.pass=(d.geo.pass||[]).filter(p=>!(p.type==='turn'&&Math.abs(p.km-k)<1e-6&&p.name===name));(d.geo.skip=d.geo.skip||[]).push(k);
   if(d.id==='cur'){RS.geo=d.geo;runSave();}else logChanged(d);renderLog();});
 /* ---------- 4. 実績：過去の本番の記録を見る（本番ログの画面をそのまま移して使う） ---------- */
-const HIST={on:false,home:null,next:null};
+const HIST={on:false,home:null,next:null,kind:'race'};
 const histBusy=()=>!!(R.running||RS.pre||RS.armed);
 /* 本番のログは「4. 実績」にまとめる：パネルは最初から実績の画面に置く */
 {const p=document.querySelector('.rlog');if(p)$('#histHost').appendChild(p);}
@@ -2468,7 +2483,7 @@ async function cloudAccess(force){const svc=CLOUD.svc,t=cloudTok(svc);if(!t)thro
 async function cloudCall(op,...a){const P=CP[CLOUD.svc];let tk=await cloudAccess(false);
   try{return await P[op](tk,...a);}catch(e){if(e!==401)throw e;tk=await cloudAccess(true);return P[op](tk,...a);}}
 const raceFile=x=>`race-${x.startAt}.json`;
-const idxMeta=x=>({id:x.id,name:x.name||'',date:x.date||'',startAt:x.startAt,el:x.el||0,km:x.km||0});
+const idxMeta=x=>({id:x.id,name:x.name||'',date:x.date||'',startAt:x.startAt,el:x.el||0,km:x.km||0,kind:kindOf(x)});
 async function cloudIndexGet(){const t=await cloudCall('get','index.json');if(!t)return [];try{const j=JSON.parse(t);return Array.isArray(j.races)?j.races:[];}catch(e){return [];}}
 /* 未保存の記録をアップロードし、一覧（index.json）を更新し、この端末には直近の数件だけ残す */
 async function cloudSync(){const svc=CLOUD.svc;if(svc==='none'||!CP[svc]||CLOUD.busy||!navigator.onLine||!cloudSigned(svc))return cloudRender();
@@ -2478,13 +2493,12 @@ async function cloudSync(){const svc=CLOUD.svc;if(svc==='none'||!CP[svc]||CLOUD.
     for(const id of Object.keys(CLOUD.cache)){const x=CLOUD.cache[id];if(x.dirty){const c=Object.assign({},x);delete c.dirty;delete c.cloud;await cloudCall('put',raceFile(x),JSON.stringify(c));x.dirty=false;}}
     idx.sort((a,b)=>b.startAt-a.startAt);if(pend.length)await cloudCall('put','index.json',JSON.stringify({v:1,races:idx}));
     CLOUD.index=idx;CLOUD.loaded=true;CLOUD.err='';
-    raceLogs=raceLogs.filter((x,i)=>x.cloud!==svc||i<CLOUD_KEEP);store.set(LOGS_KEY,raceLogs);
+    trimLogs();store.set(LOGS_KEY,raceLogs);
   }catch(e){CLOUD.err=e==='auth'||e===401||e===403?'auth':'fail';}
   CLOUD.busy=false;try{renderLog();}catch(e){}cloudRender();}
 /* 実績の一覧に、この端末にないクラウドの記録を加える */
-function cloudOpts(){if(!CLOUD||CLOUD.svc==='none')return [];return CLOUD.index.filter(e=>!raceLogs.some(x=>x.id===e.id)).map(e=>{const d=new Date(e.startAt);
-  return `<option value="${esc(e.id)}">☁ ${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()} ${esc(e.name||'本番')}（${hms(e.el||0)}）</option>`;});}
-function cloudLog(id){if(!CLOUD||!id||id==='cur')return null;if(CLOUD.cache[id])return CLOUD.cache[id];const e=CLOUD.index.find(x=>x.id===id);if(!e)return null;
+function cloudOpts(){if(!CLOUD||CLOUD.svc==='none')return [];return CLOUD.index.filter(e=>kindOf(e)===HIST.kind&&!raceLogs.some(x=>x.id===e.id)).map(e=>`<option value="${esc(e.id)}">☁ ${logLabel(e)}</option>`);}
+function cloudLog(id){if(!CLOUD||!id||id==='cur')return null;if(CLOUD.cache[id])return CLOUD.cache[id];const e=CLOUD.index.find(x=>x.id===id);if(!e||kindOf(e)!==HIST.kind)return null;
   const ph={id,loading:true,failed:!!CLOUD.err&&CLOUD.err!=='',name:e.name,startAt:e.startAt};if(!CLOUD.busy&&!e._ld){e._ld=true;
     cloudCall('get',raceFile(e)).then(t=>{e._ld=false;if(!t)throw 'missing';const x=JSON.parse(t);x.id=id;x.cloud=CLOUD.svc;CLOUD.cache[id]=x;renderLog();})
       .catch(err=>{e._ld=false;CLOUD.err=err==='auth'?'auth':'fail';renderLog();cloudRender();});}
@@ -2497,9 +2511,9 @@ function cloudForget(d){if(!d||CLOUD.svc==='none')return;const inIdx=CLOUD.index
 function cloudRender(){const sel=$('#cloudSvc');if(!sel)return;const svc=CLOUD.svc;
   if(!sel.options.length)sel.innerHTML=`<option value="none">なし（この端末だけ）</option>`+['dropbox'].map(k=>`<option value="${k}"${CLOUD_IDS[k]?'':' disabled'}>${CP[k].name}${CLOUD_IDS[k]?'':'（準備中）'}</option>`).join('');
   sel.value=svc;const msg=$('#cloudMsg'),st=$('#cloudSt'),bi=$('#cloudIn'),bn=$('#cloudNow'),bo=$('#cloudOut');
-  if(svc==='none'){msg.textContent=`本番の記録を最新${LOG_MAX}件まで、この端末に残しています。`;st.textContent='';bi.hidden=bn.hidden=bo.hidden=true;return;}
+  if(svc==='none'){msg.textContent=`本番は最新${LOG_MAX}件、練習は最新${PRAC_MAX}件まで、この端末に残しています。`;st.textContent='';bi.hidden=bn.hidden=bo.hidden=true;return;}
   const signed=cloudSigned(svc),pend=raceLogs.filter(x=>x.cloud!==svc).length;
-  msg.textContent=signed?`ゴール後に本番の記録を自動で保存し、この端末には直近${CLOUD_KEEP}件だけ残します。過去の記録は、ネットにつながっているときに一覧から読み込めます。`:'サインインすると、ゴール後に本番の記録を自動で保存します。';
+  msg.textContent=signed?`本番と、保存した練習の記録を自動で保存し、この端末には本番・練習それぞれ直近${CLOUD_KEEP}件だけ残します。過去の記録は、ネットにつながっているときに一覧から読み込めます。`:'サインインすると、ゴール後に本番の記録を自動で保存します。';
   let t='',err=false;
   if(CLOUD.busy)t='保存しています…';
   else if(CLOUD.err==='signin'){t='サインインできませんでした。もう一度お試しください。';err=true;}
@@ -2533,8 +2547,8 @@ function sameRace(a,b){if(!a||!b||a.id===b.id)return 0;const na=normName(a.name)
   const sa=geoStart(a),sb=geoStart(b),ka=+a.km||0,kb=+b.km||0;
   return sa&&sb&&ka&&kb&&geoDist(sa,sb)<=200&&Math.abs(ka-kb)/Math.max(ka,kb)<=0.02?1:0;}
 /* 比較の候補：端末にある記録とクラウドの一覧。同じ大会を先に、新しい順 */
-function cmpCands(d){const loc=raceLogs.filter(x=>x.id!==d.id).map(x=>({id:x.id,name:x.name,startAt:x.startAt,el:x.el,km:x.km,full:x}));
-  const cl=(CLOUD&&CLOUD.svc!=='none'?CLOUD.index:[]).filter(e=>e.id!==d.id&&!raceLogs.some(x=>x.id===e.id)).map(e=>({id:e.id,name:e.name,startAt:e.startAt,el:e.el,km:e.km,full:CLOUD.cache[e.id]||null,cloud:true}));
+function cmpCands(d){const kd=kindOf(d);const loc=raceLogs.filter(x=>x.id!==d.id&&kindOf(x)===kd).map(x=>({id:x.id,name:x.name,startAt:x.startAt,el:x.el,km:x.km,full:x}));
+  const cl=(CLOUD&&CLOUD.svc!=='none'?CLOUD.index:[]).filter(e=>e.id!==d.id&&kindOf(e)===kd&&!raceLogs.some(x=>x.id===e.id)).map(e=>({id:e.id,name:e.name,startAt:e.startAt,el:e.el,km:e.km,full:CLOUD.cache[e.id]||null,cloud:true}));
   const all=loc.concat(cl).map(c=>Object.assign(c,{same:sameRace(d,c.full||c)}));
   return all.sort((a,b)=>(b.same-a.same)||(b.startAt-a.startAt));}
 function cmpPrep(d){const row=$('#cmpRow'),sel=$('#cmpSel');if(!row)return;
@@ -2544,7 +2558,7 @@ function cmpPrep(d){const row=$('#cmpRow'),sel=$('#cmpSel');if(!row)return;
   if(CMP.auto){const prev=cs.filter(c=>c.same&&c.startAt<d.startAt).sort((a,b)=>(b.same-a.same)||(b.startAt-a.startAt))[0];CMP.id=prev?prev.id:null;}
   const lab=c=>{const t=new Date(c.startAt);return `${c.cloud?'☁ ':''}${t.getFullYear()}/${t.getMonth()+1}/${t.getDate()} ${esc(c.name||'本番')}（${hms(c.el||0)}）`;};
   const same=cs.filter(c=>c.same),other=cs.filter(c=>!c.same);
-  sel.innerHTML='<option value="">比べない</option>'+(same.length?`<optgroup label="同じ大会">${same.map(c=>`<option value="${esc(c.id)}">${lab(c)}</option>`).join('')}</optgroup>`:'')+
+  sel.innerHTML='<option value="">比べない</option>'+(same.length?`<optgroup label="${kindOf(d)==='prac'?'同じ場所':'同じ大会'}">${same.map(c=>`<option value="${esc(c.id)}">${lab(c)}</option>`).join('')}</optgroup>`:'')+
     (other.length?`<optgroup label="ほかの記録">${other.map(c=>`<option value="${esc(c.id)}">${lab(c)}</option>`).join('')}</optgroup>`:'');
   sel.value=CMP.id||'';
   CMP.cur=null;if(!CMP.id)return;
@@ -2576,6 +2590,63 @@ function cmpChart(rows,C,g){const pts=rows.map(x=>({km:x.km,v:(()=>{const ct=cmp
 function cmpMap(d){const C=CMP.cur,Lf=window.L;if(!C||!Lf||!MAPV.lay)return;const col=getComputedStyle(document.documentElement).getPropertyValue('--ml-line').trim()||'#6d4fd8';
   geoSegs((C.geo&&C.geo.trk)||[],C.geo&&C.geo.gap).forEach(sg=>Lf.polyline(sg.map(p=>[p[1],p[2]]),{color:col,weight:3,opacity:.8,dashArray:'6 6'}).addTo(MAPV.lay));
   logRows(C).forEach(x=>{const p=geoAt(C,x.km);if(!p)return;Lf.circleMarker([p.la,p.lo],{radius:4,color:col,weight:2,fillColor:'#fff',fillOpacity:1}).bindTooltip(`${esc(cmpName(C))} ${x.km}km ${hms(x.t)}`,{direction:'top'}).addTo(MAPV.lay);});}
+/* ---------- 練習の記録（屋外のみ）：終わったときに保存するか確認し、スタート地点の場所名とスタート日時で「4. 実績」の「練習」に残す ---------- */
+function kindOf(x){return x&&x.kind==='prac'?'prac':'race';}
+function logLabel(x){const d=new Date(x.startAt),day=`${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`;
+  if(kindOf(x)==='prac')return `${day} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')} ${esc(x.name||'場所未取得')}（${(+x.km||0).toFixed(1)}km ${hms(x.el||0)}）`;
+  return `${day} ${esc(x.name||'本番')}（${hms(x.el||0)}）`;}
+/* この端末に残す件数：保存先なし＝本番20件・練習50件、クラウド＝それぞれ直近5件（未保存のものは必ず残す） */
+function trimLogs(){const svc=CLOUD&&CLOUD.svc||'none',n={race:0,prac:0};raceLogs.sort((a,b)=>b.startAt-a.startAt);
+  raceLogs=raceLogs.filter(x=>{const k=kindOf(x);n[k]++;if(svc!=='none')return x.cloud!==svc||n[k]<=CLOUD_KEEP;return n[k]<=(k==='prac'?PRAC_MAX:LOG_MAX);});}
+function histKindUI(){document.querySelectorAll('#histKind [data-kind]').forEach(b=>{const on=b.dataset.kind===HIST.kind;b.classList.toggle('on',on);b.setAttribute('aria-selected',on);});
+  const isP=HIST.kind==='prac',h=document.querySelector('.rlog .strat-h');
+  if(h){const t=h.querySelector('b'),sb=h.querySelector('.sub');if(t&&t.dataset.k!==HIST.kind){t.dataset.k=HIST.kind;t.textContent=isP?'練習のログ':'本番のログ';}
+    if(sb&&sb.dataset.k!==HIST.kind){sb.dataset.k=HIST.kind;sb.dataset.ja=sb.dataset.ja||sb.textContent;sb.textContent=isP?'屋外の練習で「保存する」を選んだ記録です。1 km毎のラップ・高低差・天気・地図を見られます。':sb.dataset.ja;}}
+  const ib=$('#impBox');if(ib)ib.hidden=isP;}
+$('#histKind').addEventListener('click',e=>{const b=e.target.closest('[data-kind]');if(!b||b.dataset.kind===HIST.kind)return;HIST.kind=b.dataset.kind;logSelId='cur';CMP.forId=null;mapClose(true);MAPV.id=null;renderLog();});
+/* 走っている間：位置を約25mごとに残す（本番と同じ形） */
+{const _o=odFix;odFix=function(p){const b=OD.pt,d0=OD.dist;const r=_o.apply(this,arguments);
+  try{if(MODE!=='practice'||!OD.active||!R.running||R.paused)return r;const c=p.coords;if(!(c.accuracy<=35))return r;const pt=OD.pt;if(!pt||pt===b)return r;
+    if(!OD.sp)OD.sp={la:+pt.la.toFixed(5),lo:+pt.lo.toFixed(5)};if(b&&OD.dist===d0)return r;
+    const T=OD.trk=OD.trk||[],k=+OD.dist.toFixed(3),alt=c.altitude!=null&&isFinite(c.altitude)?+c.altitude.toFixed(1):null,t=Math.round(rawEl()),l=T[T.length-1];
+    if(!l||Math.abs(k-l[0])>=GEO_STEP||t-l[4]>=60000){T.push([k,+pt.la.toFixed(6),+pt.lo.toFixed(6),alt,t]);
+      if(T.length%20===0){const o=store.get(PRUN_KEY,null);if(o&&o.od){o.od.trk=T;o.od.sp=OD.sp;o.od.startAt=OD.startAt;store.set(PRUN_KEY,o);}}}}catch(e){}
+  return r;};}
+{const _s=start;start=function(){const fresh=R.done||(!R.running&&R.acc===0);const r=_s.apply(this,arguments);
+  if(MODE==='practice'&&OD.active&&fresh){OD.startAt=Date.now();OD.trk=[];OD.sp=null;}return r;};}
+function pracSnap(realMs){if(!OD||!(OD.dist>=0.2))return null;
+  const laps=(OD.laps||[]).slice(),startAt=OD.startAt||(Date.now()-realMs),log=[];let cum=0,allTp=true;
+  laps.forEach(x=>{if(x.tp!=null&&allTp)cum+=x.tp;else allTp=false;log.push({km:x.km,t:Math.round(x.t),at:startAt+Math.round(x.t),src:'GPS',tgt:allTp?Math.round(cum):null});});
+  const dist=+OD.dist.toFixed(3),last=log[log.length-1];if(!last||dist-last.km>=0.05)log.push({km:dist,t:Math.round(realMs),at:startAt+Math.round(realMs),src:'GPS',tgt:null});
+  const names=[...new Set(menu.map(s=>s&&s.name).filter(Boolean))];
+  return {id:'P'+startAt,kind:'prac',name:'',menu:names.slice(0,3).join('・')+(names.length>3?'…':''),date:ymdISO(startAt),startAt,endAt:startAt+Math.round(realMs),km:+dist.toFixed(2),el:Math.round(realMs),
+    log,ev:[],kcal:typeof kcalOf==='function'?kcalOf(opt.weight,dist):null,geo:{sp:OD.sp||null,trk:(OD.trk||[]).slice(),pass:[]}};}
+/* 場所名：スタート地点の住所（市区町村と町名）をOpenStreetMapから調べる */
+async function placeName(sp){if(!sp||!navigator.onLine)return '';
+  try{const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${sp.la}&lon=${sp.lo}&zoom=16&addressdetails=1&accept-language=ja`);if(!r.ok)return '';
+    const j=await r.json(),a=j.address||{};const parts=[a.city||a.town||a.village||a.county,a.city_district||a.ward,a.quarter||a.suburb||a.neighbourhood||a.hamlet].filter(Boolean);
+    const uniq=parts.filter((v,i)=>parts.indexOf(v)===i);return uniq.join('')||String(j.name||'');}catch(e){return '';}}
+function pracOffer(d){if(!d)return;let box=$('#pracSave');if(!box){box=document.createElement('div');box.id='pracSave';box.className='psave';box.setAttribute('role','dialog');box.setAttribute('aria-label','練習の記録');document.body.appendChild(box);}
+  const t=new Date(d.startAt),when=`${t.getFullYear()}/${t.getMonth()+1}/${t.getDate()} ${t.getHours()}:${String(t.getMinutes()).padStart(2,'0')}`;
+  box.innerHTML=`<b class="t">この練習を記録に残しますか？</b><div class="sum">${d.km.toFixed(2)} km ／ ${hms(d.el)}（平均 ${fmtPace(d.el/1000/Math.max(0.01,d.km))}/km）</div>
+    <div class="sub">スタート ${when}</div>
+    <label for="psName">スタートした場所<input id="psName" type="text" autocomplete="off" placeholder="${d.geo.sp?'場所を調べています…':'例）大濠公園'}"></label>
+    <div class="sub" id="psNote">${d.geo.sp?'':'位置が取れなかったため、場所は自分で入力してください（空のままでも保存できます）。'}</div>
+    ${d.geo.sp?'<div class="sub" data-notr>場所名のデータ：© OpenStreetMap contributors</div>':''}
+    <div class="ctrls"><button class="primary-sm" type="button" id="psYes">保存する</button><button class="small" type="button" id="psNo">保存しない</button></div>`;
+  box.hidden=false;const inp=$('#psName');
+  if(d.geo.sp)placeName(d.geo.sp).then(n=>{if(!inp.isConnected)return;inp.placeholder='例）大濠公園';if(n&&!inp.value){inp.value=n;}else if(!n){$('#psNote').textContent=navigator.onLine?'場所を調べられませんでした。自分で入力するか、空のまま保存してください。':'ネットにつながっていないため場所を調べられません。空のまま保存すると、あとでネットにつながったときに自動で入ります。';}});
+  $('#psYes').onclick=()=>{d.name=inp.value.trim();if(!d.name&&d.geo.sp)d.placePending=true;
+    raceLogs=raceLogs.filter(x=>x.id!==d.id);raceLogs.push(d);trimLogs();store.set(LOGS_KEY,raceLogs);
+    box.innerHTML='<b class="t">練習を「4. 実績」の「練習」に保存しました。</b>';setTimeout(()=>{box.hidden=true;},2000);try{cloudSync();}catch(e){}};
+  $('#psNo').onclick=()=>{box.hidden=true;};}
+/* 終わるとき：メニューを最後まで走ったとき（自動）と、途中で「リセット」を押したとき */
+{const _f=finish;finish=function(){const was=MODE==='practice'&&OD&&OD.active;const r=_f.apply(this,arguments);if(was){try{pracOffer(pracSnap(OD.realMs||rawEl()));}catch(e){}}return r;};}
+{const _r=reset;reset=function(){let snap=null;if(MODE==='practice'&&OD&&OD.active&&(R.running||R.acc>0)){try{snap=pracSnap(rawEl());}catch(e){}}
+  const r=_r.apply(this,arguments);if(snap)pracOffer(snap);return r;};}
+/* あとから場所名を入れる（保存したときにネットにつながっていなかった場合） */
+{const _g=geoRender;geoRender=function(d){const r=_g.apply(this,arguments);
+  try{if(d&&d.placePending&&!d.name&&!d._pl&&navigator.onLine){d._pl=true;placeName(geoStart(d)).then(n=>{d._pl=false;if(n){d.name=n;d.placePending=false;logChanged(d);renderLog();}});}}catch(e){}return r;};}
 /* ---------- 旧データの取り込み：「CSVをダウンロード」で書き出した本番ログ（以前の版・この版、どの言語でも）を実績に加える ----------
    見出しは書き出したときの言語で変わるので、列の並び順で読み取る。 */
 function csvRows(t){t=String(t).replace(/^﻿/,'');const rows=[];let row=[],cur='',q=false;
@@ -2624,7 +2695,7 @@ $('#impCsv').addEventListener('change',async e=>{const files=[...e.target.files]
     catch(err){msg='本番ログのCSVとして読み取れませんでした。';}
     out.push(`<div><span>${esc(f.name)}</span>　<span>${msg}</span></div>`);}
   raceLogs.sort((a,b)=>b.startAt-a.startAt);
-  if(CLOUD.svc==='none'&&raceLogs.length>LOG_MAX){raceLogs=raceLogs.slice(0,LOG_MAX);out.push(`<div><span>${'この端末に残せるのは最新20件までのため、古い記録は表示されません。'}</span></div>`);}
+  const n0=raceLogs.length;trimLogs();if(raceLogs.length<n0){out.push(`<div><span>${'この端末に残せるのは最新20件までのため、古い記録は表示されません。'}</span></div>`);}
   store.set(LOGS_KEY,raceLogs);if(last&&raceLogs.some(x=>x.id===last))logSelId=last;
   $('#impMsg').innerHTML=out.join('');renderLog();cloudRender();if(added)cloudSync();});
 /* ===================== Bluetooth disconnect: music stopped by the phone ===================== */
@@ -2682,7 +2753,7 @@ function checkPracResume(){const r=store.get(PRUN_KEY,null);if(!r||r.v!==1||R.ru
   opt.outdoor=!!r.od;store.set('cbgm-outdoor',opt.outdoor);menu=r.menu.map(x=>Object.assign({},x));
   RS.spd=r.spd||0;RS.spdLog=r.spdLog||[];
   R.acc=raw;R.t0=Date.now();R.running=true;R.paused=!!r.paused;R.done=false;
-  if(r.od){odStart();const o=r.od;Object.assign(OD,{dist:o.dist||0,kmNext:o.kmNext||1,kmT:o.kmT||0,hist:o.hist||[{t:0,d:0}],lastFixRaw:o.lastFixRaw||0,got:false,pt:null,laps:o.laps||[]});
+  if(r.od){odStart();const o=r.od;Object.assign(OD,{dist:o.dist||0,kmNext:o.kmNext||1,kmT:o.kmT||0,hist:o.hist||[{t:0,d:0}],lastFixRaw:o.lastFixRaw||0,got:false,pt:null,laps:o.laps||[],trk:o.trk||[],sp:o.sp||null,startAt:o.startAt||(Date.now()-raw)});
     /* the distance run while the phone was off is estimated at the stage pace and kept */
     OD.dist=odDist();OD.lastFixRaw=rawEl();OD.kmNext=Math.floor(OD.dist)+1;}
   const el=elapsed();if(el>=totalMs()){R.running=false;pracDrop();renderAll();return;}
@@ -3110,6 +3181,23 @@ W('比較のラップ','Compared lap','对比的分段','對比的分段','비�
 W('比較の天気','Compared weather','对比的天气','對比的天氣','비교 날씨');
 W('比較','Compared','对比','對比','비교');
 P(/^(\d{4}\/\d{1,2}\/\d{1,2})との差（上ほど速い・－は速い）$/,m=>[`vs ${m[1]} (higher = faster, − = faster)`,`与${m[1]}之差（越高越快，－表示更快）`,`與${m[1]}之差（越高越快，－表示更快）`,`${m[1]}과의 차 (위일수록 빠름, −는 빠름)`]);
+W('本番','Race','比赛','比賽','대회');
+W('練習','Training','训练','訓練','연습');
+W('練習のログ','Training log','训练记录','訓練記錄','연습 로그');
+W('同じ場所','Same place','同一地点','同一地點','같은 장소');
+W('屋外の練習で「保存する」を選んだ記録です。1 km毎のラップ・高低差・天気・地図を見られます。','Outdoor training runs you chose to save. See laps per km, elevation, weather and the map.','这是在户外训练中选择“保存”的记录。可查看每公里分段、高低差、天气和地图。','這是在戶外訓練中選擇「儲存」的記錄。可查看每公里分段、高低差、天氣和地圖。','실외 연습에서 "저장"을 고른 기록입니다. 1km마다의 랩·고저차·날씨·지도를 볼 수 있습니다.');
+W('屋外の練習が終わったときに「保存する」を選ぶと、ここに記録が残ります。','Choose "Save" when an outdoor training run ends and it appears here.','户外训练结束时选择“保存”，记录会显示在这里。','戶外訓練結束時選擇「儲存」，記錄會顯示在這裡。','실외 연습이 끝났을 때 "저장"을 고르면 여기에 기록이 남습니다.');
+W('この練習を記録に残しますか？','Save this training run?','要保存这次训练吗？','要儲存這次訓練嗎？','이 연습을 기록으로 남길까요?');
+W('スタートした場所','Start location','起跑地点','起跑地點','출발 장소');
+W('場所を調べています…','Looking up the place…','正在查询地点…','正在查詢地點…','장소를 찾는 중…');
+W('例）大濠公園','e.g. Central Park','例）公园','例）公園','예) 공원');
+W('位置が取れなかったため、場所は自分で入力してください（空のままでも保存できます）。','No position was recorded, so please type the place (you can also save it blank).','未取得位置，请自行输入地点（留空也可保存）。','未取得位置，請自行輸入地點（留空也可儲存）。','위치를 얻지 못했으니 장소를 직접 입력해 주세요 (비워 두어도 저장할 수 있습니다).');
+W('場所を調べられませんでした。自分で入力するか、空のまま保存してください。','Could not look up the place. Type it yourself or save it blank.','无法查询地点。请自行输入，或留空保存。','無法查詢地點。請自行輸入，或留空儲存。','장소를 찾지 못했습니다. 직접 입력하거나 비워 두고 저장해 주세요.');
+W('ネットにつながっていないため場所を調べられません。空のまま保存すると、あとでネットにつながったときに自動で入ります。','Offline, so the place cannot be looked up. Save it blank and it is filled in automatically once online.','未联网，无法查询地点。留空保存后，联网时会自动填入。','未連網，無法查詢地點。留空儲存後，連網時會自動填入。','인터넷에 연결되어 있지 않아 장소를 찾을 수 없습니다. 비워 두고 저장하면 나중에 연결될 때 자동으로 들어갑니다.');
+W('保存する','Save','保存','儲存','저장');
+W('保存しない','Don\'t save','不保存','不儲存','저장하지 않음');
+W('練習を「4. 実績」の「練習」に保存しました。','Saved to "Training" in "4. Results".','已保存到“4. 成绩”的“训练”中。','已儲存到「4. 成績」的「訓練」中。','"4. 기록"의 "연습"에 저장했습니다.');
+W('場所未取得','Place unknown','地点未取得','地點未取得','장소 미확인');
 W('4. 実績','4. Results','4. 成绩','4. 成績','4. 기록');
 W('一覧から選ぶと、表・グラフ・高低差を表示します。地図は「地図を表示」を押したときだけ読み込みます。','Choose a race to see its table, charts and elevation. The map loads only when you press "Show map".','从列表中选择即可查看表格、图表和高低差。地图仅在按下“显示地图”时加载。','從列表中選擇即可查看表格、圖表和高低差。地圖僅在按下「顯示地圖」時載入。','목록에서 고르면 표·그래프·고저차를 표시합니다. 지도는 "지도 표시"를 눌렀을 때만 불러옵니다.');
 W('保存先','Save to','保存位置','儲存位置','저장 위치');
@@ -3118,8 +3206,8 @@ W('（準備中）','(coming soon)','（准备中）','（準備中）','(준비
 W('サインイン','Sign in','登录','登入','로그인');
 W('サインアウト','Sign out','退出登录','登出','로그아웃');
 W('今すぐ保存','Save now','立即保存','立即儲存','지금 저장');
-W('本番の記録を最新20件まで、この端末に残しています。','The latest 20 race logs are kept on this device.','本机最多保留最近20场比赛的记录。','本機最多保留最近20場比賽的記錄。','이 기기에 대회 기록을 최근 20건까지 남깁니다.');
-W('ゴール後に本番の記録を自動で保存し、この端末には直近5件だけ残します。過去の記録は、ネットにつながっているときに一覧から読み込めます。','Race logs are saved automatically after the finish; this device keeps only the latest 5. Older logs can be loaded from the list when online.','完赛后自动保存比赛记录，本机仅保留最近5场。联网时可从列表中读取过去的记录。','完賽後自動儲存比賽記錄，本機僅保留最近5場。連網時可從列表中讀取過去的記錄。','골인 후 대회 기록을 자동으로 저장하고, 이 기기에는 최근 5건만 남깁니다. 이전 기록은 인터넷에 연결되어 있을 때 목록에서 불러올 수 있습니다.');
+W('本番は最新20件、練習は最新50件まで、この端末に残しています。','This device keeps the latest 20 race logs and 50 training logs.','本机最多保留最近20场比赛和50次训练的记录。','本機最多保留最近20場比賽和50次訓練的記錄。','이 기기에 대회 기록 최근 20건, 연습 기록 최근 50건까지 남깁니다.');
+W('本番と、保存した練習の記録を自動で保存し、この端末には本番・練習それぞれ直近5件だけ残します。過去の記録は、ネットにつながっているときに一覧から読み込めます。','Race logs and saved training logs are saved automatically; this device keeps only the latest 5 of each. Older logs can be loaded from the list when online.','自动保存比赛记录和已保存的训练记录，本机比赛和训练各仅保留最近5条。联网时可从列表中读取过去的记录。','自動儲存比賽記錄和已儲存的訓練記錄，本機比賽和訓練各僅保留最近5筆。連網時可從列表中讀取過去的記錄。','대회 기록과 저장한 연습 기록을 자동으로 저장하고, 이 기기에는 대회·연습 각각 최근 5건만 남깁니다. 이전 기록은 인터넷에 연결되어 있을 때 목록에서 불러올 수 있습니다.');
 W('サインインすると、ゴール後に本番の記録を自動で保存します。','Sign in to save race logs automatically after the finish.','登录后，完赛时会自动保存比赛记录。','登入後，完賽時會自動儲存比賽記錄。','로그인하면 골인 후 대회 기록을 자동으로 저장합니다.');
 W('保存しています…','Saving…','正在保存…','正在儲存…','저장 중…');
 W('サインインできませんでした。もう一度お試しください。','Sign-in failed. Please try again.','登录失败，请重试。','登入失敗，請再試一次。','로그인하지 못했습니다. 다시 시도해 주세요.');
