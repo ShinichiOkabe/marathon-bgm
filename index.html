@@ -348,6 +348,20 @@ body.hist .wrap>*:not(header):not(#histSec),body.hist #ioRow,body.hist #hashNote
 .psave{position:fixed;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom,0px));z-index:95;display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:14px;background:var(--surface);border:2px solid var(--accent);color:var(--ink);box-shadow:0 6px 24px rgba(0,0,0,.3);max-width:560px;margin:0 auto}
 .psave b.t{font-size:1.05rem}.psave .sum{font-family:var(--f-num);font-size:1rem}.psave label{display:flex;flex-direction:column;gap:3px;font-size:.8rem;font-weight:700;color:var(--muted)}
 .psave input{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px}.psave .ctrls{display:flex;gap:8px}.psave .ctrls button{flex:1;margin:0}
+.rlog tr.pass-turn td{background:color-mix(in srgb,var(--ml-line) 14%,var(--surface));color:var(--ml-ink)}
+.rlog tr.pass-half td{background:color-mix(in srgb,var(--amber) 14%,var(--surface));color:var(--amber)}
+.rlog tr.pass-cp td{background:color-mix(in srgb,var(--warn) 10%,var(--surface));color:var(--warn)}
+.rlog tr.pass td:first-child{box-shadow:inset 4px 0 0 currentColor}
+.rlog .pass-show .chk:nth-child(1) span,.rlog .pass-show .chk:nth-child(1){color:var(--ml-ink)}.rlog .pass-show .chk:nth-child(2){color:var(--warn)}.rlog .pass-show .chk:nth-child(3){color:var(--amber)}
+.rlog .gpsok{margin-left:8px;font-family:var(--f-body);font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:999px;border:1px solid currentColor}
+.rlog .pass-show{gap:4px 14px;flex-wrap:wrap}.rlog .pass-show .chk{font-size:.82rem}
+.rlog .cpm{margin-left:8px;font-family:var(--f-num);font-weight:400;color:var(--ink)}.rlog .cp-close{color:var(--muted);font-size:.8rem}.rlog .cp-ok{color:var(--accent)}.rlog .cp-tight{color:var(--amber)}.rlog .cp-over{color:var(--warn)}.rlog .cp-note{font-family:var(--f-body);font-size:.72rem;color:var(--muted)}
+.rlog .lim b{font-family:var(--f-num)}
+.del-list{display:flex;flex-direction:column;gap:2px;max-height:320px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:4px}
+.del-row{display:flex;align-items:center;gap:8px;padding:8px;border-radius:6px;font-size:.88rem;cursor:pointer}.del-row input{width:18px;height:18px;accent-color:var(--warn);flex:none}
+.del-row.sel{background:var(--ink);color:var(--surface)}.del-row.dis{opacity:.5;cursor:default}
+.del-ask{display:flex;flex-direction:column;gap:6px;border:2px solid var(--warn);border-radius:10px;padding:10px 12px;background:var(--pause-bg)}.del-ask b{color:var(--warn);font-size:1rem}
+#delBox .ctrls button{margin-top:0}
 .rlog .pdel{margin:0 0 0 8px;padding:2px 8px;font-size:.72rem;font-family:var(--f-body);font-weight:400}
 .mode:disabled{opacity:.45}
 .rc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -414,6 +428,12 @@ body.live .recv{display:none}
       <div class="sub" id="impMsg"></div>
     </div>
     <div id="histHost"></div>
+    <div class="cloud" id="delBox">
+      <div class="cloud-row"><span>実績データの削除</span></div>
+      <div class="sub">表示中の種類（本番／練習）の記録を選んで、まとめて削除できます。</div>
+      <div class="ctrls"><button class="small" type="button" id="delOpen">削除する記録を選ぶ</button></div>
+      <div id="delPanel" hidden></div>
+    </div>
   </section>
 
   <!-- RUN -->
@@ -576,6 +596,7 @@ body.live .recv{display:none}
       <div class="strat-h"><b>本番のログ</b><span class="sub">スタート時刻と1km毎の通過時間を記録します。途中でスマホの電源が切れても、ページを開き直すと記録から今の位置を推測して続きから再開できます。</span></div>
       <div class="ctrls"><select id="logSel" aria-label="ログを選ぶ"></select><button class="small" id="logCsv">CSVをダウンロード</button><button class="small" id="logDel">このログを削除</button></div>
       <div class="ctrls cmp-row" id="cmpRow" hidden><span class="cmp-l">比べる記録</span><select id="cmpSel" aria-label="比べる記録"></select></div>
+      <div class="ctrls pass-show" role="group" aria-label="表に出す地点"><label class="chk"><input type="checkbox" id="psTurn"> 折り返し点の表示</label><label class="chk"><input type="checkbox" id="psCp"> 関門地点の表示</label><label class="chk"><input type="checkbox" id="psHalf"> 中間地点の表示</label></div>
       <div id="logInfo" class="sub"></div>
       <div id="logChart"></div>
       <div id="logGeo" class="geo">
@@ -655,7 +676,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-02b</p>
+  <p class="ver" data-notr translate="no">版 2026-11-03a</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -685,7 +706,7 @@ body.live .recv{display:none}
 <p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。日本語以外を選ぶと、この使い方ガイドは英語版になります。</p>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
-<p>ページの一番下には「版 2026-11-02b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-03a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
@@ -736,7 +757,15 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>本番では、スタート時刻と1 km毎の通過時間を自動で記録します。中間点（大会の距離の半分）と、「大会」タブに入れた折り返し地点の通過時刻も記録します。見る場所は、画面の一番上の「4. 実績」です（「本番」の「戦略・記録」タブの「「4. 実績」を開く」からも開けます）。</p>
 <ul><li><strong>グラフ</strong>：1 km毎のペース（実際と目標）と、目標との差が自動で出ます。どのグラフも上ほど速い向きです。</li><li><strong>前半・後半</strong>：スタートから中間点まで、中間点からゴールまでのタイムと、その差が出ます。後半が速ければ差がマイナスになります。</li><li><strong>高低差</strong>：GPSをONにしていた区間の高さのグラフです。指でなぞると、その地点の距離・高さ・経過時間が出ます。GPSの高さは目安で、実際の標高とは数十mずれることがあります。</li><li><strong>表</strong>：1 km毎の経過（ネット）とグロスの時間、中間点と折り返しの行が並びます。上の行にネットタイム・グロスタイム・ロスタイムも出ます。天気が取れていれば、天気・気温・風（その1 kmの進む向きに対する「向かい風」「追い風」の強さ）も出ます。</li><li><strong>地図</strong>：「地図を表示」を押したときだけ地図を読み込み、GPSをONにしていた区間の道すじと1 km地点、中間点・折り返しを表示します。通信が必要です。</li><li><strong>CSVをダウンロード</strong>：Excelで開けるファイルで保存できます。</li></ul>
 <p>天気は、ゴールしたあと、このアプリを開いた状態でネットにつながったときに、気象データ（Open-Meteo）から自動で取得します。スタート前かレース中に一度もGPSをONにしなかったときは、走った場所がわからないため取得できません。</p>
-<p>いらない折り返しの行は、表の「削除」を押し、「もう一度押すと削除」と出たらもう一度押すと消せます。</p>
+<h4>折り返し点の記録について</h4>
+<p>折り返し点は、「大会」タブに入れた距離に達した時刻で記録します。トイレやエイドステーション（給水所）に立ち寄ってコースを外れた分も走った距離に数えるため、実際の折り返し点より手前で記録されることがあります。また、距離の入力を誤った場合も、実際とは違う地点が記録されます。</p>
+<p>ゴールしたあと、GPSをONにしていた区間では、進む向きが反対になった地点（折り返し）をGPSの記録から探し、次のように表示します。</p>
+<table><thead><tr><th>表示</th><th>意味</th><th>削除</th></tr></thead><tbody><tr><td>折り返しの名前＋「GPSで確認」</td><td>登録した折り返しの近く（0.5 km以内）で、GPSでも折り返しを確認できた</td><td>できません</td></tr><tr><td>折り返しの名前だけ</td><td>登録した折り返しだが、GPSでは確認できなかった（GPSがOFFだった、登録の距離が違う など）</td><td>できます</td></tr><tr><td>折り返し（GPS検出）</td><td>登録していない地点で、GPSが折り返しを検出した（トイレやエイドへの往復、道を間違えて引き返した など）</td><td>できます</td></tr></tbody></table>
+<p>実際の折り返し点ではない行は、表の「削除」を押し、「もう一度押すと削除」と出たらもう一度押して消してください。</p>
+<h4>関門と制限時間</h4>
+<p>「大会」タブに関門を入れておくと、各関門を通過した時刻を記録し、表の関門の行に「閉鎖」の時刻と「余裕」（閉鎖まで何分前に通過したか）を表示します。余裕が10分未満なら黄色、閉鎖後の通過なら赤で表示します。上の行には制限時間と、ゴールしたときの制限時間までの余裕も出ます。閉鎖の時刻は開催日とスタート時刻（号砲）から計算するので、両方を入れておいてください。入れていないときは、自分がスタートを押した時刻から計算した目安になります。前回の大会と比べるときは、「比較のラップ」の欄に前回の関門の余裕が出ます。</p>
+<h4>表示する地点を選ぶ</h4>
+<p>「折り返し点の表示」「関門地点の表示」「中間地点の表示」のチェックを入れた地点だけを、表・高低差・地図に表示します。チェックを外しても記録は消えず、CSVにはすべて書き出します。</p>
 <h3>「4. 実績」で過去の記録を見る</h3>
 <p>画面の一番上の「4. 実績」を押すと、ほかの表示が隠れて、過去の記録だけになります。上の「本番」「練習」で、見る記録の種類を切り替えます。一覧から大会を選ぶと、上と同じグラフ・前半後半・高低差・表を見られます。地図は最初は出ず、「地図を表示」を押したときだけ出ます。「1. 練習」「2. 本番」「3. リラックス」を押すと元の画面に戻ります。本番の待機中や走っている間は「4. 実績」は押せません。</p>
 <p>「4. 実績」の一番上の「保存先」で、記録をどこに残すかを選べます。</p>
@@ -746,6 +775,10 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>この版より前に「CSVをダウンロード」で保存した本番ログも、「4. 実績」に取り込めます。</p>
 <ol><li>「4. 実績」の「旧データの取り込み」にある「CSVを選ぶ」を押します。</li><li>保存しておいたCSVファイルを選びます。複数のファイルをまとめて選ぶこともできます。日本語・英語など、どの表示言語で書き出したCSVでも取り込めます。</li><li>「取り込みました。」と出たら、一覧にその大会が加わります。同じ大会をもう一度選んだときは「すでに取り込み済みです。」と出て、二重には入りません。</li></ol>
 <p>以前の版のCSVには位置が入っていないため、表示できるのはグラフ・表・前半後半（中間点は1 km毎の時刻から推定）・できごとまでで、地図・高低差・天気は出ません。この版で書き出したCSVを取り込んだ場合は、1 km毎の位置から大まかな地図と高低差も出ます。保存先がDropboxなら、取り込んだ記録もDropboxに保存されます。</p>
+<h3>実績データを削除する</h3>
+<p>「4. 実績」の一番下の「実績データの削除」で、表示中の種類（本番か練習）の記録をまとめて削除できます。</p>
+<ol><li>「削除する記録を選ぶ」を押すと、記録の一覧が出ます。</li><li>削除する記録にチェックを入れます（「すべて選ぶ」もあります）。</li><li>「選んだ記録を削除」を押すと、選んだ記録が反転して表示され、「本当に削除しますか？」と聞かれます。</li><li>「削除します」を押したときだけ削除します。「やめる」を押すと選び直せます。</li></ol>
+<p>削除した記録は元に戻せません。保存先がDropboxのときは、Dropboxからも削除します（ネットにつながってサインインしているときだけ選べます）。</p>
 <h3>前回（昨年など）と比べる</h3>
 <p>一覧で大会を選ぶと、その下の「比べる記録」に、同じ大会の前回の記録が自動で選ばれます（大会名が同じ記録、または位置があればスタート地点と距離が同じ記録を「同じ大会」とみなします）。ほかの記録を選んだり、「比べない」にしたりもできます。比べると、次のように表示が変わります。</p>
 <ul><li><strong>ペースのグラフ</strong>：比べる記録のペースが紫の線で重なります。</li><li><strong>差のグラフ</strong>：各地点で、比べる記録より何分速いか・遅いかを表示します。ペースのグラフと同じく上ほど速く（マイナスが上）、どこで差がついたかがわかります。</li><li><strong>前半・後半</strong>：比べる記録の前半・後半も並べて表示します。</li><li><strong>表</strong>：「比較との差」（各地点の経過タイムの差。速ければ青、遅ければ赤）、「比較のラップ」、「比較の天気」（天気・気温・風）の列が加わります。</li><li><strong>地図</strong>：「地図を表示」を押すと、比べる記録の道すじも紫の点線で重なります。</li></ul>
@@ -784,7 +817,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>From top to bottom: the mode buttons, the running display (timer and Start), and the settings tabs. Use "🌐" at the top right to switch between Japanese, English, Chinese and Korean.</p>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Passed 1 km, GPS, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-02b" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-03a" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h2 id="e-4">4. Training</h2>
 <p>For each stage of your training menu, songs play at a tempo that makes that pace easy to run.</p>
 <ol><li>Press "1. Training" and choose "Indoor (stages advance by time)" or "Outdoor (advance by GPS distance)".</li><li>On the "Menu" tab, choose "Steady run", "LSD", "Build-up" or "Jog", or enter a pace (min per km) and time for each stage.</li><li>Save menus you use often with "Save practice menu" below: enter a name (e.g. Tuesday pace run) and press "Save". Next time, just press "Load".</li><li>Press "Start". A beep sounds when the stage changes, and the tempo changes too.</li><li>When you are done, long-press "Unlock" and press "Reset". The app stops automatically when the menu is finished.</li></ol>
@@ -835,7 +868,15 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>In a race, the start time and the time at every 1 km are recorded automatically. The time you pass halfway (half the race distance) and each turnaround entered on the "Race" tab is recorded too. Find them under "4. Results" at the top of the screen (you can also open it with "Open 4. Results" on the "Race" → "Strategy &amp; log" tab).</p>
 <ul><li><strong>Graphs</strong>: pace for every 1 km (actual and target), and the difference from the target, are drawn automatically. In every graph, higher means faster.</li><li><strong>First half / second half</strong>: your time from the start to halfway and from halfway to the finish, and the difference. A negative difference means your second half was faster.</li><li><strong>Elevation</strong>: a height graph for the sections where GPS was on. Slide your finger along it to see the distance, height and elapsed time at that point. GPS height is approximate and can differ from the true elevation by tens of meters.</li><li><strong>Table</strong>: elapsed time (net) and gross time for every 1 km, plus rows for halfway and turnarounds. The top line also shows net time, gross time and start loss. When weather is available, weather, temperature and wind are shown too (wind as a headwind or tailwind for the direction you ran in that km).</li><li><strong>Map</strong>: loads only when you press "Show map", and shows your route for the sections where GPS was on, with each km, halfway and turnarounds. Needs an internet connection.</li><li><strong>Download CSV</strong>: save it as a file you can open in Excel.</li></ul>
 <p>Weather is fetched automatically from weather data (Open-Meteo) after the finish, when the app is open and online. If GPS was never turned on before or during the race, the location is unknown and weather cannot be fetched.</p>
-<p>To remove an unneeded turnaround row, press "Delete" in the table, then press it again when it says "Press again to delete".</p>
+<h4>About turnaround records</h4>
+<p>A turnaround is recorded at the time you reach the distance entered on the "Race" tab. Detours to toilets or aid stations count toward the distance you ran, so a turnaround can be recorded before the real one. A wrongly entered distance also records the wrong point. </p>
+<p>After the finish, the GPS record of the sections where GPS was on is checked for points where your direction reversed (turnarounds), shown as follows.</p>
+<table><thead><tr><th>Shown as</th><th>Meaning</th><th>Delete</th></tr></thead><tbody><tr><td>Turnaround name + "GPS confirmed"</td><td>A registered turnaround that GPS also detected nearby (within 0.5 km)</td><td>Not possible</td></tr><tr><td>Turnaround name only</td><td>A registered turnaround that GPS could not confirm (GPS was off, wrong distance entered, etc.)</td><td>Possible</td></tr><tr><td>Turnaround (GPS)</td><td>Not registered, but GPS detected a turnaround (a trip to a toilet or aid station, turning back after a wrong turn, etc.)</td><td>Possible</td></tr></tbody></table>
+<p>Remove any row that is not a real turnaround: press "Delete" in the table, then press it again when it says "Press again to delete".</p>
+<h4>Cutoffs and the time limit</h4>
+<p>If you enter cutoffs on the "Race" tab, the time you pass each one is recorded, and its row shows when it "Closes" and your "Margin" (how long before closing you passed). Under 10 minutes is shown in yellow, passing after closing in red. The top line also shows the time limit and your margin at the finish. Closing times are calculated from the race date and start (gun) time, so enter both; without them, they are estimated from when you pressed Start. When comparing with an earlier race, its cutoff margin appears in the "Compared lap" column.</p>
+<h4>Choose which points to show</h4>
+<p>Only the points whose boxes are checked, "Show turnarounds", "Show cutoffs" and "Show halfway", appear in the table, elevation and map. Unchecking hides them without deleting them, and the CSV always includes all of them.</p>
 <h3>Look back at past races in "4. Results"</h3>
 <p>Press "4. Results" at the top of the screen. Everything else is hidden and only your past logs are shown. Use "Race" and "Training" at the top to switch between kinds of logs. Choose a race from the list to see the same graphs, halves, elevation and table as above. The map is not shown at first; it appears only when you press "Show map". Press "1. Training", "2. Race" or "3. Relax" to go back. "4. Results" cannot be pressed while a race is armed or running.</p>
 <p>"Save to" at the top of "4. Results" decides where your logs are kept.</p>
@@ -845,6 +886,10 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>Race logs you saved with "Download CSV" in an earlier version can also be added to "4. Results".</p>
 <ol><li>In "4. Results", press "Choose CSV" under "Import old data".</li><li>Choose the saved CSV file. You can choose several files at once. CSVs exported in any display language (Japanese, English and so on) can be imported.</li><li>When it says "Imported.", the race is added to the list. If you choose the same race again, it says "Already imported." and is not added twice.</li></ol>
 <p>CSVs from earlier versions contain no positions, so you get the graphs, table, halves (halfway estimated from the time at each km) and events, but no map, elevation or weather. A CSV exported from this version also gives a rough map and elevation from the position at each km. With Dropbox chosen, imported logs are saved to Dropbox too.</p>
+<h3>Delete logs</h3>
+<p>Use "Delete logs" at the bottom of "4. Results" to delete several logs of the kind shown (race or training) at once.</p>
+<ol><li>Press "Choose logs to delete" to see the list.</li><li>Check the logs to delete ("Select all" is also available).</li><li>Press "Delete selected". The chosen logs are highlighted and you are asked "Really delete?".</li><li>They are deleted only when you press "Delete". Press "Cancel" to choose again.</li></ol>
+<p>Deleted logs cannot be restored. With Dropbox chosen, they are deleted from Dropbox too (they can be chosen only when you are online and signed in).</p>
 <h3>Compare with an earlier race (last year, etc.)</h3>
 <p>When you choose a race in the list, "Compare with" below it automatically picks your previous log of the same race (a log with the same race name, or, when positions are available, the same start point and distance, counts as the same race). You can choose another log or "No comparison" instead. When comparing:</p>
 <ul><li><strong>Pace graph</strong>: the compared log's pace is drawn as a purple line.</li><li><strong>Difference graph</strong>: how many minutes faster or slower you were at each point. As in the pace graph, higher means faster (minus is up), so you can see where you gained or lost time.</li><li><strong>Halves</strong>: the compared log's first and second halves are shown alongside.</li><li><strong>Table</strong>: columns "vs compared" (difference in elapsed time at each point; blue if faster, red if slower), "Compared lap" and "Compared weather" (weather, temperature, wind) are added.</li><li><strong>Map</strong>: after "Show map", the compared route is drawn as a dotted purple line.</li></ul>
@@ -2149,7 +2194,7 @@ function archiveCurrent(result){if(!RS.startAt)return;addEv(result==='goal'?'goa
   /* スタート前にGPSでつかんだ位置を、天気を取る場所として残す */
   const sp0=GPS.on&&GPS.pt&&Date.now()-GPS.pt.ts<120000?{la:+GPS.pt.la.toFixed(5),lo:+GPS.pt.lo.toFixed(5)}:null;
   const r=_s.apply(this,arguments);
-  if(MODE==='race'&&fresh&&R.running&&RS.startAt){RS.log=[];RS.ev=[];RS.geo={sp:sp0,trk:[],pass:[]};RS.auto=null;RS.autoOff=false;RS.goalLogged=false;logSelId='cur';addEv('start','スタート');renderLog();}return r;};}
+  if(MODE==='race'&&fresh&&R.running&&RS.startAt){RS.log=[];RS.ev=[];RS.geo={sp:sp0,trk:[],pass:[],cps:rcCps(),gun:rcGunMs(),limit:+RC.limit||0};RS.auto=null;RS.autoOff=false;RS.goalLogged=false;logSelId='cur';addEv('start','スタート');renderLog();}return r;};}
 {const _p=pause;pause=function(){const r=_p.apply(this,arguments);if(MODE==='race'&&RS.startAt){addEv('pause','一時停止');}return r;};}
 {const _r=raceStop;raceStop=function(){const was=MODE==='race'&&R.running;const r=_r.apply(this,arguments);if(was)archiveCurrent('goal');return r;};}
 {const _f=finish;finish=function(){const was=MODE==='race'&&R.running;const r=_f.apply(this,arguments);if(was)archiveCurrent('limit');return r;};}
@@ -2203,9 +2248,9 @@ function renderLog(){const sel=$('#logSel');if(!sel)return;const cur=curLogData(
   const rows=logRows(d),ls=lossOf(d);$('#logInfo').textContent=`スタート ${ymd(d.startAt)}　記録 ${rows.length}地点`+(d.el?`　ネット ${hms(d.el)}`:'')+(d.el&&ls!=null?`　グロス ${hms(gsum(d.el,ls))}`:'')+(ls!=null?`　ロスタイム ${hms(ls)}`:'')+(d.kcal?`　消費カロリー ${kcalTxt(d.kcal)}`:'')+(d.menu?`　メニュー ${d.menu}`:'')+(isP&&d.km?`　距離 ${(+d.km).toFixed(2)} km`:'');
   $('#logChart').innerHTML=logChart(rows,d);
   const evs=(d.ev||[]).filter(e=>!['start'].includes(e.type));
-  const wxOn=wxHas(d),pr=geoPass(d),C=CMP.cur,nc=6+(wxOn?3:0)+(C?3:0);
+  const wxOn=wxHas(d),pr=passShown(d),C=CMP.cur,nc=6+(wxOn?3:0)+(C?3:0);
   const body=rows.map((x,i)=>({k:x.km,o:1,h:`<tr><td>${x.km}</td><td>${hms(x.t)}</td><td>${ls!=null?hms(gsum(x.t,ls)):'—'}</td><td>${x.pace?fmtPace(x.pace):'—'}</td><td class="${x.diff!=null&&x.diff>60000?'late':''}">${x.diff!=null?sgn(x.diff):'—'}</td><td class="src">${x.src}</td>${wxOn?wxTds(d,x,i?rows[i-1].km:0):''}${C?cmpTds(d,x,i?rows[i-1].km:0):''}</tr>`}))
-    .concat(pr.map(p=>({k:p.km,o:0,h:`<tr class="pass"><td>${+p.km.toFixed(2)}</td><td>${hms(p.t)}</td><td>${ls!=null?hms(gsum(p.t,ls)):'—'}</td><td colspan="2" class="pn"><span>${esc(p.name)}</span>${p.type==='turn'&&!d.live?`<button class="small pdel" type="button" data-pdel="${p.km}|${esc(p.name)}">削除</button>`:''}</td><td class="src">${p.src||''}</td>${wxOn?wxTds(d,p,null):''}${C?cmpTds(d,p,null):''}</tr>`})))
+    .concat(pr.map(p=>({k:p.km,o:0,h:`<tr class="pass pass-${p.type}"><td>${+p.km.toFixed(2)}</td><td>${hms(p.t)}</td><td>${ls!=null?hms(gsum(p.t,ls)):'—'}</td><td colspan="2" class="pn"><span>${esc(p.name)}</span>${p.type==='cp'?cpCell(p):''}${p.type==='turn'&&p.gps?'<span class="gpsok">GPSで確認</span>':''}${p.type==='turn'&&!d.live&&!p.gps?`<button class="small pdel" type="button" data-pdel="${p.km}|${esc(p.name)}">削除</button>`:''}</td><td class="src">${p.src||''}</td>${wxOn?wxTds(d,p,null):''}${C?cmpTds(d,p,null):''}</tr>`})))
     .sort((a,b)=>a.k-b.k||a.o-b.o);
   $('#logTable').innerHTML=`<table><thead><tr><th>km</th><th>経過</th><th>グロス</th><th>ラップ</th><th>目標との差</th><th>記録方法</th>${wxOn?'<th>天気</th><th>気温</th><th>風</th>':''}${C?'<th class="cmp">比較との差</th><th class="cmp">比較のラップ</th><th class="cmp">比較の天気</th>':''}</tr></thead><tbody>`+
     body.map(x=>x.h).join('')+
@@ -2231,10 +2276,10 @@ function logChart(rows,d){const pts=rows.filter(x=>x.pace);if(pts.length<2)retur
   const evm=(d.ev||[]).filter(e=>e.type==='auto').map(e=>`<line x1="${X(e.km)}" x2="${X(e.km)}" y1="${t}" y2="${H-b}" stroke="var(--warn)" stroke-dasharray="3 3"/>`).join('');
   return g1+g2+`<div class="chart-t">目標との差（上ほど速い・－は先行）</div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="目標との差">${dgrid.join('')}${xt.join('')}${area}${evm}</svg>`;}
 function logCsv(){const d=logData();if(!d)return;const rows=logRows(d);const T_=x=>{try{return typeof I18N!=='undefined'?I18N.tr(String(x)):x;}catch(e){return x;}};const q=v=>`"${String(T_(v)).replace(/"/g,'""')}"`;
-  const ls=lossOf(d);const L=[['大会',d.name||''],['スタート',ymd(d.startAt)],['ウェーブのスタート',d.waveAt?ymd(d.waveAt):''],['ロスタイム',ls!=null?hms(ls):''],['ネットタイム',d.el?hms(d.el):''],['グロスタイム',d.el&&ls!=null?hms(gsum(d.el,ls)):''],['距離(km)',d.km||'']].concat(d.kcal?[['消費カロリー(目安・kcal)',d.kcal]]:[],halfCsv(d),wxHas(d)?[['気象データ','Open-Meteo.com (CC BY 4.0)']]:[],[[],['km','時刻','経過','グロス経過','ラップ','ラップのペース(/km)','目標の経過','目標との差','記録方法'].concat(XCOLS)]);
+  const ls=lossOf(d);const L=[['大会',d.name||''],['スタート',ymd(d.startAt)],['ウェーブのスタート',d.waveAt?ymd(d.waveAt):''],['ロスタイム',ls!=null?hms(ls):''],['ネットタイム',d.el?hms(d.el):''],['グロスタイム',d.el&&ls!=null?hms(gsum(d.el,ls)):''],['距離(km)',d.km||'']].concat(d.kcal?[['消費カロリー(目安・kcal)',d.kcal]]:[],limitCsv(d),halfCsv(d),wxHas(d)?[['気象データ','Open-Meteo.com (CC BY 4.0)']]:[],[[],['km','時刻','経過','グロス経過','ラップ','ラップのペース(/km)','目標の経過','目標との差','記録方法'].concat(XCOLS)]);
   rows.forEach((x,i)=>L.push([x.km,clock(x.at),hms(x.t),ls!=null?hms(gsum(x.t,ls)):'',hms(x.lap),x.pace?fmtPace(x.pace):'',x.tgt!=null?hms(x.tgt):'',x.diff!=null?sgn(x.diff):'',x.src].concat(xCsv(d,x,i?rows[i-1].km:0))));
-  {const pr=geoPass(d);if(pr.length){L.push([]);L.push(['地点','km','時刻','経過','グロス経過','記録方法'].concat(XCOLS));
-    pr.forEach(p=>L.push([p.name,+p.km.toFixed(3),clock(p.at),hms(p.t),ls!=null?hms(gsum(p.t,ls)):'',p.src||''].concat(xCsv(d,p,null))));}}
+  {const pr=geoPass(d);if(pr.length){L.push([]);L.push(['地点','km','時刻','経過','グロス経過','記録方法'].concat(XCOLS,['閉鎖時刻','余裕']));
+    pr.forEach(p=>L.push([p.name,+p.km.toFixed(3),clock(p.at),hms(p.t),ls!=null?hms(gsum(p.t,ls)):'',p.src||''].concat(xCsv(d,p,null),p.closeAt?[clock(p.closeAt),fmtMargin(p.closeAt-p.at)]:['',''])));}}
   if((d.ev||[]).length){L.push([]);L.push(['時刻','経過','km','できごと']);d.ev.forEach(e=>L.push([clock(e.at),hms(e.t||0),e.km??'',e.msg||e.type]));}
   const csv='﻿'+L.map(r=>r.map(q).join(',')).join('\r\n');const a=document.createElement('a');const dt=new Date(d.startAt);
   a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`marathon-log-${dt.getFullYear()}${String(dt.getMonth()+1).padStart(2,'0')}${String(dt.getDate()).padStart(2,'0')}-${(d.name||'race').replace(/[\\/:*?"<>|\s]+/g,'_')}.csv`;
@@ -2260,7 +2305,8 @@ function rcTurns(){return String(RC.turns||'').split(/\n/).map(l=>{l=l.replace(/
 function rcTurnsView(){const t=rcTurns(),bad=String(RC.turns||'').split(/\n/).filter(x=>x.trim()).length>t.length;
   return (t.length?t.map(x=>`${+x.km.toFixed(2)}km　${esc(x.name)}`).join('<br>'):'なし')+(bad?'<br>（読み取れない行があります）':'');}
 function passTargets(){const km=rcKm(),out=[];if(km>1)out.push({type:'half',km:Math.round(km/2*1000)/1000,name:'中間点'});
-  rcTurns().forEach(t=>{if(t.km<km-0.01)out.push({type:'turn',km:t.km,name:t.name});});return out;}
+  rcTurns().forEach(t=>{if(t.km<km-0.01)out.push({type:'turn',km:t.km,name:t.name});});
+  ((RS.geo&&RS.geo.cps)||rcCps()).forEach(c=>{if(c.km<km-0.01)out.push({type:'cp',km:c.km,name:'関門',sec:c.sec});});return out;}
 const geoNew=()=>({sp:null,trk:[],pass:[]});
 /* GPS ONの間：受け入れた位置を約25mごとに [km, 緯度, 経度, 高度, 経過ms] で残す */
 {const _g=gpsFix;gpsFix=function(p){const b=GPS.pt,d0=GPS.dist;const r=_g.apply(this,arguments);
@@ -2278,9 +2324,12 @@ function passTick(el){if(!RS.startAt)return;const G=RS.geo=RS.geo||geoNew();G.pa
     if(g.type==='turn'&&(G.skip||[]).some(k=>Math.abs(k-g.km)<1e-6))continue; /* 削除した折り返しは記録し直さない */
     const a=(RS.log||[]).filter(x=>x.km<=g.km+1e-6).pop()||{km:0,t:0};
     let t=a.t+(el-a.t)*((g.km-a.km)/Math.max(1e-6,pos-a.km));t=Math.round(Math.min(el,Math.max(a.t,t)));
-    added={type:g.type,km:g.km,name:g.name,t,at:RS.startAt+t,src:srcOf(P)};G.pass.push(added);}
+    added={type:g.type,km:g.km,name:g.name,t,at:RS.startAt+t,src:srcOf(P)};
+    if(g.type==='cp'){const gun=G.gun!=null?G.gun:RS.startAt;Object.assign(added,{sec:g.sec,closeAt:gun+g.sec*1000,approx:G.gun==null});}
+    G.pass.push(added);}
   if(added||G.pass.length!==n0){G.pass.sort((a,b)=>a.km-b.km);runSave();}
   if(added&&added.type==='half'&&R.running&&opt.kmNotice!==false)say('中間点を通過しました。');}
+function passShown(d){return geoPass(d).filter(p=>SHOWP[p.type]!==false);}
 function geoPass(d){return ((d&&d.geo&&d.geo.pass)||[]).slice().sort((a,b)=>a.km-b.km);}
 function geoStart(d){const g=d&&d.geo;if(!g)return null;if(g.sp)return g.sp;const t=g.trk&&g.trk[0];return t?{la:t[1],lo:t[2]}:null;}
 /* 距離kmの位置：残した軌跡の前後2点から補間（GPSがOFFだった区間はnull） */
@@ -2363,9 +2412,10 @@ function elevSvg(d,T){const W=360,H=140,l=40,r=8,t=8,b=20;const pts=T.filter(p=>
   const segs=[];let cur=[];sm.forEach((p,i)=>{const q=sm[i-1];if(q&&(p[0]-q[0]>gp||p[0]<q[0]-0.05||p[2]-q[2]>tg)){if(cur.length>1)segs.push(cur);cur=[];}cur.push(p);});if(cur.length>1)segs.push(cur);
   const shapes=segs.map(s=>{const pl=s.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' L');
     return `<path d="M${X(s[0][0]).toFixed(1)},${H-b} L${pl} L${X(s[s.length-1][0]).toFixed(1)},${H-b} Z" fill="var(--accent)" fill-opacity=".14"/><path d="M${pl}" fill="none" stroke="var(--accent)" stroke-width="2"/>`;}).join('');
-  const pv=geoPass(d).map(p=>`<line x1="${X(p.km)}" x2="${X(p.km)}" y1="${t}" y2="${H-b}" stroke="${p.type==='half'?'var(--amber)':'var(--ml-line)'}" stroke-dasharray="3 3" stroke-width="1.5"/>`).join('');
-  const hasT=geoPass(d).some(p=>p.type==='turn'),hasH=geoPass(d).some(p=>p.type==='half');
-  return `<div class="chart-t">高低差（GPSの高度・目安）</div><div class="lg"><span><i style="background:var(--accent)"></i>GPSをONにしていた区間</span>${hasH?'<span><i style="background:var(--amber)"></i>中間点</span>':''}${hasT?'<span><i style="background:var(--ml-line)"></i>折り返し</span>':''}</div>`+
+  const PS=passShown(d),pcol=p=>p.type==='half'?'var(--amber)':p.type==='cp'?'var(--warn)':'var(--ml-line)';
+  const pv=PS.map(p=>`<line x1="${X(p.km)}" x2="${X(p.km)}" y1="${t}" y2="${H-b}" stroke="${pcol(p)}" stroke-dasharray="${p.type==='cp'?'1 0':'3 3'}" stroke-width="1.5"/>`).join('');
+  const hasT=PS.some(p=>p.type==='turn'),hasH=PS.some(p=>p.type==='half'),hasC=PS.some(p=>p.type==='cp');
+  return `<div class="chart-t">高低差（GPSの高度・目安）</div><div class="lg"><span><i style="background:var(--accent)"></i>GPSをONにしていた区間</span>${hasH?'<span><i style="background:var(--amber)"></i>中間点</span>':''}${hasT?'<span><i style="background:var(--ml-line)"></i>折り返し</span>':''}${hasC?'<span><i style="background:var(--warn)"></i>関門</span>':''}</div>`+
     `<svg id="elevSvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="高低差" style="touch-action:none;cursor:crosshair">${grid.join('')}${xt.join('')}${shapes}${pv}<line id="elevCur" y1="${t}" y2="${H-b}" stroke="currentColor" stroke-width="1" visibility="hidden"/><circle id="elevDot" r="3.5" fill="currentColor" visibility="hidden"/></svg><div class="geo-ro" id="elevRo"></div>`;}
 function elevBind(d){const svg=$('#elevSvg');if(!svg)return;
   const move=e=>{const rc=svg.getBoundingClientRect();if(!rc.width)return;const x=(e.clientX-rc.left)/rc.width*ELV.W;const k=Math.max(0,Math.min(ELV.maxK,(x-ELV.l)/(ELV.W-ELV.l-ELV.r)*ELV.maxK));
@@ -2403,8 +2453,8 @@ function mapDraw(d,fit){const Lf=window.L,m=MAPV.map;if(!Lf||!m||!MAPV.lay)retur
   const rows=logRows(d);rows.forEach((x,i)=>{const p=geoAt(d,x.km);if(!p)return;const goal=d.km&&x.km>=d.km-0.01,late=x.diff!=null&&x.diff>60000;
     Lf.circleMarker([p.la,p.lo],{radius:goal?8:6,color:'#fff',weight:2,fillColor:goal?'#14202b':late?cv('--warn','#b4372a'):cv('--accent','#1d5bd8'),fillOpacity:1})
       .bindTooltip(goal?'ゴール':`${x.km}km`,{direction:'top'}).bindPopup(popHtml(d,x,i?rows[i-1].km:0,goal?'ゴール':null)).addTo(MAPV.lay);});
-  geoPass(d).forEach(pp=>{const p=geoAt(d,pp.km);if(!p)return;const col=pp.type==='half'?cv('--amber','#b86e00'):cv('--ml-line','#6d4fd8');
-    const shape=pp.type==='half'?'M11 2 L20 11 L11 20 L2 11 Z':'M11 2 L21 19 L1 19 Z';
+  passShown(d).forEach(pp=>{const p=geoAt(d,pp.km);if(!p)return;const col=pp.type==='half'?cv('--amber','#b86e00'):pp.type==='cp'?cv('--warn','#b4372a'):cv('--ml-line','#6d4fd8');
+    const shape=pp.type==='half'?'M11 2 L20 11 L11 20 L2 11 Z':pp.type==='cp'?'M4 4 H18 V18 H4 Z':'M11 2 L21 19 L1 19 Z';
     const icon=Lf.divIcon({className:'',iconSize:[22,22],iconAnchor:[11,12],html:`<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="${shape}" fill="${col}" stroke="#fff" stroke-width="2"/></svg>`});
     Lf.marker([p.la,p.lo],{icon,keyboard:false}).bindPopup(popHtml(d,pp,null,pp.name)).addTo(MAPV.lay);});
   MAPV.cur=Lf.circleMarker([0,0],{radius:9,color:'#14202b',weight:3,fill:false,interactive:false,opacity:0}).addTo(MAPV.lay);
@@ -2647,6 +2697,80 @@ function pracOffer(d){if(!d)return;let box=$('#pracSave');if(!box){box=document.
 /* あとから場所名を入れる（保存したときにネットにつながっていなかった場合） */
 {const _g=geoRender;geoRender=function(d){const r=_g.apply(this,arguments);
   try{if(d&&d.placePending&&!d.name&&!d._pl&&navigator.onLine){d._pl=true;placeName(geoStart(d)).then(n=>{d._pl=false;if(n){d.name=n;d.placePending=false;logChanged(d);renderLog();}});}}catch(e){}return r;};}
+/* ---------- 関門：閉鎖時刻と余裕時間 ---------- */
+function fmtMargin(ms){return ms>=0?hms(ms):'−'+hms(-ms);}
+function cpCell(p){if(!p.closeAt)return '';const m=p.closeAt-p.at,cls=m<0?'cp-over':m<600000?'cp-tight':'cp-ok';
+  return `<span class="cpm"><b class="${cls}">${m<0?'<span>閉鎖後</span> ':'<span>余裕</span> '}${fmtMargin(Math.abs(m))}</b>　<span class="cp-close"><span>閉鎖</span> ${clock(p.closeAt)}</span>${p.approx?' <span class="cp-note">（号砲時刻なし・目安）</span>':''}</span>`;}
+/* 制限時間（ゴール）と余裕 */
+function limitInfo(d){const g=d&&d.geo;if(!g||!(g.limit>0))return null;const gun=g.gun!=null?g.gun:d.startAt,close=gun+g.limit*60000;
+  const L=d.log||[],last=L[L.length-1],fin=!d.live&&d.el&&last&&d.km&&last.km>=d.km-1.05;return {limit:g.limit,close,margin:fin?close-(d.startAt+d.el):null,approx:g.gun==null};}
+function limitCsv(d){const i=limitInfo(d);if(!i)return [];const o=[['制限時間',fmtHM(i.limit)],['制限の時刻',clock(i.close)]];if(i.margin!=null)o.push(['ゴールの余裕',fmtMargin(i.margin)]);return o;}
+{const _rl=renderLog;renderLog=function(){const r=_rl.apply(this,arguments);try{const d=logData();const i=d&&!d.loading?limitInfo(d):null;
+  if(i){const el=$('#logInfo');el.insertAdjacentHTML('beforeend',`<span class="lim">　<span>制限時間</span> ${fmtHM(i.limit)}${i.margin!=null?`（<span>${i.margin<0?'超過':'余裕'}</span> <b class="${i.margin<0?'cp-over':i.margin<600000?'cp-tight':'cp-ok'}">${fmtMargin(Math.abs(i.margin))}</b>）`:''}</span>`);}
+  passShowUI();}catch(e){}return r;};}
+/* 比べる記録の関門の余裕を、表の「比較のラップ」の欄に出す */
+{const _c=cmpTds;cmpTds=function(d,x,prevKm){let h=_c.apply(this,arguments);try{if(x.type==='cp'&&CMP.cur){const q=geoPass(CMP.cur).find(p=>p.type==='cp'&&Math.abs(p.km-x.km)<0.05);
+  if(q&&q.closeAt){const m=q.closeAt-q.at;h=h.replace(/(<td class="cmp">)—(<\/td>)(?=<td class="cmp src">)/,`$1<span>余裕</span> ${fmtMargin(m)}$2`);}}}catch(e){}return h;};}
+/* ---------- 実績の表示：折り返し点・関門地点・中間地点を表示するか（チェックボックス） ---------- */
+var SHOWP={turn:true,cp:true,half:true};try{const v=JSON.parse(localStorage.getItem('cbgm-pass-show')||'null');if(v)Object.assign(SHOWP,v);}catch(e){}
+function passShowUI(){[['psTurn','turn'],['psCp','cp'],['psHalf','half']].forEach(([id,k])=>{const c=document.getElementById(id);if(c)c.checked=SHOWP[k]!==false;});}
+['psTurn','psCp','psHalf'].forEach((id,i)=>{const k=['turn','cp','half'][i];document.getElementById(id).addEventListener('change',e=>{SHOWP[k]=e.target.checked;try{localStorage.setItem('cbgm-pass-show',JSON.stringify(SHOWP));}catch(_){}renderLog();});});
+/* ---------- 実績データの削除：表示中の種類（本番／練習）の記録を選んでまとめて削除 ---------- */
+const DEL={open:false,confirm:false,sel:new Set()};
+function delItems(){const loc=raceLogs.filter(x=>kindOf(x)===HIST.kind).map(x=>({id:x.id,label:logLabel(x),startAt:x.startAt,cloud:!!(CLOUD&&CLOUD.svc!=='none'&&(x.cloud===CLOUD.svc||CLOUD.index.some(e=>e.id===x.id)))}));
+  const cl=(CLOUD&&CLOUD.svc!=='none'?CLOUD.index:[]).filter(e=>kindOf(e)===HIST.kind&&!raceLogs.some(x=>x.id===e.id)).map(e=>({id:e.id,label:'☁ '+logLabel(e),startAt:e.startAt,cloud:true,only:true}));
+  return loc.concat(cl).sort((a,b)=>b.startAt-a.startAt);}
+function delRender(){const box=$('#delPanel');box.hidden=!DEL.open;$('#delOpen').hidden=DEL.open;if(!DEL.open)return;
+  const items=delItems(),canCloud=!!(CLOUD&&CLOUD.svc!=='none'&&navigator.onLine&&cloudSigned(CLOUD.svc));
+  if(!items.length){box.innerHTML=`<div class="sub">削除できる記録はありません。</div><div class="ctrls"><button class="small" type="button" id="delClose">閉じる</button></div>`;return;}
+  const list=items.map(it=>{const dis=it.cloud&&!canCloud,on=DEL.sel.has(it.id);
+    return `<label class="del-row${on&&DEL.confirm?' sel':''}${dis?' dis':''}"><input type="checkbox" value="${esc(it.id)}"${on?' checked':''}${dis||DEL.confirm?' disabled':''}><span>${it.label}</span></label>`;}).join('');
+  const note=items.some(it=>it.cloud)&&!canCloud?'<div class="sub">Dropboxに保存した記録は、ネットにつながってサインインしているときに削除できます。</div>':'';
+  const n=DEL.sel.size;
+  box.innerHTML=`<div class="del-list" role="group" aria-label="削除する記録">${list}</div>${note}`+(DEL.confirm?
+    `<div class="del-ask"><b>本当に削除しますか？</b><span class="sub">選んだ ${n}件の記録を削除します。${CLOUD&&CLOUD.svc!=='none'?'Dropboxからも削除します。':''}元には戻せません。</span><div class="ctrls"><button class="small danger" type="button" id="delDo">削除します</button><button class="small" type="button" id="delBack">やめる</button></div></div>`:
+    `<div class="ctrls"><button class="small" type="button" id="delGo"${n?'':' disabled'}>選んだ記録を削除（${n}件）</button><button class="small" type="button" id="delAll">すべて選ぶ</button><button class="small" type="button" id="delClose">閉じる</button></div>`)+'<div class="sub" id="delMsg"></div>';}
+async function delRun(){const ids=[...DEL.sel],items=delItems().filter(it=>ids.includes(it.id));let fail=0;
+  raceLogs=raceLogs.filter(x=>!ids.includes(x.id));store.set(LOGS_KEY,raceLogs);ids.forEach(id=>{delete CLOUD.cache[id];});
+  const cl=items.filter(it=>it.cloud);
+  if(cl.length&&CLOUD.svc!=='none'){CLOUD.busy=true;cloudRender();
+    for(const it of cl){try{await cloudCall('del',`race-${it.startAt}.json`);}catch(e){fail++;}}
+    try{const idx=(await cloudIndexGet()).filter(e=>!ids.includes(e.id));await cloudCall('put','index.json',JSON.stringify({v:1,races:idx}));CLOUD.index=idx;}catch(e){fail++;}
+    CLOUD.busy=false;}
+  if(ids.includes(logSelId))logSelId='cur';if(CMP.id&&ids.includes(CMP.id)){CMP.id=null;CMP.auto=true;}
+  DEL.sel.clear();DEL.confirm=false;renderLog();cloudRender();delRender();
+  const m=$('#delMsg');if(m)m.textContent=fail?`${ids.length}件を削除しましたが、Dropboxで一部を削除できませんでした。ネットにつながったときに、もう一度お試しください。`:`${ids.length}件の記録を削除しました。`;}
+$('#delBox').addEventListener('click',e=>{const id=e.target.id;
+  if(id==='delOpen'){DEL.open=true;DEL.confirm=false;DEL.sel.clear();delRender();}
+  else if(id==='delClose'){DEL.open=false;DEL.sel.clear();delRender();}
+  else if(id==='delAll'){const can=!!(CLOUD&&CLOUD.svc!=='none'&&navigator.onLine&&cloudSigned(CLOUD.svc));delItems().forEach(it=>{if(!it.cloud||can)DEL.sel.add(it.id);});delRender();}
+  else if(id==='delGo'){if(DEL.sel.size){DEL.confirm=true;delRender();}}
+  else if(id==='delBack'){DEL.confirm=false;delRender();}
+  else if(id==='delDo'){delRun();}});
+$('#delBox').addEventListener('change',e=>{const c=e.target;if(c.type!=='checkbox')return;c.checked?DEL.sel.add(c.value):DEL.sel.delete(c.value);delRender();});
+{const _rl=renderLog;renderLog=function(){const r=_rl.apply(this,arguments);try{if(DEL.open&&!DEL.confirm)delRender();}catch(e){}return r;};}
+$('#histKind').addEventListener('click',()=>{DEL.sel.clear();DEL.confirm=false;setTimeout(delRender,0);});
+/* ---------- GPSで折り返しを検出：進む向きが反対（150°以上）に変わった地点 ----------
+   登録した折り返しの近く（0.5km以内）で検出したら「GPSで確認」として削除不可にする。
+   登録していない地点で検出したら「折り返し（GPS検出）」として加え、削除できるようにする。 */
+function gpsTurns(d){const T=((d.geo&&d.geo.trk)||[]).filter(p=>p[1]!=null);if(T.length<8)return [];
+  const P=i=>({la:T[i][1],lo:T[i][2]}),cand=[];
+  /* 前後それぞれ、直線で40m以上離れた最初の点との向きを比べる（GPSの細かいぶれに左右されないように） */
+  for(let i=1;i<T.length-1;i++){let a=i-1,b=i+1;while(a>0&&geoDist(P(a),P(i))<40&&T[i][0]-T[a][0]<0.3)a--;while(b<T.length-1&&geoDist(P(i),P(b))<40&&T[b][0]-T[i][0]<0.3)b++;
+    if(geoDist(P(a),P(i))<40||geoDist(P(i),P(b))<40)continue;if(T[i][0]-T[a][0]>0.3||T[b][0]-T[i][0]>0.3)continue;
+    const df=Math.abs(geoBrg(P(a),P(i))-geoBrg(P(i),P(b)))%360,ang=df>180?360-df:df;if(ang>=140)cand.push({i,ang,sc:ang+Math.min(geoDist(P(a),P(i)),geoDist(P(i),P(b)))/10});}
+  /* 続けて見つかった候補は1か所にまとめ、いちばん鋭く向きが変わった点を折り返しとする */
+  const groups=[];cand.forEach(c=>{const g=groups[groups.length-1];if(g&&T[c.i][0]-T[g[g.length-1].i][0]<=0.15)g.push(c);else groups.push([c]);});
+  return groups.map(g=>{const best=g.reduce((x,y)=>y.sc>x.sc?y:x).i;return {km:T[best][0],t:T[best][4]};});}
+function syncGpsTurns(d){if(!d||!d.geo||d.live||d.id==='cur'||d.geo.gtDone)return false;const G=d.geo;G.pass=G.pass||[];G.gtDone=true;
+  const found=gpsTurns(d);if(!found.length)return true;const reg=G.pass.filter(p=>p.type==='turn'&&!p.auto),skip=G.skip||[];
+  found.forEach(f=>{const m=reg.filter(p=>Math.abs(p.km-f.km)<=0.5).sort((a,b)=>Math.abs(a.km-f.km)-Math.abs(b.km-f.km))[0];
+    if(m){m.gps=true;return;}
+    if(skip.some(k=>Math.abs(k-f.km)<0.05)||G.pass.some(p=>p.auto&&Math.abs(p.km-f.km)<0.05))return;
+    G.pass.push({type:'turn',auto:true,km:+f.km.toFixed(3),name:'折り返し（GPS検出）',t:Math.round(f.t),at:d.startAt+Math.round(f.t),src:'GPS'});});
+  G.pass.sort((a,b)=>a.km-b.km);return true;}
+{const _a=archiveRace;archiveRace=function(){const r=_a.apply(this,arguments);try{const d=raceLogs[0];if(d&&syncGpsTurns(d))store.set(LOGS_KEY,raceLogs);}catch(e){}return r;};}
+{const _g=geoRender;geoRender=function(d){try{if(d&&!d.loading&&d.geo&&!d.geo.gtDone&&!d.live&&d.id!=='cur'&&syncGpsTurns(d)&&raceLogs.includes(d)){logChanged(d);}}catch(e){}return _g.apply(this,arguments);};}
 /* ---------- 旧データの取り込み：「CSVをダウンロード」で書き出した本番ログ（以前の版・この版、どの言語でも）を実績に加える ----------
    見出しは書き出したときの言語で変わるので、列の並び順で読み取る。 */
 function csvRows(t){t=String(t).replace(/^﻿/,'');const rows=[];let row=[],cur='',q=false;
@@ -2660,7 +2784,7 @@ function hmsMs(v){v=String(v||'').trim().replace(/^[−-]/,'-').replace(/^\+/,''
   if(!/^\d+(:\d{1,2}){1,2}$/.test(v))return null;const p=v.split(':').map(Number);const s=p.length===3?p[0]*3600+p[1]*60+p[2]:p[0]*60+p[1];return (neg?-1:1)*s*1000;}
 function ymdMs(v){const m=/(\d{4})\/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2}):(\d{2})/.exec(String(v||''));return m?new Date(+m[1],m[2]-1,+m[3],+m[4],+m[5],+m[6]).getTime():null;}
 const SRC_N={'推定':'推定','est.':'推定','추정':'推定','補正':'補正','fix':'補正','校正':'補正','보정':'補正','GPS':'GPS'};
-const HALF_N=['中間点','Halfway','中点','中點','중간 지점'];
+const HALF_N=['中間点','Halfway','中点','中點','중간 지점'],CP_N=['関門','Cutoff','关门','關門','관문'];
 function csvToLog(text){const R=csvRows(text);const sec=[];let cur=[];
   R.forEach(r=>{if(r.every(c=>String(c).trim()==='')){if(cur.length)sec.push(cur);cur=[];}else cur.push(r);});if(cur.length)sec.push(cur);
   const info=sec[0];if(!info||info.length<7||!sec[1])throw 'format';
@@ -2677,7 +2801,9 @@ function csvToLog(text){const R=csvRows(text);const sec=[];let cur=[];
   sec.slice(2).forEach(S=>{const h=S[0];
     if(h.length<=4){S.slice(1).forEach(r=>{const t=hmsMs(r[1]);if(t==null)return;const k=parseFloat(r[2])||0;ev.push({type:t===0&&k===0?'start':'imp',msg:r[3]||'',t,at:startAt+t,km:k});});}
     else{S.slice(1).forEach(r=>{const k=parseFloat(r[1]),t=hmsMs(r[3]);if(!(k>0)||t==null)return;const nm=String(r[0]||'').trim();
-      const x={type:HALF_N.includes(nm)?'half':'turn',km:k,name:HALF_N.includes(nm)?'中間点':(nm||'折り返し'),t,at:startAt+t,src:SRC_N[String(r[5]).trim()]||'推定'};
+      const tp=HALF_N.includes(nm)?'half':CP_N.includes(nm)?'cp':'turn';
+      const x={type:tp,km:k,name:tp==='half'?'中間点':tp==='cp'?'関門':(nm||'折り返し'),t,at:startAt+t,src:SRC_N[String(r[5]).trim()]||'推定'};
+      if(tp==='cp'){const mg=hmsMs(r[16]);if(mg!=null)x.closeAt=x.at+mg;}
       pass.push(x);const la=parseFloat(r[6]),lo=parseFloat(r[7]);if(isFinite(la)&&isFinite(lo)&&!trk.some(p=>Math.abs(p[0]-k)<1e-6)){const al=parseFloat(r[8]);trk.push([k,la,lo,isFinite(al)?al:null,t]);}});}});
   /* 以前の版には中間点がないので、1km毎の時刻から推定する */
   if(km>1&&!pass.some(p=>p.type==='half')){const hk=Math.round(km/2*1000)/1000,b=log.find(x=>x.km>=hk-1e-6);
@@ -3198,6 +3324,30 @@ W('保存する','Save','保存','儲存','저장');
 W('保存しない','Don\'t save','不保存','不儲存','저장하지 않음');
 W('練習を「4. 実績」の「練習」に保存しました。','Saved to "Training" in "4. Results".','已保存到“4. 成绩”的“训练”中。','已儲存到「4. 成績」的「訓練」中。','"4. 기록"의 "연습"에 저장했습니다.');
 W('場所未取得','Place unknown','地点未取得','地點未取得','장소 미확인');
+W('関門','Cutoff','关门','關門','관문');
+W('閉鎖','Closes','关闭','關閉','마감');
+W('余裕','Margin','余量','餘裕','여유');
+W('閉鎖後','After closing','关闭后','關閉後','마감 후');
+W('超過','Over','超出','超出','초과');
+W('制限時間','Time limit','限时','限時','제한 시간');
+W('（号砲時刻なし・目安）','(no gun time, approximate)','（无发令时刻，仅供参考）','（無鳴槍時刻，僅供參考）','(출발 신호 시각 없음, 참고용)');
+W('折り返し点の表示','Show turnarounds','显示折返点','顯示折返點','반환점 표시');
+W('関門地点の表示','Show cutoffs','显示关门点','顯示關門點','관문 지점 표시');
+W('中間地点の表示','Show halfway','显示中点','顯示中點','중간 지점 표시');
+W('実績データの削除','Delete logs','删除记录','刪除記錄','기록 삭제');
+W('表示中の種類（本番／練習）の記録を選んで、まとめて削除できます。','Choose logs of the kind shown (race / training) and delete them together.','选择当前显示类型（比赛／训练）的记录，可一次删除。','選擇目前顯示類型（比賽／訓練）的記錄，可一次刪除。','표시 중인 종류(대회/연습)의 기록을 골라 한꺼번에 삭제할 수 있습니다.');
+W('削除する記録を選ぶ','Choose logs to delete','选择要删除的记录','選擇要刪除的記錄','삭제할 기록 선택');
+W('削除できる記録はありません。','There are no logs to delete.','没有可删除的记录。','沒有可刪除的記錄。','삭제할 수 있는 기록이 없습니다.');
+W('すべて選ぶ','Select all','全选','全選','모두 선택');
+W('本当に削除しますか？','Really delete?','确定要删除吗？','確定要刪除嗎？','정말 삭제할까요?');
+W('削除します','Delete','删除','刪除','삭제합니다');
+W('やめる','Cancel','取消','取消','그만두기');
+W('Dropboxに保存した記録は、ネットにつながってサインインしているときに削除できます。','Logs saved in Dropbox can be deleted when you are online and signed in.','保存在Dropbox中的记录，需在联网并登录时才能删除。','儲存在Dropbox中的記錄，需在連網並登入時才能刪除。','Dropbox에 저장한 기록은 인터넷에 연결되어 로그인한 상태에서 삭제할 수 있습니다.');
+P(/^選んだ記録を削除（(\d+)件）$/,m=>[`Delete selected (${m[1]})`,`删除所选（${m[1]}条）`,`刪除所選（${m[1]}筆）`,`선택한 기록 삭제 (${m[1]}건)`]);
+P(/^選んだ (\d+)件の記録を削除します。(Dropboxからも削除します。)?元には戻せません。$/,m=>[`${m[1]} selected log(s) will be deleted${m[2]?', also from Dropbox':''}. This cannot be undone.`,`将删除所选的${m[1]}条记录${m[2]?'（Dropbox中的也会删除）':''}。无法恢复。`,`將刪除所選的${m[1]}筆記錄${m[2]?'（Dropbox中的也會刪除）':''}。無法復原。`,`선택한 ${m[1]}건의 기록을 삭제합니다${m[2]?' (Dropbox에서도 삭제)':''}. 되돌릴 수 없습니다.`]);
+P(/^(\d+)件の記録を削除しました。$/,m=>[`Deleted ${m[1]} log(s).`,`已删除${m[1]}条记录。`,`已刪除${m[1]}筆記錄。`,`${m[1]}건의 기록을 삭제했습니다.`]);
+W('折り返し（GPS検出）','Turnaround (GPS)','折返点（GPS检测）','折返點（GPS偵測）','반환점 (GPS 감지)');
+W('GPSで確認','GPS confirmed','GPS已确认','GPS已確認','GPS 확인');
 W('4. 実績','4. Results','4. 成绩','4. 成績','4. 기록');
 W('一覧から選ぶと、表・グラフ・高低差を表示します。地図は「地図を表示」を押したときだけ読み込みます。','Choose a race to see its table, charts and elevation. The map loads only when you press "Show map".','从列表中选择即可查看表格、图表和高低差。地图仅在按下“显示地图”时加载。','從列表中選擇即可查看表格、圖表和高低差。地圖僅在按下「顯示地圖」時載入。','목록에서 고르면 표·그래프·고저차를 표시합니다. 지도는 "지도 표시"를 눌렀을 때만 불러옵니다.');
 W('保存先','Save to','保存位置','儲存位置','저장 위치');
