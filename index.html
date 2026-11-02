@@ -34,7 +34,7 @@
   --cur-bg:#c9d9fb;
   --f-num:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --cur-y:#fff3c4;
-  --ml-bg:#efe8ff; --ml-line:#6d4fd8; --ml-ink:#4a2fa8;
+  --ml-bg:#efe8ff; --ml-line:#6d4fd8; --ml-ink:#4a2fa8;--kc:#c2410c;
   --f-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
@@ -43,7 +43,7 @@
   --pause:#ff8a4c; --pause-ink:#1a0d05; --pause-bg:#241811; --pause-soft:#3a2416;
   --cur-bg:#1f4a9a;
   --cur-y:#3d3110;
-  --ml-bg:#33285a; --ml-line:#7d5cf0; --ml-ink:#d9ccff;
+  --ml-bg:#33285a; --ml-line:#7d5cf0; --ml-ink:#d9ccff;--kc:#fb923c;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0d1319; --surface:#151f29; --ink:#e7edf2; --muted:#93a1ad; --line:#2a3743;
@@ -52,7 +52,7 @@
   --cur-bg:#1f4a9a;
   color-scheme:dark;
   --cur-y:#3d3110;
-  --ml-bg:#33285a; --ml-line:#7d5cf0; --ml-ink:#d9ccff;
+  --ml-bg:#33285a; --ml-line:#7d5cf0; --ml-ink:#d9ccff;--kc:#fb923c;
 }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6}
@@ -382,6 +382,7 @@ body.hist .wrap>*:not(header):not(#histSec),body.hist #ioRow,body.hist #hashNote
 .ag svg,.dist svg{width:100%;height:auto;display:block}
 .dist{display:flex;flex-direction:column;gap:12px}.dcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
 .dh{font-size:.95rem}.dleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.72rem;color:var(--muted)}.dleg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.dkc{font-family:var(--f-num);font-size:.72rem;font-weight:500;color:var(--kc)}.dkpi.kc b{color:var(--kc)}.dkpi small{font-size:.75rem}
 .k-out{background:var(--accent)}.k-in{background:var(--ml-line)}.k-race{background:var(--warn)}.k-goal{background:var(--amber)}
 .dtw{max-height:360px;overflow:auto}.dtw table{width:100%;border-collapse:collapse;font-size:.85rem}.dtw th{font-size:.72rem;color:var(--muted);text-align:left;padding:4px 3px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface)}
 .dtw td{padding:6px 3px;border-bottom:1px solid var(--line);vertical-align:middle}.dtw td.r{text-align:right;font:600 1rem var(--f-num)}.dtw td.t{font-family:var(--f-num);white-space:nowrap}
@@ -458,6 +459,7 @@ body.live .recv{display:none}
       <div class="dcard" id="dGoal"></div>
       <div class="dcard"><b class="dh">月ごとの走行距離</b><div id="dChart"></div>
         <div class="dleg"><span><i class="k-out"></i>屋外の練習</span><span><i class="k-in"></i>屋内（機材）</span><span><i class="k-race"></i>本番</span><span><i class="k-goal"></i>月の目標</span></div></div>
+      <div class="dcard" id="dKcal" hidden><b class="dh">月ごとの消費カロリー（目安）</b><div id="dKcalChart"></div><div class="sub" id="dKcalNote"></div></div>
       <div class="dcard"><b class="dh">走行距離の記録</b><div class="dtw" id="dList"></div></div>
       <div class="dcard"><b class="dh">屋内の練習を記録する</b>
         <div class="dform">
@@ -736,7 +738,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-03a</p>
+  <p class="ver" data-notr translate="no">版 2026-11-03b</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -766,7 +768,7 @@ body.live .recv{display:none}
 <p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。日本語以外を選ぶと、この使い方ガイドは英語版になります。</p>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
-<p>ページの一番下には「版 2026-11-03a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-03b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
@@ -842,7 +844,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>以前の版のCSVには位置が入っていないため、表示できるのはグラフ・表・前半後半（中間点は1 km毎の時刻から推定）・できごとまでで、地図・高低差・天気は出ません。この版で書き出したCSVを取り込んだ場合は、1 km毎の位置から大まかな地図と高低差も出ます。保存先がDropboxなら、取り込んだ記録もDropboxに保存されます。</p>
 <h3>走行距離の記録</h3>
 <p>「4. 実績」の「走行距離」で、走った距離の記録と月ごとの合計を見られます。</p>
-<ul><li><strong>自動で記録</strong>：本番と屋外の練習は、終わったときに日付・開始時刻・大会名または練習場所・距離を自動で記録します。屋外の練習で「保存しない」を選んだときも、距離だけは記録します。</li><li><strong>屋内の練習</strong>：トレッドミルなど屋内の練習は、「屋内の練習を記録する」で日付・開始時刻・トレーニング機材名・距離を入れて「記録する」を押します。前に使った機材名は候補から選べます。</li><li><strong>目標の達成状況</strong>：今月と今週の距離を、自動生成で決めた月・週の目標と並べて表示します。</li><li><strong>月ごとの走行距離</strong>：直近6か月の合計を、屋外・屋内・本番で色分けしたグラフで表示します。オレンジの点と線は月の目標です。</li><li><strong>削除</strong>：記録の「削除」を押し、「もう一度押すと削除」と出たらもう一度押すと消せます。本番や練習のログを削除しても、走行距離の記録は残ります。</li></ul>
+<ul><li><strong>自動で記録</strong>：本番と屋外の練習は、終わったときに日付・開始時刻・大会名または練習場所・距離を自動で記録します。屋外の練習で「保存しない」を選んだときも、距離だけは記録します。</li><li><strong>屋内の練習</strong>：トレッドミルなど屋内の練習は、「屋内の練習を記録する」で日付・開始時刻・トレーニング機材名・距離を入れて「記録する」を押します。前に使った機材名は候補から選べます。</li><li><strong>目標の達成状況</strong>：今月と今週の距離を、自動生成で決めた月・週の目標と並べて表示します。</li><li><strong>月ごとの走行距離</strong>：直近6か月の合計を、屋外・屋内・本番で色分けしたグラフで表示します。オレンジの点と線は月の目標です。</li><li><strong>消費カロリー</strong>：画面右上の「カロリー計算」で体重を入れて「計算する」にしている間は、記録ごとに消費カロリー（目安・体重×距離）を残します。今月・今週の合計と、月ごとの消費カロリーのグラフも表示します。屋内の練習を手入力したときも計算します。「計算しない」の間の記録には付きません。</li><li><strong>削除</strong>：記録の「削除」を押し、「もう一度押すと削除」と出たらもう一度押すと消せます。本番や練習のログを削除しても、走行距離の記録は残ります。</li></ul>
 <p>保存先がDropboxのときは、走行距離の記録もDropboxに保存し、スマホとパソコンで同じ記録を見られます。</p>
 <h3>実績データを削除する</h3>
 <p>「4. 実績」の一番下の「実績データの削除」で、表示中の種類（本番か練習）の記録をまとめて削除できます。</p>
@@ -886,7 +888,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>From top to bottom: the mode buttons, the running display (timer and Start), and the settings tabs. Use "🌐" at the top right to switch between Japanese, English, Chinese and Korean.</p>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Passed 1 km, GPS, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-03a" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-03b" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h2 id="e-4">4. Training</h2>
 <p>For each stage of your training menu, songs play at a tempo that makes that pace easy to run.</p>
 <ol><li>Press "1. Training" and choose "Indoor (stages advance by time)" or "Outdoor (advance by GPS distance)".</li><li>On the "Menu" tab, choose "Steady run", "LSD", "Build-up" or "Jog", or enter a pace (min per km) and time for each stage.</li><li>Save menus you use often with "Save practice menu" below: enter a name (e.g. Tuesday pace run) and press "Save". Next time, just press "Load".</li><li>Press "Start". A beep sounds when the stage changes, and the tempo changes too.</li><li>When you are done, long-press "Unlock" and press "Reset". The app stops automatically when the menu is finished.</li></ol>
@@ -962,7 +964,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>CSVs from earlier versions contain no positions, so you get the graphs, table, halves (halfway estimated from the time at each km) and events, but no map, elevation or weather. A CSV exported from this version also gives a rough map and elevation from the position at each km. With Dropbox chosen, imported logs are saved to Dropbox too.</p>
 <h3>Distance records</h3>
 <p>"Distance" in "4. Results" shows each run's distance and monthly totals.</p>
-<ul><li><strong>Automatic</strong>: races and outdoor training runs are logged with the date, start time, race name or place, and distance when they end. Outdoor runs are logged even if you choose "Don't save".</li><li><strong>Indoor training</strong>: for a treadmill or other machine, enter the date, start time, machine name and distance under "Log indoor training" and press "Log". Machines you used before can be picked from the list.</li><li><strong>Progress to goal</strong>: this month's and this week's distance next to the targets set by the auto plan.</li><li><strong>Distance by month</strong>: totals for the last 6 months, colored by outdoor, indoor and race. The orange dots and line are monthly targets.</li><li><strong>Delete</strong>: press "Delete" on a record, then press it again when it says "Press again to delete". Deleting a race or training log does not delete its distance record.</li></ul>
+<ul><li><strong>Automatic</strong>: races and outdoor training runs are logged with the date, start time, race name or place, and distance when they end. Outdoor runs are logged even if you choose "Don't save".</li><li><strong>Indoor training</strong>: for a treadmill or other machine, enter the date, start time, machine name and distance under "Log indoor training" and press "Log". Machines you used before can be picked from the list.</li><li><strong>Progress to goal</strong>: this month's and this week's distance next to the targets set by the auto plan.</li><li><strong>Distance by month</strong>: totals for the last 6 months, colored by outdoor, indoor and race. The orange dots and line are monthly targets.</li><li><strong>Calories</strong>: while calorie calculation is on (weight entered with "Calories" at the top right), each record keeps its calories (approx., weight × distance). This month's and this week's totals and a monthly calorie graph are shown too. Indoor records you enter are included. Records made while it is off have no calories.</li><li><strong>Delete</strong>: press "Delete" on a record, then press it again when it says "Press again to delete". Deleting a race or training log does not delete its distance record.</li></ul>
 <p>With Dropbox chosen, distance records are saved to Dropbox too, so your phone and computer show the same records.</p>
 <h3>Delete logs</h3>
 <p>Use "Delete logs" at the bottom of "4. Results" to delete several logs of the kind shown (race or training) at once.</p>
@@ -2863,14 +2865,16 @@ function logKm(d){if(kindOf(d)==='prac')return +d.km||0;const L=d.log||[],last=L
 function distEnsure(){let ch=false;
   raceLogs.forEach(d=>{if(!d||d.loading||!d.startAt)return;const id=d.id;if(distDel.includes(id))return;const km=logKm(d);if(!(km>=0.2))return;
     const k=kindOf(d)==='prac'?'out':'race',nm=d.name||(k==='race'?'本番':'屋外の練習');let r=distLog.find(x=>x.id===id);
-    if(!r){distLog.push({id,at:d.startAt,kind:k,name:nm,km:+km.toFixed(2),auto:true});ch=true;}
+    if(!r){const kc=d.kcal!=null?d.kcal:(opt.weight?kcalOf(opt.weight,km):null);distLog.push(Object.assign({id,at:d.startAt,kind:k,name:nm,km:+km.toFixed(2),auto:true},kc!=null?{kcal:kc}:{}));ch=true;}
     else if(r.auto&&((r.nameAuto&&d.name&&r.name!==d.name)||Math.abs(r.km-km)>0.01)){if(d.name&&r.nameAuto){r.name=d.name;r.nameAuto=false;}r.km=+km.toFixed(2);ch=true;}});
   if(ch)distSave();return ch;}
 /* 屋外の練習：保存しなかった場合も距離だけは残す（場所名はネットにつながっていれば調べる） */
-{const _po=pracOffer;pracOffer=function(d){try{if(d&&d.km>=0.2&&!distLog.some(x=>x.id===d.id)&&!distDel.includes(d.id)){const r={id:d.id,at:d.startAt,kind:'out',name:'屋外の練習',nameAuto:true,km:+(+d.km).toFixed(2),auto:true};distLog.push(r);distSave();
+{const _po=pracOffer;pracOffer=function(d){try{if(d&&d.km>=0.2&&!distLog.some(x=>x.id===d.id)&&!distDel.includes(d.id)){const r=Object.assign({id:d.id,at:d.startAt,kind:'out',name:'屋外の練習',nameAuto:true,km:+(+d.km).toFixed(2),auto:true},d.kcal!=null?{kcal:d.kcal}:{});distLog.push(r);distSave();
     if(d.geo&&d.geo.sp)placeName(d.geo.sp).then(n=>{if(n&&r.nameAuto){r.name=n;distSave();distRender();}});}}catch(e){}return _po.apply(this,arguments);};}
-function distAddIndoor(at,mach,km){const r={id:'I'+at+'-'+Math.random().toString(36).slice(2,6),at,kind:'in',name:mach,km:+km.toFixed(2),auto:false};distLog.push(r);distSave();try{distSync();}catch(e){}return r;}
+function distAddIndoor(at,mach,km){const kc=opt.weight?kcalOf(opt.weight,km):null;const r=Object.assign({id:'I'+at+'-'+Math.random().toString(36).slice(2,6),at,kind:'in',name:mach,km:+km.toFixed(2),auto:false},kc!=null?{kcal:kc}:{});distLog.push(r);distSave();try{distSync();}catch(e){}return r;}
 const distIn=(a,b)=>distLog.filter(x=>x.at>=a&&x.at<b).reduce((s,x)=>s+(+x.km||0),0);
+const kcalIn=(a,b)=>distLog.filter(x=>x.at>=a&&x.at<b&&x.kcal!=null).reduce((s,x)=>s+(+x.kcal||0),0);
+const kcalAny=()=>distLog.some(x=>x.kcal!=null);
 /* ---- Dropboxに保存（distance.json）：両方の記録を合わせる ---- */
 async function distSync(){if(!CLOUD||CLOUD.svc==='none'||!navigator.onLine||!cloudSigned(CLOUD.svc))return;
   try{const t=await cloudCall('get','distance.json');let rem={v:1,list:[],del:[]};if(t){try{rem=JSON.parse(t);}catch(e){}}
@@ -2989,7 +2993,8 @@ function distRender(){const box=$('#distBox');if(!box||box.hidden)return;distEns
   const monthTarget=(a,b)=>{let tg=0,n=0;Object.entries(WT).forEach(([k,v])=>{const t=new Date(k+'T00:00:00').getTime(),ov=Math.max(0,Math.min(b,t+7*DAYMS)-Math.max(a,t));if(ov>0){tg+=v*ov/(7*DAYMS);n++;}});return n?Math.round(tg):null;};
   mT=wkT?monthTarget(m0,m1):null;
   $('#dGoal').innerHTML=`<b class="dh">目標の達成状況</b>${r&&goal?`<div class="sub">${esc(r.name)} <span>まで</span> ${Math.max(0,Math.round((weekStart(r.at)-w0)/(7*DAYMS)))}<span>週</span>・<span>目標</span> ${fmtHMS(goal)}</div>`:'<div class="sub">「1. 練習」の「自動生成」で目標の大会と目標タイムを選ぶと、週と月の目標距離を表示します。</div>'}
-    <div class="dkpi"><div><span>今月（${d0.getMonth()+1}月）</span><b>${mDone.toFixed(1)} km</b><i>${mT?`<span>月の目標</span> ${mT}km`:''}</i></div><div><span>今週</span><b>${wkDone.toFixed(1)} km</b><i>${wkT?`<span>目標</span> ${wkT}km（${Math.round(wkDone/wkT*100)}%）`:''}</i></div></div>`;
+    <div class="dkpi"><div><span>今月（${d0.getMonth()+1}月）</span><b>${mDone.toFixed(1)} km</b><i>${mT?`<span>月の目標</span> ${mT}km`:''}</i></div><div><span>今週</span><b>${wkDone.toFixed(1)} km</b><i>${wkT?`<span>目標</span> ${wkT}km（${Math.round(wkDone/wkT*100)}%）`:''}</i></div></div>`+
+    (kcalAny()||opt.weight?`<div class="dkpi kc"><div><span>今月の消費カロリー</span><b>${Math.round(kcalIn(m0,m1)).toLocaleString('ja-JP')} <small>kcal</small></b><i>（目安）</i></div><div><span>今週の消費カロリー</span><b>${Math.round(kcalIn(w0,w0+7*DAYMS)).toLocaleString('ja-JP')} <small>kcal</small></b><i>（目安）</i></div></div>`:'');
   /* 月ごとのグラフ（直近6か月、種類ごとに積み上げ） */
   const months=[];for(let i=5;i>=0;i--){const a=new Date(d0.getFullYear(),d0.getMonth()-i,1).getTime(),b=new Date(d0.getFullYear(),d0.getMonth()-i+1,1).getTime();
     const by=k=>distLog.filter(x=>x.kind===k&&x.at>=a&&x.at<b).reduce((s,x)=>s+x.km,0);
@@ -3001,10 +3006,18 @@ function distRender(){const box=$('#distBox');if(!box||box.hidden)return;distEns
   const tl=months.map((m,i)=>m.tg?[X(i)+13,Y(m.tg)]:null);const segs=[];let cur=[];tl.forEach(p=>{if(p)cur.push(p);else{if(cur.length)segs.push(cur);cur=[];}});if(cur.length)segs.push(cur);
   const line=segs.map(sg=>sg.length>1?`<polyline points="${sg.map(p=>p.join(',')).join(' ')}" fill="none" stroke="var(--amber)" stroke-width="2" stroke-dasharray="5 4"/>`:'').join('')+tl.filter(Boolean).map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="var(--amber)"/>`).join('');
   $('#dChart').innerHTML=`<svg viewBox="0 0 340 ${H+30}" role="img" aria-label="月ごとの走行距離">${g}${bars}${line}</svg>`;
+  /* 月ごとの消費カロリー（カロリー計算をしているときの記録だけ） */
+  const kcBox=$('#dKcal');kcBox.hidden=!(kcalAny()||opt.weight);
+  if(!kcBox.hidden){const KM=months.map((m,i)=>{const a=new Date(d0.getFullYear(),d0.getMonth()-5+i,1).getTime(),b=new Date(d0.getFullYear(),d0.getMonth()-4+i,1).getTime();return kcalIn(a,b);});
+    const kmx=Math.max(1000,...KM)*1.12,KY=v=>12+H*(1-v/kmx),kst=kmx>40000?10000:kmx>20000?5000:kmx>8000?2000:kmx>4000?1000:500;let kg='';
+    for(let v=0;v<=kmx;v+=kst)kg+=`<line x1="40" x2="336" y1="${KY(v)}" y2="${KY(v)}" stroke="currentColor" stroke-opacity=".12"/><text x="36" y="${KY(v)+3}" text-anchor="end" font-size="10" fill="currentColor" fill-opacity=".6">${v.toLocaleString('ja-JP')}</text>`;
+    const kb=KM.map((v,i)=>{const x=44+i*49,h=H*v/kmx;return (h>0?`<rect x="${x}" y="${KY(v)}" width="26" height="${h}" rx="2" fill="var(--kc)"/><text x="${x+13}" y="${KY(v)-3}" text-anchor="middle" font-size="10" fill="currentColor">${Math.round(v).toLocaleString('ja-JP')}</text>`:'')+`<text x="${x+13}" y="${KY(0)+14}" text-anchor="middle" font-size="10" fill="currentColor" fill-opacity=".6">${months[i].m}月</text>`;}).join('');
+    $('#dKcalChart').innerHTML=`<svg viewBox="0 0 340 ${H+30}" role="img" aria-label="月ごとの消費カロリー">${kg}${kb}</svg>`;
+    $('#dKcalNote').textContent=opt.weight?'体重から計算した目安です（体重×距離）。カロリー計算を「計算しない」にしていた間の記録は含みません。':'今は「カロリー計算」が「計算しない」になっています。体重を入れると、これからの記録に消費カロリーが付きます。';}
   /* 記録の一覧 */
   const KN={race:'本番',out:'屋外',in:'屋内'};
-  $('#dList').innerHTML=distLog.length?`<table><thead><tr><th>日付・開始</th><th>種類</th><th>大会名・場所・機材</th><th style="text-align:right">km</th><th></th></tr></thead><tbody>`+
-    distLog.map(x=>{const t=new Date(x.at);return `<tr><td class="t">${t.getFullYear()!==d0.getFullYear()?t.getFullYear()+'/':''}${t.getMonth()+1}/${t.getDate()} ${t.getHours()}:${String(t.getMinutes()).padStart(2,'0')}</td><td><span class="dbd ${x.kind}">${KN[x.kind]}</span></td><td>${esc(x.name||'')}<div class="dsrc">${x.auto?'自動で記録':'手入力'}</div></td><td class="r">${(+x.km).toFixed(1)}</td><td><button class="small" type="button" data-ddel="${esc(x.id)}">${DD.arm===x.id?'もう一度押すと削除':'削除'}</button></td></tr>`;}).join('')+'</tbody></table>'
+  $('#dList').innerHTML=distLog.length?`<table><thead><tr><th>日付・開始</th><th>種類</th><th>大会名・場所・機材</th><th style="text-align:right">km${kcalAny()?'<div class="dkc">kcal</div>':''}</th><th></th></tr></thead><tbody>`+
+    distLog.map(x=>{const t=new Date(x.at);return `<tr><td class="t">${t.getFullYear()!==d0.getFullYear()?t.getFullYear()+'/':''}${t.getMonth()+1}/${t.getDate()} ${t.getHours()}:${String(t.getMinutes()).padStart(2,'0')}</td><td><span class="dbd ${x.kind}">${KN[x.kind]}</span></td><td>${esc(x.name||'')}<div class="dsrc">${x.auto?'自動で記録':'手入力'}</div></td><td class="r">${(+x.km).toFixed(1)}${x.kcal!=null?`<div class="dkc">${Math.round(x.kcal).toLocaleString('ja-JP')} kcal</div>`:''}</td><td><button class="small" type="button" data-ddel="${esc(x.id)}">${DD.arm===x.id?'もう一度押すと削除':'削除'}</button></td></tr>`;}).join('')+'</tbody></table>'
     :'<div class="sub">まだ記録はありません。本番と屋外の練習は自動で記録し、屋内の練習は下で記録できます。</div>';
   const ms=[...new Set(distLog.filter(x=>x.kind==='in').map(x=>x.name))];$('#diMachList').innerHTML=ms.map(n=>`<option value="${esc(n)}">`).join('');
   const dd=$('#diDate'),dt=$('#diTime');if(!dd.value)dd.value=ymdISO(now);if(!dt.value){const n=new Date();dt.value=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
@@ -3018,7 +3031,7 @@ $('#diAdd').addEventListener('click',()=>{const m=$('#diMsg'),dv=$('#diDate').va
   if(!/^\d{4}-\d\d-\d\d$/.test(dv)){m.textContent='日付を入れてください。';return;}
   if(!mach){m.textContent='トレーニング機材名を入れてください（例：ジムのトレッドミル）。';return;}
   if(!(km>0&&km<=200)){m.textContent='距離を0.1〜200の数字で入れてください（例：8.0）。';return;}
-  const at=new Date(dv+'T'+tv+':00').getTime();distAddIndoor(at,mach,km);$('#diKm').value='';m.classList.remove('err');m.textContent=`${mach} ${km.toFixed(1)}km を記録しました。`;distRender();});
+  const at=new Date(dv+'T'+tv+':00').getTime();const r=distAddIndoor(at,mach,km);$('#diKm').value='';m.classList.remove('err');m.textContent=`${mach} ${km.toFixed(1)}km を記録しました。`+(r.kcal!=null?`（消費カロリー 約${r.kcal.toLocaleString('ja-JP')} kcal）`:'');distRender();});
 /* 「走行距離」タブの表示切り替え */
 {const _h=histKindUI;histKindUI=function(){const r=_h.apply(this,arguments);const dist=HIST.kind==='dist';
   ['histHost','delBox'].forEach(id=>{const e=document.getElementById(id);if(e)e.hidden=dist;});const ib=$('#impBox');if(ib&&dist)ib.hidden=true;
@@ -3687,6 +3700,13 @@ P(/^今日はすでに ([\d.]+)km 走っています。$/,m=>[`You have already 
 P(/^大会まで(\d+)週。今週は「(.+)」の週です（目標 (\d+)km）。$/,m=>{const ph={'土台づくり':['base building','打基础','打基礎','기초 다지기'],'距離を走り込む':['high mileage','跑量积累','跑量累積','거리 늘리기'],'回復':['recovery','恢复','恢復','회복'],'調整':['taper','调整','調整','조정'],'大会':['race','比赛','比賽','대회']}[m[2]]||[m[2],m[2],m[2],m[2]];return [`${m[1]} weeks to the race. This is a ${ph[0]} week (target ${m[3]} km).`,`距比赛还有${m[1]}周。本周是“${ph[1]}”周（目标${m[3]}公里）。`,`距比賽還有${m[1]}週。本週是「${ph[2]}」週（目標${m[3]}公里）。`,`대회까지 ${m[1]}주. 이번 주는 "${ph[3]}" 주입니다 (목표 ${m[3]}km).`];});
 P(/^(.+) ([\d.]+)km を記録しました。$/,m=>[`Logged ${m[1]} ${m[2]} km.`,`已记录${m[1]} ${m[2]}公里。`,`已記錄${m[1]} ${m[2]}公里。`,`${m[1]} ${m[2]}km를 기록했습니다.`]);
 W('合計','Total','合计','合計','합계');
+W('今月の消費カロリー','This month\'s calories','本月消耗热量','本月消耗熱量','이번 달 소비 칼로리');
+W('今週の消費カロリー','This week\'s calories','本周消耗热量','本週消耗熱量','이번 주 소비 칼로리');
+W('（目安）','(approx.)','（参考）','（參考）','(참고)');
+W('月ごとの消費カロリー（目安）','Calories by month (approx.)','每月消耗热量（参考）','每月消耗熱量（參考）','월별 소비 칼로리 (참고)');
+W('体重から計算した目安です（体重×距離）。カロリー計算を「計算しない」にしていた間の記録は含みません。','An estimate from your weight (weight × distance). Records made while calorie calculation was off are not included.','根据体重计算的参考值（体重×距离）。不含“不计算”期间的记录。','根據體重計算的參考值（體重×距離）。不含「不計算」期間的記錄。','체중으로 계산한 참고값입니다 (체중×거리). 칼로리 계산을 "계산 안 함"으로 했던 동안의 기록은 포함되지 않습니다.');
+W('今は「カロリー計算」が「計算しない」になっています。体重を入れると、これからの記録に消費カロリーが付きます。','Calorie calculation is currently off. Enter your weight to add calories to future records.','现在“热量计算”为“不计算”。输入体重后，之后的记录会附上消耗热量。','現在「熱量計算」為「不計算」。輸入體重後，之後的記錄會附上消耗熱量。','지금은 "칼로리 계산"이 "계산 안 함"입니다. 체중을 입력하면 이후 기록에 소비 칼로리가 붙습니다.');
+P(/^(.+) ([\d.]+)km を記録しました。（消費カロリー 約([\d,]+) kcal）$/,m=>[`Logged ${m[1]} ${m[2]} km (about ${m[3]} kcal).`,`已记录${m[1]} ${m[2]}公里（约${m[3]}千卡）。`,`已記錄${m[1]} ${m[2]}公里（約${m[3]}大卡）。`,`${m[1]} ${m[2]}km를 기록했습니다 (약 ${m[3]} kcal).`]);
 W('4. 実績','4. Results','4. 成绩','4. 成績','4. 기록');
 W('一覧から選ぶと、表・グラフ・高低差を表示します。地図は「地図を表示」を押したときだけ読み込みます。','Choose a race to see its table, charts and elevation. The map loads only when you press "Show map".','从列表中选择即可查看表格、图表和高低差。地图仅在按下“显示地图”时加载。','從列表中選擇即可查看表格、圖表和高低差。地圖僅在按下「顯示地圖」時載入。','목록에서 고르면 표·그래프·고저차를 표시합니다. 지도는 "지도 표시"를 눌렀을 때만 불러옵니다.');
 W('保存先','Save to','保存位置','儲存位置','저장 위치');
