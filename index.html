@@ -743,7 +743,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-03e</p>
+  <p class="ver" data-notr translate="no">版 2026-11-03f</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -786,7 +786,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-03e」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-03f」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -953,7 +953,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Passed 1 km, GPS, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-03e" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-03f" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -2414,7 +2414,11 @@ function gsum(a,b){return Math.round(a/1000)*1000+Math.round(b/1000)*1000;}
 function lossOf(d){return d&&d.waveAt&&d.startAt?Math.max(0,d.startAt-d.waveAt):null;}
 function logData(){const race=HIST.kind!=='prac',pool=raceLogs.filter(x=>kindOf(x)===HIST.kind),cur=race?curLogData():null;
   if(logSelId==='cur')return cur||pool[0]||null;return pool.find(x=>x.id===logSelId)||cloudLog(logSelId)||cur||pool[0]||null;}
-function logRows(d){let pt=0,pk=0;return (d.log||[]).map(x=>{const lap=x.t-pt,dk=x.km-pk;pt=x.t;pk=x.km;return Object.assign({},x,{lap,pace:dk>0?lap/1000/dk:null,diff:x.tgt!=null?x.t-x.tgt:null});});}
+function logRows(d){let pt=0,pk=0;let L=d.log||[];
+  /* 練習の最後の端数区間（例 2→2.22km）に目標がないときは、直前の区間の目標ペースで目標の経過を補う（目標との差をゴールまで出すため） */
+  const n=L.length;if(kindOf(d)==='prac'&&n>=2&&L[n-1].tgt==null&&L[n-2].tgt!=null){const a=L[n-2],z=n>=3?L[n-3]:{km:0,tgt:0};
+    if(z.tgt!=null&&a.km>z.km){const tp=(a.tgt-z.tgt)/(a.km-z.km);L=L.slice(0,n-1).concat([Object.assign({},L[n-1],{tgt:Math.round(a.tgt+tp*(L[n-1].km-a.km))})]);}}
+  return L.map(x=>{const lap=x.t-pt,dk=x.km-pk;pt=x.t;pk=x.km;return Object.assign({},x,{lap,pace:dk>0?lap/1000/dk:null,diff:x.tgt!=null?x.t-x.tgt:null});});}
 const sgn=ms=>(ms>=0?'+':'−')+fmt(Math.abs(ms));
 function renderLog(){const sel=$('#logSel');if(!sel)return;const cur=curLogData();
   const isP=HIST.kind==='prac';try{histKindUI();}catch(e){}
@@ -2444,9 +2448,11 @@ function logChart(rows,d){const pts=rows.filter(x=>x.pace);if(pts.length<2)retur
   const grid=[];for(let v=lo;v<=hi;v+=hi-lo>600?180:hi-lo>360?120:60)grid.push(`<line x1="${l}" x2="${W-r}" y1="${Y(v)}" y2="${Y(v)}" stroke="currentColor" stroke-opacity=".12"/><text x="${l-6}" y="${Y(v)+4}" text-anchor="end" font-size="10" fill="currentColor" fill-opacity=".6">${fmtPace(v)}</text>`);
   const xt=[];const step=maxK>30?10:maxK>12?5:1;for(let k=0;k<=maxK+1e-6;k+=step)xt.push(`<text x="${X(k)}" y="${H-6}" text-anchor="middle" font-size="10" fill="currentColor" fill-opacity=".6">${k}</text>`);
   const line=(arr,col,dash)=>`<polyline fill="none" stroke="${col}" stroke-width="2.5" ${dash?'stroke-dasharray="6 4"':''} points="${arr.map(([k,v])=>X(k).toFixed(1)+','+Y(v).toFixed(1)).join(' ')}"/>`;
-  const act=pts.map(x=>[x.km-(x.km-(x.km>1?x.km-1:0))/2,x.pace]);
+  /* 各区間のペースを区間のまん中に置き、両端（スタートとゴール）まで線を伸ばす。最後の区間（例 42→42.195km）も正しい位置に置く */
+  const midLine=arr=>{if(!arr.length)return [];const m=arr.map((x,i)=>{const k0=i?arr[i-1].km:Math.max(0,x.km-1);return [(k0+x.km)/2,x.pace];});return [[0,arr[0].pace]].concat(m,[[arr[arr.length-1].km,arr[arr.length-1].pace]]);};
+  const act=midLine(pts);
   const tg=[];pts.forEach((x,i)=>{const p0=i?pts[i-1]:{km:0,tgt:0};if(x.tgt!=null&&p0.tgt!=null){const v=(x.tgt-p0.tgt)/1000/(x.km-p0.km);tg.push([p0.km,v],[x.km,v]);}});
-  const g1=`<div class="chart-t">1km毎のペース（上ほど速い）</div><div class="lg"><span><i style="background:var(--accent)"></i>実際</span><span><i style="background:var(--warn)"></i>目標</span>${C?'<span><i style="background:var(--ml-line)"></i>比較</span>':''}</div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="1km毎のペース">${grid.join('')}${xt.join('')}${tg.length?line(tg,'var(--warn)',true):''}${C&&cpts.length>1?line(cpts.filter(x=>x.km<=maxK+1e-6).map(x=>[x.km-(x.km-(x.km>1?x.km-1:0))/2,x.pace]),'var(--ml-line)'):''}${line(act,'var(--accent)')}</svg>`;
+  const g1=`<div class="chart-t">1km毎のペース（上ほど速い）</div><div class="lg"><span><i style="background:var(--accent)"></i>実際</span><span><i style="background:var(--warn)"></i>目標</span>${C?'<span><i style="background:var(--ml-line)"></i>比較</span>':''}</div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="1km毎のペース">${grid.join('')}${xt.join('')}${tg.length?line(tg,'var(--warn)',true):''}${C&&cpts.length>1?line(midLine(cpts.filter(x=>x.km<=maxK+1e-6)),'var(--ml-line)'):''}${line(act,'var(--accent)')}</svg>`;
   const g2=C?cmpChart(rows,C,{W,H,l,r,t,b,X,xt,maxK}):'';const df=rows.filter(x=>x.diff!=null);if(df.length<2)return g1+g2;
   const dv=df.map(x=>x.diff/60000);let dlo=Math.min(0,...dv),dhi=Math.max(0,...dv);if(dhi-dlo<4){dhi+=2;dlo-=2;}
   const DY=v=>t+(H-t-b)*(v-dlo)/(dhi-dlo); /* 上ほど速い：先行（マイナス）が上 */const zero=DY(0);
@@ -2628,10 +2634,15 @@ function popHtml(d,x,prevKm,title){const o=wxRow(d,x,prevKm),w=o.w,P=[`<b>${titl
 function mapDraw(d,fit){const Lf=window.L,m=MAPV.map;if(!Lf||!m||!MAPV.lay)return;MAPV.lay.clearLayers();try{cmpMap(d);}catch(e){}
   const cs=getComputedStyle(document.documentElement),cv=(n,f)=>cs.getPropertyValue(n).trim()||f;const all=[];
   geoSegs((d.geo&&d.geo.trk)||[],d.geo&&d.geo.gap).forEach(s=>{const ll=s.map(p=>[p[1],p[2]]);Lf.polyline(ll,{color:cv('--accent','#1d5bd8'),weight:4,opacity:.9}).addTo(MAPV.lay);all.push(...ll);});
-  const sp=geoStart(d);if(sp&&!(d.geo&&d.geo.gap)){Lf.circleMarker([sp.la,sp.lo],{radius:7,color:'#fff',weight:2,fillColor:'#14202b',fillOpacity:1}).bindPopup(`<div class="geo-pop"><b>スタート</b><br>${clock(d.startAt)}</div>`).addTo(MAPV.lay);all.push([sp.la,sp.lo]);}
-  const rows=logRows(d);rows.forEach((x,i)=>{const p=geoAt(d,x.km);if(!p)return;const goal=d.km&&x.km>=d.km-0.01,late=x.diff!=null&&x.diff>60000;
-    Lf.circleMarker([p.la,p.lo],{radius:goal?8:6,color:'#fff',weight:2,fillColor:goal?'#14202b':late?cv('--warn','#b4372a'):cv('--accent','#1d5bd8'),fillOpacity:1})
+  /* 1km毎の地点：数字入りの丸（S＝スタート、G＝ゴール）。数字が多いときは5km毎に数字を入れる */
+  const pin=(txt,fill)=>{const n=String(txt).length,r=txt===''?6:n>2?12:10,w=r*2+4;return Lf.divIcon({className:'',iconSize:[w,w],iconAnchor:[w/2,w/2],
+    html:`<svg width="${w}" height="${w}" viewBox="0 0 ${w} ${w}" aria-hidden="true" style="filter:drop-shadow(0 1px 2px rgba(0,0,0,.45))"><circle cx="${w/2}" cy="${w/2}" r="${r}" fill="${fill}" stroke="#fff" stroke-width="2"/>${txt!==''?`<text x="${w/2}" y="${w/2+3.5}" text-anchor="middle" font-size="${n>2?9:10}" font-weight="700" font-family="system-ui,sans-serif" fill="#fff">${txt}</text>`:''}</svg>`});};
+  const rows=logRows(d),many=rows.length>25;
+  rows.forEach((x,i)=>{const p=geoAt(d,x.km);if(!p)return;const goal=d.km&&x.km>=d.km-0.01,late=x.diff!=null&&x.diff>60000;
+    const lab=goal?'G':(!many||Math.round(x.km)%5===0)&&Math.abs(x.km-Math.round(x.km))<0.01?Math.round(x.km):'';
+    Lf.marker([p.la,p.lo],{icon:pin(lab,goal?'#14202b':late?cv('--warn','#b4372a'):cv('--accent','#1d5bd8')),keyboard:false,zIndexOffset:goal?500:0})
       .bindTooltip(goal?'ゴール':`${x.km}km`,{direction:'top'}).bindPopup(popHtml(d,x,i?rows[i-1].km:0,goal?'ゴール':null)).addTo(MAPV.lay);});
+  const sp=geoStart(d);if(sp&&!(d.geo&&d.geo.gap)){Lf.marker([sp.la,sp.lo],{icon:pin('S','#15803d'),keyboard:false,zIndexOffset:400}).bindTooltip('スタート',{direction:'top'}).bindPopup(`<div class="geo-pop"><b>スタート</b><br>${clock(d.startAt)}</div>`).addTo(MAPV.lay);all.push([sp.la,sp.lo]);}
   passShown(d).forEach(pp=>{const p=geoAt(d,pp.km);if(!p)return;const col=pp.type==='half'?cv('--amber','#b86e00'):pp.type==='cp'?cv('--warn','#b4372a'):cv('--ml-line','#6d4fd8');
     const shape=pp.type==='half'?'M11 2 L20 11 L11 20 L2 11 Z':pp.type==='cp'?'M4 4 H18 V18 H4 Z':'M11 2 L21 19 L1 19 Z';
     const icon=Lf.divIcon({className:'',iconSize:[22,22],iconAnchor:[11,12],html:`<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="${shape}" fill="${col}" stroke="#fff" stroke-width="2"/></svg>`});
@@ -2846,7 +2857,10 @@ $('#histKind').addEventListener('click',e=>{const b=e.target.closest('[data-kind
 function pracSnap(realMs){if(!OD||!(OD.dist>=0.2))return null;
   const laps=(OD.laps||[]).slice(),startAt=OD.startAt||(Date.now()-realMs),log=[];let cum=0,allTp=true;
   laps.forEach(x=>{if(x.tp!=null&&allTp)cum+=x.tp;else allTp=false;log.push({km:x.km,t:Math.round(x.t),at:startAt+Math.round(x.t),src:'GPS',tgt:allTp?Math.round(cum):null});});
-  const dist=+OD.dist.toFixed(3),last=log[log.length-1];if(!last||dist-last.km>=0.05)log.push({km:dist,t:Math.round(realMs),at:startAt+Math.round(realMs),src:'GPS',tgt:null});
+  const dist=+OD.dist.toFixed(3),last=log[log.length-1];if(!last||dist-last.km>=0.05){let tg=null;
+    /* 最後の端数区間の目標：そのときのステージの目標ペース×距離 */
+    try{if(allTp){const i=segAt(odEl(dist)),tp=menu[i]&&menu[i].pace;if(tp)tg=Math.round(cum+tp*1000*(dist-(last?last.km:0)));}}catch(e){}
+    log.push({km:dist,t:Math.round(realMs),at:startAt+Math.round(realMs),src:'GPS',tgt:tg});}
   const names=[...new Set(menu.map(s=>s&&s.name).filter(Boolean))];
   return {id:'P'+startAt,kind:'prac',name:'',menu:names.slice(0,3).join('・')+(names.length>3?'…':''),date:ymdISO(startAt),startAt,endAt:startAt+Math.round(realMs),km:+dist.toFixed(2),el:Math.round(realMs),
     log,ev:[],kcal:typeof kcalOf==='function'?kcalOf(opt.weight,dist):null,geo:{sp:OD.sp||null,trk:(OD.trk||[]).slice(),pass:[]}};}
