@@ -156,7 +156,8 @@ body.locked #spdRow,body.locked #fixRow,body.locked .run>.ctrls,body.locked #mus
 .kmtoast .kp{font-size:1rem;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.25)}.kmtoast .kd{font-size:1rem;margin-top:6px;opacity:.9}.kmtoast .kd.late{color:#ffb38a;font-weight:700}.kmtoast .kd.fast{color:#9be7b0;font-weight:700}
 .musicres{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;padding:16px 10px;font-size:1.3rem;font-weight:800;color:#fff;background:var(--warn);border:0;border-radius:14px;margin:6px 0}.musicres small{font-size:.8rem;font-weight:600}
 .lock-bar .musicres{flex:1 1 100%;margin:0}
-.spkres{background:var(--accent)}
+.spkres{background:var(--accent)}.endbox{margin:10px 0;padding:14px;border-radius:14px;border:2px solid var(--accent);background:var(--surface);display:flex;flex-direction:column;gap:8px}.endbox .t{font-size:1.05rem}.endbox ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}.endbox li{display:grid;grid-template-columns:1.6em 4.6em 1fr;align-items:start;gap:6px;font-size:.9rem;line-height:1.4}.endbox li i{font-style:normal;display:grid;place-items:center;width:1.4em;height:1.4em;border-radius:50%;font-weight:700;font-size:.8rem;color:#fff;background:#94a3b8}.endbox li.ok i{background:#16a34a}.endbox li.wait i{background:var(--accent)}.endbox li.warn i{background:var(--warn,#c2410c)}.endbox li.wait span{color:var(--accent)}.endbox li.warn span{color:var(--warn,#c2410c)}.endbox .net{padding:10px 12px;border-radius:10px;background:#fff7ed;border:1px solid #fdba74;color:#9a3412;font-weight:700}.endbox .net small{display:block;font-weight:400;margin-top:4px;color:#7c2d12}.endbox .ctrls{margin:0}.endbox .sub{font-size:.8rem;color:var(--muted,#666)}
+
 .lock-bar .spdlock{display:flex;gap:8px;flex:1 1 100%}.lock-bar .spdlock .unlock{flex:1;padding:12px 4px;font-size:1rem}
 .fixrow{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}
 .fixbtn{flex:1 1 200px;font-family:var(--f-num);font-size:1.35rem;font-weight:700;padding:12px 8px;border:2px solid var(--accent);background:var(--accent-soft);border-radius:12px}
@@ -741,7 +742,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-03b</p>
+  <p class="ver" data-notr translate="no">版 2026-11-03c</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -784,13 +785,18 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-03b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-03c」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
+<p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
+<ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
+<p>ネットにつながっていないと「📶 インターネットにつながっていません」と出ます。機内モードをOFFにし、Wi‑Fiかモバイル通信をONにしてください。すべて済むと「閉じる」が出るので、押して画面を終えます。その場でつなげないときは「今は閉じる（あとで自動で保存）」で終えても記録は消えず、あとでネットにつながった状態でアプリを開くと自動で取得・保存します。</p>
+<div class="gfigs"><figure class="gfig"><img src="guide/g_finish.webp" loading="lazy" alt="ネットにつながっていないとき" onerror="this.parentNode.hidden=true"><figcaption>ネットにつながっていないとき</figcaption></figure><figure class="gfig"><img src="guide/g_finish2.webp" loading="lazy" alt="保存が済むと「閉じる」が出ます" onerror="this.parentNode.hidden=true"><figcaption>保存が済むと「閉じる」が出ます</figcaption></figure></div>
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
 <table><thead><tr><th></th><th>屋内</th><th>屋外（GPS）</th></tr></thead><tbody><tr><td>ステージが進むとき</td><td>決めた時間がたったとき</td><td>決めた距離を走ったとき</td></tr><tr><td>1 km毎のお知らせとラップ表</td><td>なし</td><td>あり</td></tr></tbody></table>
 <p>屋外では、「GPSの位置をつかみました。」と出てからスタートしてください。走っている途中の「ペースアップ／ダウン」は、時速を0.1 kmずつ変えてテンポを合わせます。「練習の内容をクリア」はメニューだけを空にします（2回押す）。</p>
-<p><strong>途中でやめるとき（一時停止と練習を終了）</strong>：「一時停止」はタイマーを止めるだけで、もう一度押すと続きから走れます。練習を途中で終えるときは「練習を終了」を押し、「もう一度押すと終了」と出たらもう一度押します。画面ロック中は、下のバーの「練習を終了」を長押しします。終了すると、そこまでの距離で消費カロリーを出し、屋外なら「この練習を記録に残しますか？」と聞かれます。</p>
+<p><strong>途中でやめるとき（一時停止と練習を終了）</strong>：「一時停止」はタイマーを止めるだけで、もう一度押すと続きから走れます。練習を途中で終えるときは「練習を終了」を押し、「もう一度押すと終了」と出たらもう一度押します。画面ロック中は、下のバーの「練習を終了」を長押しします。終了すると、そこまでの距離で消費カロリーを出し、屋外なら「この練習を記録に残しますか？」と聞かれます。そのあと「おつかれさまでした」の欄で保存が済んだら、「閉じる」を押して終えます。</p>
 <div class="gfigs"><figure class="gfig"><img src="guide/g_end.webp" loading="lazy" alt="「練習を終了」は2回押すと終わります" onerror="this.parentNode.hidden=true"><figcaption>「練習を終了」は2回押すと終わります</figcaption></figure><figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="ロック中は「練習を終了」を長押し" onerror="this.parentNode.hidden=true"><figcaption>ロック中は「練習を終了」を長押し</figcaption></figure></div>
 <p><strong>曲の順番とシャッフル</strong>：練習には「曲をシャッフルして流す」はありません。練習では、曲ごとに流すステージ（「全ステージ」か、個別のステージ）を選べて、ステージが変わるとそのステージ用の曲を、「曲」タブで▲▼で並べた順に流すためです。流す順番を変えたいときは、▲▼で並べ替えてください。シャッフルは、本番（「曲」タブの「曲を追加」の下）とリラックスで使えます。</p>
 <h3>練習メニューを自動で作る</h3>
@@ -828,7 +834,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <figure class="gfig"><img src="guide/g_race.webp" loading="lazy" alt="「大会」タブの入力例。関門・給水所・折り返し地点を1行ずつ書くと、下に読み取った内容が出ます" onerror="this.parentNode.hidden=true"><figcaption>「大会」タブの入力例。関門・給水所・折り返し地点を1行ずつ書くと、下に読み取った内容が出ます</figcaption></figure>
 <p>給水所の「内容」は、「水」は給水、「食」は食べ物、それ以外は書いた品名のままです。入力欄の下の「読み取った…」で、正しく読めたか確かめられます。別の大会に切り替えるときは、「本番レース情報・戦略を保存」の「読み込む」を押します。</p>
 <h3>当日の流れ</h3>
-<ol><li>スタートの少し前に「<strong>本番待機を始める</strong>」を押し、画面はつけたままにします。</li><li>スタートの5分前に音楽が始まり、1分前にGPSが自動でONになります。自分のスタート時刻にはチャイムが鳴ります。</li><li>スタートラインを越えたら「<strong>スタート</strong>」を押します（スタート時刻の1秒前までは押せません）。画面がロックされ、あとは走るだけです。</li><li>ゴールしたら、画面下のバーの「<strong>ゴール</strong>」を長押しします。</li></ol>
+<ol><li>スタートの少し前に「<strong>本番待機を始める</strong>」を押し、画面はつけたままにします。</li><li>スタートの5分前に音楽が始まり、1分前にGPSが自動でONになります。自分のスタート時刻にはチャイムが鳴ります。</li><li>スタートラインを越えたら「<strong>スタート</strong>」を押します（スタート時刻の1秒前までは押せません）。画面がロックされ、あとは走るだけです。</li><li>ゴールしたら、画面下のバーの「<strong>ゴール</strong>」を長押しします。</li><li>「おつかれさまでした」の欄が出たら、ネットにつないで保存が済むのを待ち、「<strong>閉じる</strong>」を押します（「3. 画面の見方」の「終わったあと：記録の保存と「閉じる」」）。</li></ol>
 <h3>走っている間の表示</h3>
 <table><thead><tr><th>表示</th><th>意味</th></tr></thead><tbody><tr><td>スタートから</td><td>自分がスタートを押してからの時間</td></tr><tr><td>制限時間まで</td><td>号砲からの制限時間の残り</td></tr><tr><td>推定の現在地</td><td>GPS・1 km通過・目標ペースから計算した今の距離</td></tr><tr><td>次の関門・次の給水</td><td>そこまでの距離、閉鎖までの時間や内容</td></tr><tr><td>30分後の目標距離</td><td>戦略どおりなら30分後にいるはずの距離</td></tr></tbody></table>
 <p><strong>ネットタイムとグロスタイム</strong>：走っている間の大きなタイマーは、自分が「スタート」を押してからの時間（ネットタイム）です。ゴールすると、グロスタイムも表示します。グロスタイムは「スタート時刻＋ウェーブの遅れ」（自分のウェーブのスタート）からゴールまでの時間で、ネットタイムは、自分がスタートラインを通過してからゴールまでの時間です。本番では、走っている間に曲を一時停止しても時計は止まりません。グロスタイムはログとCSVにも残ります。</p>
@@ -934,13 +940,18 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Passed 1 km, GPS, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-03b" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-03c" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<h3 id="e-finish">After you finish: saving and "Close"</h3>
+<p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
+<ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
+<p>If you are offline, "📶 You are offline" appears. Turn airplane mode off and turn on Wi‑Fi or mobile data. When everything is done, "Close" appears; press it to finish. If you cannot go online there, you can finish with "Close now (save automatically later)". The log is not lost; open the app later while online and it is fetched and saved automatically.</p>
+<div class="gfigs"><figure class="gfig"><img src="guide/g_finish_en.webp" loading="lazy" alt="When you are offline" onerror="this.parentNode.hidden=true"><figcaption>When you are offline</figcaption></figure><figure class="gfig"><img src="guide/g_finish2_en.webp" loading="lazy" alt=""Close" appears when saving is done" onerror="this.parentNode.hidden=true"><figcaption>"Close" appears when saving is done</figcaption></figure></div>
 <h2 id="e-4">4. Training</h2>
 <p>For each stage of your training menu, songs play at a tempo that makes that pace easy to run.</p>
 <ol><li>Press "1. Training" and choose "Indoor (stages advance by time)" or "Outdoor (advance by GPS distance)".</li><li>On the "Menu" tab, choose "Steady run", "LSD", "Build-up" or "Jog", or enter a pace (min per km) and time for each stage.</li><li>Save menus you use often with "Save practice menu" below: enter a name (e.g. Tuesday pace run) and press "Save". Next time, just press "Load".</li><li>Press "Start". A beep sounds when the stage changes, and the tempo changes too.</li><li>When you are done, long-press "Unlock" and press "Reset". The app stops automatically when the menu is finished.</li></ol>
 <table><thead><tr><th></th><th>Indoor</th><th>Outdoor (GPS)</th></tr></thead><tbody><tr><td>When the stage advances</td><td>When the set time has passed</td><td>When you have run the set distance</td></tr><tr><td>Every-1-km notices and lap table</td><td>No</td><td>Yes</td></tr></tbody></table>
 <p>Outdoors, start after the message saying the GPS position has been found. "Pace up / Pace down" while running changes the speed by 0.1 km/h at a time and adjusts the tempo. "Clear training" empties only the menu (press twice).</p>
-<p><strong>Stopping partway (Pause and End training)</strong>: "Pause" only stops the timer; press it again to continue. To end training early, press "End training" and press it again when "Press again to end" appears. While the screen is locked, long-press "End training" in the bottom bar. The calories are calculated for the distance run so far, and outdoors you are asked "Save this training run?".</p>
+<p><strong>Stopping partway (Pause and End training)</strong>: "Pause" only stops the timer; press it again to continue. To end training early, press "End training" and press it again when "Press again to end" appears. While the screen is locked, long-press "End training" in the bottom bar. The calories are calculated for the distance run so far, and outdoors you are asked "Save this training run?". Then, when saving is done in the "Well done!" box, press "Close" to finish.</p>
 <div class="gfigs"><figure class="gfig"><img src="guide/g_end_en.webp" loading="lazy" alt="Press "End training" twice to finish" onerror="this.parentNode.hidden=true"><figcaption>Press "End training" twice to finish</figcaption></figure><figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="When locked, long-press "End training"" onerror="this.parentNode.hidden=true"><figcaption>When locked, long-press "End training"</figcaption></figure></div>
 <p><strong>Song order and shuffle</strong>: Training has no "Shuffle songs". In Training you can choose which stages each song plays in ("All stages" or particular stages), and when the stage changes, the songs for that stage play in the order you arranged with ▲▼ on the "Songs" tab. To change the order, rearrange the songs with ▲▼. Shuffle is available in Race (on the "Songs" tab, below "Add songs") and in Relax.</p>
 <h3>Auto-generate a training menu</h3>
@@ -978,7 +989,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <figure class="gfig"><img src="guide/g_race_en.webp" loading="lazy" alt="Example "Race" tab. Write checkpoints, aid stations and turnarounds one per line; what was read appears below" onerror="this.parentNode.hidden=true"><figcaption>Example "Race" tab. Write checkpoints, aid stations and turnarounds one per line; what was read appears below</figcaption></figure>
 <p>For aid station contents, "水" means water, "食" means food, and anything else is shown as written. Check below the input box that it was read correctly. To switch to another race, press "Load" in "Save race info &amp; strategy".</p>
 <h3>On the day</h3>
-<ol><li>Shortly before the start, press "<strong>Start race standby</strong>" and keep the screen on.</li><li>Music starts 5 minutes before the start, and GPS turns on automatically 1 minute before. A chime sounds at your start time.</li><li>When you cross the start line, press "<strong>Start</strong>" (it cannot be pressed until 1 second before your start time). The screen locks, and all you have to do is run.</li><li>After you finish, long-press "<strong>Finish</strong>" in the bar at the bottom.</li></ol>
+<ol><li>Shortly before the start, press "<strong>Start race standby</strong>" and keep the screen on.</li><li>Music starts 5 minutes before the start, and GPS turns on automatically 1 minute before. A chime sounds at your start time.</li><li>When you cross the start line, press "<strong>Start</strong>" (it cannot be pressed until 1 second before your start time). The screen locks, and all you have to do is run.</li><li>After you finish, long-press "<strong>Finish</strong>" in the bar at the bottom.</li><li>When the "Well done!" box appears, go online, wait for saving to finish and press "<strong>Close</strong>" (see "After you finish: saving and &quot;Close&quot;" in "3. The screen").</li></ol>
 <h3>What you see while running</h3>
 <table><thead><tr><th>Display</th><th>Meaning</th></tr></thead><tbody><tr><td>Since start</td><td>Time since you pressed Start</td></tr><tr><td>Until time limit</td><td>Time left in the time limit, counted from the gun</td></tr><tr><td>Estimated position</td><td>Your current distance, calculated from GPS, "Passed 1 km" and the target pace</td></tr><tr><td>Next cutoff / Next aid station</td><td>Distance to it, time until closing, or what is there</td></tr><tr><td>Target distance in 30 min</td><td>Where you should be in 30 minutes if you follow the strategy</td></tr></tbody></table>
 <p><strong>Net time and gross time</strong>: the big timer while running is the time since you pressed "Start" (net time). When you finish, gross time is shown as well. Gross time is the time from "start time + wave delay" (the start of your wave) to the finish; net time is the time from when you crossed the start line to the finish. In a race, the clock does not stop even if you pause the music while running. Gross time is also kept in the log and CSV.</p>
@@ -3754,7 +3765,31 @@ W('木','Thu','周四','週四','목');
 W('金','Fri','周五','週五','금');
 W('土','Sat','周六','週六','토');
 W('日','Sun','周日','週日','일');
-W('休','Rest','休','休','휴');W('今日','Today','今天','今天','오늘');
+W('休','Rest','休','休','휴');
+W('おつかれさまでした（ゴール）','Well done! (finished)','辛苦了（完赛）','辛苦了（完賽）','수고하셨습니다 (골인)');
+W('おつかれさまでした（練習を終了）','Well done! (training ended)','辛苦了（训练结束）','辛苦了（訓練結束）','수고하셨습니다 (연습 종료)');
+W('この端末に保存しました','Saved on this device','已保存到本设备','已儲存到本裝置','이 기기에 저장했습니다');
+W('下の確認で「保存する」か「保存しない」を選んでください','Choose "Save" or "Don\'t save" in the box below','请在下方选择“保存”或“不保存”','請在下方選擇「儲存」或「不儲存」','아래에서 "저장" 또는 "저장 안 함"을 선택하세요');
+W('記録に残しませんでした','Not saved to the log','未保存到记录','未儲存到記錄','기록에 남기지 않았습니다');
+W('屋内の練習は記録に残しません','Indoor training is not logged','室内训练不保存记录','室內訓練不儲存記錄','실내 연습은 기록하지 않습니다');
+W('取得しました','Done','已获取','已取得','가져왔습니다');
+W('位置がないため取得しません','No location, so not fetched','没有位置，不获取','沒有位置，不取得','위치가 없어 가져오지 않습니다');
+W('インターネットにつながると取得します','Will be fetched when you are online','联网后获取','連網後取得','인터넷에 연결되면 가져옵니다');
+W('取得できませんでした（「4. 実績」で開いたときにもう一度試します）','Could not fetch (will retry when opened in "4. Results")','未能获取（在“4. 记录”中打开时会重试）','未能取得（在「4. 記錄」中開啟時會重試）','가져오지 못했습니다("4. 실적"에서 열 때 다시 시도합니다)');
+W('取得しています…','Fetching…','正在获取…','正在取得…','가져오는 중…');
+W('この記録','This log','本次记录','本次記錄','이 기록');W('場所名','Place','地点名','地點名','장소명');
+W('インターネットにつながると調べます','Will be looked up when you are online','联网后查询','連網後查詢','인터넷에 연결되면 찾습니다');
+W('調べています…','Looking up…','正在查询…','正在查詢…','찾는 중…');
+W('調べられませんでした（「4. 実績」で名前を付けられます）','Could not look up (you can name it in "4. Results")','未能查询（可在“4. 记录”中命名）','未能查詢（可在「4. 記錄」中命名）','찾지 못했습니다("4. 실적"에서 이름을 붙일 수 있습니다)');
+W('サインインが必要です（「4. 実績」の「保存先」でサインインすると保存します）','Sign-in needed (sign in under "Save to" in "4. Results" to save)','需要登录（在“4. 记录”的“保存位置”登录后保存）','需要登入（在「4. 記錄」的「儲存位置」登入後儲存）','로그인이 필요합니다("4. 실적"의 "저장 위치"에서 로그인하면 저장합니다)');
+W('保存しました','Saved','已保存','已儲存','저장했습니다');
+W('インターネットにつながると保存します','Will be saved when you are online','联网后保存','連網後儲存','인터넷에 연결되면 저장합니다');
+W('保存できませんでした（もう一度試しています）','Could not save (retrying)','保存失败（正在重试）','儲存失敗（正在重試）','저장하지 못했습니다(다시 시도 중)');
+W('📶 インターネットにつながっていません','📶 You are offline','📶 未连接互联网','📶 未連接網際網路','📶 인터넷에 연결되어 있지 않습니다');
+W('機内モードをOFFにし、Wi‑Fiかモバイル通信をONにしてください。つながると、天気の取得と記録の保存を自動で行います。','Turn airplane mode off and turn on Wi‑Fi or mobile data. Once online, the weather is fetched and the log is saved automatically.','请关闭飞行模式，并打开Wi‑Fi或移动数据。联网后会自动获取天气并保存记录。','請關閉飛航模式，並開啟Wi‑Fi或行動數據。連網後會自動取得天氣並儲存記錄。','비행기 모드를 끄고 Wi‑Fi 또는 모바일 데이터를 켜 주세요. 연결되면 날씨를 가져오고 기록을 자동으로 저장합니다.');
+W('保存が済みました。「閉じる」を押すと画面を終えます。記録は「4. 実績」で見られます。','Saving is complete. Press "Close" to finish. You can see the log in "4. Results".','保存完成。按“关闭”结束。可在“4. 记录”中查看。','儲存完成。按「關閉」結束。可在「4. 記錄」中查看。','저장이 끝났습니다. "닫기"를 누르면 화면을 마칩니다. 기록은 "4. 실적"에서 볼 수 있습니다.');
+W('今は閉じる（あとで自動で保存）','Close now (save automatically later)','现在关闭（稍后自动保存）','現在關閉（稍後自動儲存）','지금 닫기(나중에 자동 저장)');
+W('今閉じても記録は消えません。あとでネットにつながった状態でこのアプリを開くと、自動で取得・保存します。','Closing now does not delete the log. Open this app later while online and it will fetch and save automatically.','现在关闭也不会删除记录。之后在联网状态下打开本应用，会自动获取并保存。','現在關閉也不會刪除記錄。之後在連網狀態下開啟本應用，會自動取得並儲存。','지금 닫아도 기록은 지워지지 않습니다. 나중에 인터넷에 연결된 상태로 앱을 열면 자동으로 가져와 저장합니다.');W('今日','Today','今天','今天','오늘');
 P(/^(\d+)月$/,m=>[['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[1]-1]||m[0],`${m[1]}月`,`${m[1]}月`,`${m[1]}월`]);
 P(/^今月（(\d+)月）$/,m=>[`This month (${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[1]-1]})`,`本月（${m[1]}月）`,`本月（${m[1]}月）`,`이번 달 (${m[1]}월)`]);
 P(/^本日（(\d+)\/(\d+) (.)）の練習メニュー$/,m=>{const D={月:['Mon','周一','週一','월'],火:['Tue','周二','週二','화'],水:['Wed','周三','週三','수'],木:['Thu','周四','週四','목'],金:['Fri','周五','週五','금'],土:['Sat','周六','週六','토'],日:['Sun','周日','週日','일']}[m[3]]||[m[3],m[3],m[3],m[3]];return [`Today's menu (${D[0]} ${m[1]}/${m[2]})`,`今天（${m[1]}/${m[2]} ${D[1]}）的训练菜单`,`今天（${m[1]}/${m[2]} ${D[2]}）的訓練菜單`,`오늘(${m[1]}/${m[2]} ${D[3]})의 연습 메뉴`];});
@@ -4256,6 +4291,69 @@ function spkUnlock(){if(!SPK.blocked)return;SPK.blocked=false;spkBanner.hidden=t
 document.addEventListener('pointerdown',spkUnlock,true);document.addEventListener('keydown',spkUnlock,true);
 {const _rr=resumeRace;resumeRace=function(){const r=_rr.apply(this,arguments);if(R.running)spkNeedTouch();return r;};}
 {const _pr=checkPracResume;checkPracResume=function(){const was=R.running;const r=_pr.apply(this,arguments);if(!was&&R.running)spkNeedTouch();return r;};}
+
+/* ===================== 終わったあと：記録の保存の状況と「閉じる」 =====================
+   練習・本番を終えると、この画面のまま「記録の保存」の状況を出す。ネットにつながっていなければ接続をうながし、
+   天気・場所名の取得とDropboxへの保存が済んだら「閉じる」で画面を終える（つながらなくても「今は閉じる」で終えられ、あとで自動で保存する） */
+const ENDP={on:false,mode:'',d:null,pd:null,psaved:false,out:false,cloudAt:0,plBusy:false,t:null};
+const endBox=document.createElement('div');endBox.className='endbox';endBox.id='endBox';endBox.hidden=true;endBox.setAttribute('role','status');
+const runCtrls=$('#runPanel .ctrls');$('#runPanel').insertBefore(endBox,runCtrls);
+function endShow(mode){ENDP.on=true;ENDP.mode=mode;ENDP.psaved=false;ENDP.cloudAt=0;ENDP.out=mode==='practice'&&!!opt.outdoor;
+  ENDP.d=mode==='race'?(raceLogs[0]||null):null;try{unlock();}catch(e){}
+  clearInterval(ENDP.t);ENDP.t=setInterval(endRender,2000);endRender();setTimeout(()=>{try{endBox.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}},400);}
+function endHide(){ENDP.on=false;ENDP.d=null;ENDP.pd=null;clearInterval(ENDP.t);ENDP.t=null;endBox.hidden=true;endBox.innerHTML='';endBox.dataset.h='';runCtrls.style.display='';}
+function endLogObj(){if(ENDP.mode==='race')return ENDP.d;const d=ENDP.pd;if(!d)return null;if(raceLogs.includes(d)||d.cloud)ENDP.psaved=true;return ENDP.psaved?d:null;}
+function endItems(){const on=navigator.onLine,it=[],d=endLogObj(),ps=$('#pracSave'),asking=ENDP.mode==='practice'&&ps&&!ps.hidden&&!!$('#psYes');
+  /* 1. この端末に保存 */
+  if(ENDP.mode==='race')it.push(['ok','この記録','この端末に保存しました']);
+  else if(asking)it.push(['wait','この記録','下の確認で「保存する」か「保存しない」を選んでください']);
+  else if(d)it.push(['ok','この記録','この端末に保存しました']);
+  else if(ENDP.out)it.push(['skip','この記録','記録に残しませんでした']);
+  else it.push(['skip','この記録','屋内の練習は記録に残しません']);
+  if(!d)return it;
+  /* 2. 天気 */
+  if(wxHas(d))it.push(['ok','天気','取得しました']);
+  else if(!geoStart(d))it.push(['skip','天気','位置がないため取得しません']);
+  else if(!on)it.push(['wait','天気','インターネットにつながると取得します']);
+  else if(WX.fail[d.id]&&!WX.busy)it.push(['warn','天気','取得できませんでした（「4. 実績」で開いたときにもう一度試します）']);
+  else{it.push(['wait','天気','取得しています…']);try{wxMaybe(d);}catch(e){}}
+  /* 3. 場所名（練習） */
+  if(ENDP.mode==='practice'&&d.geo&&d.geo.sp){
+    if(d.name)it.push(['ok','場所名',d.name]);
+    else if(!on)it.push(['wait','場所名','インターネットにつながると調べます']);
+    else{it.push(['wait','場所名','調べています…']);if(!ENDP.plBusy){ENDP.plBusy=true;placeName(d.geo.sp).then(n=>{ENDP.plBusy=false;if(n&&!d.name){d.name=n;d.placePending=false;logChanged(d);try{renderLog();}catch(e){}}else if(!n)d._plFail=true;endRender();});}
+      if(d._plFail)it[it.length-1]=['warn','場所名','調べられませんでした（「4. 実績」で名前を付けられます）'];}}
+  /* 4. Dropbox */
+  const svc=CLOUD.svc;
+  if(svc&&svc!=='none'){
+    if(!cloudSigned(svc))it.push(['warn','Dropbox','サインインが必要です（「4. 実績」の「保存先」でサインインすると保存します）']);
+    else if(d.cloud===svc&&!CLOUD.busy&&!(it.some(x=>x[0]==='wait')))it.push(['ok','Dropbox','保存しました']);
+    else if(!on)it.push(['wait','Dropbox','インターネットにつながると保存します']);
+    else if(CLOUD.err==='fail'&&!CLOUD.busy&&Date.now()-ENDP.cloudAt<15000)it.push(['warn','Dropbox','保存できませんでした（もう一度試しています）']);
+    else{it.push(['wait','Dropbox','保存しています…']);
+      if(!CLOUD.busy&&d.cloud!==svc&&!it.some(x=>x[0]==='wait'&&x[1]!=='Dropbox')&&Date.now()-ENDP.cloudAt>5000){ENDP.cloudAt=Date.now();try{cloudSync().then(endRender);}catch(e){}}}}
+  return it;}
+function endRender(){if(!ENDP.on){endBox.hidden=true;return;}
+  if(!R.done||(MODE!==ENDP.mode)){endHide();return;}
+  const it=endItems(),wait=it.some(x=>x[0]==='wait'),asking=it[0][0]==='wait',on=navigator.onLine,netWait=wait&&!asking;
+  const ic={ok:'✓',wait:'…',warn:'!',skip:'–'};
+  let h=`<b class="t">${ENDP.mode==='race'?'おつかれさまでした（ゴール）':'おつかれさまでした（練習を終了）'}</b><ul>`+
+    it.map(x=>`<li class="${x[0]}"><i>${ic[x[0]]}</i><b>${x[1]}</b><span${x[1]==='場所名'&&x[0]==='ok'?' data-notr':''}>${esc(x[2])}</span></li>`).join('')+'</ul>';
+  if(netWait&&!on)h+='<div class="net">📶 インターネットにつながっていません<small>機内モードをOFFにし、Wi‑Fiかモバイル通信をONにしてください。つながると、天気の取得と記録の保存を自動で行います。</small></div>';
+  if(!wait)h+='<div class="ctrls"><button class="primary" type="button" id="endClose">閉じる</button></div><div class="sub">保存が済みました。「閉じる」を押すと画面を終えます。記録は「4. 実績」で見られます。</div>';
+  else if(!asking)h+='<div class="ctrls"><button class="small" type="button" id="endClose">今は閉じる（あとで自動で保存）</button></div><div class="sub">今閉じても記録は消えません。あとでネットにつながった状態でこのアプリを開くと、自動で取得・保存します。</div>';
+  if(endBox.dataset.h!==h){endBox.dataset.h=h;endBox.innerHTML=h;const c=$('#endClose');if(c)c.onclick=endClose;}
+  endBox.hidden=false;runCtrls.style.display='none';}
+function endClose(){const mode=ENDP.mode;endHide();
+  if(mode==='race'&&MODE==='race'&&R.done){raceClear(null);return;}
+  if(MODE==='practice'&&R.done){reset();}}
+{const _o=pracOffer;pracOffer=function(d){if(d)ENDP.pd=d;const r=_o.apply(this,arguments);try{endRender();}catch(e){}return r;};}
+{const _f=finish;finish=function(){const m=(MODE==='race'||MODE==='practice')&&R.running?MODE:'';const r=_f.apply(this,arguments);if(m&&R.done)endShow(m);return r;};}
+{const _s=raceStop;raceStop=function(){const m=MODE==='race'&&R.running;const r=_s.apply(this,arguments);if(m&&R.done)endShow('race');return r;};}
+{const _r=reset;reset=function(){if(ENDP.on)endHide();return _r.apply(this,arguments);};}
+{const _sm=setMode;setMode=function(){const r=_sm.apply(this,arguments);try{endRender();}catch(e){}return r;};}
+addEventListener('online',()=>setTimeout(endRender,300));addEventListener('offline',endRender);
+document.addEventListener('click',e=>{if(ENDP.on&&e.target&&(e.target.id==='psYes'||e.target.id==='psNo'))setTimeout(endRender,50);},true);
 
 </script>
 </body>
