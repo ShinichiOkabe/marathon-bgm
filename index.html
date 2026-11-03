@@ -156,7 +156,7 @@ body.locked #spdRow,body.locked #fixRow,body.locked .run>.ctrls,body.locked #mus
 .kmtoast .kp{font-size:1rem;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.25)}.kmtoast .kd{font-size:1rem;margin-top:6px;opacity:.9}.kmtoast .kd.late{color:#ffb38a;font-weight:700}.kmtoast .kd.fast{color:#9be7b0;font-weight:700}
 .musicres{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;padding:16px 10px;font-size:1.3rem;font-weight:800;color:#fff;background:var(--warn);border:0;border-radius:14px;margin:6px 0}.musicres small{font-size:.8rem;font-weight:600}
 .lock-bar .musicres{flex:1 1 100%;margin:0}
-.spkres{background:var(--accent)}.endbox{margin:10px 0;padding:14px;border-radius:14px;border:2px solid var(--accent);background:var(--surface);display:flex;flex-direction:column;gap:8px}.endbox .t{font-size:1.05rem}.endbox ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}.endbox li{display:grid;grid-template-columns:1.6em 4.6em 1fr;align-items:start;gap:6px;font-size:.9rem;line-height:1.4}.endbox li i{font-style:normal;display:grid;place-items:center;width:1.4em;height:1.4em;border-radius:50%;font-weight:700;font-size:.8rem;color:#fff;background:#94a3b8}.endbox li.ok i{background:#16a34a}.endbox li.wait i{background:var(--accent)}.endbox li.warn i{background:var(--warn,#c2410c)}.endbox li.wait span{color:var(--accent)}.endbox li.warn span{color:var(--warn,#c2410c)}.endbox .net{padding:10px 12px;border-radius:10px;background:#fff7ed;border:1px solid #fdba74;color:#9a3412;font-weight:700}.endbox .net small{display:block;font-weight:400;margin-top:4px;color:#7c2d12}.endbox .ctrls{margin:0}.endbox .sub{font-size:.8rem;color:var(--muted,#666)}
+.spkres{background:var(--accent)}#geoMap .leaflet-control-attribution{font-size:9px;line-height:1.5;padding:0 4px;background:rgba(255,255,255,.6);color:#555}#geoMap .leaflet-control-attribution a{color:#555}.endbox{margin:10px 0;padding:14px;border-radius:14px;border:2px solid var(--accent);background:var(--surface);display:flex;flex-direction:column;gap:8px}.endbox .t{font-size:1.05rem}.endbox ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}.endbox li{display:grid;grid-template-columns:1.6em 4.6em 1fr;align-items:start;gap:6px;font-size:.9rem;line-height:1.4}.endbox li i{font-style:normal;display:grid;place-items:center;width:1.4em;height:1.4em;border-radius:50%;font-weight:700;font-size:.8rem;color:#fff;background:#94a3b8}.endbox li.ok i{background:#16a34a}.endbox li.wait i{background:var(--accent)}.endbox li.warn i{background:var(--warn,#c2410c)}.endbox li.wait span{color:var(--accent)}.endbox li.warn span{color:var(--warn,#c2410c)}.endbox .net{padding:10px 12px;border-radius:10px;background:#fff7ed;border:1px solid #fdba74;color:#9a3412;font-weight:700}.endbox .net small{display:block;font-weight:400;margin-top:4px;color:#7c2d12}.endbox .ctrls{margin:0}.endbox .sub{font-size:.8rem;color:var(--muted,#666)}
 
 .lock-bar .spdlock{display:flex;gap:8px;flex:1 1 100%}.lock-bar .spdlock .unlock{flex:1;padding:12px 4px;font-size:1rem}
 .fixrow{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}
@@ -742,7 +742,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-03c</p>
+  <p class="ver" data-notr translate="no">版 2026-11-03d</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -785,7 +785,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-03c」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-03d」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -940,7 +940,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Passed 1 km, GPS, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-03c" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-03d" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -2590,7 +2590,7 @@ function mapClose(destroy){MAPV.open=false;const box=$('#geoMap');if(box)box.hid
 async function mapOpen(d){const msg=$('#geoMapMsg'),box=$('#geoMap');msg.textContent='地図を読み込んでいます…';
   try{await loadLeaflet();}catch(e){msg.textContent='ネットにつながっていないため、地図を表示できません';return;}
   msg.textContent='';box.hidden=false;MAPV.open=true;$('#geoMapBtn').textContent='地図を閉じる';const Lf=window.L;
-  if(!MAPV.map){MAPV.map=Lf.map(box,{preferCanvas:true});const s=geoStart(d)||{la:35.68,lo:139.76},jp=s.la>20&&s.la<46&&s.lo>122&&s.lo<154;
+  if(!MAPV.map){MAPV.map=Lf.map(box,{preferCanvas:true});try{MAPV.map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');}catch(e){}const s=geoStart(d)||{la:35.68,lo:139.76},jp=s.la>20&&s.la<46&&s.lo>122&&s.lo<154;
     (jp?Lf.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>'})
        :Lf.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'})).addTo(MAPV.map);
     MAPV.lay=Lf.layerGroup().addTo(MAPV.map);}
