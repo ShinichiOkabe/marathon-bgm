@@ -93,7 +93,7 @@ section{display:flex;flex-direction:column;gap:12px}
 .rlog table{width:100%;border-collapse:collapse;font-family:var(--f-num);font-size:.85rem}.rlog th,.rlog td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}.rlog th{font-family:inherit;font-size:.75rem;color:var(--muted);font-weight:600}
 .rlog td.late{color:var(--warn);font-weight:700}.rlog td.src{font-size:.7rem;color:var(--muted)}.rlog tr.ev td{white-space:normal;text-align:left;color:var(--warn);font-family:inherit;font-size:.8rem}
 .rlog .tw{max-height:320px;overflow:auto}.rlog svg{width:100%;height:auto;display:block}.rlog .chart-t{font-size:.8rem;font-weight:700;margin:6px 0 2px}
-.rlog tr.pass td{background:var(--ml-bg);color:var(--ml-ink)}.rlog td.pn{text-align:left;font-family:var(--f-body);font-weight:700}
+.rlog tr.pass td{background:var(--ml-bg);color:var(--ml-ink)}.rlog td.pn{text-align:left;font-family:var(--f-body);font-weight:700;white-space:normal;line-height:1.35;min-width:7em}.rlog td.pn>span:first-child,.rlog td.pn .cpm>b,.rlog td.pn .cp-close,.rlog td.pn .cp-note{white-space:nowrap}.rlog td.pn .cpm{display:inline}
 .rlog .geo-half{display:flex;flex-wrap:wrap;gap:4px 16px;margin:6px 0;font-size:.85rem}.rlog .geo-half b{font-family:var(--f-num);font-size:1.05rem;margin-left:4px}.rlog .geo-half .d{font-family:var(--f-num)}.rlog .geo-half .d.late{color:var(--warn)}
 .rlog .geo-ro{font-family:var(--f-num);font-size:.8rem;color:var(--muted);min-height:1.2em}
 .rlog #geoMap{height:320px;border:1px solid var(--line);border-radius:10px;margin:6px 0;overflow:hidden;background:var(--bg)}
@@ -357,7 +357,7 @@ body.hist .wrap>*:not(header):not(#histSec),body.hist #ioRow,body.hist #hashNote
 .rlog tr.pass-cp td{background:color-mix(in srgb,var(--warn) 10%,var(--surface));color:var(--warn)}
 .rlog tr.pass td:first-child{box-shadow:inset 4px 0 0 currentColor}
 .rlog .pass-show .chk:nth-child(1) span,.rlog .pass-show .chk:nth-child(1){color:var(--ml-ink)}.rlog .pass-show .chk:nth-child(2){color:var(--warn)}.rlog .pass-show .chk:nth-child(3){color:var(--amber)}
-.rlog .gpsok{margin-left:8px;font-family:var(--f-body);font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:999px;border:1px solid currentColor}
+.rlog .gpsok{display:inline-block;white-space:nowrap;margin-left:8px;font-family:var(--f-body);font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:999px;border:1px solid currentColor}
 .rlog .pass-show{gap:4px 14px;flex-wrap:wrap}.rlog .pass-show .chk{font-size:.82rem}
 .rlog .cpm{margin-left:8px;font-family:var(--f-num);font-weight:400;color:var(--ink)}.rlog .cp-close{color:var(--muted);font-size:.8rem}.rlog .cp-ok{color:var(--accent)}.rlog .cp-tight{color:var(--amber)}.rlog .cp-over{color:var(--warn)}.rlog .cp-note{font-family:var(--f-body);font-size:.72rem;color:var(--muted)}
 .rlog .lim b{font-family:var(--f-num)}
@@ -885,7 +885,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>削除した記録は元に戻せません。保存先がDropboxのときは、Dropboxからも削除します（ネットにつながってサインインしているときだけ選べます）。</p>
 <h3>前回（昨年など）と比べる</h3>
 <p>一覧で大会を選ぶと、その下の「比べる記録」に、同じ大会の前回の記録が自動で選ばれます（大会名が同じ記録、または位置があればスタート地点と距離が同じ記録を「同じ大会」とみなします）。ほかの記録を選んだり、「比べない」にしたりもできます。比べると、次のように表示が変わります。</p>
-<ul><li><strong>ペースのグラフ</strong>：比べる記録のペースが紫の線で重なります。</li><li><strong>差のグラフ</strong>：各地点で、比べる記録より何分速いか・遅いかを表示します。ペースのグラフと同じく上ほど速く（マイナスが上）、どこで差がついたかがわかります。</li><li><strong>前半・後半</strong>：比べる記録の前半・後半も並べて表示します。</li><li><strong>表</strong>：「比較との差」（各地点の経過タイムの差。速ければ青、遅ければ赤）、「比較のラップ」、「比較の天気」（天気・気温・風）の列が加わります。</li><li><strong>地図</strong>：「地図を表示」を押すと、比べる記録の道すじも紫の点線で重なります。</li></ul>
+<ul><li><strong>ペースのグラフ</strong>：比べる記録のペースが紫の線で重なります。</li><li><strong>差のグラフ</strong>：各地点で、比べる記録より何分速いか・遅いかを表示します。ペースのグラフと同じく上ほど速く（マイナスが上）、どこで差がついたかがわかります。</li><li><strong>前半・後半</strong>：比べる記録の前半・後半も並べて表示します。</li><li><strong>表</strong>：「比較差」（各地点の経過タイムの差。速ければ青、遅ければ赤）、「比較ラップ」、「比較の天気」（天気・気温・風）の列が加わります。</li><li><strong>地図</strong>：「地図を表示」を押すと、比べる記録の道すじも紫の点線で重なります。</li></ul>
 <p>比べる記録がDropboxにある「☁」の記録でも、選べば読み込んで比べます。以前の版の記録は位置と天気がないため、地図と天気以外で比べます。</p>
 <h3>記録をDropboxに保存する</h3>
 <p>Dropbox（ドロップボックス）は、ファイルをインターネット上に預けておけるサービスです。保存先をDropboxにすると、ゴールしたあと本番の記録を自動でDropboxに保存します。スマホには直近5件しか残さないので容量を使わず、スマホを変えても記録はなくならず、パソコンでも同じ記録を見られます。無料のプラン（Dropbox Basic）で十分足ります（1回の記録は大きくても数十KBです）。</p>
@@ -1052,7 +1052,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>Deleted logs cannot be restored. With Dropbox chosen, they are deleted from Dropbox too (they can be chosen only when you are online and signed in).</p>
 <h3>Compare with an earlier race (last year, etc.)</h3>
 <p>When you choose a race in the list, "Compare with" below it automatically picks your previous log of the same race (a log with the same race name, or, when positions are available, the same start point and distance, counts as the same race). You can choose another log or "No comparison" instead. When comparing:</p>
-<ul><li><strong>Pace graph</strong>: the compared log's pace is drawn as a purple line.</li><li><strong>Difference graph</strong>: how many minutes faster or slower you were at each point. As in the pace graph, higher means faster (minus is up), so you can see where you gained or lost time.</li><li><strong>Halves</strong>: the compared log's first and second halves are shown alongside.</li><li><strong>Table</strong>: columns "vs compared" (difference in elapsed time at each point; blue if faster, red if slower), "Compared lap" and "Compared weather" (weather, temperature, wind) are added.</li><li><strong>Map</strong>: after "Show map", the compared route is drawn as a dotted purple line.</li></ul>
+<ul><li><strong>Pace graph</strong>: the compared log's pace is drawn as a purple line.</li><li><strong>Difference graph</strong>: how many minutes faster or slower you were at each point. As in the pace graph, higher means faster (minus is up), so you can see where you gained or lost time.</li><li><strong>Halves</strong>: the compared log's first and second halves are shown alongside.</li><li><strong>Table</strong>: columns "vs compared" (difference in elapsed time at each point; blue if faster, red if slower), "Comp. lap" and "Compared weather" (weather, temperature, wind) are added.</li><li><strong>Map</strong>: after "Show map", the compared route is drawn as a dotted purple line.</li></ul>
 <p>A "☁" log stored in Dropbox is loaded when you choose it. Logs from earlier versions have no positions or weather, so they are compared on everything except the map and weather.</p>
 <h3>Save your logs to Dropbox</h3>
 <p>Dropbox is a service that keeps your files on the internet. With Dropbox chosen, race logs are saved to Dropbox automatically after the finish. Only the latest 5 stay on your phone, so they take little space, they survive a change of phone, and you can see the same logs on a computer. The free plan (Dropbox Basic) is plenty (one log is a few tens of KB at most).</p>
@@ -2435,7 +2435,7 @@ function renderLog(){const sel=$('#logSel');if(!sel)return;const cur=curLogData(
   const body=rows.map((x,i)=>({k:x.km,o:1,h:`<tr><td>${x.km}</td><td>${hms(x.t)}</td><td>${x.pace?fmtPace(x.pace):'—'}</td><td class="${x.diff!=null&&x.diff>60000?'late':''}">${x.diff!=null?sgn(x.diff):'—'}</td><td class="src">${x.src}</td>${wxOn?wxTds(d,x,i?rows[i-1].km:0):''}${C?cmpTds(d,x,i?rows[i-1].km:0):''}</tr>`}))
     .concat(pr.map(p=>({k:p.km,o:0,h:`<tr class="pass pass-${p.type}"><td>${+p.km.toFixed(2)}</td><td>${hms(p.t)}</td><td colspan="2" class="pn"><span>${esc(p.name)}</span>${p.type==='cp'?cpCell(p):''}${p.type==='turn'&&p.gps?'<span class="gpsok">GPSで確認</span>':''}${p.type==='turn'&&!d.live&&!p.gps?`<button class="small pdel" type="button" data-pdel="${p.km}|${esc(p.name)}">削除</button>`:''}</td><td class="src">${p.src||''}</td>${wxOn?wxTds(d,p,null):''}${C?cmpTds(d,p,null):''}</tr>`})))
     .sort((a,b)=>a.k-b.k||a.o-b.o);
-  $('#logTable').innerHTML=`<table><thead><tr><th>km</th><th>経過</th><th>ラップ</th><th>目標との差</th><th>記録方法</th>${wxOn?'<th>天気</th><th>気温</th><th>風</th>':''}${C?'<th class="cmp">比較との差</th><th class="cmp">比較のラップ</th><th class="cmp">比較の天気</th>':''}</tr></thead><tbody>`+
+  $('#logTable').innerHTML=`<table><thead><tr><th>km</th><th>経過</th><th>ラップ</th><th>目標差</th><th>記録​</th>${wxOn?'<th>天気</th><th>気温</th><th>風</th>':''}${C?'<th class="cmp">比較差</th><th class="cmp">比較ラップ</th><th class="cmp">比較の天気</th>':''}</tr></thead><tbody>`+
     body.map(x=>x.h).join('')+
     evs.map(e=>`<tr class="ev"><td colspan="${nc}">${clock(e.at)}　${esc(e.msg||e.type)}</td></tr>`).join('')+`</tbody></table>`;
   try{geoRender(d);}catch(e){}}
@@ -3804,7 +3804,7 @@ W('木','Thu','周四','週四','목');
 W('金','Fri','周五','週五','금');
 W('土','Sat','周六','週六','토');
 W('日','Sun','周日','週日','일');
-W('休','Rest','休','休','휴');
+W('休','Rest','休','休','휴');W('目標差','vs target','与目标差','與目標差','목표 차');W('記録​','Source','记录','記錄','기록');W('比較差','vs compared','对比差','對比差','비교 차');W('比較ラップ','Comp. lap','对比分段','對比分段','비교 랩');
 W('おつかれさまでした（ゴール）','Well done! (finished)','辛苦了（完赛）','辛苦了（完賽）','수고하셨습니다 (골인)');
 W('おつかれさまでした（練習を終了）','Well done! (training ended)','辛苦了（训练结束）','辛苦了（訓練結束）','수고하셨습니다 (연습 종료)');
 W('この端末に保存しました','Saved on this device','已保存到本设备','已儲存到本裝置','이 기기에 저장했습니다');
