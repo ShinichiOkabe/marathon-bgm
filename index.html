@@ -156,7 +156,8 @@ body.locked #spdRow,body.locked #fixRow,body.locked .run>.ctrls,body.locked #mus
 .kmtoast .kp{font-size:1rem;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.25)}.kmtoast .kd{font-size:1rem;margin-top:6px;opacity:.9}.kmtoast .kd.late{color:#ffb38a;font-weight:700}.kmtoast .kd.fast{color:#9be7b0;font-weight:700}
 .musicres{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;padding:16px 10px;font-size:1.3rem;font-weight:800;color:#fff;background:var(--warn);border:0;border-radius:14px;margin:6px 0}.musicres small{font-size:.8rem;font-weight:600}
 .lock-bar .musicres{flex:1 1 100%;margin:0}
-.spkres{background:var(--accent)}.netwarn{margin:10px 0;padding:12px 14px;border-radius:12px;background:#fff7ed;border:2px solid #fb923c;color:#9a3412;display:flex;flex-direction:column;gap:6px}.netwarn b{font-size:.95rem;line-height:1.4}.netwarn small{font-size:.78rem;line-height:1.5;color:#7c2d12}.netwarn .ctrls{margin:0}
+.spkres{background:var(--accent)}.fin-q{border:2px solid var(--accent);border-radius:12px;padding:10px 12px;background:var(--bg);display:flex;flex-direction:column;gap:6px}.fin-q b{font-size:1rem}.fin-q .ctrls{margin:0;display:flex;gap:8px}.fin-q .ctrls button{flex:1;margin:0}.fin-q button.on{outline:3px solid var(--accent);outline-offset:1px}.fin-done{font-weight:700;color:var(--accent);font-size:.88rem}
+.netwarn{margin:10px 0;padding:12px 14px;border-radius:12px;background:#fff7ed;border:2px solid #fb923c;color:#9a3412;display:flex;flex-direction:column;gap:6px}.netwarn b{font-size:.95rem;line-height:1.4}.netwarn small{font-size:.78rem;line-height:1.5;color:#7c2d12}.netwarn .ctrls{margin:0}
 .hist-tools{display:flex;gap:6px;margin:8px 0}.hist-tools button{flex:1;margin:0;padding:9px 4px;font-weight:700;font-size:.78rem;line-height:1.3}.hist-tools button.on{background:var(--accent);border-color:var(--accent);color:#fff}
 #logCsv,#logGpx{display:none!important}#dlSel{width:100%;margin:8px 0 2px;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}.dkc-tg{margin:4px 0 10px}.dkc-tg button{width:100%}
 .dhit{cursor:pointer}.dmon{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}.dmon .dmh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.85rem;margin-bottom:6px}.dmon .dmh b{font-size:1rem}.dmon .dmh span{color:var(--ink)}.dmon .dmh button{margin:0 0 0 auto}.dmon td.est{color:var(--muted)}#inSave label{display:block;font-size:.8rem;color:var(--muted)}#inSave input{width:100%;box-sizing:border-box;margin-top:3px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:1rem;background:var(--bg);color:var(--ink)}
@@ -741,7 +742,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-04c</p>
+  <p class="ver" data-notr translate="no">版 2026-11-04d</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -784,12 +785,19 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、1 km通過、GPS、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-04c」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-04d」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
 <p>ネットにつながっていないと「📶 インターネットにつながっていません」と出ます。機内モードをOFFにし、Wi‑Fiかモバイル通信をONにしてください。すべて済むと「閉じる」が出るので、押して画面を終えます。その場でつなげないときは「今は閉じる（あとで自動で保存）」で終えても記録は消えず、あとでネットにつながった状態でアプリを開くと自動で取得・保存します。</p>
 <div class="gfigs"><figure class="gfig"><img src="guide/g_finish.webp" loading="lazy" alt="ネットにつながっていないとき" onerror="this.parentNode.hidden=true"><figcaption>ネットにつながっていないとき</figcaption></figure><figure class="gfig"><img src="guide/g_finish2.webp" loading="lazy" alt="保存が済むと「閉じる」が出ます" onerror="this.parentNode.hidden=true"><figcaption>保存が済むと「閉じる」が出ます</figcaption></figure></div>
+<h4>本番：ゴールしたか、途中でやめたか</h4>
+<p>本番は、ゴールしたときも途中でやめたときも同じ「ゴール」ボタンで終えるため、「おつかれさまでした」の欄の一番上で「<strong>ゴールした</strong>」か「<strong>途中でやめた（リタイア）</strong>」を選びます。推定の距離がゴールまで1 km以内なら「ゴールした」、それより手前なら「途中でやめた」が青く目立って表示されます。選ぶまでは「閉じる」が出ません。「閉じる」を押すまでは選び直せます。</p>
+<figure class="gfig"><img src="guide/g_fin.webp" loading="lazy" alt="本番を終えたときの確認" onerror="this.parentNode.hidden=true"><figcaption>本番を終えたときの確認</figcaption></figure>
+<ul><li><strong>ゴールした</strong>：ゴールの行を「大会の距離＋ゴールを押した時点のタイム」で記録します。GPSは実際より長め（または短め）に測ることがあるため、最後に「1 km通過」で距離を合わせた地点（合わせていなければスタート）からゴールまでの1 km毎の時刻を、GPSのずれの割合に合わせて配り直します。たとえば最後に合わせたのが40 km地点で、GPSがそこからゴールまでを2.4 kmと測っていたら、実際の2.195 kmに合わせて41 km・42 kmの時刻を出し直します（詳しくは「8.」の「距離と時間の調整（時間配分）」）。制限時間を過ぎてゴールしたときも「ゴールした」を選べます。</li>
+<li><strong>途中でやめた（リタイア）</strong>：やめた時点の推定の距離で記録を終え、表の最後に「途中で終了（リタイア）」が付きます。一覧の名前には「（途中終了）」が付き、走行距離もその距離で記録します。</li>
+<li>制限時間＋30分を過ぎて自動で終わったときも、同じように選べます（ゴールの時刻は自動で終わった時刻になります）。</li></ul>
+
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
@@ -833,11 +841,11 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <figure class="gfig"><img src="guide/g_race.webp" loading="lazy" alt="「大会」タブの入力例。関門・給水所・折り返し地点を1行ずつ書くと、下に読み取った内容が出ます" onerror="this.parentNode.hidden=true"><figcaption>「大会」タブの入力例。関門・給水所・折り返し地点を1行ずつ書くと、下に読み取った内容が出ます</figcaption></figure>
 <p>給水所の「内容」は、「水」は給水、「食」は食べ物、それ以外は書いた品名のままです。入力欄の下の「読み取った…」で、正しく読めたか確かめられます。別の大会に切り替えるときは、「本番レース情報・戦略を保存」の「読み込む」を押します。</p>
 <h3>当日の流れ</h3>
-<ol><li>スタートの少し前に「<strong>本番待機を始める</strong>」を押し、画面はつけたままにします。</li><li>スタートの5分前に音楽が始まり、1分前にGPSが自動でONになります。自分のスタート時刻にはチャイムが鳴ります。</li><li>スタートラインを越えたら「<strong>スタート</strong>」を押します（スタート時刻の1秒前までは押せません）。画面がロックされ、あとは走るだけです。</li><li>ゴールしたら、画面下のバーの「<strong>ゴール</strong>」を長押しします。</li><li>「おつかれさまでした」の欄が出たら、ネットにつないで保存が済むのを待ち、「<strong>閉じる</strong>」を押します（「3. 画面の見方」の「終わったあと：記録の保存と「閉じる」」）。</li></ol>
+<ol><li>スタートの少し前に「<strong>本番待機を始める</strong>」を押し、画面はつけたままにします。</li><li>スタートの5分前に音楽が始まり、1分前にGPSが自動でONになります。自分のスタート時刻にはチャイムが鳴ります。</li><li>スタートラインを越えたら「<strong>スタート</strong>」を押します（スタート時刻の1秒前までは押せません）。画面がロックされ、あとは走るだけです。</li><li>ゴールしたら、画面下のバーの「<strong>ゴール</strong>」を長押しします。</li><li>「おつかれさまでした」の欄で「<strong>ゴールした</strong>」か「<strong>途中でやめた（リタイア）</strong>」を選びます。そのあとネットにつないで保存が済むのを待ち、「<strong>閉じる</strong>」を押します（「3. 画面の見方」の「終わったあと：記録の保存と「閉じる」」）。</li></ol>
 <h3>走っている間の表示</h3>
 <table><thead><tr><th>表示</th><th>意味</th></tr></thead><tbody><tr><td>スタートから</td><td>自分がスタートを押してからの時間</td></tr><tr><td>制限時間まで</td><td>号砲からの制限時間の残り</td></tr><tr><td>推定の現在地</td><td>GPS・1 km通過・目標ペースから計算した今の距離</td></tr><tr><td>次の関門・次の給水</td><td>そこまでの距離、閉鎖までの時間や内容</td></tr><tr><td>30分後の目標距離</td><td>戦略どおりなら30分後にいるはずの距離</td></tr></tbody></table>
 <p><strong>ネットタイムとグロスタイム</strong>：走っている間の大きなタイマーは、自分が「スタート」を押してからの時間（ネットタイム）です。ゴールすると、グロスタイムも表示します。グロスタイムは「スタート時刻＋ウェーブの遅れ」（自分のウェーブのスタート）からゴールまでの時間で、ネットタイムは、自分がスタートラインを通過してからゴールまでの時間です。本番では、走っている間に曲を一時停止しても時計は止まりません。グロスタイムはログとCSVにも残ります。</p>
-<p>距離の看板を通ったときに「1 km通過」を長押しすると、現在地を正しく直せます。5 km毎に目標より10分以上遅れていると、直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに）。</p>
+<p>距離の看板を通ったときに「1 km通過」を長押しすると、現在地を正しく直せます。ここで合わせておくと、ゴールしたあとの1 km毎の時刻もより正確になります（「8. 記録（ログ）とグラフ・実績」の「距離と時間の調整（時間配分）」）。5 km毎に目標より10分以上遅れていると、直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに）。</p>
 <h2 id="h-6">6. リラックス</h2>
 <p>「使う」にチェックした曲を、元の速さのまま「ストップ」を押すまで繰り返し流します。ストレッチやクールダウンのときに使えます。</p>
 <ol><li>「3. リラックス」を押します。</li><li>リラックスにはタブがなく、設定と曲が1つの画面にまとまっています。本番の「曲」タブと同じ並びで、曲を追加する場所・曲の一覧・紫の枠「🎵 曲の登録（マイリスト）」が続きます。マイリストで流したい曲の組み合わせを「読み込む」か、新しく登録します。</li><li>順番をバラバラにしたいときは「曲をシャッフルして流す」にチェックし、「再生」を押します。</li></ol>
@@ -857,8 +865,16 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>表示</th><th>意味</th><th>削除</th></tr></thead><tbody><tr><td>折り返しの名前＋「GPSで確認」</td><td>登録した折り返しの近く（0.5 km以内）で、GPSでも折り返しを確認できた</td><td>できません</td></tr><tr><td>折り返しの名前だけ</td><td>登録した折り返しだが、GPSでは確認できなかった（GPSがOFFだった、登録の距離が違う など）</td><td>できます</td></tr><tr><td>折り返し（GPS検出）</td><td>登録していない地点で、GPSが折り返しを検出した（トイレやエイドへの往復、道を間違えて引き返した など）</td><td>できます</td></tr></tbody></table>
 <p>実際の折り返し点ではない行は、表の「削除」を押し、「もう一度押すと削除」と出たらもう一度押して消してください。</p>
 <h4>関門と制限時間</h4>
-<p>「大会」タブに関門を入れておくと、各関門を通過した時刻を記録し、表の関門の行に「閉鎖」の時刻と「余裕」（閉鎖まで何分前に通過したか）を表示します。余裕が10分未満なら黄色、閉鎖後の通過なら赤で表示します。上の行には制限時間と、ゴールしたときの制限時間までの余裕も出ます。閉鎖の時刻は開催日とスタート時刻（号砲）から計算するので、両方を入れておいてください。入れていないときは、自分がスタートを押した時刻から計算した目安になります。前回の大会と比べるときは、「比較のラップ」の欄に前回の関門の余裕が出ます。</p>
+<p>最終関門を通過すると、「最終関門を通過しました。制限時間まで、あと○分です。ゴールまであと○キロ、1キロ○分○秒より速ければ間に合います。」と音声で知らせます。「大会」タブに関門を入れておくと、各関門を通過した時刻を記録し、表の関門の行に「閉鎖」の時刻と「余裕」（閉鎖まで何分前に通過したか）を表示します。余裕が10分未満なら黄色、閉鎖後の通過なら赤で表示します。上の行には制限時間と、ゴールしたときの制限時間までの余裕も出ます。閉鎖の時刻は開催日とスタート時刻（号砲）から計算するので、両方を入れておいてください。入れていないときは、自分がスタートを押した時刻から計算した目安になります。前回の大会と比べるときは、「比較のラップ」の欄に前回の関門の余裕が出ます。</p>
 <figure class="gfig wide"><img src="guide/g_table.webp" loading="lazy" alt="1 km毎の表。関門の行には閉鎖までの余裕、折り返しには「GPSで確認」が出ます" onerror="this.parentNode.hidden=true"><figcaption>1 km毎の表。関門の行には閉鎖までの余裕、折り返しには「GPSで確認」が出ます</figcaption></figure>
+<h4 id="h-adj">距離と時間の調整（時間配分）</h4>
+<p>GPSで測る距離は、実際のコースの距離とずれます。コースの内側（最短の線）を走れなかった分や、建物・木による電波のぶれで長めに出ることが多く、トンネルや高いビルの間で電波が切れると短めに出ることもあります。フルマラソンでは数百m〜1 kmほどずれることがあります。そのため、本番では次のように調整しています。</p>
+<ul><li><strong>走っている間</strong>：距離の看板の所で「1 km通過」を長押しすると、推定の現在地を看板の距離に合わせ直します。ずれは、最後に合わせた地点からの分だけになります。推定の距離は大会の距離を超えないようにしています。</li>
+<li><strong>ゴールしたあと</strong>：「おつかれさまでした」の欄で「ゴールした」を選ぶと、ゴールの行を「大会の距離（フルなら42.195 km）＋ゴールを押した時点のタイム」で記録します。そのうえで、最後に「1 km通過」で合わせた地点（合わせていなければスタート）からゴールまでの1 km毎の時刻を、GPSのずれの割合で配り直します。中間点・関門の通過時刻と、地図上の数字の位置も同じように直します。</li>
+<li><strong>例</strong>：最後に「1 km通過」を押したのが40 km地点で、GPSがそこからゴールまでを2.4 kmと測っていた場合、実際の距離は2.195 kmなので、41 km・42 kmの時刻をその割合で出し直します。直さないと、推定が先に42.195 kmに届いてしまい、最後のラップや後半のタイムが実際より速く見えます。</li>
+<li><strong>途中でやめた（リタイア）とき</strong>：看板で合わせられないため調整はせず、やめた時点の推定の距離で記録します。</li>
+<li><strong>屋外の練習</strong>：合わせる看板がないので、GPSで測った距離をそのまま記録します。</li></ul>
+<p>こまめに「1 km通過」で合わせるほど、1 km毎のラップは実際に近くなります。すべての看板で押す必要はなく、5 kmごとなど気づいたときだけでも効果があります。</p>
 <h4>表示する地点を選ぶ</h4>
 <p>「折り返し点の表示」「関門地点の表示」「中間地点の表示」のチェックを入れた地点だけを、表・高低差・地図に表示します。チェックを外しても記録は消えず、CSVにはすべて書き出します。</p>
 <h3>「4. 実績」で過去の記録を見る</h3>
@@ -961,12 +977,19 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Passed 1 km, GPS, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-04c" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-04d" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
 <p>If you are offline, "📶 You are offline" appears. Turn airplane mode off and turn on Wi‑Fi or mobile data. When everything is done, "Close" appears; press it to finish. If you cannot go online there, you can finish with "Close now (save automatically later)". The log is not lost; open the app later while online and it is fetched and saved automatically.</p>
 <div class="gfigs"><figure class="gfig"><img src="guide/g_finish_en.webp" loading="lazy" alt="When you are offline" onerror="this.parentNode.hidden=true"><figcaption>When you are offline</figcaption></figure><figure class="gfig"><img src="guide/g_finish2_en.webp" loading="lazy" alt="&quot;Close&quot; appears when saving is done" onerror="this.parentNode.hidden=true"><figcaption>"Close" appears when saving is done</figcaption></figure></div>
+<h4>Race: did you finish or stop?</h4>
+<p>In a race, the same "Finish" button is used whether you finished or stopped partway, so choose "<strong>I finished</strong>" or "<strong>I stopped (DNF)</strong>" at the top of the "Well done!" box. If the estimated distance is within 1 km of the finish, "I finished" is highlighted; otherwise "I stopped" is. "Close" appears only after you choose, and you can change your choice until you press "Close".</p>
+<figure class="gfig"><img src="guide/g_fin_en.webp" loading="lazy" alt="The question shown after a race" onerror="this.parentNode.hidden=true"><figcaption>The question shown after a race</figcaption></figure>
+<ul><li><strong>I finished</strong>: the finish row is recorded with the race distance and the time you pressed "Finish". Because GPS can measure longer (or shorter) than the course, the per-km times from the last point you corrected with "Passed 1 km" (or the start if you never did) to the finish are redistributed by the GPS error ratio. For example, if you last corrected at 40 km and GPS measured 2.4 km from there to the finish, the 41 km and 42 km times are recalculated for the real 2.195 km (see "Adjusting distance and time" in "8." for details). You can choose "I finished" even if you finished after the time limit.</li>
+<li><strong>I stopped (DNF)</strong>: the log ends at the estimated distance where you stopped, with "Stopped (DNF)" at the end of the table. "(DNF)" is added to the name in the list, and the distance record uses that distance.</li>
+<li>If recording ends automatically at the time limit + 30 min, you can choose in the same way (the finish time is when it ended automatically).</li></ul>
+
 <h2 id="e-4">4. Training</h2>
 <p>For each stage of your training menu, songs play at a tempo that makes that pace easy to run.</p>
 <ol><li>Press "1. Training" and choose "Indoor (stages advance by time)" or "Outdoor (advance by GPS distance)".</li><li>On the "Menu" tab, choose "Steady run", "LSD", "Build-up" or "Jog", or enter a pace (min per km) and time for each stage.</li><li>Save menus you use often with "Save practice menu" below: enter a name (e.g. Tuesday pace run) and press "Save". Next time, just press "Load".</li><li>Press "Start". A beep sounds when the stage changes, and the tempo changes too.</li><li>When you are done, long-press "Unlock" and press "Reset". The app stops automatically when the menu is finished.</li></ol>
@@ -1010,11 +1033,11 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <figure class="gfig"><img src="guide/g_race_en.webp" loading="lazy" alt="Example &quot;Race&quot; tab. Write checkpoints, aid stations and turnarounds one per line; what was read appears below" onerror="this.parentNode.hidden=true"><figcaption>Example "Race" tab. Write checkpoints, aid stations and turnarounds one per line; what was read appears below</figcaption></figure>
 <p>For aid station contents, "水" means water, "食" means food, and anything else is shown as written. Check below the input box that it was read correctly. To switch to another race, press "Load" in "Save race info &amp; strategy".</p>
 <h3>On the day</h3>
-<ol><li>Shortly before the start, press "<strong>Start race standby</strong>" and keep the screen on.</li><li>Music starts 5 minutes before the start, and GPS turns on automatically 1 minute before. A chime sounds at your start time.</li><li>When you cross the start line, press "<strong>Start</strong>" (it cannot be pressed until 1 second before your start time). The screen locks, and all you have to do is run.</li><li>After you finish, long-press "<strong>Finish</strong>" in the bar at the bottom.</li><li>When the "Well done!" box appears, go online, wait for saving to finish and press "<strong>Close</strong>" (see "After you finish: saving and &quot;Close&quot;" in "3. The screen").</li></ol>
+<ol><li>Shortly before the start, press "<strong>Start race standby</strong>" and keep the screen on.</li><li>Music starts 5 minutes before the start, and GPS turns on automatically 1 minute before. A chime sounds at your start time.</li><li>When you cross the start line, press "<strong>Start</strong>" (it cannot be pressed until 1 second before your start time). The screen locks, and all you have to do is run.</li><li>After you finish, long-press "<strong>Finish</strong>" in the bar at the bottom.</li><li>In the "Well done!" box, choose "<strong>I finished</strong>" or "<strong>I stopped (DNF)</strong>". Then go online, wait for saving to finish and press "<strong>Close</strong>" (see "After you finish: saving and &quot;Close&quot;" in "3. The screen").</li></ol>
 <h3>What you see while running</h3>
 <table><thead><tr><th>Display</th><th>Meaning</th></tr></thead><tbody><tr><td>Since start</td><td>Time since you pressed Start</td></tr><tr><td>Until time limit</td><td>Time left in the time limit, counted from the gun</td></tr><tr><td>Estimated position</td><td>Your current distance, calculated from GPS, "Passed 1 km" and the target pace</td></tr><tr><td>Next cutoff / Next aid station</td><td>Distance to it, time until closing, or what is there</td></tr><tr><td>Target distance in 30 min</td><td>Where you should be in 30 minutes if you follow the strategy</td></tr></tbody></table>
 <p><strong>Net time and gross time</strong>: the big timer while running is the time since you pressed "Start" (net time). When you finish, gross time is shown as well. Gross time is the time from "start time + wave delay" (the start of your wave) to the finish; net time is the time from when you crossed the start line to the finish. In a race, the clock does not stop even if you pause the music while running. Gross time is also kept in the log and CSV.</p>
-<p>When you pass a distance marker, long-press "Passed 1 km" to correct your position. Every 5 km, if you are 10 or more minutes behind target, the strategy is adjusted automatically to your pace over the last 5 km (or to a speed that lets you finish if you might exceed the time limit).</p>
+<p>When you pass a distance marker, long-press "Passed 1 km" to correct your position. Correcting here also makes the per-km times more accurate after you finish (see "Adjusting distance and time" in "8. Log, graphs and results"). Every 5 km, if you are 10 or more minutes behind target, the strategy is adjusted automatically to your pace over the last 5 km (or to a speed that lets you finish if you might exceed the time limit).</p>
 <h2 id="e-6">6. Relax</h2>
 <p>Plays the songs checked "Use" at their original speed, repeating until you press "Stop". Use it for stretching or cooling down.</p>
 <ol><li>Press "3. Relax".</li><li>Relax has no tabs: the settings and songs are on one screen. In the same order as the Race "Songs" tab come the place to add songs, the song list, and the purple box "🎵 Song lists (my lists)". "Load" a set of songs from a my list, or register a new one.</li><li>To play in random order, check "Shuffle songs" and press "Play".</li></ol>
@@ -1034,8 +1057,16 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Shown as</th><th>Meaning</th><th>Delete</th></tr></thead><tbody><tr><td>Turnaround name + "GPS confirmed"</td><td>A registered turnaround that GPS also detected nearby (within 0.5 km)</td><td>Not possible</td></tr><tr><td>Turnaround name only</td><td>A registered turnaround that GPS could not confirm (GPS was off, wrong distance entered, etc.)</td><td>Possible</td></tr><tr><td>Turnaround (GPS)</td><td>Not registered, but GPS detected a turnaround (a trip to a toilet or aid station, turning back after a wrong turn, etc.)</td><td>Possible</td></tr></tbody></table>
 <p>Remove any row that is not a real turnaround: press "Delete" in the table, then press it again when it says "Press again to delete".</p>
 <h4>Cutoffs and the time limit</h4>
-<p>If you enter cutoffs on the "Race" tab, the time you pass each one is recorded, and its row shows when it "Closes" and your "Margin" (how long before closing you passed). Under 10 minutes is shown in yellow, passing after closing in red. The top line also shows the time limit and your margin at the finish. Closing times are calculated from the race date and start (gun) time, so enter both; without them, they are estimated from when you pressed Start. When comparing with an earlier race, its cutoff margin appears in the "Compared lap" column.</p>
+<p>When you pass the final cutoff, a voice notice tells you "Final cutoff passed. ○ minutes to the time limit. ○ km to the finish; you will make it if you are faster than ○ per km." If you enter cutoffs on the "Race" tab, the time you pass each one is recorded, and its row shows when it "Closes" and your "Margin" (how long before closing you passed). Under 10 minutes is shown in yellow, passing after closing in red. The top line also shows the time limit and your margin at the finish. Closing times are calculated from the race date and start (gun) time, so enter both; without them, they are estimated from when you pressed Start. When comparing with an earlier race, its cutoff margin appears in the "Compared lap" column.</p>
 <figure class="gfig wide"><img src="guide/g_table_en.webp" loading="lazy" alt="Table per km. Checkpoint rows show the margin before closing; turnarounds show &quot;GPS confirmed&quot;" onerror="this.parentNode.hidden=true"><figcaption>Table per km. Checkpoint rows show the margin before closing; turnarounds show "GPS confirmed"</figcaption></figure>
+<h4 id="e-adj">Adjusting distance and time</h4>
+<p>The distance measured by GPS differs from the real course distance. It is often longer, because you cannot always run the shortest line and because buildings and trees make the signal wander, and it can be shorter when the signal drops in tunnels or between tall buildings. In a full marathon the difference can be several hundred meters to about 1 km. In a race the app therefore adjusts as follows.</p>
+<ul><li><strong>While running</strong>: long-press "Passed 1 km" at a distance marker to reset the estimated position to the marker distance. The error then only builds up from the last point you corrected. The estimated distance never exceeds the race distance.</li>
+<li><strong>After you finish</strong>: when you choose "I finished" in the "Well done!" box, the finish row is recorded with the race distance (42.195 km for a full marathon) and the time you pressed "Finish". Then the per-km times from the last point you corrected with "Passed 1 km" (or the start if you never did) to the finish are redistributed by the GPS error ratio. Halfway and cutoff times and the numbered markers on the map are adjusted the same way.</li>
+<li><strong>Example</strong>: if you last pressed "Passed 1 km" at 40 km and GPS measured 2.4 km from there to the finish, the real distance is 2.195 km, so the 41 km and 42 km times are recalculated by that ratio. Without this, the estimate would reach 42.195 km too early and the last laps and second-half time would look faster than they were.</li>
+<li><strong>If you stopped (DNF)</strong>: there is no marker to correct against, so no adjustment is made; the log ends at the estimated distance where you stopped.</li>
+<li><strong>Outdoor training</strong>: there are no markers, so the GPS distance is recorded as is.</li></ul>
+<p>The more often you correct with "Passed 1 km", the closer the per-km laps are to reality. You do not need to press it at every marker; doing it now and then, such as every 5 km, already helps.</p>
 <h4>Choose which points to show</h4>
 <p>Only the points whose boxes are checked, "Show turnarounds", "Show cutoffs" and "Show halfway", appear in the table, elevation and map. Unchecking hides them without deleting them, and the CSV always includes all of them.</p>
 <h3>Look back at past races in "4. Results"</h3>
@@ -3829,6 +3860,18 @@ W('金','Fri','周五','週五','금');
 W('土','Sat','周六','週六','토');
 W('日','Sun','周日','週日','일');
 W('休','Rest','休','休','휴');
+W('最終関門を通過しました','Final cutoff passed','已通过最后关门点','已通過最後關門點','마지막 관문을 통과했습니다');W('制限時間を過ぎていますが、ゴールを目指しましょう','The time limit has passed, but keep going for the finish','已超过限时，但请继续冲向终点','已超過限時，但請繼續衝向終點','제한 시간이 지났지만 골을 향해 달립시다');
+P(/^制限時間まで、あと(.+)です$/,m=>[`${dur(m[1])} to the time limit`,`距限时还有${dur(m[1])}`,`距限時還有${dur(m[1])}`,`제한 시간까지 ${dur(m[1])} 남았습니다`]);
+P(/^ゴールまであと([\d.]+)キロ、1キロ(.+)より速ければ間に合います$/,m=>[`${m[1]} kilometers to the finish; you will make it if you are faster than ${dur(m[2])} per kilometer`,`距终点还有${m[1]}公里，每公里快于${dur(m[2])}即可赶上`,`距終點還有${m[1]}公里，每公里快於${dur(m[2])}即可趕上`,`골까지 ${m[1]}킬로미터, 1킬로미터 ${dur(m[2])}보다 빠르면 늦지 않습니다`]);
+W('ゴールしましたか？','Did you finish?','完赛了吗？','完賽了嗎？','골인했습니까?');
+W('選んだ内容で、距離と1 km毎の時刻を整えて記録します。あとから選び直せます（「閉じる」を押すまで）。','The distance and per-km times are adjusted to match your choice. You can change it until you press "Close".','将按所选内容调整距离和每公里时间并记录。在按“关闭”之前可以重新选择。','將按所選內容調整距離和每公里時間並記錄。在按「關閉」之前可以重新選擇。','선택한 내용으로 거리와 1km마다의 시각을 맞춰 기록합니다. "닫기"를 누르기 전까지 다시 고를 수 있습니다.');
+W('ゴールした','I finished','已完赛','已完賽','골인했다');W('途中でやめた（リタイア）','I stopped (DNF)','中途退出（DNF）','中途退出（DNF）','도중에 그만뒀다(DNF)');
+W('制限時間＋30分で自動で終わりました。ゴールの時刻は、自動で終わった時刻になります（実際のゴールより遅い場合があります）。','Recording ended automatically at the time limit + 30 min. The finish time is when it ended automatically (it may be later than your actual finish).','在限时＋30分钟时自动结束。终点时间为自动结束的时间（可能晚于实际完赛）。','在限時＋30分鐘時自動結束。終點時間為自動結束的時間（可能晚於實際完賽）。','제한 시간＋30분에 자동으로 끝났습니다. 골인 시각은 자동으로 끝난 시각입니다(실제 골인보다 늦을 수 있습니다).');
+W('ゴール（完走）として記録しました。','Recorded as finished.','已记录为完赛。','已記錄為完賽。','골인(완주)으로 기록했습니다.');W('途中で終了（リタイア）として記録しました。','Recorded as DNF.','已记录为中途退出（DNF）。','已記錄為中途退出（DNF）。','도중 종료(DNF)로 기록했습니다.');
+W('上で「ゴールした」か「途中でやめた」を選んでください','Choose "I finished" or "I stopped" above','请在上方选择“已完赛”或“中途退出”','請在上方選擇「已完賽」或「中途退出」','위에서 "골인했다" 또는 "도중에 그만뒀다"를 선택하세요');
+W('ゴール（完走）として保存しました','Saved as finished','已保存为完赛','已儲存為完賽','골인(완주)으로 저장했습니다');W('途中で終了（リタイア）として保存しました','Saved as DNF','已保存为中途退出','已儲存為中途退出','도중 종료(DNF)로 저장했습니다');
+W('途中で終了（リタイア）','Stopped (DNF)','中途退出（DNF）','中途退出（DNF）','도중 종료(DNF)');
+P(/^(.+)（途中終了）$/,m=>[`${m[1]} (DNF)`,`${m[1]}（中途退出）`,`${m[1]}（中途退出）`,`${m[1]} (DNF)`]);
 W('📶 Wi‑Fiがつながっています。機内モードとWi‑Fiを確かめてください','📶 Wi‑Fi is connected. Check airplane mode and Wi‑Fi','📶 Wi‑Fi已连接。请检查飞行模式和Wi‑Fi','📶 Wi‑Fi已連線。請檢查飛航模式和Wi‑Fi','📶 Wi‑Fi가 연결되어 있습니다. 비행기 모드와 Wi‑Fi를 확인하세요');
 W('📶 モバイル通信がつながっています。機内モードを確かめてください','📶 Mobile data is connected. Check airplane mode','📶 移动数据已连接。请检查飞行模式','📶 行動數據已連線。請檢查飛航模式','📶 모바일 데이터가 연결되어 있습니다. 비행기 모드를 확인하세요');
 W('GPSの位置はつかめています。スタートの前に機内モードをON・Wi‑FiをOFFにすると、動作が安定し、電池も長持ちします。Wi‑Fiのマークが消えたかも確かめてください（Bluetoothイヤホンを使うときは、そのあとBluetoothだけONにします）。','The GPS position has been found. Turning airplane mode on and Wi‑Fi off before the start makes the app more stable and saves battery. Also check that the Wi‑Fi icon has gone (if you use Bluetooth earphones, then turn only Bluetooth back on).','已获取GPS位置。开始前打开飞行模式、关闭Wi‑Fi，运行更稳定，也更省电。也请确认Wi‑Fi图标已消失（使用蓝牙耳机时，之后只打开蓝牙）。','已取得GPS位置。開始前開啟飛航模式、關閉Wi‑Fi，運作更穩定，也更省電。也請確認Wi‑Fi圖示已消失（使用藍牙耳機時，之後只開啟藍牙）。','GPS 위치를 잡았습니다. 출발 전에 비행기 모드를 켜고 Wi‑Fi를 끄면 동작이 안정되고 배터리도 오래갑니다. Wi‑Fi 아이콘이 사라졌는지도 확인하세요(블루투스 이어폰을 쓸 때는 그다음 블루투스만 켭니다).');
@@ -4454,7 +4497,7 @@ function endRender(){if(!ENDP.on){endBox.hidden=true;return;}
   if(!R.done||(MODE!==ENDP.mode)){endHide();return;}
   const it=endItems(),wait=it.some(x=>x[0]==='wait'),asking=it[0][0]==='wait',on=navigator.onLine,netWait=wait&&!asking;
   const ic={ok:'✓',wait:'…',warn:'!',skip:'–'};
-  let h=`<b class="t">${ENDP.mode==='race'?'おつかれさまでした（ゴール）':'おつかれさまでした（練習を終了）'}</b><ul>`+
+  let h=`<b class="t">${ENDP.mode==='race'?'おつかれさまでした':'おつかれさまでした（練習を終了）'}</b><ul>`+
     it.map(x=>`<li class="${x[0]}"><i>${ic[x[0]]}</i><b>${x[1]}</b><span${x[1]==='場所名'&&x[0]==='ok'?' data-notr':''}>${esc(x[2])}</span></li>`).join('')+'</ul>';
   if(netWait&&!on)h+='<div class="net">📶 インターネットにつながっていません<small>機内モードをOFFにし、Wi‑Fiかモバイル通信をONにしてください。つながると、天気の取得と記録の保存を自動で行います。</small></div>';
   if(!wait)h+='<div class="ctrls"><button class="primary" type="button" id="endClose">閉じる</button></div><div class="sub">保存が済みました。「閉じる」を押すと画面を終えます。記録は「4. 実績」で見られます。</div>';
@@ -4719,6 +4762,63 @@ try{navigator.connection&&navigator.connection.addEventListener('change',()=>{ne
 {const _r=reset;reset=function(){NETW.off=false;const r=_r.apply(this,arguments);netWarnRender();return r;};}
 {const _sm=setMode;setMode=function(){NETW.off=false;const r=_sm.apply(this,arguments);try{netWarnRender();}catch(e){}return r;};}
 {const _rr=renderRun;renderRun=function(){const r=_rr.apply(this,arguments);try{netWarnRender();}catch(e){}return r;};}
+
+/* ===================== 本番の終わり：ゴールしたか、途中でやめたかを確かめ、距離と時間を整える ===================== */
+/* 終えた瞬間の状態を記録に添えておく（最後に「1 km通過」で合わせた地点、GPSで測った距離など） */
+function posRaw(el){const f=RS.fix||[],last=f[f.length-1],e=rcEff();
+  if(GPS.on&&GPS.t0!=null){const pace=GPS.dist>0.15?(GPS.lastEl-GPS.t0)/1000/GPS.dist:GPS.pace0;const pc=pace>150&&pace<1200?pace:(e||420);return {g:GPS.base+GPS.dist+Math.max(0,el-GPS.lastEl)/1000/pc,gps:true};}
+  if(!last)return {g:typeof planPos==='function'?planPos(el):0,gps:false};
+  const prev=f.length>1?f[f.length-2]:{km:0,t:0};let pace=(last.t-prev.t)/1000/Math.max(0.01,last.km-prev.km);if(!(pace>150&&pace<1200))pace=last.t/1000/Math.max(0.01,last.km);
+  return {g:last.km+Math.max(0,el-last.t)/1000/pace,gps:false};}
+{const _ac=archiveCurrent;archiveCurrent=function(result){const el=Math.round(R.done?R.acc:rawEl()),man=(RS.fix||[]).filter(x=>!x.gps&&x.t<=el),a=man[man.length-1]||{km:0,t:0},pr=posRaw(el);
+  const r=_ac.apply(this,arguments);try{const d=raceLogs[0];if(d&&d.startAt===RS.startAt){d._fin={kf:a.km,tf:a.t,g:pr.g,gps:pr.gps,el,auto:result==='limit'};store.set(LOGS_KEY,raceLogs);}}catch(e){}return r;};}
+/* 区間の対応表（GPSなどで測った距離 → 時刻）から、ある距離の時刻を求める */
+function finMap(d,F){const pts=[[F.kf,F.tf]];
+  if(F.gps&&d.geo&&d.geo.trk){d.geo.trk.forEach(p=>{if(p[4]>F.tf&&p[4]<=F.el&&p[0]>=F.kf)pts.push([p[0],p[4]]);});}
+  (d.log||[]).forEach(x=>{if(x.t>F.tf&&x.km>F.kf&&x.km<F.g)pts.push([x.km,x.t]);});
+  pts.push([Math.max(F.g,F.kf+1e-3),F.el]);pts.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);
+  const P=[];pts.forEach(p=>{const l=P[P.length-1];if(l&&p[1]<l[1])return;if(l&&Math.abs(p[0]-l[0])<1e-6){l[1]=Math.max(l[1],p[1]);return;}P.push([p[0],p[1]]);});
+  return g=>{if(g<=P[0][0])return P[0][1];for(let i=1;i<P.length;i++){if(g<=P[i][0]){const a=P[i-1],b=P[i],f=(g-a[0])/Math.max(1e-9,b[0]-a[0]);return Math.round(a[1]+(b[1]-a[1])*f);}}return P[P.length-1][1];};}
+function raceFinalize(d,goal){if(!d||!d._fin)return;if(!d._orig)d._orig=JSON.stringify({log:d.log,ev:d.ev,geo:d.geo});
+  const o=JSON.parse(d._orig);d.log=o.log;d.ev=o.ev;d.geo=o.geo;const F=d._fin,D=+d.km||rcKm(),el=F.el,src=(d.log.slice(-1)[0]||{}).src||'推定';
+  const T=finMap(d,F);
+  if(goal){const span=F.g-F.kf,r=span>0.05?(D-F.kf)/span:1,G=k=>F.kf+(k-F.kf)/r;
+    const old={};d.log.forEach(x=>{old[x.km]=x;});const keep=d.log.filter(x=>x.km<=F.kf+1e-6);
+    for(let k=Math.floor(F.kf+1e-6)+1;k<D-1e-6;k++){const t=Math.min(el,T(G(k))),tg=origSecAt(k),o2=old[k];keep.push({km:k,t,at:d.startAt+t,src:o2?o2.src:'推定',tgt:tg!=null?Math.round(tg*1000):(o2?o2.tgt:null)});}
+    const tg=origSecAt(D);keep.push({km:+D.toFixed(3),t:el,at:d.startAt+el,src,tgt:tg!=null?Math.round(tg*1000):null});d.log=keep;
+    ((d.geo&&d.geo.pass)||[]).forEach(p=>{if(p.km>F.kf+1e-6){const t=Math.min(el,T(G(p.km)));p.t=t;p.at=d.startAt+t;}});
+    if(d.geo&&d.geo.trk&&r!==1)d.geo.trk.forEach(p=>{if(p[4]>F.tf&&p[0]>=F.kf)p[0]=+(F.kf+(p[0]-F.kf)*r).toFixed(3);});
+    d.result='finish';}
+  else{const pos=Math.max(0,Math.min(F.g,D));d.log=d.log.filter(x=>x.km<pos-1e-6&&x.km<D-1e-6);
+    if(pos>0.05){const tg=origSecAt(pos);d.log.push({km:+pos.toFixed(2),t:el,at:d.startAt+el,src,tgt:tg!=null?Math.round(tg*1000):null});}
+    if(d.geo&&d.geo.pass)d.geo.pass=d.geo.pass.filter(p=>p.km<=pos+1e-6);
+    d.ev=(d.ev||[]).filter(e=>e.type!=='goal');d.ev.push({type:'dnf',msg:'途中で終了（リタイア）',t:el,at:d.startAt+el,km:+pos.toFixed(2)});d.result='dnf';}
+  store.set(LOGS_KEY,raceLogs);try{distEnsure();}catch(e){}try{logChanged(d);}catch(e){}try{renderLog();}catch(e){}}
+/* 終わったあとの欄：一番上で「ゴールした」「途中でやめた」を選ぶ */
+const finChoice=d=>{const F=d._fin,D=+d.km||0,pos=F?Math.min(F.g,D):0,near=D-pos<=1;
+  const sel=d.result,b=(k,lab,rec)=>`<button type="button" data-fin="${k}" class="${sel===k?'primary-sm on':rec&&!sel?'primary-sm':'small'}">${lab}</button>`;
+  return `<div class="fin-q"><b>ゴールしましたか？</b><div class="sub">選んだ内容で、距離と1 km毎の時刻を整えて記録します。あとから選び直せます（「閉じる」を押すまで）。</div>
+    <div class="ctrls">${b('finish','ゴールした',near)}${b('dnf','途中でやめた（リタイア）',!near)}</div>
+    ${F&&F.auto?'<div class="sub">制限時間＋30分で自動で終わりました。ゴールの時刻は、自動で終わった時刻になります（実際のゴールより遅い場合があります）。</div>':''}
+    ${sel?`<div class="fin-done">${sel==='finish'?'ゴール（完走）として記録しました。':'途中で終了（リタイア）として記録しました。'}</div>`:''}</div>`;};
+{const _ei=endItems;endItems=function(){const it=_ei.apply(this,arguments);if(ENDP.mode==='race'&&ENDP.d&&ENDP.d._fin&&it.length){
+  if(!ENDP.d.result){it[0]=['wait','この記録','上で「ゴールした」か「途中でやめた」を選んでください'];return it.slice(0,1).concat(it.slice(1).filter(x=>x[1]!=='Dropbox'));}
+  it[0]=['ok','この記録',ENDP.d.result==='finish'?'ゴール（完走）として保存しました':'途中で終了（リタイア）として保存しました'];}return it;};}
+{const _er=endRender;endRender=function(){const r=_er.apply(this,arguments);try{if(ENDP.on&&ENDP.mode==='race'&&ENDP.d&&ENDP.d._fin&&!endBox.hidden){const h=finChoice(ENDP.d);let q=endBox.querySelector('.fin-q');
+  if(!q||q.dataset.h!==h){if(q)q.remove();const w=document.createElement('div');w.innerHTML=h;q=w.firstElementChild;q.dataset.h=h;const t=endBox.querySelector('.t');(t||endBox.firstChild).after(q);}}}catch(e){}return r;};}
+endBox.addEventListener('click',e=>{const b=e.target.closest('[data-fin]');if(!b||!ENDP.d)return;raceFinalize(ENDP.d,b.dataset.fin==='finish');ENDP.cloudAt=0;endRender();});
+/* 閉じたら、選び直し用の控えは消す */
+{const _eh=endHide;endHide=function(){try{const d=ENDP.d;if(d&&d._fin){delete d._orig;delete d._fin;store.set(LOGS_KEY,raceLogs);}}catch(e){}return _eh.apply(this,arguments);};}
+{const _ll=logLabel;logLabel=function(x){const s=_ll.apply(this,arguments);return x&&x.result==='dnf'?s+'（途中終了）':s;};}
+/* ===================== 最終関門を通過したら、制限時間までの残りを知らせる ===================== */
+{const _pt=passTick;passTick=function(el){const G=RS.geo,n0=G&&G.pass?G.pass.length:0,before=G&&G.pass?G.pass.map(p=>p.type+p.km):[];const r=_pt.apply(this,arguments);
+  try{const P=RS.geo&&RS.geo.pass||[];if(R.running&&MODE==='race'&&P.length>n0){const cps=rcCps(),lastCp=cps[cps.length-1];
+    const nw=P.find(p=>p.type==='cp'&&!before.includes(p.type+p.km)&&lastCp&&Math.abs(p.km-lastCp.km)<1e-6);
+    if(nw){const gun=rcGunMs()!=null?rcGunMs():RS.startAt,limEnd=gun+(+RC.limit||0)*60000,left=limEnd-Date.now(),pos=posInfo(el).pos,dist=Math.max(0,rcKm()-pos);
+      let m='最終関門を通過しました。';
+      if(RC.limit&&left>0){m+=`制限時間まで、あと${sayMin(left)}です。`;if(dist>0.1){const need=left/1000/dist;m+=`ゴールまであと${dist.toFixed(1)}キロ、1キロ${sayPace(need)}より速ければ間に合います。`;}}
+      else if(RC.limit)m+='制限時間を過ぎていますが、ゴールを目指しましょう。';
+      cue(false);say(m);}}}catch(e){}return r;};}
 
 </script>
 </body>
