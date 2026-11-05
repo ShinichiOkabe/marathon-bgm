@@ -401,7 +401,7 @@ body.hist .wrap>*:not(header):not(#histSec),body.hist #ioRow,body.hist #hashNote
 .dsrc{font-size:.68rem;color:var(--muted)}.dtw button{margin:0;padding:2px 8px;font-size:.72rem}
 .dform{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dform .f{display:flex;flex-direction:column;gap:3px;font-size:.75rem;color:var(--muted);font-weight:700;min-width:0}.dform .wide{grid-column:1/-1}
 .dkpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dkpi div{border:1px solid var(--line);border-radius:10px;padding:8px 10px}.dkpi span{font-size:.72rem;color:var(--muted);font-weight:700}.dkpi b{display:block;font:700 1.45rem/1.15 var(--f-num)}.dkpi i{font-style:normal;font-size:.75rem;color:var(--muted)}
-.race-list{margin:4px 0 12px}.race-list .rl-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-bottom:4px}.race-list .rl-h b{font-size:.95rem}
+.race-list{margin:4px 0 12px}.race-list .rl-empty{border:1px dashed var(--line);border-radius:10px;padding:10px 12px}.race-list .rl-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-bottom:4px}.race-list .rl-h b{font-size:.95rem}
 .race-list .rl-w{overflow-x:auto;max-height:300px;overflow-y:auto;border:1px solid var(--line);border-radius:10px}
 .rlog .race-list table{font-size:.74rem}.rlog .race-list th,.rlog .race-list td{padding:5px 3px}.rlog .race-list th{white-space:normal;line-height:1.2;font-size:.68rem}.rlog .race-list th{position:sticky;top:0;background:var(--surface);z-index:1;text-align:center}
 .rlog .race-list tbody tr{cursor:pointer}.rlog .race-list tbody tr:hover td{background:color-mix(in srgb,var(--accent) 7%,transparent)}
@@ -3939,6 +3939,7 @@ W('接続されていないので、今はこの記録（☁）をダウンロ�
 W('接続されていないので、今はDropboxの記録（☁）を読み込めません。つながると読み込みます。','No internet, so Dropbox logs (☁) cannot be loaded now. They load once online.','未联网，目前无法读取 Dropbox 记录（☁）。联网后会读取。','未連網，目前無法讀取 Dropbox 紀錄（☁）。連網後會讀取。','인터넷에 연결되어 있지 않아 지금은 Dropbox 기록(☁)을 불러올 수 없습니다. 연결되면 불러옵니다.');
 W('出走した大会の一覧','Races entered','参赛大会一览','參賽大會一覽','출전 대회 목록');
 W('行を選ぶと、下の「本番のログ」に表示します。','Pick a row to show it in the race log below.','选择一行，即在下方的“正式比赛日志”中显示。','選擇一列，即在下方的「正式比賽紀錄」中顯示。','행을 선택하면 아래 \'대회 로그\'에 표시합니다.');
+W('まだ出走した大会の記録はありません。本番で「スタート」を押して走り終えると、ここに大会が並びます。','No races yet. Press "Start" in Race mode and finish a run, and the race will appear here.','还没有参赛记录。在正式比赛中按“开始”并跑完后，比赛会显示在这里。','還沒有參賽紀錄。在正式比賽中按「開始」並跑完後，比賽會顯示在這裡。','아직 출전한 대회 기록이 없습니다. 대회 모드에서 \'시작\'을 누르고 달리기를 마치면 여기에 대회가 표시됩니다.');
 W('写真URL','Photo URL','照片URL','照片網址','사진 URL');
 W('状況','Status','状态','狀態','상태');
 W('ネット','Net','净','淨','넷');
@@ -5024,7 +5025,7 @@ function rlItems(){const out=[],seen={};const cur=curLogData();
     out.push({id:e.id,cloud:1,name:x.name||'本番',startAt:x.startAt,km:x.km,el:x.el||0,st:c&&c.log?rlStat(c):(e.result||''),reach:c&&c.log?logKm(c):(+e.reach||((e.result==='finish')?+e.km:0)),photo:(c&&c.photo!=null?c.photo:e.photo)||''});});
   return out.sort((a,b)=>(b.id==='cur')-(a.id==='cur')||b.startAt-a.startAt);}
 function rlRender(){const box=$('#raceList');if(!box)return;const on=HIST.kind==='race';if(box.hidden===on)box.hidden=!on;if(!on)return;
-  const it=rlItems();if(!it.length){box.innerHTML='';box.hidden=true;return;}
+  const it=rlItems();if(!it.length){box.innerHTML='<div class="rl-h"><b>出走した大会の一覧</b></div><div class="sub rl-empty">まだ出走した大会の記録はありません。本番で「スタート」を押して走り終えると、ここに大会が並びます。</div>';return;}
   const d=logData(),sid=d?(d.id==='cur'?'cur':d.id):'';
   const stTxt={finish:'<span class="st-fin">完走</span>',dnf:'<span class="st-dnf">リタイア</span>',run:'<span class="st-run">走行中</span>'};
   const rows=it.map(x=>{const dt=new Date(x.startAt),day=`${dt.getFullYear()}/${dt.getMonth()+1}/${dt.getDate()}`;
