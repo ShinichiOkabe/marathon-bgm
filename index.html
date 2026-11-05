@@ -654,7 +654,7 @@ body.live .recv{display:none}
       <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。</span></div>
       <div id="stratList"></div>
       <div class="ctrls"><button class="small" id="stratAdd">＋ ステージを追加</button><span class="sauto">目標タイムから<select id="stratN" aria-label="作るステージ数"></select>で<button class="small" id="stratAuto">作る</button></span><button class="small" id="stratClear">戦略を消す</button></div>
-      <label class="chk"><input type="checkbox" id="rcAutoSafe"> 5km毎に、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）</label>
+      <label class="chk"><input type="checkbox" id="rcAutoSafe"> 1km毎に、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）</label>
       <p class="ml-msg err" id="stratMsg"></p>
       <div class="sub" id="stratSum"></div>
     </div>
@@ -743,7 +743,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-05c</p>
+  <p class="ver" data-notr translate="no">版 2026-11-05d</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -787,7 +787,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-05c」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-05d」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -850,7 +850,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p><strong>距離の確定</strong>：走っている間は「＜　10km 確定　＞　取消」のボタンが出ます。真ん中のボタンには、推定の距離から選んだ看板（1km、2km…、中間点、…）と、今の推定の距離が出ます。GPSは実際より長めに測ることが多いので、推定が10.15 kmなら「10km 確定」のように、推定を超えない一番先の看板を出します。</p>
 <ul><li>距離の看板を通ったら「確定」を押します（ロック中は長押し）。推定の現在地がその距離に合います。</li><li>出ている看板が違うときは、左右の矢印（＜ ＞）でひとつ前・ひとつ先の看板に変えてから確定します。</li><li>「取消」は、直前の確定を取り消します（ロック中は長押し）。</li><li>同じ看板をもう一度確定すると（ボタンは「確定し直す」になります）、あとで押した位置をその距離にします。押すのが早すぎたときは、看板の所でもう一度押してください。</li></ul>
 <figure class="gfig"><img src="guide/g_fx.webp" loading="lazy" alt="距離の確定のボタン（上：ロックしていないとき、下：ロック中）" onerror="this.parentNode.hidden=true"><figcaption>距離の確定のボタン（上：ロックしていないとき、下：ロック中）</figcaption></figure>
-<p>距離の看板を通ったときに「距離の確定」で合わせると、現在地を正しく直せます。ここで合わせておくと、ゴールしたあとの1 km毎の時刻もより正確になります（「8. 記録（ログ）とグラフ・実績」の「距離と時間の調整（時間配分）」）。5 km毎に目標より10分以上遅れていると、直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに）。</p>
+<p>距離の看板を通ったときに「距離の確定」で合わせると、現在地を正しく直せます。ここで合わせておくと、ゴールしたあとの1 km毎の時刻もより正確になります（「8. 記録（ログ）とグラフ・実績」の「距離と時間の調整（時間配分）」）。5 km地点からは1 km毎に、目標より10分以上遅れていないかを直近5 kmで判定し、遅れていれば直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに）。一度調整したあとは、速さが時速0.3 km以上変わるときか、完走優先に切り替えるときだけ調整し直します。</p>
 <h2 id="h-6">6. リラックス</h2>
 <p>「使う」にチェックした曲を、元の速さのまま「ストップ」を押すまで繰り返し流します。ストレッチやクールダウンのときに使えます。</p>
 <ol><li>「3. リラックス」を押します。</li><li>リラックスにはタブがなく、設定と曲が1つの画面にまとまっています。本番の「曲」タブと同じ並びで、曲を追加する場所・曲の一覧・紫の枠「🎵 曲の登録（マイリスト）」が続きます。マイリストで流したい曲の組み合わせを「読み込む」か、新しく登録します。</li><li>順番をバラバラにしたいときは「曲をシャッフルして流す」にチェックし、「再生」を押します。</li></ol>
@@ -986,7 +986,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-05c" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-05d" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1049,7 +1049,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p><strong>Confirm distance</strong>: while running, the buttons "&lt;  10km Confirm  &gt;  Undo" appear. The middle button shows the marker chosen from the estimated distance (1 km, 2 km, …, Halfway, …) and the current estimate. GPS usually measures a little long, so with an estimate of 10.15 km it shows "10km Confirm", the furthest marker not beyond the estimate.</p>
 <ul><li>When you pass a distance marker, press "Confirm" (long-press while locked). The estimated position is set to that distance.</li><li>If the marker shown is wrong, change it with the left/right arrows (&lt; &gt;) before confirming.</li><li>"Undo" cancels the last confirmation (long-press while locked).</li><li>Confirming the same marker again (the button shows "Re-confirm") moves it to where you pressed the second time. If you pressed too early, press again at the marker.</li></ul>
 <figure class="gfig"><img src="guide/g_fx_en.webp" loading="lazy" alt="Distance confirm buttons (top: unlocked, bottom: locked)" onerror="this.parentNode.hidden=true"><figcaption>Distance confirm buttons (top: unlocked, bottom: locked)</figcaption></figure>
-<p>Confirming at distance markers corrects your position. Correcting here also makes the per-km times more accurate after you finish (see "Adjusting distance and time" in "8. Log, graphs and results"). Every 5 km, if you are 10 or more minutes behind target, the strategy is adjusted automatically to your pace over the last 5 km (or to a speed that lets you finish if you might exceed the time limit).</p>
+<p>Confirming at distance markers corrects your position. Correcting here also makes the per-km times more accurate after you finish (see "Adjusting distance and time" in "8. Log, graphs and results"). From 5 km on, every 1 km the app checks over the last 5 km whether you are 10 or more minutes behind target; if so, the strategy is adjusted automatically to your pace over the last 5 km (or to a speed that lets you finish if you might exceed the time limit). After an adjustment, it re-adjusts only when the speed changes by 0.3 km/h or more, or when switching to finish-first.</p>
 <h2 id="e-6">6. Relax</h2>
 <p>Plays the songs checked "Use" at their original speed, repeating until you press "Stop". Use it for stretching or cooling down.</p>
 <ol><li>Press "3. Relax".</li><li>Relax has no tabs: the settings and songs are on one screen. In the same order as the Race "Songs" tab come the place to add songs, the song list, and the purple box "🎵 Song lists (my lists)". "Load" a set of songs from a my list, or register a new one.</li><li>To play in random order, check "Shuffle songs" and press "Play".</li></ol>
@@ -2383,7 +2383,7 @@ function raceLogTick(el){if(!RS.startAt)return;RS.log=RS.log||[];const P=posInfo
   const added0=L.length;
   for(let j=lastKm+1;j<=k;j++){let t;if(P.last&&Math.abs(P.last.km-j)<1e-6)t=P.last.t;else t=lastT+(el-lastT)*((j-lastKm)/Math.max(1e-6,pos-lastKm));
     t=Math.min(el,Math.max(lastT,t));const tg=origSecAt(j);const row={km:j,t:Math.round(t),at:RS.startAt+Math.round(t),src:srcOf(P),tgt:tg!=null?Math.round(tg*1000):null};L.push(row);
-    if(j%5===0)autoCheck(row);}
+    if(j>=5)autoCheck(row);}
   if(L.length>added0&&MODE==='race'&&opt.kmVib&&R.running)kmVibrate();
   if(L.length>added0&&opt.kmNotice!==false){const row=L[L.length-1],prev=L.length>1?L[L.length-2]:{km:0,t:0},lap=row.t-prev.t,est=row.src==='推定';
     const justFixed=!est&&!P.gps&&P.last&&Math.abs(P.last.km-row.km)<1e-6&&el-P.last.t<5000;
@@ -2395,8 +2395,8 @@ function raceLogTick(el){if(!RS.startAt)return;RS.log=RS.log||[];const P=posInfo
   const nf=(RS.fix||[]).length;if(nf!==RS._fixN||Date.now()-(RS.savedAt||0)>5000){RS._fixN=nf;runSave();}}
 function addEv(type,msg,extra){(RS.ev=RS.ev||[]).push(Object.assign({type,msg,t:Math.round(rawEl()),at:Date.now(),km:+posInfo(elapsed()).pos.toFixed(2)},extra||{}));runSave();}
 /* 5km毎：目標より10分以上遅れていたら、完走を優先した速さに切り替える */
-/* 5km毎：目標より10分以上遅れていたら、直近5kmのペースで戦略を変更。そのペースでは制限時間（関門）に間に合わないときは、完走できる速さに調整する */
-function autoCheck(row){if(RC.autoSafe===false||RS.autoOff||row.src==='推定'||row.tgt==null)return;
+/* 1km毎（5km地点から）：目標より10分以上遅れていたら、直近5kmのペースで戦略を変更。そのペースでは制限時間（関門）に間に合わないときは、完走できる速さに調整する */
+function autoCheck(row){if(RC.autoSafe===false||RS.autoOff||row.src==='推定'||row.tgt==null||row.km<5-1e-6)return;
   /* 目標より10分以上遅れているときだけ変更する */
   if(row.t-row.tgt<600000)return;
   const km=rcKm(),rem=km-row.km;if(rem<=0.2)return;const M=5*60000,g=rcGunMs(),lim=(+RC.limit||0)*60000,loss=g!=null&&RS.startAt?RS.startAt-g:0;
@@ -2407,16 +2407,18 @@ function autoCheck(row){if(RC.autoSafe===false||RS.autoOff||row.src==='推定'||
   const finish=vReq>vAct+0.05,mode=finish?'finish':'recent';
   let v=finish?Math.ceil(vReq*10)/10:Math.round(vAct*10)/10;v=Math.min(20,Math.max(4,v));
   const delay=row.tgt!=null?row.t-row.tgt:null,cur=RS.auto?RS.auto.spd:baseSpdAt(row.km);
-  const prevMode=RS.auto?RS.auto.mode:null;
+  const prevMode=RS.auto?RS.auto.mode:null,prevAuto=RS.auto;
   RS.auto={mode,from:row.km,spd:v,delay,at:row.km,vReq:+vReq.toFixed(1),vAct:+vAct.toFixed(1)};
-  if(Math.abs(cur-v)<0.1&&prevMode===mode)return;
+  /* 1 km毎に判定するので、速さが0.3 km/h以上変わるか、完走優先への切り替えのときだけ調整し直す（案内が続きすぎないように） */
+  if(prevAuto&&prevMode===mode&&Math.abs(cur-v)<0.3){RS.auto=Object.assign(prevAuto,{at:row.km});return;}
   RS.stg=-1;RS.spd=0;(RS.spdLog=RS.spdLog||[]).push({t:Math.round(rawEl()),spd:0});applyRate(true);
   let msg;
   if(finish){msg=`${row.km}キロ地点で目標より${sayMin(delay)}遅れています。直近5キロのペースでは制限時間を超えるため、完走できる時速${v.toFixed(1)}キロ、ペース${sayPace(3600/v)}に調整します。`;
     addEv('auto',`${row.km}km 戦略を自動調整：直近5km 時速${vAct.toFixed(1)}kmでは制限時間を超えるため 時速${v.toFixed(1)}km（${fmtPace(3600/v)}/km）`,{spd:v,delay});}
   else{msg=`${row.km}キロ地点で目標より${sayMin(delay)}遅れています。直近5キロのペースに合わせて、時速${v.toFixed(1)}キロ、ペース${sayPace(3600/v)}に調整します。`;
     addEv('auto',`${row.km}km 戦略を自動調整：直近5kmのペース 時速${v.toFixed(1)}km（${fmtPace(3600/v)}/km）`,{spd:v,delay});}
-  cue(false);try{speechSynthesis.cancel();}catch(e){}say(msg);renderRun();}
+  /* 1 km毎のラップ案内と同時になるので、ラップ案内を先に読み、そのあとに知らせる */
+  cue(false);setTimeout(()=>{try{queueSay(msg);}catch(e){say(msg);}},60);renderRun();}
 function renderAuto(){const b=$('#autoStat');if(!b)return;b.hidden=!(MODE==='race'&&RS.auto&&(R.running||R.done));if(b.hidden)return;
   $('#autoNow').textContent=`時速 ${RS.auto.spd.toFixed(1)}km（${fmtPace(3600/RS.auto.spd)}/km）`;
   $('#autoLbl').textContent='戦略を自動で調整中';
@@ -4087,7 +4089,7 @@ W('BGMのテンポ（直近5kmのペース）','BGM tempo (last 5 km pace)','BGM
 W('5km毎に、直近5kmのペースで戦略を自動で変更する（そのペースで制限時間を超えるときは完走優先に切り替える）','Every 5 km, automatically change the strategy to your last 5 km pace (switch to finish-first if that pace would exceed the time limit)','每5公里自动按最近5公里的配速调整策略（若该配速会超过关门时间则切换为完赛优先）','每5公里自動按最近5公里的配速調整策略（若該配速會超過關門時間則切換為完賽優先）','5km마다 최근 5km 페이스로 전략을 자동 변경 (그 페이스로 제한 시간을 넘으면 완주 우선으로 전환)');
 W('このペースでは制限時間に間に合いません','At this pace you will not make the time limit','按此配速无法在关门时间内完赛','按此配速無法在關門時間內完賽','이 페이스로는 제한 시간에 맞추지 못합니다');
 W('5km毎に、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で変更する（そのペースで制限時間を超えるときは完走優先に切り替える）','Every 5 km, if you are 10+ min behind target, automatically change the strategy to your last 5 km pace (switch to finish-first if that pace would exceed the time limit)','每5公里若落后目标10分钟以上，自动按最近5公里的配速调整策略（若该配速会超过关门时间则切换为完赛优先）','每5公里若落後目標10分鐘以上，自動按最近5公里的配速調整策略（若該配速會超過關門時間則切換為完賽優先）','5km마다 목표보다 10분 이상 늦으면 최근 5km 페이스로 전략을 자동 변경 (그 페이스로 제한 시간을 넘으면 완주 우선으로 전환)');
-W('5km毎に、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）','Every 5 km, if you are 10+ min behind target, automatically adjust the strategy to your last 5 km pace (if that pace would exceed the time limit, adjust to a speed that lets you finish)','每5公里若落后目标10分钟以上，自动按最近5公里的配速调整策略（若该配速会超过关门时间，则调整为能完赛的速度）','每5公里若落後目標10分鐘以上，自動按最近5公里的配速調整策略（若該配速會超過關門時間，則調整為能完賽的速度）','5km마다 목표보다 10분 이상 늦으면 최근 5km 페이스로 전략을 자동 조정 (그 페이스로 제한 시간을 넘으면 완주할 수 있는 속도로 조정)');
+W('1km毎に、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）','Every 1 km, if you are 10+ min behind target, automatically adjust the strategy to your last 5 km pace (if that pace would exceed the time limit, adjust to a speed that lets you finish)','每1公里若落后目标10分钟以上，自动按最近5公里的配速调整策略（若该配速会超过关门时间，则调整为能完赛的速度）','每1公里若落後目標10分鐘以上，自動按最近5公里的配速調整策略（若該配速會超過關門時間，則調整為能完賽的速度）','1km마다 목표보다 10분 이상 늦으면 최근 5km 페이스로 전략을 자동 조정 (그 페이스로 제한 시간을 넘으면 완주할 수 있는 속도로 조정)');
 W('BGMのテンポ（自動調整）','BGM tempo (auto-adjusted)','BGM节奏（自动调整）','BGM節奏（自動調整）','BGM 템포 (자동 조정)');
 W('戦略を自動で調整中','Strategy auto-adjusted','策略自动调整中','策略自動調整中','전략 자동 조정 중');
 W('直近5km分を表示しています（終了後にすべて表示）','Showing the last 5 km (all laps after you finish)','显示最近5公里（结束后显示全部）','顯示最近5公里（結束後顯示全部）','최근 5km만 표시 중 (종료 후 모두 표시)');
