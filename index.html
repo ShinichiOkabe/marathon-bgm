@@ -743,7 +743,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-05a</p>
+  <p class="ver" data-notr translate="no">版 2026-11-05b</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -787,7 +787,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-05a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-05b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -796,7 +796,7 @@ body.live .recv{display:none}
 <h4>本番：ゴールしたか、途中でやめたか</h4>
 <p>本番は、ゴールしたときも途中でやめたときも同じ「ゴール」ボタンで終えるため、「おつかれさまでした」の欄の一番上で「<strong>ゴールした</strong>」か「<strong>途中でやめた（リタイア）</strong>」を選びます。推定の距離がゴールまで1 km以内なら「ゴールした」、それより手前なら「途中でやめた」が青く目立って表示されます。選ぶまでは「閉じる」が出ません。「閉じる」を押すまでは選び直せます。</p>
 <figure class="gfig"><img src="guide/g_fin.webp" loading="lazy" alt="本番を終えたときの確認" onerror="this.parentNode.hidden=true"><figcaption>本番を終えたときの確認</figcaption></figure>
-<ul><li><strong>ゴールした</strong>：ゴールの行を「大会の距離＋ゴールを押した時点のタイム」で記録します。GPSは実際より長め（または短め）に測ることがあるため、最後に「距離の確定」で距離を合わせた地点（合わせていなければスタート）からゴールまでの1 km毎の時刻を、GPSのずれの割合に合わせて配り直します。たとえば最後に合わせたのが40 km地点で、GPSがそこからゴールまでを2.4 kmと測っていたら、実際の2.195 kmに合わせて41 km・42 kmの時刻を出し直します（詳しくは「8.」の「距離と時間の調整（時間配分）」）。制限時間を過ぎてゴールしたときも「ゴールした」を選べます。</li>
+<ul><li><strong>ゴールした</strong>：ゴールの行を「大会の距離＋ゴールを押した時点のタイム」で記録します。GPSは実際より長め（または短め）に測ることがあるため、走っている間に「確定」した看板ごとの区切り（スタート → 確定した看板 → … → ゴール）で、1 km毎の時刻をGPSのずれの割合に合わせて配り直します。確定した看板の行は、確定を押した時刻になります。たとえば最後に確定したのが40 km地点で、GPSがそこからゴールまでを2.4 kmと測っていたら、実際の2.195 kmに合わせて41 km・42 kmの時刻を出し直します（詳しくは「8.」の「距離と時間の調整（時間配分）」）。制限時間を過ぎてゴールしたときも「ゴールした」を選べます。</li>
 <li><strong>途中でやめた（リタイア）</strong>：やめた時点の推定の距離で記録を終え、表の最後に「途中で終了（リタイア）」が付きます。一覧の名前には「（途中終了）」が付き、走行距離もその距離で記録します。</li>
 <li>制限時間＋30分を過ぎて自動で終わったときも、同じように選べます（ゴールの時刻は自動で終わった時刻になります）。</li></ul>
 
@@ -876,9 +876,10 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h4 id="h-adj">距離と時間の調整（時間配分）</h4>
 <p>GPSで測る距離は、実際のコースの距離とずれます。コースの内側（最短の線）を走れなかった分や、建物・木による電波のぶれで長めに出ることが多く、トンネルや高いビルの間で電波が切れると短めに出ることもあります。フルマラソンでは数百m〜1 kmほどずれることがあります。そのため、本番では次のように調整しています。</p>
 <ul><li><strong>走っている間</strong>：距離の看板の所で「距離の確定」を長押しすると、推定の現在地を看板の距離に合わせ直します。ずれは、最後に合わせた地点からの分だけになります。推定の距離は大会の距離を超えないようにしています。</li>
-<li><strong>ゴールしたあと</strong>：「おつかれさまでした」の欄で「ゴールした」を選ぶと、ゴールの行を「大会の距離（フルなら42.195 km）＋ゴールを押した時点のタイム」で記録します。そのうえで、最後に「距離の確定」で合わせた地点（合わせていなければスタート）からゴールまでの1 km毎の時刻を、GPSのずれの割合で配り直します。中間点・関門の通過時刻と、地図上の数字の位置も同じように直します。</li>
-<li><strong>例</strong>：最後に「距離の確定」を押したのが40 km地点で、GPSがそこからゴールまでを2.4 kmと測っていた場合、実際の距離は2.195 kmなので、41 km・42 kmの時刻をその割合で出し直します。直さないと、推定が先に42.195 kmに届いてしまい、最後のラップや後半のタイムが実際より速く見えます。</li>
-<li><strong>途中でやめた（リタイア）とき</strong>：看板で合わせられないため調整はせず、やめた時点の推定の距離で記録します。</li>
+<li><strong>確定した時刻は別に残します</strong>：「確定」を押すと、その看板の距離と押した時刻、押す直前の推定の距離を、走っている間の記録とは別に残します。走っている間の表は推定の距離のまま記録しておき、あとで置き換えられるようにしています（取消や確定し直しをしても、元に戻せます）。</li>
+<li><strong>ゴールしたあと</strong>：「おつかれさまでした」の欄で「ゴールした」を選ぶと、スタート → 確定した看板 → … → ゴールの区切りごとに、GPSで測った距離と実際の距離（看板の距離）の割合で1 km毎の時刻を配り直します。確定した看板の行は確定を押した時刻、ゴールの行は「大会の距離＋ゴールを押した時点のタイム」になります。中間点・関門・折り返しの通過時刻と、地図上の数字の位置も同じように直します。</li>
+<li><strong>例</strong>：5 kmで初めて確定し、GPSがスタートからそこまでを5.25 kmと測っていた場合、1〜4 kmの時刻を5÷5.25の割合で出し直し、5 kmの行は確定を押した時刻にします。最後に確定したのが40 km地点で、GPSがそこからゴールまでを2.4 kmと測っていた場合は、実際の2.195 kmに合わせて41 km・42 kmの時刻を出し直します。直さないと、推定が先に42.195 kmに届いてしまい、最後のラップや後半のタイムが実際より速く見えます。</li>
+<li><strong>途中でやめた（リタイア）とき</strong>：最後に確定した看板までは同じように配り直します。そこから先は看板で合わせられないため、やめた時点の推定の距離で記録します。</li>
 <li><strong>屋外の練習</strong>：合わせる看板がないので、GPSで測った距離をそのまま記録します。</li></ul>
 <p>こまめに「距離の確定」で合わせるほど、1 km毎のラップは実際に近くなります。すべての看板で押す必要はなく、5 kmごとなど気づいたときだけでも効果があります。</p>
 <h4>表示する地点を選ぶ</h4>
@@ -984,7 +985,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-05a" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-05b" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -993,7 +994,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h4>Race: did you finish or stop?</h4>
 <p>In a race, the same "Finish" button is used whether you finished or stopped partway, so choose "<strong>I finished</strong>" or "<strong>I stopped (DNF)</strong>" at the top of the "Well done!" box. If the estimated distance is within 1 km of the finish, "I finished" is highlighted; otherwise "I stopped" is. "Close" appears only after you choose, and you can change your choice until you press "Close".</p>
 <figure class="gfig"><img src="guide/g_fin_en.webp" loading="lazy" alt="The question shown after a race" onerror="this.parentNode.hidden=true"><figcaption>The question shown after a race</figcaption></figure>
-<ul><li><strong>I finished</strong>: the finish row is recorded with the race distance and the time you pressed "Finish". Because GPS can measure longer (or shorter) than the course, the per-km times from the last point you corrected with "Confirm distance" (or the start if you never did) to the finish are redistributed by the GPS error ratio. For example, if you last corrected at 40 km and GPS measured 2.4 km from there to the finish, the 41 km and 42 km times are recalculated for the real 2.195 km (see "Adjusting distance and time" in "8." for details). You can choose "I finished" even if you finished after the time limit.</li>
+<ul><li><strong>I finished</strong>: the finish row is recorded with the race distance and the time you pressed "Finish". Because GPS can measure longer (or shorter) than the course, the per-km times are redistributed by the GPS error ratio for each section between the markers you confirmed while running (start → confirmed markers → … → finish); a confirmed marker row gets the time you pressed "Confirm". For example, if you last confirmed at 40 km and GPS measured 2.4 km from there to the finish, the 41 km and 42 km times are recalculated for the real 2.195 km (see "Adjusting distance and time" in "8." for details). You can choose "I finished" even if you finished after the time limit.</li>
 <li><strong>I stopped (DNF)</strong>: the log ends at the estimated distance where you stopped, with "Stopped (DNF)" at the end of the table. "(DNF)" is added to the name in the list, and the distance record uses that distance.</li>
 <li>If recording ends automatically at the time limit + 30 min, you can choose in the same way (the finish time is when it ended automatically).</li></ul>
 
@@ -1073,9 +1074,10 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <h4 id="e-adj">Adjusting distance and time</h4>
 <p>The distance measured by GPS differs from the real course distance. It is often longer, because you cannot always run the shortest line and because buildings and trees make the signal wander, and it can be shorter when the signal drops in tunnels or between tall buildings. In a full marathon the difference can be several hundred meters to about 1 km. In a race the app therefore adjusts as follows.</p>
 <ul><li><strong>While running</strong>: long-press "Confirm distance" at a distance marker to reset the estimated position to the marker distance. The error then only builds up from the last point you corrected. The estimated distance never exceeds the race distance.</li>
-<li><strong>After you finish</strong>: when you choose "I finished" in the "Well done!" box, the finish row is recorded with the race distance (42.195 km for a full marathon) and the time you pressed "Finish". Then the per-km times from the last point you corrected with "Confirm distance" (or the start if you never did) to the finish are redistributed by the GPS error ratio. Halfway and cutoff times and the numbered markers on the map are adjusted the same way.</li>
-<li><strong>Example</strong>: if you last pressed "Confirm distance" at 40 km and GPS measured 2.4 km from there to the finish, the real distance is 2.195 km, so the 41 km and 42 km times are recalculated by that ratio. Without this, the estimate would reach 42.195 km too early and the last laps and second-half time would look faster than they were.</li>
-<li><strong>If you stopped (DNF)</strong>: there is no marker to correct against, so no adjustment is made; the log ends at the estimated distance where you stopped.</li>
+<li><strong>Confirmation times are kept separately</strong>: when you press "Confirm", the marker distance, the time you pressed and the estimate just before are saved apart from the running log. The table during the run keeps the estimated distances so they can be replaced later (undo and re-confirm can always be reversed).</li>
+<li><strong>After you finish</strong>: when you choose "I finished" in the "Well done!" box, the per-km times are redistributed for each section — start → confirmed markers → … → finish — by the ratio of the GPS distance to the real (marker) distance. A confirmed marker row gets the time you pressed "Confirm", and the finish row gets the race distance and the time you pressed "Finish". Halfway, cutoff and turnaround times and the numbered markers on the map are adjusted the same way.</li>
+<li><strong>Example</strong>: if you first confirm at 5 km and GPS measured 5.25 km from the start to there, the 1–4 km times are recalculated by 5 ÷ 5.25 and the 5 km row gets the time you pressed "Confirm". If you last confirmed at 40 km and GPS measured 2.4 km from there to the finish, the 41 km and 42 km times are recalculated for the real 2.195 km. Without this, the estimate would reach 42.195 km too early and the last laps and second-half time would look faster than they were.</li>
+<li><strong>If you stopped (DNF)</strong>: sections up to the last confirmed marker are redistributed in the same way; after that there is no marker to correct against, so the log ends at the estimated distance where you stopped.</li>
 <li><strong>Outdoor training</strong>: there are no markers, so the GPS distance is recorded as is.</li></ul>
 <p>The more often you correct with "Confirm distance", the closer the per-km laps are to reality. You do not need to press it at every marker; doing it now and then, such as every 5 km, already helps.</p>
 <h4>Choose which points to show</h4>
@@ -4787,7 +4789,7 @@ function posRaw(el){const f=RS.fix||[],last=f[f.length-1],e=rcEff();
   const prev=f.length>1?f[f.length-2]:{km:0,t:0};let pace=(last.t-prev.t)/1000/Math.max(0.01,last.km-prev.km);if(!(pace>150&&pace<1200))pace=last.t/1000/Math.max(0.01,last.km);
   return {g:last.km+Math.max(0,el-last.t)/1000/pace,gps:false};}
 {const _ac=archiveCurrent;archiveCurrent=function(result){const el=Math.round(R.done?R.acc:rawEl()),man=(RS.fix||[]).filter(x=>!x.gps&&x.t<=el),a=man[man.length-1]||{km:0,t:0},pr=posRaw(el);
-  const r=_ac.apply(this,arguments);try{const d=raceLogs[0];if(d&&d.startAt===RS.startAt){d._fin={kf:a.km,tf:a.t,g:pr.g,gps:pr.gps,el,auto:result==='limit'};store.set(LOGS_KEY,raceLogs);}}catch(e){}return r;};}
+  const r=_ac.apply(this,arguments);try{const d=raceLogs[0];if(d&&d.startAt===RS.startAt){d._fin={kf:a.km,tf:a.t,g:pr.g,gps:pr.gps,el,auto:result==='limit',fixes:man.map(f=>({km:f.km,t:f.t,pre:f.pre!=null?f.pre:null}))};store.set(LOGS_KEY,raceLogs);}}catch(e){}return r;};}
 /* 区間の対応表（GPSなどで測った距離 → 時刻）から、ある距離の時刻を求める */
 function finMap(d,F){const pts=[[F.kf,F.tf]];
   if(F.gps&&d.geo&&d.geo.trk){d.geo.trk.forEach(p=>{if(p[4]>F.tf&&p[4]<=F.el&&p[0]>=F.kf)pts.push([p[0],p[4]]);});}
@@ -4796,15 +4798,25 @@ function finMap(d,F){const pts=[[F.kf,F.tf]];
   const P=[];pts.forEach(p=>{const l=P[P.length-1];if(l&&p[1]<l[1])return;if(l&&Math.abs(p[0]-l[0])<1e-6){l[1]=Math.max(l[1],p[1]);return;}P.push([p[0],p[1]]);});
   return g=>{if(g<=P[0][0])return P[0][1];for(let i=1;i<P.length;i++){if(g<=P[i][0]){const a=P[i-1],b=P[i],f=(g-a[0])/Math.max(1e-9,b[0]-a[0]);return Math.round(a[1]+(b[1]-a[1])*f);}}return P[P.length-1][1];};}
 function raceFinalize(d,goal){if(!d||!d._fin)return;if(!d._orig)d._orig=JSON.stringify({log:d.log,ev:d.ev,geo:d.geo});
-  const o=JSON.parse(d._orig);d.log=o.log;d.ev=o.ev;d.geo=o.geo;const F=d._fin,D=+d.km||rcKm(),el=F.el,src=(d.log.slice(-1)[0]||{}).src||'推定';
-  const T=finMap(d,F);
-  if(goal){const span=F.g-F.kf,r=span>0.05?(D-F.kf)/span:1,G=k=>F.kf+(k-F.kf)/r;
-    const old={};d.log.forEach(x=>{old[x.km]=x;});const keep=d.log.filter(x=>x.km<=F.kf+1e-6);
-    for(let k=Math.floor(F.kf+1e-6)+1;k<D-1e-6;k++){const t=Math.min(el,T(G(k))),tg=origSecAt(k),o2=old[k];keep.push({km:k,t,at:d.startAt+t,src:o2?o2.src:'推定',tgt:tg!=null?Math.round(tg*1000):(o2?o2.tgt:null)});}
-    const tg=origSecAt(D);keep.push({km:+D.toFixed(3),t:el,at:d.startAt+el,src,tgt:tg!=null?Math.round(tg*1000):null});d.log=keep;
-    ((d.geo&&d.geo.pass)||[]).forEach(p=>{if(p.km>F.kf+1e-6){const t=Math.min(el,T(G(p.km)));p.t=t;p.at=d.startAt+t;}});
-    if(d.geo&&d.geo.trk&&r!==1)d.geo.trk.forEach(p=>{if(p[4]>F.tf&&p[0]>=F.kf)p[0]=+(F.kf+(p[0]-F.kf)*r).toFixed(3);});
-    d.result='finish';}
+  const o=JSON.parse(d._orig);d.log=o.log;d.ev=o.ev;d.geo=o.geo;const F=d._fin,D=+d.km||rcKm(),el=F.el,src=(d.log.slice(-1)[0]||{}).src||'推定',T0=(d.geo&&d.geo.trk)||[];
+  /* 区切り：スタート → 確定した地点（確定した時刻）… → ゴール。区切りごとに、GPSで測った距離と実際の距離の割合で時刻を配り直す */
+  const preOf=f=>{if(f.pre!=null)return f.pre;let g=null;T0.forEach(p=>{if(p[4]<=f.t)g=p[0];});return g;};
+  const fx=(F.fixes||[]).filter(f=>f.km>0&&f.km<D-1e-6&&f.t<=el).map(f=>({km:f.km,t:f.t,pre:preOf(f)})).filter(f=>f.pre!=null).sort((a,b)=>a.t-b.t);
+  const ends=fx.slice();if(goal)ends.push({km:D,t:el,pre:Math.max(F.g,(fx.length?fx[fx.length-1].km:0)+1e-3),goal:true});
+  const rows0=o.log,old={};rows0.forEach(x=>{old[x.km]=x;});const out=[],passes=(d.geo&&d.geo.pass)||[];let a={km:0,t:0};
+  for(const b of ends){const span=b.pre-a.km,r=span>0.05?(b.km-a.km)/span:1,G=k=>a.km+(k-a.km)/r;
+    const pts=[[a.km,a.t]];T0.forEach(p=>{if(p[4]>a.t&&p[4]<=b.t&&p[0]>=a.km-1e-6)pts.push([p[0],p[4]]);});
+    rows0.forEach(x=>{if(x.t>a.t&&x.t<=b.t&&x.km>a.km&&x.km<b.pre)pts.push([x.km,x.t]);});pts.push([Math.max(b.pre,a.km+1e-3),b.t]);
+    pts.sort((p,q)=>p[0]-q[0]||p[1]-q[1]);const P=[];pts.forEach(p=>{const l=P[P.length-1];if(l&&p[1]<l[1])return;if(l&&Math.abs(p[0]-l[0])<1e-6){l[1]=Math.max(l[1],p[1]);return;}P.push([p[0],p[1]]);});
+    const T=g=>{if(g<=P[0][0])return P[0][1];for(let i=1;i<P.length;i++){if(g<=P[i][0]){const u=P[i-1],v=P[i],f=(g-u[0])/Math.max(1e-9,v[0]-u[0]);return Math.round(u[1]+(v[1]-u[1])*f);}}return P[P.length-1][1];};
+    for(let k=Math.floor(a.km+1e-6)+1;k<b.km-1e-6;k++){const t=Math.min(b.t,Math.max(a.t,T(G(k)))),o2=old[k],tg=origSecAt(k);out.push({km:k,t,at:d.startAt+t,src:o2?o2.src:'推定',tgt:tg!=null?Math.round(tg*1000):(o2?o2.tgt:null)});}
+    if(Math.abs(b.km-Math.round(b.km))<1e-6||b.goal){const o2=old[+b.km.toFixed(3)]||old[Math.round(b.km)],tg=origSecAt(b.km);out.push({km:+b.km.toFixed(3),t:b.t,at:d.startAt+b.t,src:b.goal?src:'補正',tgt:tg!=null?Math.round(tg*1000):(o2?o2.tgt:null)});}
+    passes.forEach(p=>{if(p.km>a.km+1e-6&&p.km<=b.km+1e-6){const t=Math.abs(p.km-b.km)<1e-6?b.t:Math.min(b.t,T(G(p.km)));p.t=t;p.at=d.startAt+t;}});
+    if(r!==1)T0.forEach(p=>{if(p[4]>a.t&&p[4]<=b.t&&p[0]>=a.km-1e-6)p[0]=+(a.km+(p[0]-a.km)*r).toFixed(3);});
+    a=b;}
+  /* 最後の区切りより先（途中でやめたとき）は、元の記録のまま */
+  rows0.forEach(x=>{if(x.km>a.km+1e-6&&!goal)out.push(x);});d.log=out.sort((x,y)=>x.km-y.km);
+  if(goal){d.result='finish';}
   else{const pos=Math.max(0,Math.min(F.g,D));d.log=d.log.filter(x=>x.km<pos-1e-6&&x.km<D-1e-6);
     if(pos>0.05){const tg=origSecAt(pos);d.log.push({km:+pos.toFixed(2),t:el,at:d.startAt+el,src,tgt:tg!=null?Math.round(tg*1000):null});}
     if(d.geo&&d.geo.pass)d.geo.pass=d.geo.pass.filter(p=>p.km<=pos+1e-6);
@@ -4886,8 +4898,10 @@ function fxCand(){const M=fxMarks();if(!M.length)return null;const est=posInfo(e
   let b=-1;M.forEach((m,j)=>{if(m.km<=est+0.1)b=j;});const li=last?M.findIndex(m=>Math.abs(m.km-last.km)<1e-6):-1,mi=Math.max(0,li);
   if(b<mi)b=mi;let i=Math.min(M.length-1,Math.max(mi,b+FX.off));FX.off=i-b;return {M,i,m:M[i],est,last,mi,redo:last&&Math.abs(M[i].km-last.km)<1e-6};}
 /* 確定したときのGPSの状態を控えておき、取消のときに元へ戻す */
-{const _df=doFix;doFix=function(k,tt){const g={base:GPS.base,dist:GPS.dist,t0:GPS.t0,lastEl:GPS.lastEl,on:GPS.on},n=(RS.fix||[]).length;const r=_df.apply(this,arguments);
-  try{if(RS.fix.length>n)RS.fix[RS.fix.length-1].g=g;}catch(e){}return r;};}
+{const _df=doFix;doFix=function(k,tt){const g={base:GPS.base,dist:GPS.dist,t0:GPS.t0,lastEl:GPS.lastEl,on:GPS.on},n=(RS.fix||[]).length;
+  /* 確定する直前の推定の距離（GPSで測った距離）を、確定した時刻と一緒に別に残す。最終の記録はこれで調整する */
+  let pre=null;try{pre=posRaw(tt!=null?tt:elapsed()).g;}catch(e){}const r=_df.apply(this,arguments);
+  try{if(RS.fix.length>n){const f=RS.fix[RS.fix.length-1];f.g=g;if(pre!=null)f.pre=+pre.toFixed(4);}}catch(e){}return r;};}
 function fxPop(f){const i=RS.fix.lastIndexOf(f);if(i<0)return;RS.fix.splice(i,1);
   if(f.g&&GPS.on&&f.g.on){const d1=GPS.dist;GPS.base=f.g.base;GPS.dist=f.g.dist+d1;GPS.t0=f.g.t0;}runSave();}
 function fxConfirm(){if(MODE!=='race'||!R.running)return;const c=fxCand();if(!c)return;const el=elapsed();
