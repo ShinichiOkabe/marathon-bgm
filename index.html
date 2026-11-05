@@ -765,7 +765,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-05e</p>
+  <p class="ver" data-notr translate="no">版 2026-11-06a</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -810,7 +810,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-05e」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-06a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -836,6 +836,7 @@ body.live .recv{display:none}
 <figure class="gfig"><img src="guide/g_auto.webp" loading="lazy" alt="自動生成の画面。大会と目標タイムを選び、「本日の練習メニューを自動生成する」を押します" onerror="this.parentNode.hidden=true"><figcaption>自動生成の画面。大会と目標タイムを選び、「本日の練習メニューを自動生成する」を押します</figcaption></figure>
 <ol><li>「目標の大会」で、保存されている本番レース情報から大会を選びます（「2. 本番」の「大会」タブで、開催日と距離を入れて保存した大会が出ます）。</li><li>「目標タイム」を確かめます。大会に目標タイムを入れてあればそれが入ります。変えることもできます。</li><li>必要なら「練習する曜日の設定」で、走る曜日（初期は火曜が休み）、LSDの曜日（初期は土曜）、ペース走の曜日（初期は水曜）を選びます。</li><li>「今週の練習距離」に、今週の目標距離・ここまでの距離・曜日ごとの実績が出ます。</li><li>「本日の練習メニューを自動生成する」を押すと、今日のメニューと、そうした理由が出ます。「このメニューで走る」を押すと、練習メニューがそのステージに入れ替わります。「作り直す」を押すと、ジョグ・ペース走・LSDを順に入れ替えて作り直します。</li></ol>
 <p>週の目標距離は、「走行距離」の記録の最近4週の平均から始め、週に最大10%ずつ増やします。4週に1回は距離を落とす回復週、大会前の3週は距離を減らす調整期間です。いちばん多い週の距離は目標タイムで決まります。今日の距離は、今週の残り距離を残りの練習日で分けて決めます（LSDの日は多め、ペース走の日はやや多め）。ペースは、ジョグとLSDが目標ペースより1分10〜20秒ほど遅く、ペース走は目標ペース（距離を増やしている時期は＋10秒）です。</p>
+<p><strong>休みの曜日に走ったとき</strong>：「練習する曜日」は、自動生成がメニューを作る曜日の設定です。休みの曜日に走っても記録はそのまま今週の距離に数え、曜日の欄には走った距離が出ます。その分だけ残りの距離が減り、残りの練習日のメニューが軽くなります。走らなかった休みの曜日には「休」と出ます。</p>
 <p>自動生成のメニューは、一般的な練習の考え方に沿った目安です。体調や脚の状態に合わせて、ステージの距離やペースを変えて使ってください。</p>
 <h3>屋外の練習を記録に残す</h3>
 <p>「屋外（GPSの距離で進む）」で走った練習は、終わったときに「この練習を記録に残しますか？」と聞かれます。メニューを最後まで走って終わったときと、途中で「練習を終了」（または「リセット」）を押して終えたときの両方です（200 m未満のときは聞きません）。</p>
@@ -1013,7 +1014,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-05e" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-06a" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1039,6 +1040,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <figure class="gfig"><img src="guide/g_auto_en.webp" loading="lazy" alt="Auto plan: choose the race and target time, then generate today's menu" onerror="this.parentNode.hidden=true"><figcaption>Auto plan: choose the race and target time, then generate today's menu</figcaption></figure>
 <ol><li>Under "Target race", choose a race from your saved race info (races saved with a date and distance on "2. Race" → "Race" tab appear here).</li><li>Check the "Goal time". The race's goal time is filled in if you entered one; you can change it.</li><li>If needed, use "Training days" to choose your running days (Tuesday is a rest day at first), the LSD day (Saturday at first) and the pace run day (Wednesday at first).</li><li>"This week's distance" shows this week's target, the distance so far and each day's distance.</li><li>Press "Generate today's menu" to see today's menu and why it was chosen. "Run this menu" replaces your training menu with those stages. "Remake" cycles through jog, pace run and LSD.</li></ol>
 <p>The weekly target starts from your average of the last 4 weeks in "Distance" and grows by up to 10% a week. Every 4th week is a lighter recovery week, and the 3 weeks before the race taper off. The peak week depends on your goal time. Today's distance is the rest of this week's target split over the remaining running days (more on the LSD day, a little more on the pace run day). Jog and LSD are about 1:10 to 1:20 per km slower than goal pace; the pace run is at goal pace (+10 s while building up distance).</p>
+<p><strong>If you run on a rest day</strong>: "Training days" only sets the days the generator makes a menu for. A run on a rest day still counts toward this week's distance, and the day shows the distance you ran. The rest of the week's target goes down by that amount, so the menus for the remaining running days get lighter. A rest day with no run shows "Rest".</p>
 <p>Generated menus are a general guide. Adjust the stage distances and paces to how you and your legs feel.</p>
 <h3>Save outdoor training runs</h3>
 <p>When an "Outdoor (GPS distance)" training run ends, you are asked "Save this training run?". This happens both when you finish the whole menu and when you end early with "End training" (or "Reset") (not under 200 m).</p>
