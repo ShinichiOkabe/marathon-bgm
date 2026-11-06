@@ -267,7 +267,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .help-body .glink{display:flex;align-items:stretch;gap:4px;margin:10px 0 14px}.help-body .glink div{flex:1 1 0;min-width:0;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 4px;font-size:.72rem;line-height:1.35}.help-body .glink div b{display:block;font-size:1.6rem;line-height:1.2}.help-body .glink div strong{display:block;font-size:.8rem;margin:2px 0}.help-body .glink i{align-self:center;font-style:normal;font-weight:700;color:var(--accent);font-size:1.2rem}
 .help-body table{width:100%;border-collapse:collapse;margin:8px 0 12px;font-size:.85rem}.help-body th,.help-body td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}.help-body th{background:var(--surface)}
 .help-body pre{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:.78rem}.help-body ol,.help-body ul{padding-left:1.4em}.help-body a{color:var(--accent)}
-.support{margin:28px 0 0;text-align:center;font-size:.8rem;color:var(--muted)}.support p{margin:0 0 8px}.support-btn{display:inline-block;padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font-weight:700}
+.support{margin:28px 0 0;text-align:center;font-size:.8rem;color:var(--muted)}.support p{margin:0 0 8px}.support .support-mail{margin:14px 0 0;line-height:1.6}.support-mail a{color:var(--accent);word-break:break-all}.support-btn{display:inline-block;padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font-weight:700}
 .ver{margin:24px 0 8px;text-align:center;font-size:.72rem;color:var(--muted)}
 @keyframes rphit{0%,60%{box-shadow:0 0 0 4px var(--amber);background:var(--amber-soft)}100%{box-shadow:none}}#rcName.rp-hit{animation:rphit 2.4s ease-out}
 .csv-sel{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.csv-sel select{flex:1 1 200px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
@@ -480,12 +480,7 @@ body.live .recv{display:none}
       <div class="sub cloud-st" id="cloudSt"></div>
       <div class="ctrls"><button class="small" type="button" id="cloudIn" hidden>サインイン</button><button class="small" type="button" id="cloudNow" hidden>今すぐ保存</button><button class="small" type="button" id="cloudOut" hidden>サインアウト</button></div>
     </div>
-    <div class="cloud" id="impBox">
-      <div class="cloud-row"><span>旧データの取り込み</span></div>
-      <div class="sub">以前の版で「CSVをダウンロード」した本番ログを取り込み、表示できる範囲で表示します。</div>
-      <div class="ctrls"><button class="small" type="button" id="impBtn">CSVを選ぶ</button><input type="file" id="impCsv" accept=".csv,text/csv" multiple hidden></div>
-      <div class="sub" id="impMsg"></div>
-    </div>
+    <div id="impBox" hidden style="display:none"></div>
     <div id="distBox" class="dist" hidden>
       <div class="dcard" id="dGoal"></div>
       <div class="dcard"><b class="dh">月ごとの走行距離</b><div id="dChart"></div>
@@ -764,8 +759,8 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a></div>
-  <p class="ver" data-notr translate="no">版 2026-11-06a</p>
+  <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。</p></div>
+  <p class="ver" data-notr translate="no">版 2026-11-06b</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -795,7 +790,7 @@ body.live .recv{display:none}
 <p>屋外の練習と本番では、次の順に準備すると、音楽・音声のお知らせ・GPSの記録が途切れにくくなります。</p>
 <ol class="gflow"><li><b>防水カバーに入れる</b>汗や雨から守る</li><li><b>アプリを開いてGPSをつかむ</b>「GPSの位置をつかみました」</li><li><b>Wi‑Fi OFF・機内モード ON</b>スタートの前に</li><li><b>スタート</b>画面はつけたまま</li><li class="go"><b>走り終わったらネットにつなぐ</b>機内モード OFF</li></ol>
 <ol><li><strong>防水カバー（防水ケース）に入れる</strong>：汗や雨でスマホが濡れると、画面が勝手に反応したり故障したりします。スマホ用の防水ケースや防水のアームバンド、ジッパー付きの袋に入れて走ってください。入れたままでも画面にふれられるものが便利です。</li>
-<li><strong>アプリを開いてGPSの位置をつかむ</strong>：ネットにつながっているうちにこのアプリを開き、「GPSの位置をつかみました。」と出るまで待ちます（屋外の練習は「屋外」を選んだとき、本番は「本番待機を始める」を押したあと、スタート1分前から）。</li>
+<li><strong>アプリを開いてGPSの位置をつかむ</strong>：ネットにつながっているうちにこのアプリを開き、「GPSの位置をつかみました。」と出るまで待ちます（屋外の練習は「屋外」を選んだとき、本番は「本番待機を始める」を押したあと、スタート30分前から（それより後に押したときはすぐ）。GPSは自動でONになり、ON・OFFのボタンはありません。屋内の練習ではGPSは使いません）。</li>
 <li><strong>Wi‑FiをOFFにし、機内モードをONにする</strong>：GPSの位置をつかんだら、スタートの前にWi‑FiをOFF、機内モードをONにします。電波を探し続けたり、電話・通知・アプリの更新が割り込んだりしなくなるので、動作が安定し、電池も長持ちします。<strong>機内モードでもGPS（位置）・音楽・音声のお知らせは使えます。</strong>GPSの位置をつかんだあともネットにつながっていると、画面に「📶 Wi‑Fiがつながっています。機内モードとWi‑Fiを確かめてください」（モバイル通信のときは「モバイル通信がつながっています」）と出ます。機内モードにすると自動で消えます。機内モードにしたのにWi‑Fiが自動でつながってしまったときも、このお知らせで気づけます。ネットにつないだまま走るときは「このまま走る」を押すと消えます。ネットにつないだまま走っても、音楽・GPSの記録・音声案内は普通に動きます。機内モードにすると電話や通知の割り込みがなくなり、電池も長持ちします。家族からの連絡を受けたいときは、機内モードの代わりに「おやすみモード（集中モード）」で、決めた人の電話だけ通す方法もあります。</li>
 <li><strong>Bluetoothイヤホンを使うとき</strong>：機種によっては機内モードでBluetoothも切れます。そのときは機内モードにしたあと、Bluetoothだけ ON に戻してイヤホンをつなぎ直します。</li>
 <li><strong>画面はつけたまま（ロックのまま）にする</strong>：スタートすると画面ロックになります。電源ボタンで画面を消したり、ほかのアプリに切り替えたりすると、音楽・音声・GPSの記録が止まることがあります。このアプリを開いている間は画面が消えないようにしていますが、スマホの「画面が消えるまでの時間」も長めにしておくと安心です。</li>
@@ -810,7 +805,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-06a」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-06b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -867,7 +862,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <figure class="gfig"><img src="guide/g_race.webp" loading="lazy" alt="「大会」タブの入力例。関門・給水所・折り返し地点を1行ずつ書くと、下に読み取った内容が出ます" onerror="this.parentNode.hidden=true"><figcaption>「大会」タブの入力例。関門・給水所・折り返し地点を1行ずつ書くと、下に読み取った内容が出ます</figcaption></figure>
 <p>給水所の「内容」は、「水」は給水、「食」は食べ物、それ以外は書いた品名のままです。入力欄の下の「読み取った…」で、正しく読めたか確かめられます。別の大会に切り替えるときは、「本番レース情報・戦略を保存」の「読み込む」を押します。</p>
 <h3>当日の流れ</h3>
-<ol><li>スタートの少し前に「<strong>本番待機を始める</strong>」を押し、画面はつけたままにします。</li><li>スタートの5分前に音楽が始まり、1分前にGPSが自動でONになります。GPSはゴールまでONのままで、OFFにするボタンはありません（距離とペースの精度を優先するためです。フルマラソンでも電池は十分持ちますが、満充電で臨んでください）。画面を開き直したときなどにGPSが切れていたら、自動でONに戻します。自分のスタート時刻にはチャイムが鳴ります。</li><li>スタートラインを越えたら「<strong>スタート</strong>」を押します（スタート時刻の1秒前までは押せません）。画面がロックされ、あとは走るだけです。</li><li>ゴールしたら、画面下のバーの「<strong>ゴール</strong>」を長押しします。</li><li>「おつかれさまでした」の欄で「<strong>ゴールした</strong>」か「<strong>途中でやめた（リタイア）</strong>」を選びます。そのあとネットにつないで保存が済むのを待ち、「<strong>閉じる</strong>」を押します（「3. 画面の見方」の「終わったあと：記録の保存と「閉じる」」）。</li></ol>
+<ol><li>スタートの少し前に「<strong>本番待機を始める</strong>」を押し、画面はつけたままにします。</li><li>待機中はスタートの30分前にGPSが自動でONになり（それより後に待機を始めたときはすぐ）、スタートの5分前に音楽が始まります。GPSはゴールまでONのままで、ON・OFFのボタンはありません（距離とペースの精度を優先するためです。フルマラソンでも電池は十分持ちますが、満充電で臨んでください）。画面を開き直したときなどにGPSが切れていたら、自動でONに戻します。自分のスタート時刻にはチャイムが鳴ります。</li><li>スタートラインを越えたら「<strong>スタート</strong>」を押します（スタート時刻の1秒前までは押せません）。画面がロックされ、あとは走るだけです。</li><li>ゴールしたら、画面下のバーの「<strong>ゴール</strong>」を長押しします。</li><li>「おつかれさまでした」の欄で「<strong>ゴールした</strong>」か「<strong>途中でやめた（リタイア）</strong>」を選びます。そのあとネットにつないで保存が済むのを待ち、「<strong>閉じる</strong>」を押します（「3. 画面の見方」の「終わったあと：記録の保存と「閉じる」」）。</li></ol>
 <h3>走っている間の表示</h3>
 <table><thead><tr><th>表示</th><th>意味</th></tr></thead><tbody><tr><td>スタートから</td><td>自分がスタートを押してからの時間</td></tr><tr><td>制限時間まで</td><td>号砲からの制限時間の残り</td></tr><tr><td>推定の現在地</td><td>GPS・1 km通過・目標ペースから計算した今の距離</td></tr><tr><td>次の関門・次の給水</td><td>そこまでの距離、閉鎖までの時間や内容</td></tr><tr><td>30分後の目標距離</td><td>戦略どおりなら30分後にいるはずの距離</td></tr></tbody></table>
 <p><strong>ネットタイムとグロスタイム</strong>：走っている間の大きなタイマーは、自分が「スタート」を押してからの時間（ネットタイム）です。ゴールすると、グロスタイムも表示します。グロスタイムは「スタート時刻＋ウェーブの遅れ」（自分のウェーブのスタート）からゴールまでの時間で、ネットタイムは、自分がスタートラインを通過してからゴールまでの時間です。本番では、走っている間に曲を一時停止しても時計は止まりません。グロスタイムはログとCSVにも残ります。</p>
@@ -896,7 +891,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>実際の折り返し点ではない行は、表の「削除」を押し、「もう一度押すと削除」と出たらもう一度押して消してください。</p>
 <h4>関門と制限時間</h4>
 <p>関門まであと何km・必要ペース・余裕は、「距離の確定」で分かったGPSのずれの割合で直した距離で計算します（「距離と時間の調整（時間配分）」）。最終関門を通過すると、「最終関門を通過しました。制限時間まで、あと○分です。ゴールまであと○キロ、1キロ○分○秒より速ければ間に合います。」と音声で知らせます。「大会」タブに関門を入れておくと、各関門を通過した時刻を記録し、表の関門の行に「閉鎖」の時刻と「余裕」（閉鎖まで何分前に通過したか）を表示します。余裕が10分未満なら黄色、閉鎖後の通過なら赤で表示します。上の行には制限時間と、ゴールしたときの制限時間までの余裕も出ます。閉鎖の時刻は開催日とスタート時刻（号砲）から計算するので、両方を入れておいてください。入れていないときは、自分がスタートを押した時刻から計算した目安になります。前回の大会と比べるときは、「比較のラップ」の欄に前回の関門の余裕が出ます。</p>
-<figure class="gfig wide"><img src="guide/g_table.webp" loading="lazy" alt="1 km毎の表。関門の行には閉鎖までの余裕、折り返しには「GPSで確認」が出ます" onerror="this.parentNode.hidden=true"><figcaption>1 km毎の表。関門の行には閉鎖までの余裕、折り返しには「GPSで確認」が出ます</figcaption></figure>
+<figure class="gfig wide"><img src="guide/g_table.webp" loading="lazy" alt="1 km毎の表（22 kmまで。実際の表はゴールまで続きます）。関門の行には閉鎖までの余裕、折り返しには「GPSで確認」が出ます" onerror="this.parentNode.hidden=true"><figcaption>1 km毎の表（22 kmまで。実際の表はゴールまで続きます）。関門の行には閉鎖までの余裕、折り返しには「GPSで確認」が出ます</figcaption></figure>
 <h4 id="h-adj">距離と時間の調整（時間配分）</h4>
 <p>GPSで測る距離は、実際のコースの距離とずれます。コースの内側（最短の線）を走れなかった分や、建物・木による電波のぶれで長めに出ることが多く、トンネルや高いビルの間で電波が切れると短めに出ることもあります。フルマラソンでは数百m〜1 kmほどずれることがあります。そのため、本番では次のように調整しています。</p>
 <ul><li><strong>走っている間</strong>：距離の看板の所で「距離の確定」を長押しすると、推定の現在地を看板の距離に合わせ直します。ずれは、最後に合わせた地点からの分だけになります。推定の距離は大会の距離を超えないようにしています。</li>
@@ -920,10 +915,6 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>「なし」のままだと、スマホを変えたり、ブラウザのデータを消したりすると記録も消えます。大事な記録は「実績」のいちばん上の「ダウンロード」でCSVかGPXにしておくか、次のDropboxに保存してください。</p>
 <h4>CSV・GPXファイルに書き出す</h4>
 <p>「4. 実績」のいちばん上の「ダウンロード」を押して開き、記録を選んで、「CSVをダウンロード」（1 km毎の表）か「GPXをダウンロード」（走った道すじ）を押します。本番・練習のどちらでも、Dropboxにしかない「☁」の記録でも選べます。GPXはStravaやGarmin Connectにアップロードしたり、ほかの地図アプリで見たりできます。走った道すじ・高度・各地点の時刻が入ります（位置は約25 mごと）。GPSをOFFにして走った本番など、位置の記録がない記録は書き出せません。</p>
-<h4>以前の版の記録（CSV）を取り込む</h4>
-<p>この版より前に「CSVをダウンロード」で保存した本番ログも、「4. 実績」に取り込めます。</p>
-<ol><li>「4. 実績」の「旧データの取り込み」にある「CSVを選ぶ」を押します。</li><li>保存しておいたCSVファイルを選びます。複数のファイルをまとめて選ぶこともできます。日本語・英語など、どの表示言語で書き出したCSVでも取り込めます。</li><li>「取り込みました。」と出たら、一覧にその大会が加わります。同じ大会をもう一度選んだときは「すでに取り込み済みです。」と出て、二重には入りません。</li></ol>
-<p>以前の版のCSVには位置が入っていないため、表示できるのはグラフ・表・前半後半（中間点は1 km毎の時刻から推定）・できごとまでで、地図・高低差・天気は出ません。この版で書き出したCSVを取り込んだ場合は、1 km毎の位置から大まかな地図と高低差も出ます。保存先がDropboxなら、取り込んだ記録もDropboxに保存されます。</p>
 <h3 id="h-gpx">StravaやGarminの記録（GPX・TCX）を取り込む</h3>
 <p>StravaやGarmin Connectなどで記録した走りも、ファイル（GPX・TCX）に書き出せば「4. 実績」に取り込めます。時計で走った過去の大会も、マラソンBGMで走った記録と同じようにグラフ・高低差・地図・天気・前回との比較で見られます。</p>
 <ol><li><strong>書き出す</strong>：Stravaはパソコンのブラウザでアクティビティを開き、「…」のメニューからGPXのエクスポートを選びます。Garmin Connectは、アクティビティの歯車のメニューからGPXのエクスポートを選びます。</li>
@@ -982,6 +973,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>マラソンBGMは無料で使えます。寄付は任意で、寄付をしなくてもすべての機能を使えます。応援していただける場合は、画面の一番下の「☕ このアプリを応援する（PayPal）」から寄付できます。</p>
 <p><strong>寄付先</strong>：<a href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">https://paypal.me/marathonBGM</a></p>
 <p>寄付にはPayPalのアカウントが必要です。日本円での個人間の送金に手数料はかかりません。</p>
+<p><strong>ご意見・ご要望</strong>：<a href="mailto:marathonbgm@mbr.nifty.com">marathonbgm@mbr.nifty.com</a>　可能な範囲内で機能改善に取り組んでいます。</p>
   </div><div class="help-body" id="helpBodyEn" data-notr translate="no" lang="en" hidden>
 <p>Marathon BGM plays the music on your phone at a speed that matches your running pace. The pitch does not change, and no sign-up or payment is needed. This guide follows the order "Setup → Training → Race → Relax", so start wherever you like.</p>
 <h2 id="e-1">1. The basics</h2>
@@ -999,7 +991,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>For outdoor training and races, preparing in this order keeps the music, voice notices and GPS log from dropping out.</p>
 <ol class="gflow"><li><b>Waterproof cover</b>Protect from sweat and rain</li><li><b>Open the app and get a GPS fix</b>"GPS position found"</li><li><b>Wi‑Fi OFF, airplane mode ON</b>Before the start</li><li><b>Start</b>Keep the screen on</li><li class="go"><b>Go online after the run</b>Airplane mode OFF</li></ol>
 <ol><li><strong>Put the phone in a waterproof cover or case</strong>: sweat or rain can make the screen react by itself or damage the phone. Use a waterproof phone case, a waterproof armband or a zip bag. One that lets you touch the screen through it is handy.</li>
-<li><strong>Open the app and get a GPS fix</strong>: while you are still online, open this app and wait until "GPS position found" appears (in Training when you choose "Outdoor"; in a race from 1 minute before the start after pressing "Start race standby").</li>
+<li><strong>Open the app and get a GPS fix</strong>: while you are still online, open this app and wait until "GPS position found" appears (in Training when you choose "Outdoor"; in a race from 30 minutes before the start after pressing "Start race standby" (right away if you press it later). GPS turns on automatically and there is no on/off button. Indoor training does not use GPS).</li>
 <li><strong>Turn Wi‑Fi OFF and airplane mode ON</strong>: once the GPS position is found, turn Wi‑Fi off and airplane mode on before you start. The phone stops searching for signal, and calls, notifications and app updates no longer interrupt, so the app runs more stably and the battery lasts longer. <strong>GPS (location), music and voice notices still work in airplane mode.</strong> If you are still online after the GPS position is found, "📶 Wi‑Fi is connected. Check airplane mode and Wi‑Fi" ("Mobile data is connected" for mobile data) appears on the screen. It disappears automatically when you switch to airplane mode, and it also tells you if Wi‑Fi reconnected by itself. To run while online, press "Run as is" to close it. Music, GPS logging and voice notices work normally while online. Airplane mode stops interruptions from calls and notifications and saves battery. If you want to be reachable by family, you can use Do Not Disturb (Focus) instead of airplane mode and allow calls only from chosen people.</li>
 <li><strong>If you use Bluetooth earphones</strong>: on some phones airplane mode also turns off Bluetooth. If so, turn only Bluetooth back on after enabling airplane mode and reconnect the earphones.</li>
 <li><strong>Keep the screen on (locked)</strong>: the screen locks when you start. If you turn the screen off with the power button or switch to another app, the music, voice and GPS log may stop. The app keeps the screen on while it is open, but setting a longer screen timeout on the phone is safer.</li>
@@ -1014,7 +1006,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-06a" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-06b" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1071,7 +1063,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <figure class="gfig"><img src="guide/g_race_en.webp" loading="lazy" alt="Example &quot;Race&quot; tab. Write checkpoints, aid stations and turnarounds one per line; what was read appears below" onerror="this.parentNode.hidden=true"><figcaption>Example "Race" tab. Write checkpoints, aid stations and turnarounds one per line; what was read appears below</figcaption></figure>
 <p>For aid station contents, "水" means water, "食" means food, and anything else is shown as written. Check below the input box that it was read correctly. To switch to another race, press "Load" in "Save race info &amp; strategy".</p>
 <h3>On the day</h3>
-<ol><li>Shortly before the start, press "<strong>Start race standby</strong>" and keep the screen on.</li><li>Music starts 5 minutes before the start, and GPS turns on automatically 1 minute before. GPS stays on until the finish and there is no button to turn it off (accuracy of distance and pace comes first; the battery lasts a full marathon, but start fully charged). If GPS has gone off, for example after reopening the screen, it is turned back on automatically. A chime sounds at your start time.</li><li>When you cross the start line, press "<strong>Start</strong>" (it cannot be pressed until 1 second before your start time). The screen locks, and all you have to do is run.</li><li>After you finish, long-press "<strong>Finish</strong>" in the bar at the bottom.</li><li>In the "Well done!" box, choose "<strong>I finished</strong>" or "<strong>I stopped (DNF)</strong>". Then go online, wait for saving to finish and press "<strong>Close</strong>" (see "After you finish: saving and &quot;Close&quot;" in "3. The screen").</li></ol>
+<ol><li>Shortly before the start, press "<strong>Start race standby</strong>" and keep the screen on.</li><li>During standby, GPS turns on automatically 30 minutes before the start (right away if you start standby later), and music starts 5 minutes before the start. GPS stays on until the finish and there is no on/off button (accuracy of distance and pace comes first; the battery lasts a full marathon, but start fully charged). If GPS has gone off, for example after reopening the screen, it is turned back on automatically. A chime sounds at your start time.</li><li>When you cross the start line, press "<strong>Start</strong>" (it cannot be pressed until 1 second before your start time). The screen locks, and all you have to do is run.</li><li>After you finish, long-press "<strong>Finish</strong>" in the bar at the bottom.</li><li>In the "Well done!" box, choose "<strong>I finished</strong>" or "<strong>I stopped (DNF)</strong>". Then go online, wait for saving to finish and press "<strong>Close</strong>" (see "After you finish: saving and &quot;Close&quot;" in "3. The screen").</li></ol>
 <h3>What you see while running</h3>
 <table><thead><tr><th>Display</th><th>Meaning</th></tr></thead><tbody><tr><td>Since start</td><td>Time since you pressed Start</td></tr><tr><td>Until time limit</td><td>Time left in the time limit, counted from the gun</td></tr><tr><td>Estimated position</td><td>Your current distance, calculated from GPS, "Confirm distance" and the target pace</td></tr><tr><td>Next cutoff / Next aid station</td><td>Distance to it, time until closing, or what is there</td></tr><tr><td>Target distance in 30 min</td><td>Where you should be in 30 minutes if you follow the strategy</td></tr></tbody></table>
 <p><strong>Net time and gross time</strong>: the big timer while running is the time since you pressed "Start" (net time). When you finish, gross time is shown as well. Gross time is the time from "start time + wave delay" (the start of your wave) to the finish; net time is the time from when you crossed the start line to the finish. In a race, the clock does not stop even if you pause the music while running. Gross time is also kept in the log and CSV.</p>
@@ -1100,7 +1092,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>Remove any row that is not a real turnaround: press "Delete" in the table, then press it again when it says "Press again to delete".</p>
 <h4>Cutoffs and the time limit</h4>
 <p>The distance to the next cutoff, required pace and margin are calculated with the distance corrected by the GPS error ratio learned from "Confirm distance" (see "Adjusting distance and time"). When you pass the final cutoff, a voice notice tells you "Final cutoff passed. ○ minutes to the time limit. ○ km to the finish; you will make it if you are faster than ○ per km." If you enter cutoffs on the "Race" tab, the time you pass each one is recorded, and its row shows when it "Closes" and your "Margin" (how long before closing you passed). Under 10 minutes is shown in yellow, passing after closing in red. The top line also shows the time limit and your margin at the finish. Closing times are calculated from the race date and start (gun) time, so enter both; without them, they are estimated from when you pressed Start. When comparing with an earlier race, its cutoff margin appears in the "Compared lap" column.</p>
-<figure class="gfig wide"><img src="guide/g_table_en.webp" loading="lazy" alt="Table per km. Checkpoint rows show the margin before closing; turnarounds show &quot;GPS confirmed&quot;" onerror="this.parentNode.hidden=true"><figcaption>Table per km. Checkpoint rows show the margin before closing; turnarounds show "GPS confirmed"</figcaption></figure>
+<figure class="gfig wide"><img src="guide/g_table_en.webp" loading="lazy" alt="Table per km (up to 22 km; the real table continues to the finish). Checkpoint rows show the margin before closing; turnarounds show &quot;GPS confirmed&quot;" onerror="this.parentNode.hidden=true"><figcaption>Table per km (up to 22 km; the real table continues to the finish). Checkpoint rows show the margin before closing; turnarounds show "GPS confirmed"</figcaption></figure>
 <h4 id="e-adj">Adjusting distance and time</h4>
 <p>The distance measured by GPS differs from the real course distance. It is often longer, because you cannot always run the shortest line and because buildings and trees make the signal wander, and it can be shorter when the signal drops in tunnels or between tall buildings. In a full marathon the difference can be several hundred meters to about 1 km. In a race the app therefore adjusts as follows.</p>
 <ul><li><strong>While running</strong>: long-press "Confirm distance" at a distance marker to reset the estimated position to the marker distance. The error then only builds up from the last point you corrected. The estimated distance never exceeds the race distance.</li>
@@ -1124,10 +1116,6 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>With "None", your logs are lost if you change phones or clear the browser's data. Download the CSV for important races, or save them to Dropbox as described below.</p>
 <h4>Export to CSV or GPX files</h4>
 <p>Press "Download" at the top of "4. Results" to open it, choose a log and press "Download CSV" (per-km table) or "Download GPX" (route). Race and training logs can be chosen, including "☁" logs that are only in Dropbox. A GPX file can be uploaded to Strava or Garmin Connect or viewed in other map apps. It contains the route, elevation and the time at each point (positions about every 25 m). Logs without positions, such as a race run with GPS off, cannot be exported.</p>
-<h4>Import logs from an earlier version (CSV)</h4>
-<p>Race logs you saved with "Download CSV" in an earlier version can also be added to "4. Results".</p>
-<ol><li>In "4. Results", press "Choose CSV" under "Import old data".</li><li>Choose the saved CSV file. You can choose several files at once. CSVs exported in any display language (Japanese, English and so on) can be imported.</li><li>When it says "Imported.", the race is added to the list. If you choose the same race again, it says "Already imported." and is not added twice.</li></ol>
-<p>CSVs from earlier versions contain no positions, so you get the graphs, table, halves (halfway estimated from the time at each km) and events, but no map, elevation or weather. A CSV exported from this version also gives a rough map and elevation from the position at each km. With Dropbox chosen, imported logs are saved to Dropbox too.</p>
 <h3 id="e-gpx">Import logs from Strava or Garmin (GPX/TCX)</h3>
 <p>Runs recorded with Strava, Garmin Connect and so on can be imported into "4. Results" once exported as files (GPX/TCX). Past races run with a watch can then be viewed with graphs, elevation, map, weather and comparison, just like logs recorded with Marathon BGM.</p>
 <ol><li><strong>Export</strong>: in Strava, open the activity in a computer browser and choose Export GPX from the "…" menu. In Garmin Connect, choose Export to GPX from the activity's gear menu.</li>
@@ -1186,6 +1174,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>Marathon BGM is free. Donations are optional, and all features work without donating. If you would like to support it, use "☕ Support this app (PayPal)" at the bottom of the screen.</p>
 <p><strong>Donate</strong>: <a href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">https://paypal.me/marathonBGM</a></p>
 <p>A PayPal account is needed to donate.</p>
+<p><strong>Feedback and requests</strong>: <a href="mailto:marathonbgm@mbr.nifty.com">marathonbgm@mbr.nifty.com</a> — features are improved as far as possible.</p>
 </div></div>
 </div>
 <script>
@@ -2248,7 +2237,7 @@ $('#rcArm').addEventListener('click',()=>{
   rcMsg(`待機中です。${tm(w-300000)} にBGMが始まります。このページを開いたまま、画面をつけておいてください。`);applyModeUI();renderRun();});
 $('#rcDisarm').addEventListener('click',()=>{if(GPS.pre)gpsOff(true);RS.gpsAuto=false;RS.armed=false;if(RS.pre&&!R.running){audio.pause();RS.pre=false;}rcMsg('待機をやめました。');applyModeUI();renderRun();});
 setInterval(()=>{if(MODE!=='race')return;
-  if((RS.armed||RS.pre)&&!R.running&&!GPS.on&&!RS.gpsAuto){const w=rcWaveMs(),now=Date.now();if(w&&now>=w-60000&&now<w+3600000){RS.gpsAuto=true;gpsOn();}}
+  if((RS.armed||RS.pre)&&!R.running&&!GPS.on&&!RS.gpsAuto){const w=rcWaveMs(),now=Date.now();if(w&&now>=w-1800000&&now<w+3600000){RS.gpsAuto=true;gpsOn();}}
   if((RS.armed||RS.pre)&&!R.running&&!RS.gunCue){const w=rcWaveMs(),now=Date.now();if(w&&now>=w&&now<w+120000){RS.gunCue=true;startChime();say('スタート時刻です。スタートラインを通過したら、スタートを押してください。');}}
   if(RS.armed&&!R.running&&!RS.pre){const w=rcWaveMs(),now=Date.now();
     if(w&&now>=w-300000&&now<rcEndMs()){RS.pre=true;try{getCtx().resume();}catch(e){}ensureChain();menu=virtualMenu();R.seg=0;audio.volume=opt.vol;playSong(firstIndex());say('スタート5分前です。');applyModeUI();}}
@@ -2677,7 +2666,7 @@ function xCsv(d,x,prevKm){const o=wxRow(d,x,prevKm),p=o.pos||geoAt(d,x.km),w=o.w
 function wxStatus(d){if(wxHas(d))return '気象データ：Open-Meteo.com（CC BY 4.0）。毎時の値を各地点の通過時刻に合わせて補間しています';
   if(d.live||d.id==='cur')return '天気はゴール後、ネットにつながったときに自動で取得します';
   if(!geoStart(d)&&d.imp)return '';
-  if(!geoStart(d))return '位置が記録されていないため、天気は取得できません（スタート前か走行中にGPSをONにすると取得できます）';
+  if(!geoStart(d))return '位置が記録されていないため、天気は取得できません';
   if(WX.busy)return '天気を取得しています…';
   if(!navigator.onLine)return '天気はネットにつながったときに自動で取得します';
   return WX.fail[d.id]?'天気を取得できませんでした。しばらくしてからもう一度試します':'天気を取得しています…';}
@@ -3297,8 +3286,8 @@ function csvToLog(text){const R=csvRows(text);const sec=[];let cur=[];
   const el=net!=null?net:log[log.length-1].t;
   return {id:'L'+startAt,name:String(info[0][1]||'').trim(),date:ymdISO(startAt),startAt,endAt:startAt+el,km:km||log[log.length-1].km,
     waveAt:loss!=null?startAt-loss:null,el,log,ev,kcal,imp:true,geo:{sp:null,trk,pass:pass.sort((a,b)=>a.km-b.km),gap:trk.length?1.05:undefined}};}
-$('#impBtn').addEventListener('click',()=>$('#impCsv').click());
-$('#impCsv').addEventListener('change',async e=>{const files=[...e.target.files];e.target.value='';if(!files.length)return;
+($('#impBtn')||document.createElement('i')).addEventListener('click',()=>$('#impCsv').click());
+($('#impCsv')||document.createElement('i')).addEventListener('change',async e=>{const files=[...e.target.files];e.target.value='';if(!files.length)return;
   const out=[];let added=0,last=null;
   for(const f of files){let msg;try{const d=csvToLog(await f.text());
       if(raceLogs.some(x=>x.id===d.id)||(CLOUD.index||[]).some(x=>x.id===d.id))msg='すでに取り込み済みです。';
@@ -3910,6 +3899,9 @@ W('金','Fri','周五','週五','금');
 W('土','Sat','周六','週六','토');
 W('日','Sun','周日','週日','일');
 W('休','Rest','休','休','휴');
+W('ご意見・ご要望：','Feedback and requests: ','意见与建议：','意見與建議：','의견·요청: ');
+W('可能な範囲内で機能改善に取り組んでいます。','Features are improved as far as possible.','我们会在可能的范围内改进功能。','我們會在可能的範圍內改善功能。','가능한 범위에서 기능을 개선하고 있습니다.');
+W('GPS：スタート30分前に自動でONになります','GPS: turns on automatically 30 minutes before the start','GPS：起跑前30分钟自动开启','GPS：起跑前30分鐘自動開啟','GPS: 출발 30분 전에 자동으로 켜집니다');
 W('ネット接続あり','Online','已联网','已連網','온라인');
 W('ネット接続なし（オフライン）','No internet (offline)','未联网（离线）','未連網（離線）','인터넷 없음 (오프라인)');
 W('使える機能','What works','可用功能','可用功能','사용 가능한 기능');
@@ -4127,7 +4119,7 @@ W('GPSをONにしていた区間','Sections with GPS on','GPS开启的区间','G
 W('地図と高低差は、GPSをONにしていた区間だけ表示します。','The map and elevation show only the sections where GPS was on.','地图和高低差仅显示GPS开启的区间。','地圖和高低差僅顯示GPS開啟的區間。','지도와 고저차는 GPS를 켠 구간만 표시합니다.');
 W('気象データ：Open-Meteo.com（CC BY 4.0）。毎時の値を各地点の通過時刻に合わせて補間しています','Weather data: Open-Meteo.com (CC BY 4.0), hourly values interpolated to the time at each point','气象数据：Open-Meteo.com（CC BY 4.0）。按各地点的通过时刻对每小时数据进行插值','氣象資料：Open-Meteo.com（CC BY 4.0）。依各地點的通過時刻對每小時資料進行插值','기상 데이터: Open-Meteo.com (CC BY 4.0). 매시 값을 각 지점의 통과 시각에 맞춰 보간');
 W('天気はゴール後、ネットにつながったときに自動で取得します','Weather is fetched automatically after the finish, once online','完赛后联网时会自动获取天气','完賽後連網時會自動取得天氣','날씨는 골인 후 인터넷에 연결되면 자동으로 가져옵니다');
-W('位置が記録されていないため、天気は取得できません（スタート前か走行中にGPSをONにすると取得できます）','No position was recorded, so weather cannot be fetched (turn GPS on before the start or during the race)','没有记录位置，无法获取天气（在起跑前或跑步中开启GPS即可获取）','沒有記錄位置，無法取得天氣（在起跑前或跑步中開啟GPS即可取得）','위치가 기록되지 않아 날씨를 가져올 수 없습니다 (출발 전이나 달리는 중에 GPS를 켜면 가져올 수 있습니다)');
+W('位置が記録されていないため、天気は取得できません','No position was recorded, so weather cannot be fetched','没有记录位置，无法获取天气','沒有記錄位置，無法取得天氣','위치가 기록되지 않아 날씨를 가져올 수 없습니다');
 W('天気を取得しています…','Fetching weather…','正在获取天气…','正在取得天氣…','날씨를 가져오는 중…');
 W('天気はネットにつながったときに自動で取得します','Weather is fetched automatically once online','联网时会自动获取天气','連網時會自動取得天氣','인터넷에 연결되면 날씨를 자동으로 가져옵니다');
 W('天気を取得できませんでした。しばらくしてからもう一度試します','Could not fetch the weather. Will try again shortly','无法获取天气，稍后会再试','無法取得天氣，稍後會再試','날씨를 가져오지 못했습니다. 잠시 후 다시 시도합니다');
@@ -4953,12 +4945,12 @@ function turnFlush(el){if(!TURNA.q.length)return;const pos=el!=null?posInfo(el).
 {const _r=reset;reset=function(){TURNA.last=null;TURNA.q=[];clearTimeout(TURNA.tm);return _r.apply(this,arguments);};}
 
 /* ===================== 本番：GPSは常にON（精度を優先。フルマラソンでも電池は持つ） ===================== */
-/* 走っている間にGPSが切れていたら（画面を開き直したときなど）自動でONに戻す。OFFにするボタンは出さない */
-function gpsKeep(){try{if(MODE==='race'&&R.running&&!R.done&&!GPS.on&&!/許可|使えません/.test(GPS.msg||''))gpsOn();
-  const off=$('#gpsOff');if(off)off.hidden=true;const on=$('#gpsOn');if(on)on.hidden=!!GPS.on;
-  const lg=lockLayer.querySelector('#lockGps');if(lg)lg.hidden=!!GPS.on;}catch(e){}}
+/* 本番待機中はスタート30分前に自動でON（待機を始めたのがそれより後ならすぐ）。走っている間に切れていたら（画面を開き直したときなど）自動でONに戻す。ON・OFFのボタンは出さない */
+function gpsKeep(){try{if(MODE==='race'&&((R.running&&!R.done)||(!R.running&&(RS.armed||RS.pre)&&RS.gpsAuto))&&!GPS.on&&!/許可|使えません/.test(GPS.msg||''))gpsOn();
+  const off=$('#gpsOff');if(off)off.hidden=true;const on=$('#gpsOn');if(on)on.hidden=true;
+  const lg=lockLayer.querySelector('#lockGps');if(lg)lg.hidden=true;}catch(e){}}
 setInterval(gpsKeep,3000);
-{const _gs=gpsStatus;gpsStatus=function(){const r=_gs.apply(this,arguments);gpsKeep();return r;};}
+{const _gs=gpsStatus;gpsStatus=function(){const r=_gs.apply(this,arguments);gpsKeep();try{const el=$('#gpsSt');if(el&&MODE==='race'&&!R.running&&(RS.armed||RS.pre)&&!GPS.on&&!GPS.msg){const t='GPS：スタート30分前に自動でONになります';if(el.textContent!==t)el.textContent=t;}}catch(e){}return r;};}
 
 /* ===================== オフラインでも開けるようにする（sw.js を登録） ===================== */
 if('serviceWorker' in navigator&&(location.protocol==='https:'||/^(localhost|127\.0\.0\.1)$/.test(location.hostname))){
