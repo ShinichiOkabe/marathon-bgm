@@ -74,6 +74,7 @@
 .pk-er{display:flex;gap:6px;margin:6px 0}.pk-er input{flex:1;min-width:0;font-size:1rem;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
 .pk-add{margin-top:12px}.pk-ask{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}.pk-ask-c{background:var(--surface);color:var(--ink);border-radius:14px;padding:18px 16px;max-width:360px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.3)}.pk-ask-c p{margin:0 0 14px;font-size:1.05rem;line-height:1.5}.pk-ask-b{display:flex;justify-content:flex-end;gap:10px}.pk-note{font-size:.8rem;margin:0 0 4px}
 body.pk-open{overflow:hidden}
+.off-grid{display:grid;grid-template-columns:auto 1fr;gap:0;margin:8px 0 6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}.og-i{display:contents}.og-l,.og-v{padding:7px 10px;border-bottom:1px solid var(--line)}.og-l{color:var(--muted);font-size:.82rem;white-space:nowrap;background:color-mix(in srgb,var(--line) 35%,transparent)}.og-v{font-size:.98rem}.og-v b{font-size:1.08rem}.off-grid .og-i:last-child .og-l,.off-grid .og-i:last-child .og-v{border-bottom:0}
 </style>
 </head>
 <body>
@@ -819,7 +820,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-10f</p>
+  <p class="ver" data-notr translate="no">版 2026-11-10g</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -865,7 +866,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-10f」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-10g」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -1102,7 +1103,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-10f" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-10g" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -5562,17 +5563,24 @@ const recLoss=d=>d.waveAt&&d.startAt?Math.max(0,d.startAt-d.waveAt):null;
 const offBox=document.createElement('div');offBox.className='offbox';offBox.id='offBox';offBox.hidden=true;
 {const pr=$('#photoRow');if(pr)pr.after(offBox);}
 function offSummaryHtml(d){const o=d.off||{},B=offBase(d),S=o.splits||{},ls=o.net&&o.gross?o.gross-o.net:recLoss(d)||0;
-  const has=o.net||o.gross||o.rank||o.divRank||Object.keys(S).length;
+  const has=o.net||o.gross||o.rank||o.divRank||o.div||o.memo||Object.keys(S).length;
   if(!has)return `<div class="off-h"><b>公式記録</b><span class="sub">大会の公式記録（記録証・リザルト）が出たら入力すると、5K毎の公式タイムに合わせて記録を補正します。</span></div><div class="ctrls"><button class="primary-sm" type="button" id="offOpen">公式記録を入力</button></div>`;
   const rows=[];let prev=0;offPts(d).forEach(p=>{let v=p.goal?(o.net!=null?o.net:null):(S[offKey(p.k)]!=null?S[offKey(p.k)]-(o.basis==='gross'?ls:0):null);
     const r=p.goal?B.el:recAt(B,p.k);const lap=v!=null?v-prev:null;if(v!=null)prev=v;
     rows.push(`<tr${v!=null&&offBig(v,r)?' class="offbig"':''}><th>${esc(TR(p.lab))}</th><td data-notr>${offT(v)}</td><td data-notr>${lap!=null?offT(lap):'—'}</td><td data-notr class="rec">${offT(r)}</td><td data-notr class="df">${v!=null&&r!=null?(v>=r?'+':'−')+fmt(Math.abs(v-r)):'—'}</td></tr>`);});
-  const P=[];if(o.net)P.push(`<span>ネット</span> <b data-notr>${hms(o.net)}</b>`);if(o.gross)P.push(`<span>グロス</span> <b data-notr>${hms(o.gross)}</b>`);
-  if(o.rank)P.push(`<span>総合</span> <b data-notr>${o.rank}</b><span>位</span>`);if(o.divRank)P.push(`${o.div?`<span data-notr>${esc(o.div)}</span>`:'<span>種目別</span>'} <b data-notr>${o.divRank}</b><span>位</span>`);
+  const nf=n=>{const x=String(n).replace(/[^\d]/g,'');return x?(+x).toLocaleString('ja-JP'):esc(String(n));};
+  const G=[];const gi=(lab,val)=>G.push(`<div class="og-i"><span class="og-l">${lab}</span><span class="og-v">${val}</span></div>`);
+  if(o.net)gi('<span>ネットタイム</span>',`<b data-notr>${hms(o.net)}</b>`);
+  if(o.gross)gi('<span>グロスタイム</span>',`<b data-notr>${hms(o.gross)}</b>`);
+  if(o.net&&o.gross&&o.gross>=o.net)gi('<span>ロスタイム</span>',`<b data-notr>${hms(o.gross-o.net)}</b>`);
+  if(o.rank)gi('<span>総合順位</span>',`<b data-notr>${nf(o.rank)}</b> <span>位</span>`);
+  if(o.div)gi('<span>種目・部門名</span>',`<b data-notr>${esc(o.div)}</b>`);
+  if(o.divRank)gi('<span>種目別順位</span>',`<b data-notr>${nf(o.divRank)}</b> <span>位</span>`);
+  if(o.memo)gi('<span>メモ</span>',`<span data-notr>${esc(o.memo)}</span>`);
   return `<div class="off-h"><b>公式記録</b><span class="sub">公式記録の5K毎のタイムに合わせて、この記録を補正しています。</span></div>
-  <div class="off-top">${P.join('<i>／</i>')}</div>
+  <div class="off-grid">${G.join('')}</div>
   <table class="off-t"><thead><tr><th>地点</th><th>公式</th><th>区間</th><th>アプリの記録</th><th>差</th></tr></thead><tbody>${rows.join('')}</tbody></table>
-  <div class="sub"><span>スプリット（5K毎・中間点）の基準</span>：<span>${o.basis==='gross'?'号砲から（グロス）':'スタートライン通過から（ネット）'}</span></div>${o.memo?`<div class="off-memo-v">${esc(o.memo)}</div>`:''}
+  <div class="sub"><span>スプリット（5K毎・中間点）の基準</span>：<span>${o.basis==='gross'?'号砲から（グロス）':'スタートライン通過から（ネット）'}</span></div>
   <div class="ctrls"><button class="small" type="button" id="offOpen">公式記録を直す</button><span class="sub" id="offMsg"></span></div>`;}
 function offRender(){const d=logData();const ok=HIST.kind==='race'&&d&&!d.loading&&d.id!=='cur'&&!d.live;offBox.hidden=!ok;if(!ok)return;
   const h=offSummaryHtml(d);if(offBox.dataset.h!==h+d.id){offBox.innerHTML=h;offBox.dataset.h=h+d.id;const b=$('#offOpen');if(b)b.onclick=()=>offPanelOpen(d.id);}}
