@@ -41,6 +41,17 @@
 .vcbox .vc-b{display:flex;gap:10px;justify-content:center;margin-top:10px}.vcbox .vc-b .primary{font-size:1.2rem;padding:12px 22px}.vcbox .small{color:inherit;background:transparent;border:1px solid rgba(255,255,255,.5)}
 .vc-hint{position:absolute;top:calc(env(safe-area-inset-top,0px) + 8px);left:0;right:0;margin:0 auto;width:max-content;max-width:calc(100% - 32px);padding:4px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);text-align:center;font-size:.78rem;color:var(--ink);pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .vcbox{pointer-events:none}.vcbox button{pointer-events:auto}.ts-dots{display:flex;gap:8px;justify-content:center;margin-bottom:8px}.ts-dots i{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.25)}.ts-dots i.on{background:#4ade80}
+.off-panel{position:fixed;inset:0;z-index:150;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 12px 40px}.off-panel[hidden]{display:none}
+.op-card{max-width:560px;margin:0 auto}.op-h b{display:block;font-size:1.25rem;margin:4px 0}.op-h .sub{display:block}
+.op-t,.off-t{width:100%;border-collapse:collapse;margin:8px 0;font-size:.9rem;table-layout:fixed}.op-t th:nth-child(1){width:26%}.op-t th:nth-child(2){width:38%}.op-t th:nth-child(3){width:20%}.op-t th:nth-child(4){width:16%}.op-t thead th{white-space:normal;line-height:1.2}.op-t th,.op-t td,.off-t th,.off-t td{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;vertical-align:middle}
+.op-t thead th,.off-t thead th{font-size:.75rem;color:var(--muted);font-weight:700}.op-t input{width:100%;box-sizing:border-box;font-size:1.05rem;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.op-t input::placeholder{color:var(--muted);opacity:.55}.op-t td.rec,.off-t td.rec{color:var(--muted);font-size:.8rem;white-space:nowrap}.op-t td.df,.off-t td.df{font-size:.8rem;white-space:nowrap}
+.op-t tr.offbig td.df,.off-t tr.offbig td,.off-t tr.offbig th{color:#c2410c;font-weight:700}.op-t input.bad{border-color:#d9480f;background:#fff4e6;color:#7c2d12}.op-t tr.goal th{white-space:normal;line-height:1.25}
+.op-g{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.op-g label{display:flex;flex-direction:column;gap:3px;font-size:.8rem;font-weight:700}.op-g label.w{grid-column:1/-1}
+.op-g input{font-size:1rem;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);box-sizing:border-box;width:100%}
+.op-b{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.op-b .primary{font-size:1.05rem;padding:11px 20px}.off-panel .f{display:block;margin:8px 0}.off-panel .f select{display:block;width:100%;margin-top:3px}
+.off-top{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline;margin:6px 0;font-size:.85rem}.off-top b{font-size:1.1rem}.off-top i{color:var(--muted);font-style:normal}
+@media (prefers-color-scheme:dark){.op-t input.bad{background:#3b1d0a;color:#fed7aa}}
 </style>
 </head>
 <body>
@@ -785,7 +796,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-09c</p>
+  <p class="ver" data-notr translate="no">版 2026-11-09d</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -830,7 +841,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-09c」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-09d」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -967,12 +978,14 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <ul><li><strong>ペースのグラフ</strong>：比べる記録のペースが紫の線で重なります。</li><li><strong>差のグラフ</strong>：各地点で、比べる記録より何分速いか・遅いかを表示します。ペースのグラフと同じく上ほど速く（マイナスが上）、どこで差がついたかがわかります。</li><li><strong>前半・後半</strong>：比べる記録の前半・後半も並べて表示します。</li><li><strong>表</strong>：「比較差」（各地点の経過タイムの差。速ければ青、遅ければ赤）、「比較ラップ」、「比較の天気」（天気・気温・風）の列が加わります。</li><li><strong>地図</strong>：「地図を表示」を押すと、比べる記録の道すじも紫の点線で重なります。</li></ul>
 <p>比べる記録がDropboxにある「☁」の記録でも、選べば読み込んで比べます。以前の版の記録は位置と天気がないため、地図と天気以外で比べます。</p>
 <h3>公式記録を入れる</h3>
-<p>大会の公式記録（記録証やリザルト）が出たら、「4. 実績」の一覧でその大会を選び、下に出る「公式記録」に入れます。</p>
-<ul><li><strong>公式ネットタイム・公式グロスタイム</strong>：「時:分:秒」（例 3:57:31）で入れます。アプリの記録と2分以上（または2%以上）違うときは、入力欄がオレンジ色になり、「大きくずれています。入れ間違いがないか確かめてください」と出ます。</li>
-<li><strong>総合順位・部門名・部門順位・メモ</strong>：わかる分だけ入れます。</li>
-<li>「確認して保存」を押すと、変わる内容（アプリの記録 → 公式）が出ます。「OK」で確定します。</li>
-<li>公式ネットタイムを入れると、1 km毎の通過タイムとラップを公式タイムに合わせて配り直します（それぞれの区間の割合はそのまま）。グロスタイムとロスタイムも公式に合わせます。</li>
-<li>「公式タイムを消す（アプリの記録に戻す）」で、アプリで測った記録に戻せます（順位・部門・メモは残ります）。</li></ul>
+<p>大会の公式記録（記録証やリザルト）が出たら、「4. 実績」の一覧でその大会を選び、「公式記録」の枠の「<strong>公式記録を入力</strong>」を押します。入力用の画面に切り替わります。</p>
+<ul><li><strong>5km毎・中間点・ゴール（ネット）・グロス</strong>のタイムを「時:分:秒」（例 1:23:45）で入れます。わからない地点は空のままでかまいません。入力欄の灰色の文字と「アプリの記録」の列は、アプリで測った時間です。</li>
+<li>スプリット（5km毎・中間点）が号砲からの時間（グロス）で書かれているリザルトのときは、「スプリットの基準」を「号砲から（グロス）」にします。</li>
+<li><strong>総合順位・種目別順位</strong>（と種目・部門名、メモ）を入れます。</li>
+<li>アプリの記録と2分以上違う地点はオレンジ色になり、前の地点より短いタイムは赤で知らせます。入れ間違いがないか確かめてください。</li>
+<li>「確認して保存」→ 内容を確かめて「OK」で保存し、実績の画面に戻ります。戻ったあとは<strong>表示だけ</strong>になり、地点ごとの公式タイム・区間タイム・アプリの記録との差、ネット・グロス・総合順位・種目別順位が出ます。直すときは「公式記録を直す」を押します。</li>
+<li>保存すると、入力した地点の公式タイムを基準に、あいだの1 km毎の通過タイムとラップを<strong>区間ごとに配り直して</strong>記録を補正します（区間の中の速さの割合はアプリの記録のまま）。グラフ・表・CSVも補正したタイムになります。</li>
+<li>「公式タイムを消す」で、アプリで測った記録に戻せます（順位・種目・メモは残ります）。</li></ul>
 <h3>実績のダッシュボード</h3>
 <p>「4. 実績」の上の「📊 ダッシュボード」を押すと、<strong>通算</strong>と<strong>今季</strong>（7月〜翌年6月）の、フルとハーフの<strong>完走回数</strong>と<strong>ベストタイム</strong>（大会名・日付つき）が出ます。出走回数とリタイアの回数も出ます。ベストタイムは、公式ネットタイムを入れた大会はその時間（「公式」と表示）、入れていない大会はアプリで測ったネットタイムです。</p>
 <h3>分かれた記録を1つにまとめる</h3>
@@ -1050,7 +1063,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-09c" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-09d" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1187,12 +1200,14 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <ul><li><strong>Pace graph</strong>: the compared log's pace is drawn as a purple line.</li><li><strong>Difference graph</strong>: how many minutes faster or slower you were at each point. As in the pace graph, higher means faster (minus is up), so you can see where you gained or lost time.</li><li><strong>Halves</strong>: the compared log's first and second halves are shown alongside.</li><li><strong>Table</strong>: columns "vs compared" (difference in elapsed time at each point; blue if faster, red if slower), "Comp. lap" and "Compared weather" (weather, temperature, wind) are added.</li><li><strong>Map</strong>: after "Show map", the compared route is drawn as a dotted purple line.</li></ul>
 <p>A "☁" log stored in Dropbox is loaded when you choose it. Logs from earlier versions have no positions or weather, so they are compared on everything except the map and weather.</p>
 <h3>Enter the official result</h3>
-<p>When the official result (certificate or results list) is out, choose the race in the list in "4. Results" and fill in "Official result" below it.</p>
-<ul><li><strong>Official net time / official gross time</strong>: enter as h:mm:ss (e.g. 3:57:31). If it differs from the app's log by 2 minutes or more (or 2% or more), the box turns orange and a warning asks you to check what you entered.</li>
-<li><strong>Overall place, category, category place, notes</strong>: fill in what you know.</li>
-<li>Press "Check and save" to see what will change (app log → official). Press "OK" to save.</li>
-<li>With an official net time, every 1 km split and lap is redistributed to match it (keeping the proportions of each section). Gross time and start loss follow the official times too.</li>
-<li>"Remove official times (back to the app's log)" restores the app's own measurement (places, category and notes are kept).</li></ul>
+<p>When the official result (certificate or results list) is out, choose the race in the list in "4. Results" and press "<strong>Enter official result</strong>" in the "Official result" box. A separate input screen opens.</p>
+<ul><li>Enter the times at <strong>every 5 km, the halfway point, the finish (net) and gross</strong> as h:mm:ss (e.g. 1:23:45). Leave unknown points empty. The grey text and the "App log" column show the app's own measurement.</li>
+<li>If the results list gives split times from the gun (gross), set "Split times are measured" to "from the gun (gross)".</li>
+<li>Enter the <strong>overall place and event place</strong> (and event/category name, notes).</li>
+<li>Points that differ from the app's log by 2 minutes or more turn orange, and a time shorter than the previous point is shown in red. Please check what you entered.</li>
+<li>Press "Check and save", check the summary and press "OK". You return to the results screen, which then <strong>only displays</strong> the official time, section time and difference from the app at each point, plus net, gross, overall and event place. Press "Edit official result" to change it.</li>
+<li>When saved, the 1 km splits and laps between the points you entered are <strong>redistributed section by section</strong> to match the official times (the pace pattern inside each section follows the app's log). Graphs, table and CSV use the corrected times.</li>
+<li>"Remove official times" restores the app's own measurement (places, event and notes are kept).</li></ul>
 <h3>Results dashboard</h3>
 <p>Press "📊 Dashboard" at the top of "4. Results" to see, for <strong>all time</strong> and <strong>this season</strong> (July to June), the number of <strong>finishes</strong> and the <strong>best time</strong> (with race and date) for full and half marathons, plus the number of races and DNFs. Best times use the official net time where entered (marked "Official"), otherwise the net time measured by the app.</p>
 <h3>Merge a split record</h3>
@@ -4520,6 +4535,26 @@ P(/^ロスタイム (.+)$/,m=>[`Start loss ${m[1]}`,`起跑损失 ${m[1]}`,`起�
 P(/^このペースならゴール ([\d:]+)（([\d:]+)着）$/,m=>[`At this pace: finish ${m[1]} (${m[2]})`,`按此配速完赛 ${m[1]}（${m[2]}到达）`,`按此配速完賽 ${m[1]}（${m[2]}抵達）`,`이 페이스면 골 ${m[1]}(${m[2]} 도착)`]);
 P(/^消費カロリー（目安） 約([\d,]+) kcal$/,m=>[`Calories burned (est.) about ${m[1]} kcal`,`消耗卡路里（参考） 约${m[1]} kcal`,`消耗卡路里（參考） 約${m[1]} kcal`,`소비 칼로리(목안) 약 ${m[1]} kcal`]);
 P(/^消費カロリー 約([\d,]+) kcal$/,m=>[`Calories about ${m[1]} kcal`,`卡路里 约${m[1]} kcal`,`卡路里 約${m[1]} kcal`,`칼로리 약 ${m[1]} kcal`]);
+W('公式記録を入力','Enter official result','输入官方成绩','輸入官方成績','공식 기록 입력');
+W('公式記録を直す','Edit official result','修改官方成绩','修改官方成績','공식 기록 고치기');
+W('公式記録の入力','Official result','官方成绩输入','官方成績輸入','공식 기록 입력');
+W('大会の公式記録（記録証・リザルト）が出たら入力すると、5km毎の公式タイムに合わせて記録を補正します。','When the official result (certificate / results) is out, enter it to correct this log to the official 5 km times.','比赛官方成绩（成绩证书・成绩表）公布后输入，会按每5公里的官方时间修正记录。','比賽官方成績（成績證書・成績表）公布後輸入，會依每5公里的官方時間修正紀錄。','대회 공식 기록(기록증·결과)이 나오면 입력하세요. 5km마다의 공식 시간에 맞춰 기록을 보정합니다.');
+W('公式記録の5km毎のタイムに合わせて、この記録を補正しています。','This log is corrected to the official 5 km times.','已按官方每5公里时间修正此记录。','已依官方每5公里時間修正此紀錄。','공식 기록의 5km 시간에 맞춰 이 기록을 보정했습니다.');
+W('記録証やリザルトのタイムを「時:分:秒」（例 1:23:45）で入れます。わからない地点は空のままでかまいません。灰色の文字はアプリの記録です。','Enter the times from the certificate or results as h:mm:ss (e.g. 1:23:45). Leave unknown points empty. Grey text is the app\'s log.','按“时:分:秒”（例 1:23:45）输入成绩证书或成绩表上的时间。不知道的地点可留空。灰色文字是应用的记录。','依「時:分:秒」（例 1:23:45）輸入成績證書或成績表上的時間。不知道的地點可留空。灰色文字是應用的紀錄。','기록증이나 결과의 시간을 "시:분:초"(예 1:23:45)로 입력하세요. 모르는 지점은 비워 두어도 됩니다. 회색 글자는 앱 기록입니다.');
+W('スプリット（5km毎・中間点）の基準','Split times (every 5 km, halfway) are measured','分段（每5公里・中间点）的基准','分段（每5公里・中間點）的基準','스플릿(5km마다·중간 지점) 기준');
+W('スタートライン通過から（ネット）','from crossing the start line (net)','从通过起跑线起（净）','從通過起跑線起（淨）','출발선 통과부터(넷)');
+W('号砲から（グロス）','from the gun (gross)','从发令枪起（总）','從鳴槍起（總）','출발 신호부터(그로스)');
+W('地点','Point','地点','地點','지점');W('公式タイム','Official time','官方时间','官方時間','공식 시간');W('アプリの記録','App log','应用记录','應用紀錄','앱 기록');W('差','Diff.','差','差','차이');W('区間','Section','分段','分段','구간');
+W('ゴール（ネット）','Finish (net)','终点（净）','終點（淨）','골(넷)');W('グロス','Gross','总','總','그로스');W('種目別順位','Event place','项目排名','項目排名','종목별 순위');W('種目・部門名','Event / category','项目・组别','項目・組別','종목·부문명');W('種目別','Event','项目','項目','종목별');
+W('総合','Overall','总排名','總排名','종합');W('位','th','名','名','위');W('ゴール','Finish','终点','終點','골');W('中間点','Halfway','中间点','中間點','중간 지점');
+W('例 フル男子50歳代','e.g. Full, men 50–59','例 全马男子50岁组','例 全馬男子50歲組','예 풀 남자 50대');
+W('戻る（保存しない）','Back (don\'t save)','返回（不保存）','返回（不保存）','돌아가기(저장 안 함)');W('公式タイムを消す','Remove official times','删除官方时间','刪除官方時間','공식 시간 지우기');
+W('時間は「時:分:秒」（例 1:23:45）で入れてください。','Enter times as h:mm:ss (e.g. 1:23:45).','时间请按“时:分:秒”（例 1:23:45）输入。','時間請依「時:分:秒」（例 1:23:45）輸入。','시간은 "시:분:초"(예 1:23:45)로 입력하세요.');
+W('アプリの記録と','differs from the app\'s log by','与应用记录相差','與應用紀錄相差','앱 기록과의 차이');W('長い','(longer)','（长）','（長）','(김)');W('短い','(shorter)','（短）','（短）','(짧음)');
+W('前の地点より短いタイムになっています','is shorter than the previous point','比前一个地点的时间短','比前一個地點的時間短','앞 지점보다 짧은 시간입니다');
+W('大きくずれています。入れ間違いがないか確かめてください。','Large difference — please check what you entered.','差距很大，请检查是否输入错误。','差距很大，請檢查是否輸入錯誤。','차이가 큽니다. 입력을 확인하세요.');
+W('入力した地点のタイムに合わせて、あいだの各ラップを配り直して記録を補正します。','The laps between the points you entered are redistributed to match them, correcting the log.','将按输入地点的时间重新分配中间各段配速并修正记录。','將依輸入地點的時間重新分配中間各段配速並修正紀錄。','입력한 지점 시간에 맞춰 사이의 각 랩을 다시 배분해 기록을 보정합니다.');
+W('公式タイムを消して、アプリの記録に戻しますか？（順位・種目・メモは残ります）','Remove the official times and go back to the app\'s log? (Places, event and notes are kept.)','要删除官方时间并恢复为应用记录吗？（排名・项目・备注会保留）','要刪除官方時間並恢復為應用紀錄嗎？（排名・項目・備註會保留）','공식 시간을 지우고 앱 기록으로 되돌릴까요? (순위·종목·메모는 남습니다)');
 W('画面を2回タップすると、推定の距離を読み上げます（3回で確定）','Double-tap the screen to hear the estimated distance (3 times to confirm)','双击屏幕会朗读估计距离（3次即确定）','雙擊螢幕會朗讀估計距離（3次即確定）','화면을 두 번 탭하면 추정 거리를 읽어 줍니다(3번이면 확정)');
 W('もう一度2回タップすると、確定するか聞きます','Double-tap again and you will be asked to confirm','再双击一次会询问是否确定','再雙擊一次會詢問是否確定','한 번 더 두 번 탭하면 확정할지 묻습니다');
 W('もう一度2回タップすると確定します','Double-tap again to confirm','再双击一次即确定','再雙擊一次即確定','한 번 더 두 번 탭하면 확정합니다');
@@ -5335,64 +5370,113 @@ function goalUndo(){const s=GU.snap;if(!s||MODE!=='race'||!R.done)return;
     else if(!ok&&b){const w=$('#goalUndoRow');if(w)w.remove();}}catch(e){}return r;};}
 {const _eh=endHide;endHide=function(){GU.snap=GU.snap&&R.done&&MODE==='race'&&ENDP.on?GU.snap:null;return _eh.apply(this,arguments);};}
 
-/* ---- 6. 公式記録：公式のネットタイム・グロスタイム・順位・部門・メモを記録し、各ラップを公式タイムに合わせて配り直す ---- */
-const OFF_WARN_MS=120000,OFF_WARN_R=0.02;
-const offBig=(a,b)=>a!=null&&b!=null&&b>0&&(Math.abs(a-b)>=OFF_WARN_MS||Math.abs(a-b)/b>=OFF_WARN_R);
+/* ---- 6. 公式記録：専用の画面で、5km毎・中間点・ゴールの公式タイム、ネット・グロス、総合順位・種目別順位を入れる。
+        戻ると表示だけになる。記録は、公式の地点タイムを基準に、区間ごとに配り直して補正する ---- */
+const OFF_WARN_MS=120000;
+const offBig=(a,b)=>a!=null&&b!=null&&b>0&&Math.abs(a-b)>=OFF_WARN_MS;
 function offBase(d){return d._offBase||{el:d.el,log:d.log||[],geo:d.geo||null};}
-function offScale(d){const B=offBase(d),o=d.off||{};if(!o.net||!B.el){if(d._offBase){d.el=B.el;d.log=JSON.parse(JSON.stringify(B.log));d.geo=B.geo?JSON.parse(JSON.stringify(B.geo)):B.geo;delete d._offBase;}return;}
+const offD=d=>+d.km||42.195;
+/* 公式タイムを入れる地点：5km毎・中間点・ゴール */
+function offPts(d){const D=offD(d),h=Math.round(D/2*10000)/10000,P=[];for(let k=5;k<D-0.01;k+=5)P.push({k,lab:k+'km'});
+  if(D>10&&!P.some(p=>Math.abs(p.k-h)<0.01))P.push({k:h,lab:'中間点',half:true});P.sort((a,b)=>a.k-b.k);P.push({k:D,lab:'ゴール',goal:true});return P;}
+const offKey=k=>String(+(+k).toFixed(4));
+/* アプリの記録で、その距離を通った時間（ネット） */
+function recAt(B,k){const L=[[0,0]].concat((B.log||[]).map(x=>[+x.km,x.t])).sort((a,b)=>a[0]-b[0]);
+  for(let i=1;i<L.length;i++)if(k<=L[i][0]+1e-6){const a=L[i-1],b=L[i],f=(k-a[0])/Math.max(1e-9,b[0]-a[0]);return Math.round(a[1]+(b[1]-a[1])*f);}
+  const n=L.length;if(n>=2&&k<=L[n-1][0]+0.3){const a=L[n-2],b=L[n-1];return Math.round(b[1]+(b[1]-a[1])/Math.max(1e-9,b[0]-a[0])*(k-b[0]));}return null;}
+/* 公式の地点タイム（ネット）の一覧 [{k,rec,off}] */
+function offAnchors(d){const B=offBase(d),o=d.off||{},S=o.splits||{},ls=o.net&&o.gross?o.gross-o.net:(recLoss(d)||0),A=[];
+  offPts(d).forEach(p=>{let v=p.goal?(o.net||(S[offKey(p.k)]!=null?S[offKey(p.k)]-(o.basis==='gross'?ls:0):null)):(S[offKey(p.k)]!=null?S[offKey(p.k)]-(o.basis==='gross'?ls:0):null);
+    const r=p.goal?B.el:recAt(B,p.k);if(v!=null&&v>0&&r!=null&&r>0)A.push({k:p.k,rec:r,off:v});});
+  A.sort((a,b)=>a.rec-b.rec);const M=[{rec:0,off:0}];A.forEach(a=>{const l=M[M.length-1];if(a.rec>l.rec&&a.off>l.off)M.push(a);});return M;}
+/* 記録の時間 → 公式に合わせた時間（地点のあいだは、記録の時間の割合のまま配り直す） */
+function offMap(M,t){if(t==null||M.length<2)return t;for(let i=1;i<M.length;i++)if(t<=M[i].rec){const a=M[i-1],b=M[i];return Math.round(a.off+(t-a.rec)*(b.off-a.off)/(b.rec-a.rec));}
+  const a=M[M.length-2],b=M[M.length-1];return Math.round(b.off+(t-b.rec)*(b.off-a.off)/Math.max(1,b.rec-a.rec));}
+function offScale(d){const o=d.off||{},hasT=o.net||(o.splits&&Object.keys(o.splits).length);
+  if(!hasT){if(d._offBase){const B=d._offBase;d.el=B.el;d.log=JSON.parse(JSON.stringify(B.log));d.geo=B.geo?JSON.parse(JSON.stringify(B.geo)):B.geo;delete d._offBase;}return;}
   if(!d._offBase)d._offBase=JSON.parse(JSON.stringify({el:d.el,log:d.log||[],geo:d.geo||null}));
-  const f=o.net/B.el;d.el=o.net;d.log=B.log.map(x=>Object.assign({},x,{t:Math.round(x.t*f)}));
-  if(B.geo){const g=JSON.parse(JSON.stringify(B.geo));(g.pass||[]).forEach(p=>{if(p.t!=null)p.t=Math.round(p.t*f);});(g.trk||[]).forEach(p=>{if(p[4]!=null)p[4]=Math.round(p[4]*f);});d.geo=g;}}
-{const _lo=lossOf;lossOf=function(d){if(d&&d.off&&d.off.gross&&(d.off.net||d.el))return Math.max(0,d.off.gross-(d.off.net||d.el));return _lo.apply(this,arguments);};}
-{const _rf=raceFinalize;raceFinalize=function(d){if(d&&d._offBase){d.el=d._offBase.el;d.log=d._offBase.log;d.geo=d._offBase.geo;delete d._offBase;}const r=_rf.apply(this,arguments);try{if(d&&d.off&&d.off.net)offScale(d);}catch(e){}return r;};}
-const offBox=document.createElement('div');offBox.className='offbox';offBox.id='offBox';offBox.hidden=true;
-offBox.innerHTML=`<div class="off-h"><b>公式記録</b><span class="sub">大会の公式記録（記録証・リザルト）を入れると、記録と各ラップを公式タイムに合わせて直します。</span></div>
-<div class="off-rec sub" id="offRec"></div>
-<div class="off-g"><label>公式ネットタイム<input id="offNet" inputmode="numeric" placeholder="例 3:57:31" autocomplete="off"></label><label>公式グロスタイム<input id="offGross" inputmode="numeric" placeholder="例 3:58:14" autocomplete="off"></label>
-<label>総合順位<input id="offRank" inputmode="numeric" placeholder="例 1234" autocomplete="off"></label><label>部門名<input id="offDiv" placeholder="例 男子50歳代" autocomplete="off"></label><label>部門順位<input id="offDivRank" inputmode="numeric" placeholder="例 123" autocomplete="off"></label></div>
-<label class="off-memo">メモ<textarea id="offMemo" rows="2" placeholder="天気・体調・反省など"></textarea></label>
-<div class="off-warn" id="offWarn" hidden></div>
-<div class="ctrls"><button class="primary-sm" type="button" id="offSave">確認して保存</button><button class="small" type="button" id="offClear" hidden>公式タイムを消す（アプリの記録に戻す）</button><span class="sub" id="offMsg"></span></div>`;
-{const pr=$('#photoRow');if(pr)pr.after(offBox);}
+  const B=d._offBase,M=offAnchors(d);d.el=o.net||offMap(M,B.el);d.log=B.log.map(x=>Object.assign({},x,{t:offMap(M,x.t)}));
+  if(B.geo){const g=JSON.parse(JSON.stringify(B.geo));(g.pass||[]).forEach(p=>{if(p.t!=null)p.t=offMap(M,p.t);});(g.trk||[]).forEach(p=>{if(p[4]!=null)p[4]=offMap(M,p[4]);});d.geo=g;}}
+{const _lo=lossOf;lossOf=function(d){if(d&&d.off&&d.off.gross&&d.off.net)return Math.max(0,d.off.gross-d.off.net);return _lo.apply(this,arguments);};}
+{const _rf=raceFinalize;raceFinalize=function(d){if(d&&d._offBase){d.el=d._offBase.el;d.log=d._offBase.log;d.geo=d._offBase.geo;delete d._offBase;}const r=_rf.apply(this,arguments);try{if(d&&d.off)offScale(d);}catch(e){}return r;};}
 const offT=ms=>ms==null?'—':hms(ms);
-function offRead(){const g=id=>$('#'+id).value.trim(),num=v=>{v=v.replace(/[^\d]/g,'');return v?+v:null;};
-  const nv=g('offNet'),gv=g('offGross');const net=nv?hmsMs(nv):null,gross=gv?hmsMs(gv):null;
-  return {net,gross,netBad:!!nv&&!(net>0),grossBad:!!gv&&!(gross>0),rank:num(g('offRank')),div:g('offDiv'),divRank:num(g('offDivRank')),memo:g('offMemo')};}
-function offWarnRender(d){const w=$('#offWarn'),o=offRead();const B=offBase(d),ls0=d._offBase?(d.waveAt&&d.startAt?Math.max(0,d.startAt-d.waveAt):null):lossOf(Object.assign({},d,{off:null}));
-  const recG=B.el&&ls0!=null?B.el+ls0:null,L=[];let lvl='';
-  if(o.netBad||o.grossBad){L.push('時間は「時:分:秒」（例 3:57:31）で入れてください。');lvl='err';}
-  if(o.net&&o.gross&&o.gross<o.net){L.push('グロスタイムがネットタイムより短くなっています。入れ間違いがないか確かめてください。');lvl='err';}
-  if(o.net&&offBig(o.net,B.el)){L.push(`公式ネットタイムが、アプリの記録（${hms(B.el)}）と ${fmt(Math.abs(o.net-B.el))} ${o.net>B.el?'長い':'短い'}です。大きくずれています。入れ間違いがないか確かめてください。`);lvl=lvl||'warn';}
-  if(o.gross&&recG&&offBig(o.gross,recG)){L.push(`公式グロスタイムが、アプリの記録（${hms(recG)}）と ${fmt(Math.abs(o.gross-recG))} ${o.gross>recG?'長い':'短い'}です。大きくずれています。入れ間違いがないか確かめてください。`);lvl=lvl||'warn';}
-  w.hidden=!L.length;w.className='off-warn'+(lvl?' '+lvl:'');w.innerHTML=L.map(x=>`<div>${esc(x)}</div>`).join('');
-  $('#offNet').classList.toggle('bad',!!(o.netBad||(o.net&&offBig(o.net,B.el))));$('#offGross').classList.toggle('bad',!!(o.grossBad||(o.gross&&recG&&offBig(o.gross,recG))||(o.net&&o.gross&&o.gross<o.net)));
-  return {o,lvl,recG};}
+const recLoss=d=>d.waveAt&&d.startAt?Math.max(0,d.startAt-d.waveAt):null;
+
+/* --- 実績の画面：表示だけ（＋「公式記録を入力」ボタン） --- */
+const offBox=document.createElement('div');offBox.className='offbox';offBox.id='offBox';offBox.hidden=true;
+{const pr=$('#photoRow');if(pr)pr.after(offBox);}
+function offSummaryHtml(d){const o=d.off||{},B=offBase(d),S=o.splits||{},ls=o.net&&o.gross?o.gross-o.net:recLoss(d)||0;
+  const has=o.net||o.gross||o.rank||o.divRank||Object.keys(S).length;
+  if(!has)return `<div class="off-h"><b>公式記録</b><span class="sub">大会の公式記録（記録証・リザルト）が出たら入力すると、5km毎の公式タイムに合わせて記録を補正します。</span></div><div class="ctrls"><button class="primary-sm" type="button" id="offOpen">公式記録を入力</button></div>`;
+  const rows=[];let prev=0;offPts(d).forEach(p=>{let v=p.goal?(o.net!=null?o.net:null):(S[offKey(p.k)]!=null?S[offKey(p.k)]-(o.basis==='gross'?ls:0):null);
+    const r=p.goal?B.el:recAt(B,p.k);const lap=v!=null?v-prev:null;if(v!=null)prev=v;
+    rows.push(`<tr${v!=null&&offBig(v,r)?' class="offbig"':''}><th>${esc(TR(p.lab))}</th><td data-notr>${offT(v)}</td><td data-notr>${lap!=null?offT(lap):'—'}</td><td data-notr class="rec">${offT(r)}</td><td data-notr class="df">${v!=null&&r!=null?(v>=r?'+':'−')+fmt(Math.abs(v-r)):'—'}</td></tr>`);});
+  const P=[];if(o.net)P.push(`<span>ネット</span> <b data-notr>${hms(o.net)}</b>`);if(o.gross)P.push(`<span>グロス</span> <b data-notr>${hms(o.gross)}</b>`);
+  if(o.rank)P.push(`<span>総合</span> <b data-notr>${o.rank}</b><span>位</span>`);if(o.divRank)P.push(`${o.div?`<span data-notr>${esc(o.div)}</span>`:'<span>種目別</span>'} <b data-notr>${o.divRank}</b><span>位</span>`);
+  return `<div class="off-h"><b>公式記録</b><span class="sub">公式記録の5km毎のタイムに合わせて、この記録を補正しています。</span></div>
+  <div class="off-top">${P.join('<i>／</i>')}</div>
+  <table class="off-t"><thead><tr><th>地点</th><th>公式</th><th>区間</th><th>アプリの記録</th><th>差</th></tr></thead><tbody>${rows.join('')}</tbody></table>
+  <div class="sub"><span>スプリット（5km毎・中間点）の基準</span>：<span>${o.basis==='gross'?'号砲から（グロス）':'スタートライン通過から（ネット）'}</span></div>${o.memo?`<div class="off-memo-v">${esc(o.memo)}</div>`:''}
+  <div class="ctrls"><button class="small" type="button" id="offOpen">公式記録を直す</button><span class="sub" id="offMsg"></span></div>`;}
 function offRender(){const d=logData();const ok=HIST.kind==='race'&&d&&!d.loading&&d.id!=='cur'&&!d.live;offBox.hidden=!ok;if(!ok)return;
-  if(offBox.dataset.id!==d.id){offBox.dataset.id=d.id;const o=d.off||{};const s=(id,v)=>{$('#'+id).value=v==null?'':v;};
-    s('offNet',o.net?hms(o.net):'');s('offGross',o.gross?hms(o.gross):'');s('offRank',o.rank);s('offDiv',o.div||'');s('offDivRank',o.divRank);s('offMemo',o.memo||'');$('#offMsg').textContent='';}
-  const B=offBase(d),ls0=d.waveAt&&d.startAt?Math.max(0,d.startAt-d.waveAt):null;
-  $('#offRec').textContent=`アプリの記録：ネット ${offT(B.el)}　グロス ${B.el&&ls0!=null?hms(B.el+ls0):'—'}`+(d.off&&d.off.net?`　→ 公式に合わせて表示中`:'');
-  $('#offClear').hidden=!(d.off&&(d.off.net||d.off.gross));offWarnRender(d);}
-['offNet','offGross'].forEach(id=>$('#'+id).addEventListener('input',()=>{const d=logData();if(d&&!d.loading)offWarnRender(d);}));
-function offSaveTo(d,o){const loc=raceLogs.find(x=>x.id===d.id)||d;
-  delete o.netBad;delete o.grossBad;Object.keys(o).forEach(k=>{if(o[k]==null||o[k]==='')delete o[k];});[loc,d].forEach(x=>{if(!x)return;x.off=Object.assign({},o,{at:Date.now()});if(!Object.keys(o).length)delete x.off;offScale(x);});
-  const e=(CLOUD.index||[]).find(x=>x.id===d.id);if(e){e.el=loc.el;}
+  const h=offSummaryHtml(d);if(offBox.dataset.h!==h+d.id){offBox.innerHTML=h;offBox.dataset.h=h+d.id;const b=$('#offOpen');if(b)b.onclick=()=>offPanelOpen(d.id);}}
+
+/* --- 公式記録を入力する画面 --- */
+const offPanel=document.createElement('div');offPanel.className='off-panel';offPanel.id='offPanel';offPanel.hidden=true;offPanel.setAttribute('role','dialog');document.body.appendChild(offPanel);
+const OP={id:null};
+function offPanelOpen(id){const d=logData();if(!d||d.id!==id)return;OP.id=id;const o=d.off||{},S=o.splits||{},B=offBase(d);
+  const inp=(id,v,ph)=>`<input id="${id}" inputmode="numeric" autocomplete="off" placeholder="${ph||''}" value="${v==null?'':esc(String(v))}">`;
+  const pr=offPts(d).filter(p=>!p.goal).map(p=>{const r=recAt(B,p.k);return `<tr data-k="${offKey(p.k)}"><th>${esc(TR(p.lab))}</th><td>${inp('ofs_'+offKey(p.k).replace('.','_'),S[offKey(p.k)]!=null?hms(S[offKey(p.k)]):'',r?hms(r):'')}</td><td class="rec" data-notr>${offT(r)}</td><td class="df" data-notr></td></tr>`;}).join('');
+  offPanel.innerHTML=`<div class="op-card"><div class="op-h"><b>公式記録の入力</b><span class="sub" data-notr>${esc(logLabel(d))}</span></div>
+  <p class="sub">記録証やリザルトのタイムを「時:分:秒」（例 1:23:45）で入れます。わからない地点は空のままでかまいません。灰色の文字はアプリの記録です。</p>
+  <label class="f">スプリット（5km毎・中間点）の基準<select id="ofBasis"><option value="net">スタートライン通過から（ネット）</option><option value="gross">号砲から（グロス）</option></select></label>
+  <table class="op-t"><thead><tr><th>地点</th><th>公式タイム</th><th>アプリの記録</th><th>差</th></tr></thead><tbody>${pr}
+  <tr class="goal"><th>ゴール（ネット）</th><td>${inp('ofNet',o.net?hms(o.net):'',hms(B.el))}</td><td class="rec" data-notr>${offT(B.el)}</td><td class="df" data-notr></td></tr>
+  <tr class="goal"><th>グロス</th><td>${inp('ofGross',o.gross?hms(o.gross):'',recLoss(d)!=null?hms(B.el+recLoss(d)):'')}</td><td class="rec" data-notr>${recLoss(d)!=null?hms(B.el+recLoss(d)):'—'}</td><td class="df" data-notr></td></tr></tbody></table>
+  <div class="op-g"><label>総合順位${inp('ofRank',o.rank,'例 1234')}</label><label>種目別順位${inp('ofDivRank',o.divRank,'例 123')}</label><label class="w">種目・部門名<input id="ofDiv" autocomplete="off" placeholder="例 フル男子50歳代" value="${esc(o.div||'')}"></label></div>
+  <label class="off-memo">メモ<textarea id="ofMemo" rows="2" placeholder="天気・体調・反省など">${esc(o.memo||'')}</textarea></label>
+  <div class="off-warn" id="ofWarn" hidden></div>
+  <div class="op-b"><button class="primary" type="button" id="ofSave">確認して保存</button><button class="small" type="button" id="ofBack">戻る（保存しない）</button>${o.net||o.gross||Object.keys(S).length?'<button class="small" type="button" id="ofClear">公式タイムを消す</button>':''}</div></div>`;
+  $('#ofBasis').value=o.basis==='gross'?'gross':'net';offPanel.hidden=false;offPanel.scrollTop=0;
+  offPanel.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',offCheck));$('#ofBasis').addEventListener('change',offCheck);
+  $('#ofBack').onclick=offPanelClose;$('#ofSave').onclick=offPanelSave;const c=$('#ofClear');if(c)c.onclick=offPanelClear;offCheck();}
+function offPanelClose(){offPanel.hidden=true;offPanel.innerHTML='';OP.id=null;offBox.dataset.h='';renderLog();}
+function offRead2(d){const v=id=>{const e=$('#'+id);return e?e.value.trim():'';},tm=s=>s?hmsMs(s):null,num=s=>{s=s.replace(/[^\d]/g,'');return s?+s:null;};
+  const o={basis:$('#ofBasis').value,splits:{},bad:[]};offPts(d).filter(p=>!p.goal).forEach(p=>{const s=v('ofs_'+offKey(p.k).replace('.','_'));if(s){const t=tm(s);if(t>0)o.splits[offKey(p.k)]=t;else o.bad.push(p.lab);}});
+  const n=v('ofNet'),g=v('ofGross');o.net=n?tm(n):null;o.gross=g?tm(g):null;if(n&&!(o.net>0))o.bad.push('ゴール');if(g&&!(o.gross>0))o.bad.push('グロス');
+  o.rank=num(v('ofRank'));o.divRank=num(v('ofDivRank'));o.div=v('ofDiv');o.memo=v('ofMemo');return o;}
+function offCheck(){const d=logData();if(!d||d.id!==OP.id)return null;const B=offBase(d),o=offRead2(d),L=[];let lvl='';
+  const ls=o.net&&o.gross?o.gross-o.net:(recLoss(d)||0);const toNet=t=>t-(o.basis==='gross'?ls:0);
+  if(o.bad.length){L.push(TR('時間は「時:分:秒」（例 1:23:45）で入れてください。')+'（'+o.bad.map(TR).join('、')+'）');lvl='err';}
+  let prev=0,prevLab='';offPts(d).forEach(p=>{const tr=p.goal?offPanel.querySelector('tr.goal'):offPanel.querySelector(`tr[data-k="${offKey(p.k)}"]`);if(!tr)return;
+    const raw=p.goal?o.net:o.splits[offKey(p.k)],v=raw!=null?(p.goal?raw:toNet(raw)):null,r=p.goal?B.el:recAt(B,p.k),df=tr.querySelector('.df'),inp=tr.querySelector('input');
+    df.textContent=v!=null&&r!=null?(v>=r?'+':'−')+fmt(Math.abs(v-r)):'';const big=v!=null&&offBig(v,r);tr.classList.toggle('offbig',big);inp.classList.toggle('bad',big);
+    if(big){L.push(`${TR(p.lab)}：${TR('アプリの記録と')} ${fmt(Math.abs(v-r))} ${TR(v>r?'長い':'短い')}`);lvl=lvl||'warn';}
+    if(v!=null){if(v<=prev){L.push(`${TR(p.lab)}：${TR('前の地点より短いタイムになっています')}`);lvl='err';inp.classList.add('bad');}prev=v;prevLab=p.lab;}});
+  const gtr=offPanel.querySelectorAll('tr.goal')[1];if(gtr){const r=recLoss(d)!=null?B.el+recLoss(d):null,df=gtr.querySelector('.df'),inp=gtr.querySelector('input');df.textContent=o.gross&&r?(o.gross>=r?'+':'−')+fmt(Math.abs(o.gross-r)):'';
+    const big=o.gross&&offBig(o.gross,r);gtr.classList.toggle('offbig',!!big);inp.classList.toggle('bad',!!big||!!(o.net&&o.gross&&o.gross<o.net));if(big){L.push(`${TR('グロス')}：${TR('アプリの記録と')} ${fmt(Math.abs(o.gross-r))} ${TR(o.gross>r?'長い':'短い')}`);lvl=lvl||'warn';}}
+  if(o.net&&o.gross&&o.gross<o.net){L.push(TR('グロスタイムがネットタイムより短くなっています。入れ間違いがないか確かめてください。'));lvl='err';}
+  if(lvl==='warn')L.push(TR('大きくずれています。入れ間違いがないか確かめてください。'));
+  const w=$('#ofWarn');w.hidden=!L.length;w.className='off-warn'+(lvl?' '+lvl:'');w.innerHTML=L.map(x=>`<div>${esc(x)}</div>`).join('');return {o,lvl};}
+function offSaveTo(d,o){const loc=raceLogs.find(x=>x.id===d.id)||d;const c=Object.assign({},o);delete c.bad;
+  if(!Object.keys(c.splits||{}).length)delete c.splits;Object.keys(c).forEach(k=>{if(c[k]==null||c[k]==='')delete c[k];});
+  const keep=Object.keys(c).some(k=>k!=='basis');
+  [loc,d].forEach(x=>{if(!x)return;if(keep)x.off=Object.assign({},c,{at:Date.now()});else delete x.off;offScale(x);});
+  const e=(CLOUD.index||[]).find(x=>x.id===d.id);if(e)e.el=loc.el;
   if(raceLogs.includes(loc)){if(loc.cloud)delete loc.cloud;store.set(LOGS_KEY,raceLogs);}else if(CLOUD.cache[d.id]){CLOUD.cache[d.id].dirty=true;}
   try{cloudSync();}catch(err){}}
-$('#offSave').addEventListener('click',()=>{const d=logData();if(!d||d.loading||d.id==='cur')return;const {o,lvl,recG}=offWarnRender(d),m=$('#offMsg');
-  if(lvl==='err'){m.textContent=TR('入力を直してください');return;}
-  const B=offBase(d),L=[TR('次の内容で公式記録を保存しますか？'),''];
-  L.push(`${TR('ネットタイム')}：${offT(B.el)} → ${o.net?hms(o.net):offT(B.el)}`+(o.net&&offBig(o.net,B.el)?' ⚠':''));
-  if(o.gross)L.push(`${TR('グロスタイム')}：${recG?hms(recG):'—'} → ${hms(o.gross)}`+(recG&&offBig(o.gross,recG)?' ⚠':''));
-  if(o.rank)L.push(`${TR('総合順位')}：${o.rank}`);if(o.div||o.divRank)L.push(`${TR('部門')}：${o.div||''} ${o.divRank?o.divRank:''}`);if(o.memo)L.push(`${TR('メモ')}：${o.memo}`);
-  if(o.net)L.push('',TR('各ラップは、公式ネットタイムに合わせて配り直します。'));if(lvl==='warn')L.push('',TR('⚠ アプリの記録と大きくずれています。'));
-  if(!confirm(L.join('\n')))return;offSaveTo(d,o);offBox.dataset.id='';m.textContent=TR('公式記録を保存しました');renderLog();});
-$('#offClear').addEventListener('click',()=>{const d=logData();if(!d||!d.off)return;if(!confirm(TR('公式タイムを消して、アプリの記録に戻しますか？（順位・部門・メモは残ります）')))return;
-  const o=Object.assign({},d.off);delete o.net;delete o.gross;offSaveTo(d,o);offBox.dataset.id='';$('#offMsg').textContent=TR('アプリの記録に戻しました');renderLog();});
+function offPanelSave(){const d=logData();if(!d||d.id!==OP.id)return;const r=offCheck();if(!r)return;const {o,lvl}=r;
+  if(lvl==='err'){const w=$('#ofWarn');w.scrollIntoView({block:'center'});return;}
+  const B=offBase(d),L=[TR('次の内容で公式記録を保存しますか？'),''];let n=0;
+  offPts(d).filter(p=>!p.goal).forEach(p=>{const v=o.splits[offKey(p.k)];if(v!=null){n++;L.push(`${TR(p.lab)}：${hms(v)}`+(offBig(v-(o.basis==='gross'?((o.net&&o.gross)?o.gross-o.net:(recLoss(d)||0)):0),recAt(B,p.k))?' ⚠':''));}});
+  if(o.net)L.push(`${TR('ゴール（ネット）')}：${offT(B.el)} → ${hms(o.net)}`+(offBig(o.net,B.el)?' ⚠':''));if(o.gross)L.push(`${TR('グロス')}：${hms(o.gross)}`);
+  if(o.rank)L.push(`${TR('総合順位')}：${o.rank}`);if(o.divRank)L.push(`${TR('種目別順位')}：${o.div?o.div+' ':''}${o.divRank}`);
+  if(n||o.net)L.push('',TR('入力した地点のタイムに合わせて、あいだの各ラップを配り直して記録を補正します。'));if(lvl==='warn')L.push('',TR('⚠ アプリの記録と大きくずれています。'));
+  if(!confirm(L.join('\n')))return;offSaveTo(d,o);offPanelClose();setTimeout(()=>{const m=$('#offMsg');if(m)m.textContent=TR('公式記録を保存しました');},50);}
+function offPanelClear(){const d=logData();if(!d||d.id!==OP.id||!d.off)return;if(!confirm(TR('公式タイムを消して、アプリの記録に戻しますか？（順位・種目・メモは残ります）')))return;
+  const o=Object.assign({},d.off);delete o.net;delete o.gross;delete o.splits;offSaveTo(d,o);offPanelClose();}
 {const _rl=renderLog;renderLog=function(){const r=_rl.apply(this,arguments);try{offRender();}catch(e){}
-  try{const d=logData(),i=$('#logInfo');if(d&&d.off&&i&&!d.loading&&!i.querySelector('.off-s')){const o=d.off,P=[];if(o.net)P.push('公式');if(o.rank)P.push(`総合 ${o.rank}位`);if(o.div||o.divRank)P.push(`${o.div||'部門'}${o.divRank?' '+o.divRank+'位':''}`);
-      if(P.length){const s=document.createElement('span');s.className='off-s';s.textContent=P.join('　');i.appendChild(s);}
-      if(o.memo){const s=document.createElement('div');s.className='off-memo-v';s.textContent=o.memo;i.appendChild(s);}}}catch(e){}return r;};}
+  try{const d=logData(),i=$('#logInfo');if(d&&d.off&&i&&!d.loading&&!i.querySelector('.off-s')){const o=d.off;if(o.net||o.splits){const s=document.createElement('span');s.className='off-s';s.textContent='公式';i.appendChild(s);}}}catch(e){}return r;};}
 
 /* ---- 7. 実績のダッシュボード：通算と今季（7月〜翌年6月）の、フル・ハーフの完走回数とベストタイム ---- */
 function seasonOf(ms){const d=new Date(ms),y=d.getMonth()>=6?d.getFullYear():d.getFullYear()-1;return y;}
