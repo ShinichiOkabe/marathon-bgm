@@ -53,6 +53,7 @@
 .off-top{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline;margin:6px 0;font-size:.85rem}.off-top b{font-size:1.1rem}.off-top i{color:var(--muted);font-style:normal}
 @media (prefers-color-scheme:dark){.op-t input.bad{background:#3b1d0a;color:#fed7aa}}
 .vl-r{display:flex;align-items:center;gap:8px;margin:6px 0}.vl-r input{flex:1}.vl-e{font-size:.8rem;color:var(--muted)}.vl-v{min-width:5em;font-weight:700;font-size:.85rem}.vlrow #vlTest{margin:2px 0 4px}
+.unit-row{margin:2px 0 6px;text-align:right}.unit-link{display:inline-block;font-size:.8rem;font-weight:700;color:var(--accent);text-decoration:none;padding:3px 10px;border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));border-radius:999px;background:var(--surface)}
 </style>
 </head>
 <body>
@@ -304,7 +305,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .help-body .glink{display:flex;align-items:stretch;gap:4px;margin:10px 0 14px}.help-body .glink div{flex:1 1 0;min-width:0;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 4px;font-size:.72rem;line-height:1.35}.help-body .glink div b{display:block;font-size:1.6rem;line-height:1.2}.help-body .glink div strong{display:block;font-size:.8rem;margin:2px 0}.help-body .glink i{align-self:center;font-style:normal;font-weight:700;color:var(--accent);font-size:1.2rem}
 .help-body table{width:100%;border-collapse:collapse;margin:8px 0 12px;font-size:.85rem}.help-body th,.help-body td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}.help-body th{background:var(--surface)}
 .help-body pre{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:.78rem}.help-body ol,.help-body ul{padding-left:1.4em}.help-body a{color:var(--accent)}
-.support{margin:28px 0 0;text-align:center;font-size:.8rem;color:var(--muted)}.support p{margin:0 0 8px}.support .support-mail{margin:14px 0 0;line-height:1.6}.support-mail a{color:var(--accent);word-break:break-all}.support-btn{display:inline-block;padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font-weight:700}
+.support{margin:28px 0 0;text-align:center;font-size:.8rem;color:var(--muted)}.support p{margin:0 0 8px}.mi-note{background:color-mix(in srgb,var(--accent) 10%,var(--surface));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:10px;padding:8px 12px;font-size:.85rem}.support .support-mail{margin:14px 0 0;line-height:1.6}.support-mail a{color:var(--accent);word-break:break-all}.support-btn{display:inline-block;padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font-weight:700}
 .ver{margin:24px 0 8px;text-align:center;font-size:.72rem;color:var(--muted)}
 @keyframes rphit{0%,60%{box-shadow:0 0 0 4px var(--amber);background:var(--amber-soft)}100%{box-shadow:none}}#rcName.rp-hit{animation:rphit 2.4s ease-out}
 .csv-sel{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.csv-sel select{flex:1 1 200px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
@@ -492,6 +493,7 @@ body.live .recv{display:none}
   <header>
     <div class="title-row"><h1>マラソンBGM</h1><button class="small kcalbtn" id="btnKcal"><span>カロリー計算</span><small id="kcalState">計算しない</small></button><button class="small helpbtn" id="btnHelp" aria-label="使い方ガイド">？ 使い方</button><button id="btnLock" class="lockbtn" hidden>画面ロック</button><button class="primary-sm" id="rcArm" hidden>本番待機を始める</button><button id="rcDisarm" hidden>待機をやめる</button></div>
     <p class="ml-msg" id="rcMsg"></p>
+    <div class="unit-row" data-notr translate="no"><a class="unit-link" id="unitLink" href="https://shinichiokabe.github.io/marathon-bgm-mile/" rel="noopener">🇺🇸 Mile version（マイル版）はこちら →</a></div>
     <div class="net-row" id="netRow"><button type="button" class="net-chip" id="netChip" aria-expanded="false" aria-controls="netList"><i></i><span id="netChipT">ネット接続あり</span><small>使える機能</small></button><div class="net-list" id="netList" hidden></div></div>
     <p class="sub" id="leadTxt">手元の曲を、練習メニューの1kmペースで走りやすい速さに合わせて、音程を変えずに再生します。</p>
     <div class="resume" id="resumeBox" hidden><div><b>本番の途中で止まっています</b><div id="resumeTxt"></div></div>
@@ -796,8 +798,8 @@ body.live .recv{display:none}
     </div>
   </section>
   </div>
-  <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-09i</p>
+  <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
+  <p class="ver" data-notr translate="no">版 2026-11-09j</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -838,11 +840,12 @@ body.live .recv{display:none}
 <p><strong>いまネットにつながっているかを見る</strong>：画面の上の「ネット接続あり」「ネット接続なし（オフライン）」で、今の状態がわかります。押すと、ネットがなくても使える機能と、ネットが必要な機能の一覧が開きます。オフラインのときは、地図・天気・場所の名前・Dropboxへの保存などに「接続されていないので現在は利用できません」と出ます。保存や天気はネットにつながると自動で行うので、そのままで大丈夫です。</p>
 <h2 id="h-3">3. 画面の見方</h2>
 <p>画面は上から「モードのボタン」「走るときの表示（タイマーとスタート）」「設定のタブ」の順です。右上の「🌐」で、日本語・英語・中国語・韓国語に切り替えられます。日本語以外を選ぶと、この使い方ガイドは英語版になります。</p>
+<p><strong>km版とマイル版</strong>：距離をマイルで扱う「マラソンBGM（マイル）」もあります（https://shinichiokabe.github.io/marathon-bgm-mile/）。画面の上の「Mile version（マイル版）はこちら」を押すとマイル版に、マイル版では「Kilometer version（km版）はこちら」でkm版に移ります。曲・マイリスト・体重などの設定は共通で、記録や大会の設定は別々に保存します。走っている間は切り替えられません。</p>
 <figure class="gfig"><img src="guide/g_top.webp" loading="lazy" alt="練習モードの画面。上からモードのボタン、屋内／屋外、走るときの表示" onerror="this.parentNode.hidden=true"><figcaption>練習モードの画面。上からモードのボタン、屋内／屋外、走るときの表示</figcaption></figure>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-09i」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-09j」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -907,7 +910,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <ul><li>距離の看板を通ったら「確定」を押します（ロック中は長押し）。推定の現在地がその距離に合います。</li><li>確定する看板を変えたいときは、左右の矢印（＜ ＞）でひとつ前・ひとつ先の看板に変えてから確定します。矢印を押したときだけ、ボタンに「11km を確定」のように選んだ看板が出て、声でも距離を言います。</li><li>「取消」は、直前の確定を取り消します（ロック中は長押し）。</li><li>同じ看板をもう一度確定すると（ボタンは「確定し直す」になります）、あとで押した位置をその距離にします。押すのが早すぎたときは、看板の所でもう一度押してください。</li></ul>
 <p><strong>確定したことの確かめ方</strong>：確定を押すと、声で「21キロ、確定しました」と言い、画面全体が<strong>緑色</strong>に光って「21 km 確定しました」と出ます。取消を押したときは<strong>オレンジ色</strong>で「確定を取り消しました」と出ます。左右の矢印で看板を変えたときも、選んだ看板の距離を声で言います。</p>
 <p><strong>2回タップで確定する</strong>：画面ロック中に、下のボタン以外の場所を<strong>2回続けてタップ</strong>すると、「推定16.1キロ。16キロの看板で確定できます」と読み上げます。<strong>もう一度2回タップ</strong>すると「16キロで確定しますか？」と聞くので、<strong>さらに2回タップ</strong>すると確定します（確定する時刻は、1回目にタップした時刻です）。15秒タップしなければ取りやめます。声の聞き取りは使わないので、ネットがなくても使えます。看板が違うときは、下のバーの矢印で選んでから2回タップします。</p>
-<p><strong>2回タップでゴールする</strong>：確定に使う看板は1km毎で、ゴールまで1km未満の看板（フルの42km・ハーフの21km）と中間点は使いません。推定の距離がゴールまで1km未満のとき、または最後の看板（フルなら41km、ハーフなら20km）を確定したあとに2回タップすると、「ゴールで終了できます」と読み上げます。同じように<strong>もう一度2回タップ</strong>で「ゴールしますか？」、<strong>さらに2回タップ</strong>でゴール（終了）します。ゴールの時刻は、1回目にタップした時刻です。ゴールラインを越えたらすぐに2回タップしてください。</p>
+<p><strong>2回タップでゴールする</strong>：確定に使う看板は1km毎で、ゴールまで1km未満の看板と中間点は使いません。推定の距離がゴールまで1km未満のとき、または最後の看板（ゴールまで1km以上ある一番先の看板）を確定したあとに2回タップすると、「ゴールで終了できます」と読み上げます。同じように<strong>もう一度2回タップ</strong>で「ゴールしますか？」、<strong>さらに2回タップ</strong>でゴール（終了）します。ゴールの時刻は、1回目にタップした時刻です。ゴールラインを越えたらすぐに2回タップしてください。</p>
 <p><strong>現在地は戻りません</strong>：GPSなどで一度進んだ距離より、推定の現在地が戻ることはありません（自分で看板を確定し直したときだけ変わります）。スマホを開き直したときも、それまでに進んだ距離から続けます。</p>
 <p><strong>ゴール（終了）を間違えて押したとき</strong>：終了の画面に出る「ゴール（終了）を取り消して走り続ける」を押すと、終了する前の状態に戻って走行を続けます（終了から20分以内。時間はそのまま進んでいます）。</p>
 <figure class="gfig"><img src="guide/g_fx.webp" loading="lazy" alt="距離の確定のボタン（上：ロックしていないとき、下：ロック中）" onerror="this.parentNode.hidden=true"><figcaption>距離の確定のボタン（上：ロックしていないとき、下：ロック中）</figcaption></figure>
@@ -1032,7 +1035,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>マラソンBGMは無料で使えます。寄付は任意で、寄付をしなくてもすべての機能を使えます。応援していただける場合は、画面の一番下の「☕ このアプリを応援する（PayPal）」から寄付できます。</p>
 <p><strong>寄付先</strong>：<a href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">https://paypal.me/marathonBGM</a></p>
 <p>寄付にはPayPalのアカウントが必要です。日本円での個人間の送金に手数料はかかりません。</p>
-<p><strong>ご意見・ご要望</strong>：<a href="mailto:marathonbgm@mbr.nifty.com">marathonbgm@mbr.nifty.com</a>　可能な範囲内で機能改善に取り組んでいます。</p>
+<p><strong>ご意見・ご要望</strong>：<a href="mailto:marathonbgm@mbr.nifty.com">marathonbgm@mbr.nifty.com</a>　可能な範囲内で機能改善に取り組んでいます。メールの返信は原則行っていません。</p>
   </div><div class="help-body" id="helpBodyEn" data-notr translate="no" lang="en" hidden>
 <p>Marathon BGM plays the music on your phone at a speed that matches your running pace. The pitch does not change, and no sign-up or payment is needed. This guide follows the order "Setup → Training → Race → Relax", so start wherever you like.</p>
 <h2 id="e-1">1. The basics</h2>
@@ -1061,11 +1064,12 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p><strong>Check whether you are online</strong>: "Online" or "No internet (offline)" near the top of the screen shows the current state. Press it to see which features work without the internet and which need it. While offline, the map, weather, place name and saving to Dropbox show "Not available now (no internet)". Saving and weather happen automatically once you are online, so you do not need to do anything.</p>
 <h2 id="e-3">3. The screen</h2>
 <p>From top to bottom: the mode buttons, the running display (timer and Start), and the settings tabs. Use "🌐" at the top right to switch between Japanese, English, Chinese and Korean.</p>
+<p><strong>Kilometer and mile versions</strong>: there is also "Marathon BGM (Mile)", which works in miles (https://shinichiokabe.github.io/marathon-bgm-mile/). Press "Mile version" at the top of the screen to go to the mile version; in the mile version, "Kilometer version" takes you back. Songs, my lists and weight are shared; logs and race settings are kept separately. You cannot switch while running.</p>
 <figure class="gfig"><img src="guide/g_top_en.webp" loading="lazy" alt="Training screen: mode buttons, Indoor/Outdoor and the running display" onerror="this.parentNode.hidden=true"><figcaption>Training screen: mode buttons, Indoor/Outdoor and the running display</figcaption></figure>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-09i" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-09j" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1130,7 +1134,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <ul><li>When you pass a distance marker, press "Confirm" (long-press while locked). The estimated position is set to that distance.</li><li>If the marker shown is wrong, change it with the left/right arrows (&lt; &gt;) before confirming.</li><li>"Undo" cancels the last confirmation (long-press while locked).</li><li>Confirming the same marker again (the button shows "Re-confirm") moves it to where you pressed the second time. If you pressed too early, press again at the marker.</li></ul>
 <p><strong>How you know it was confirmed</strong>: when you press Confirm, the voice says "21 kilometers confirmed" and the whole screen flashes <strong>green</strong> with "21 km Confirmed". Undo flashes <strong>orange</strong> with "Confirmation cancelled". When you change the marker with the arrows, the voice reads out the chosen distance.</p>
 <p><strong>Confirm by double-tapping</strong>: while the screen is locked, <strong>double-tap</strong> anywhere except the bottom buttons and the app reads out e.g. "Estimated 16.1 km. You can confirm at the 16 km marker". <strong>Double-tap again</strong> and it asks "Confirm at 16 km?"; <strong>double-tap once more</strong> to confirm (the time recorded is when you first tapped). If you don't tap for 15 seconds, it stops. No speech recognition is used, so it works without an internet connection. If the marker is wrong, choose it with the arrows on the bottom bar first, then double-tap.</p>
-<p><strong>Finish by double-tapping</strong>: markers are every 1 km; the halfway point and markers less than 1 km from the finish (42 km in a full, 21 km in a half) are not used. When the estimate is less than 1 km from the finish, or after you have confirmed the last marker (41 km in a full, 20 km in a half), a double-tap reads out "You can finish here". <strong>Double-tap again</strong> for "Finish now?" and <strong>once more</strong> to finish. The finish time recorded is when you first tapped, so double-tap right after crossing the finish line.</p>
+<p><strong>Finish by double-tapping</strong>: markers are every 1 km; the halfway point and markers less than 1 km from the finish are not used. When the estimate is less than 1 km from the finish, or after you have confirmed the last marker (the furthest one at least 1 km before the finish), a double-tap reads out "You can finish here". <strong>Double-tap again</strong> for "Finish now?" and <strong>once more</strong> to finish. The finish time recorded is when you first tapped, so double-tap right after crossing the finish line.</p>
 <p><strong>Your position never goes back</strong>: the estimated position never drops below the distance you have already covered by GPS etc. (it changes only when you confirm a marker yourself). This also holds after you reopen the app.</p>
 <p><strong>If you press Finish by mistake</strong>: on the finish screen, press "Cancel the finish and keep running" to go back to the state before you finished and carry on (within 20 minutes; the clock has kept running).</p>
 <figure class="gfig"><img src="guide/g_fx_en.webp" loading="lazy" alt="Distance confirm buttons (top: unlocked, bottom: locked)" onerror="this.parentNode.hidden=true"><figcaption>Distance confirm buttons (top: unlocked, bottom: locked)</figcaption></figure>
@@ -1255,9 +1259,31 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>Marathon BGM is free. Donations are optional, and all features work without donating. If you would like to support it, use "☕ Support this app (PayPal)" at the bottom of the screen.</p>
 <p><strong>Donate</strong>: <a href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">https://paypal.me/marathonBGM</a></p>
 <p>A PayPal account is needed to donate.</p>
-<p><strong>Feedback and requests</strong>: <a href="mailto:marathonbgm@mbr.nifty.com">marathonbgm@mbr.nifty.com</a> — features are improved as far as possible.</p>
+<p><strong>Feedback and requests</strong>: <a href="mailto:marathonbgm@mbr.nifty.com">marathonbgm@mbr.nifty.com</a> — features are improved as far as possible. As a rule, emails are not answered.</p>
 </div></div>
 </div>
+<script>
+/* 単位：https://shinichiokabe.github.io/marathon-bgm-mile/ に置いたとき（試験では …/mile/ でも）はマイル版。記録はマイルで残し、km版とは保存場所（この端末・Dropbox）を分ける */
+var UNIT=/\/marathon-bgm-mile\//.test(location.pathname)||/\/mile\/(index\.html)?$/.test(location.pathname)||/[?&]unit=mi(&|$)/.test(location.search)?'mi':'km';
+var MI=UNIT==='mi',UK=MI?1.609344:1,FULL=MI?26.2188:42.195,HALF=MI?13.1094:21.0975,UL=MI?'mi':'km';
+var PMIN=MI?240:150,PMAX=MI?1450:900;
+/* km で決めてある距離の目安を、使っている単位に直す */
+function KU(v){return v/UK;}
+/* 曲・BPM・体重など、km版と共通で使う設定 */
+var SHARED_KEYS=['cbgm-bpm','cbgm-mylists','cbgm-mylist-active','cbgm-offset','cbgm-keeppitch','cbgm-shuffle','cbgm-weight'];
+function SK(k){return MI&&typeof k==='string'&&k.indexOf('cbgm-')===0&&SHARED_KEYS.indexOf(k)<0?'cbmi-'+k.slice(5):k;}
+if(MI){try{var SP=Storage.prototype,_g=SP.getItem,_s=SP.setItem,_r=SP.removeItem;
+  SP.getItem=function(k){return _g.call(this,SK(k));};SP.setItem=function(k,v){return _s.call(this,SK(k),v);};SP.removeItem=function(k){return _r.call(this,SK(k));};}catch(e){}}
+/* 画面・音声・CSVの単位の表記をマイルに直す（km版では何もしない） */
+function UC(s,say){if(!MI||typeof s!=='string'||!s)return s;let o=s;
+  o=o.replace(/42\.195(\s*)(km|キロ)/g,'26.2$1$2').replace(/21\.0975(\s*)(km|キロ)/g,'13.1$1$2');
+  o=o.replace(/（150〜900）/g,'（240〜1450）').replace(/\(150[–-]900\)/g,'(240–1450)');
+  o=o.replace(/(^|[^0-9.])500\s?メートル/g,'$10.5マイル').replace(/(^|[^0-9.])500\s?meters/g,'$10.5 miles').replace(/(^|[^0-9.])500\s?(米|公尺)/g,'$10.5英里').replace(/(^|[^0-9.])500\s?미터/g,'$10.5마일').replace(/(^|[^0-9.])500\s?m(?![A-Za-z])/g,'$10.5 mi');
+  o=o.replace(/km\/h/g,'mph').replace(/(^|[^A-Za-z])km(?![A-Za-z])/g,say?'$1 miles':'$1mi').replace(/\bper[- ]mi\b/g,m=>m.replace('mi','mile'));
+  o=o.replace(/\b([Kk])ilomet(?:er|re)s\b/g,(m,k)=>k==='K'?'Miles':'miles').replace(/\b([Kk])ilomet(?:er|re)\b/g,(m,k)=>k==='K'?'Mile':'mile');
+  o=o.replace(/キロメートル/g,'マイル').replace(/キロ(?!カロリー|グラム)/g,'マイル').replace(/公里/g,'英里').replace(/킬로미터/g,'마일').replace(/킬로(?!칼로리|그램)/g,'마일');
+  return o;}
+</script>
 <script>
 /* クラウドのサインインから戻ったとき：アプリがアドレスを読む前に結果を受け取り、アドレスを元に戻す */
 (function(){try{const s=sessionStorage.getItem('cbgm-oauth');if(!s)return;const o=JSON.parse(s);if(o.ret)return;
@@ -1268,6 +1294,11 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <script>
 const BOOT={hash:location.hash||'',ref:document.referrer||'',last:''};addEventListener('hashchange',()=>{BOOT.last=location.hash||'';});
 const curHash=()=>location.hash||BOOT.last||BOOT.hash||'';
+if(MI){try{[['#helpBody','この版は距離をマイル（mi）で扱う「マラソンBGM（マイル）」です。使い方の説明の距離はマイルに読み替えて表示しています。画面の写真はkm版のものです。'],['#helpBodyEn','This is Marathon BGM (Mile), which works in miles. Distances in this guide are shown in miles; the screenshots are from the km version.']].forEach(([q,t])=>{const h=document.querySelector(q);if(h){const n=document.createElement('p');n.className='mi-note';n.textContent=t;h.insertBefore(n,h.firstChild);}});
+  /* 使い方は翻訳の対象外なので、ここで単位の表記だけマイルに直す */
+  ['#helpBody','#helpBodyEn'].forEach(q=>{const h=document.querySelector(q);if(!h)return;const tw=document.createTreeWalker(h,NodeFilter.SHOW_TEXT);let n;while((n=tw.nextNode())){const o=UC(n.data);if(o!==n.data)n.data=o;}
+    h.querySelectorAll('img[alt]').forEach(im=>{const o=UC(im.alt);if(o!==im.alt)im.alt=o;});});}catch(e){}}
+if(MI){try{document.title='マラソンBGM（マイル）｜走るペースに合わせて手持ちの曲を流す無料アプリ';const h=document.querySelector('.title-row h1');if(h)h.textContent='マラソンBGM（マイル）';}catch(e){}}
 const $=s=>document.querySelector(s);
 const pendingKV={};
 const lsGet=k=>{try{const v=localStorage.getItem(k);return v==null?undefined:JSON.parse(v);}catch(e){return undefined;}};
@@ -1281,13 +1312,13 @@ const fmt=ms=>{ms=Math.max(0,ms);const t=Math.ceil(ms/1000);const h=Math.floor(t
 let cadOffset=+store.get('cbgm-offset',0)||0;
 const V7=60000/420, SLOPE=20/(60000/240-60000/420);
 const CAD7=164; /* 7:00/km ≈ 164, 5:00/km ≈ 175, 4:00/km ≈ 184 spm */
-const cadFromPace=p=>Math.round(Math.min(215,Math.max(130,CAD7+SLOPE*(60000/p-V7)+cadOffset)));
-const paceFromCad=c=>Math.round(Math.min(900,Math.max(150,60000/(V7+(c-cadOffset-CAD7)/SLOPE))));
+const cadFromPace=p=>Math.round(Math.min(215,Math.max(130,CAD7+SLOPE*(60000/(p/UK)-V7)+cadOffset)));
+const paceFromCad=c=>Math.round(Math.min(PMAX,Math.max(PMIN,UK*60000/(V7+(c-cadOffset-CAD7)/SLOPE))));
 const fmtPace=p=>{p=Math.round(p);return Math.floor(p/60)+':'+String(p%60).padStart(2,'0');};
 function parsePace(str){str=String(str).trim().replace(/[：'’分]/g,':').replace(/[秒"]/g,'');
   let m,s;if(/^\d{3,4}$/.test(str)){m=+str.slice(0,-2);s=+str.slice(-2);}
   else{const a=str.match(/^(\d{1,2})(?:[:.\s](\d{1,2}))?$/);if(!a)return null;m=+a[1];s=a[2]?+a[2]:0;}
-  if(s>59)return null;const p=m*60+s;return p>=150&&p<=900?p:null;}
+  if(s>59)return null;const p=m*60+s;return p>=PMIN&&p<=PMAX?p:null;}
 const kmOf=s=>s.min*60/s.pace;
 
 const PRESETS={
@@ -1297,9 +1328,9 @@ const PRESETS={
   jog:{label:'ジョグ',segs:[['ジョグ',405,30]]}
 };
 const gid=()=>'g'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);
-const fromPreset=k=>PRESETS[k].segs.map(([n,p,m])=>({id:gid(),name:n,pace:p,bpm:cadFromPace(p),auto:true,min:m}));
+const fromPreset=k=>PRESETS[k].segs.map(([n,p,m])=>({id:gid(),name:n,pace:Math.round(p*UK/5)*5,bpm:cadFromPace(Math.round(p*UK/5)*5),auto:true,min:m}));
 const toStage=s=>({id:String(s.id||gid()),name:String(s.name||'ステージ'),pace:+s.pace,bpm:cadFromPace(+s.pace),auto:true,min:+s.min||1});
-const validMenu=m=>Array.isArray(m)&&m.length&&m.every(s=>+s.pace>=150&&+s.pace<=900);
+const validMenu=m=>Array.isArray(m)&&m.length&&m.every(s=>+s.pace>=PMIN&&+s.pace<=PMAX);
 let menu=store.get('cbgm-menu-pace',null);
 if(!validMenu(menu)) menu=fromPreset('steady');
 else menu=menu.map(toStage);
@@ -1311,11 +1342,11 @@ const opt={outdoor:!!store.get('cbgm-outdoor',false),cue:true,click:false,vol:.7
 /* ---------- modes: practice / race / relax ---------- */
 let MODE=store.get('cbgm-mode','practice');if(!['practice','race','relax'].includes(MODE))MODE='practice';
 let practiceMenu=null;
-const RCD={name:'',ev:'フル',km:42.195,date:'',time:'09:00',wave:0,limit:360,goal:0,margin:5,cps:'',ws:'',strat:[],autoSafe:true};
+const RCD={name:'',ev:'フル',km:FULL,date:'',time:'09:00',wave:0,limit:360,goal:0,margin:5,cps:'',ws:'',strat:[],autoSafe:true};
 let RC=Object.assign({},RCD,store.get('cbgm-race',{}));
 const RS={armed:false,pre:false,startAt:0,ann:0,fix:[],spd:0,stg:null,gunCue:false};
 const pMenu=()=>MODE==='practice'?menu:(practiceMenu||menu);
-const rcKm=()=>RC.ev==='フル'?42.195:RC.ev==='ハーフ'?21.0975:(+RC.km||0);
+const rcKm=()=>RC.ev==='フル'?FULL:RC.ev==='ハーフ'?HALF:(+RC.km||0);
 /* "4:59:00" "4:59" "4.59.00" "45900" "459" "6" (hours) all accepted */
 function parseHMS(str){str=String(str==null?'':str).trim().replace(/[：．.・\s]+/g,':').replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248)).replace(/^:+|:+$/g,'');if(!str)return 0;
   if(/^\d{5,6}$/.test(str))str=str.slice(0,-4)+':'+str.slice(-4,-2)+':'+str.slice(-2);
@@ -1433,8 +1464,8 @@ function updateStoreInfo(){const el=$('#storeInfo');if(!el)return;$('#btnClear')
 /* settings mirror in IndexedDB: survives where localStorage is unavailable */
 const KV_KEYS=['cbgm-rp-active','cbgm-pm-active','cbgm-menu-presets','cbgm-offset','cbgm-menu-pace','cbgm-preset-pace','cbgm-original','cbgm-keeppitch','cbgm-bpm','cbgm-mylists','cbgm-mylist-active','cbgm-hash-done','cbgm-race','cbgm-race-presets','cbgm-race-run','cbgm-race-logs','cbgm-shuffle','cbgm-mode'];
 let hashDone=store.get('cbgm-hash-done','');
-function kvPut(k,v){return tx(['kv'],'readwrite',t=>{t.objectStore('kv').put(JSON.parse(JSON.stringify(v??null)),k);});}
-async function kvCheck(k,id,saved){if(!DB.ok)return null;const r=await tx(['kv'],'readonly',t=>t.objectStore('kv').get(k));
+function kvPut(k,v){return tx(['kv'],'readwrite',t=>{t.objectStore('kv').put(JSON.parse(JSON.stringify(v??null)),SK(k));});}
+async function kvCheck(k,id,saved){if(!DB.ok)return null;const r=await tx(['kv'],'readonly',t=>t.objectStore('kv').get(SK(k)));
   const v=r&&r.result;return Array.isArray(v)&&v.some(m=>m.id===id&&m.saved===saved);}
 function applyKV(k,v){switch(k){
   case 'cbgm-offset':cadOffset=Math.max(-30,Math.min(30,+v||0));$('#cadOffset').value=cadOffset;break;
@@ -1461,7 +1492,7 @@ const HASH_NAME={W:'ウォームアップ',J:'ジョグ',P:'ペース走',M:'目
 function readHashMenu(src){let h='';try{h=src!=null?String(src).trim().replace(/^.*#/,''):decodeURIComponent(curHash().slice(1));}catch(e){}
   const m=/^tm\.([A-Z0-9x_]+)$/.exec(h);if(!m)return null;
   const st=m[1].split('_').map(x=>{const a=/^([A-Z])(\d+)x(\d+)$/.exec(x);return a?{name:HASH_NAME[a[1]]||'ステージ',pace:+a[2],min:Math.max(.5,Math.round(+a[3]/5)/2)}:null;});
-  if(!st.length||st.length>40||st.some(x=>!x||x.pace<150||x.pace>900))return null;return {token:h,stages:st};}
+  if(!st.length||st.length>40||st.some(x=>!x||x.pace<PMIN||x.pace>PMAX))return null;return {token:h,stages:st};}
 let hashPrev=null,hashShown='';
 function b64uDecode(t){try{t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';const bin=atob(t);return new TextDecoder().decode(Uint8Array.from(bin,c=>c.charCodeAt(0)));}catch(e){return '';}}
 function applyRaceHash(src){let h='';try{h=src!=null?String(src).trim().replace(/^.*#/,''):decodeURIComponent(curHash().slice(1));}catch(e){}
@@ -1557,7 +1588,7 @@ document.addEventListener('click',e=>{if(e.target.id!=='tmLoad')return;const inp
   if(R.running){msg.textContent='走っている間は読み込めません。';msg.classList.add('err');return;}
   if(!readHashMenu(v)){msg.textContent='コードを読み取れませんでした。大会管理の「コピー」で写したものを、そのまま貼り付けてください。';msg.classList.add('err');return;}
   hashShown='';applyHashMenu(v);inp.value='';msg.textContent='';msg.classList.remove('err');window.scrollTo(0,0);});
-async function syncKV(){const r=await tx(['kv'],'readonly',t=>{const st=t.objectStore('kv');return KV_KEYS.map(k=>st.get(k));});
+async function syncKV(){const r=await tx(['kv'],'readonly',t=>{const st=t.objectStore('kv');return KV_KEYS.map(k=>st.get(SK(k)));});
   /* IndexedDB is the source of truth; localStorage only fills keys IndexedDB has never stored */
   KV_KEYS.forEach((k,i)=>{const ls=lsGet(k);const kv=r&&r[i]?r[i].result:undefined;
     if(k in pendingKV)return;
@@ -1775,7 +1806,7 @@ $('#menuList').addEventListener('change',e=>{if(e.target.dataset.f!=='pace')retu
   e.target.value=fmtPace(s.pace);});
 $('#menuList').addEventListener('click',e=>{const t=e.target;const row=t.closest('.row');if(!row)return;const s=menu.find(x=>x.id===row.dataset.id);
   if(t.dataset.del){if(menu.length<2)return;menu=menu.filter(x=>x.id!==s.id);activePreset='custom';saveMenu();if(R.running){R.seg=segAt(elapsed());stageChanged();}renderAll();return;}
-  if(t.dataset.pstep){s.pace=Math.min(900,Math.max(150,s.pace+(+t.dataset.pstep)));if(s.auto)s.bpm=cadFromPace(s.pace);
+  if(t.dataset.pstep){s.pace=Math.min(PMAX,Math.max(PMIN,s.pace+(+t.dataset.pstep)));if(s.auto)s.bpm=cadFromPace(s.pace);
     document.getElementById('p-'+s.id).value=fmtPace(s.pace);refreshRow(s);menuChanged();return;}
   if(t.dataset.reauto){s.auto=true;s.bpm=cadFromPace(s.pace);refreshRow(s);menuChanged();}});
 $('#btnAddSeg').addEventListener('click',()=>{const last=menu[menu.length-1];const pace=last?last.pace:390;
@@ -1877,7 +1908,7 @@ function gpsFix(p){if(!GPS.on)return;if(!R.running&&!GPS.pre){gpsOff(true);retur
     if(!GPS.pt){GPS.pt=pt;GPS.lastEl=elapsed();}
     else{const d=hav(GPS.pt,pt),dt=Math.max(1,(pt.ts-GPS.pt.ts)/1000);
       if(d/dt>7){GPS.pt=pt;} /* 速すぎる移動は位置の飛びとして捨てる */
-      else if(d>=Math.max(8,c.accuracy*0.6)){GPS.dist+=d/1000;GPS.pt=pt;GPS.lastEl=elapsed();}}}
+      else if(d>=Math.max(8,c.accuracy*0.6)){GPS.dist+=d/1000/UK;GPS.pt=pt;GPS.lastEl=elapsed();}}}
   gpsStatus();}
 function gpsErr(e){GPS.msg=e&&e.code===1?gpsDenyMsg():'GPSの位置が取れません';gpsStatus();}
 function gpsOff(silent){if(!GPS.on)return;try{navigator.geolocation.clearWatch(GPS.watch);}catch(err){}
@@ -1986,7 +2017,7 @@ function odFix(p){if(!OD.active)return;const c=p.coords;OD.acc=c.accuracy;OD.msg
   if(!OD.pt){OD.pt=pt;OD.lastFixRaw=raw;return;}
   const d=hav(OD.pt,pt),dt=Math.max(1,(pt.ts-OD.pt.ts)/1000);
   if(d/dt>7){OD.pt=pt;return;}
-  if(d>=Math.max(8,c.accuracy*0.6)){OD.dist+=d/1000;OD.pt=pt;OD.lastFixRaw=raw;
+  if(d>=Math.max(8,c.accuracy*0.6)){OD.dist+=d/1000/UK;OD.pt=pt;OD.lastFixRaw=raw;
     OD.hist.push({t:raw,d:OD.dist});while(OD.hist.length>2&&(OD.dist-OD.hist[1].d>0.4))OD.hist.shift();
     if(OD.dist>=OD.kmNext){const lap=raw-OD.kmT;OD.kmT=raw;const i=segAt(odEl(OD.dist)),tp=menu[i]?menu[i].pace:null;
       (OD.laps=OD.laps||[]).push({km:OD.kmNext,lap,t:raw,tp:tp?tp*1000:null,name:menu[i]?menu[i].name:''});
@@ -2183,7 +2214,7 @@ function mlShowSongs(t){if(MODE==='relax')return;blurInputs();const sl=$('#songL
 function say(t){try{if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=1.05;
   audio.volume=Math.max(.05,opt.vol*.3);u.onend=u.onerror=()=>{audio.volume=opt.vol;};speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
 function virtualMenu(){
-  if(MODE==='race'){const p=Math.min(900,Math.max(150,Math.round(rcEff()||360)));let min=(+RC.limit||360)+30;const e=rcEndMs(),now=Date.now();
+  if(MODE==='race'){const p=Math.min(PMAX,Math.max(PMIN,Math.round(rcEff()||360*UK)));let min=(+RC.limit||360)+30;const e=rcEndMs(),now=Date.now();
     if(e&&now<e&&now>e-24*3600000)min=Math.max(1,(e-now)/60000);
     return [{id:'race',name:RC.name||'本番',pace:p,bpm:cadFromPace(p),auto:true,min}];}
   return [{id:'relax',name:'リラックス',pace:360,bpm:cadFromPace(360),auto:true,min:24*60}];}
@@ -2371,7 +2402,7 @@ function fillStratN(){const sel=$('#stratN');if(!sel)return;const cur=stratNPick
 function stratAuto(){const km=rcKm();let total=RC.goal?RC.goal-(+RC.margin||0)*60:null;if(!km||!total){const m=$('#stratMsg');m.textContent='先に上の「目標タイム（時:分:秒）」を入れてください（例 4:30:00）。';const g=$('#rcGoal');g.classList.add('need');g.scrollIntoView({block:'center',behavior:'smooth'});setTimeout(()=>g.focus(),400);setTimeout(()=>{g.classList.remove('need');},4000);return;}
   $('#stratMsg').textContent='';
   const n=+($('#stratN')&&$('#stratN').value)||stratDefN();let b;
-  if(n===3&&Math.abs(km-42.195)<0.01)b=[10,30];else{b=[];for(let i=1;i<n;i++)b.push(Math.round(km*i/n*10)/10);}
+  if(n===3&&Math.abs(km-FULL)<0.01)b=MI?[6,18]:[10,30];else{b=[];for(let i=1;i<n;i++)b.push(Math.round(km*i/n*10)/10);}
   const segs=[];let f=0;b.forEach(e=>{segs.push([f,e]);f=e;});segs.push([f,km]);
   const w=segs.map((_,i)=>n===1?1:i===0?0.98:1.02-0.05*(i-1)/Math.max(1,n-2));
   const v=km/(total/3600),t=segs.reduce((a,[f,e],i)=>a+(e-f)/(v*w[i])*3600,0),k=t/total;
@@ -2399,7 +2430,7 @@ let rpFlash=null,rpFlashT=0;const nLines=t=>String(t||'').split(/\n/).filter(x=>
 function fmtWhenS(t){const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;}
 let rpFlashTxt='上書きしました ✓';function flashRP(id,txt){rpFlash=id;rpFlashTxt=txt||'上書きしました ✓';clearTimeout(rpFlashT);rpFlashT=setTimeout(()=>{rpFlash=null;renderRP();},2500);}
 function renderRP(){const l=$('#rpList');if(!l)return;l.hidden=!racePresets.length;
-  l.innerHTML=racePresets.map(p=>{const r=p.rc||{},km=r.ev==='フル'?42.195:r.ev==='ハーフ'?21.0975:(+r.km||0);
+  l.innerHTML=racePresets.map(p=>{const r=p.rc||{},km=r.ev==='フル'?FULL:r.ev==='ハーフ'?HALF:(+r.km||0);
     const cur=p.id===activeRP;return `<div class="ml${cur?' cur':''}${rpFlash===p.id?' flash':''}"><div class="ml-info"><b>${esc(p.name)}</b>${cur?'<em class="cur-tag">読み込み中</em>':''}<span>${esc(r.name||'大会名なし')}・${r.date||'日付なし'} ${r.time||''}・${+km.toFixed(3)}km${r.goal?'・目標 '+fmtHMS(r.goal):''}${(r.strat||[]).length?'・戦略 '+r.strat.length+'ステージ':''}${nLines(r.cps)?'・関門 '+nLines(r.cps)+'か所':''}${nLines(r.ws)?'・給水 '+nLines(r.ws)+'か所':''}・保存 ${fmtWhenS(p.saved)}</span></div>
       <div class="ctrls"><button class="small" data-rpload="${p.id}" ${R.running||RS.pre?'disabled':''}>読み込む</button><button class="small${rpFlash===p.id?' ok':''}" data-rpsave="${p.id}" ${cur?'':'disabled title="読み込んだものだけ上書きできます"'}>${rpFlash===p.id?rpFlashTxt:'上書き'}</button><button class="small${rpDelArm===p.id?' danger':''}" data-rpdel="${p.id}">${rpDelArm===p.id?'本当に削除':'削除'}</button></div></div>`;}).join('');}
 const rpSnap=()=>JSON.parse(JSON.stringify(RC));
@@ -2576,7 +2607,7 @@ let logSelId='cur';
 function curLogData(){if(RS.startAt&&(RS.log||[]).length+(RS.ev||[]).length&&(R.running||!raceLogs.some(x=>x.startAt===RS.startAt)))return {id:'cur',name:RC.name,date:RC.date,startAt:RS.startAt,km:rcKm(),waveAt:rcWaveMs(),log:RS.log||[],ev:RS.ev||[],geo:RS.geo||null,el:Math.round(R.done?R.acc:rawEl()),live:R.running,kcal:R.done?kcalOf(opt.weight,raceRunKm()):null};return null;}
 /* start loss = own start press − (start time + wave minutes); gross = loss + net */
 /* ---- 消費カロリー（目安）= 体重kg × 距離km ---- */
-function kcalOf(w,km){return w>0&&km>0?Math.round(w*km/10)*10:null;}
+function kcalOf(w,km){return w>0&&km>0?Math.round(w*km*UK/10)*10:null;}
 function kcalTxt(k){return k==null?'':`約${k.toLocaleString('ja-JP')} kcal`;}
 function raceRunKm(){if(!RS.startAt)return 0;const tot=rcKm();let p=0;try{p=posInfo(R.done?R.acc:rawEl()).pos;}catch(_){}const L=RS.log||[];const lk=L.length?L[L.length-1].km:0;return Math.min(tot,Math.max(p,lk));}
 function gsum(a,b){return Math.round(a/1000)*1000+Math.round(b/1000)*1000;}
@@ -2868,9 +2899,9 @@ const encU=encodeURIComponent,AUTH=t=>({Authorization:'Bearer '+t});
 const CP={
   dropbox:{name:'Dropbox',tokenUrl:'https://api.dropboxapi.com/oauth2/token',
     auth(id,ru,st,ch){return `https://www.dropbox.com/oauth2/authorize?client_id=${id}&response_type=code&redirect_uri=${encU(ru)}&state=${st}&code_challenge=${ch}&code_challenge_method=S256&token_access_type=offline`;},
-    async put(tk,name,text){const r=await fetch('https://content.dropboxapi.com/2/files/upload',{method:'POST',headers:Object.assign(AUTH(tk),{'Content-Type':'application/octet-stream','Dropbox-API-Arg':JSON.stringify({path:'/'+name,mode:'overwrite',mute:true})}),body:text});if(!r.ok)throw r.status;},
-    async get(tk,name){const r=await fetch('https://content.dropboxapi.com/2/files/download',{method:'POST',headers:Object.assign(AUTH(tk),{'Dropbox-API-Arg':JSON.stringify({path:'/'+name})})});if(r.status===409)return null;if(!r.ok)throw r.status;return r.text();},
-    async del(tk,name){const r=await fetch('https://api.dropboxapi.com/2/files/delete_v2',{method:'POST',headers:Object.assign(AUTH(tk),{'Content-Type':'application/json'}),body:JSON.stringify({path:'/'+name})});if(!r.ok&&r.status!==409)throw r.status;}}
+    async put(tk,name,text){const r=await fetch('https://content.dropboxapi.com/2/files/upload',{method:'POST',headers:Object.assign(AUTH(tk),{'Content-Type':'application/octet-stream','Dropbox-API-Arg':JSON.stringify({path:'/'+(MI?'mile/':'')+name,mode:'overwrite',mute:true})}),body:text});if(!r.ok)throw r.status;},
+    async get(tk,name){const r=await fetch('https://content.dropboxapi.com/2/files/download',{method:'POST',headers:Object.assign(AUTH(tk),{'Dropbox-API-Arg':JSON.stringify({path:'/'+(MI?'mile/':'')+name})})});if(r.status===409)return null;if(!r.ok)throw r.status;return r.text();},
+    async del(tk,name){const r=await fetch('https://api.dropboxapi.com/2/files/delete_v2',{method:'POST',headers:Object.assign(AUTH(tk),{'Content-Type':'application/json'}),body:JSON.stringify({path:'/'+(MI?'mile/':'')+name})});if(!r.ok&&r.status!==409)throw r.status;}}
 };
 const cloudRedirect=()=>location.origin+location.pathname;
 const tokKey=svc=>'cbgm-cloud-tok-'+svc;
@@ -3179,11 +3210,11 @@ var PLAN=Object.assign({race:null,goal:0,run:[1,0,1,1,1,1,1],lsd:5,paceDay:2,his
 const planSave=()=>store.set(PLAN_KEY,PLAN);
 const WD=['月','火','水','木','金','土','日'];
 const dowMon=t=>(new Date(t).getDay()+6)%7;
-function presetKm(rc){return rc.ev==='フル'?42.195:rc.ev==='ハーフ'?21.0975:(+rc.km||0);}
+function presetKm(rc){return rc.ev==='フル'?FULL:rc.ev==='ハーフ'?HALF:(+rc.km||0);}
 function planRaces(){return racePresets.filter(p=>p.rc&&/^\d{4}-\d\d-\d\d$/.test(p.rc.date||'')&&presetKm(p.rc)>0).map(p=>({id:p.id,name:p.rc.name||p.name,date:p.rc.date,time:p.rc.time,km:presetKm(p.rc),goal:+p.rc.goal||0,at:new Date(p.rc.date+'T'+(p.rc.time||'09:00')+':00').getTime()})).sort((a,b)=>a.at-b.at);}
 function planTarget(){const L=planRaces(),now=Date.now();let r=L.find(x=>x.id===PLAN.race);if(!r)r=L.find(x=>x.at>now)||null;return r;}
 /* 週ごとの目標距離：最近4週の平均から週に最大10%ずつ増やし、4週に1回は回復週、大会前3週は調整期間 */
-function peakFor(goal,km){const h=goal/3600*(42.195/Math.max(5,km));let pk=h<=3?80:h<=3.5?65:h<=4?55:h<=4.5?45:40;if(km<30)pk*=0.7;if(km<15)pk*=0.7;return Math.round(pk);}
+function peakFor(goal,km){const h=goal/3600*(FULL/Math.max(KU(5),km));let pk=h<=3?80:h<=3.5?65:h<=4?55:h<=4.5?45:40;if(km<KU(30))pk*=0.7;if(km<KU(15))pk*=0.7;return Math.round(KU(pk));}
 function planWeeks(r,goal){const w0=weekStart(Date.now()),wr=weekStart(r.at),n=Math.max(1,Math.round((wr-w0)/(7*DAYMS))+1);
   let base=0,c=0;for(let k=1;k<=4;k++){const a=w0-k*7*DAYMS,v=distIn(a,a+7*DAYMS);base+=v;if(v>0)c++;}
   base=c?base/4:0;const peak=peakFor(goal,r.km);if(base<peak*0.45)base=Math.max(base,Math.round(peak*0.45));
@@ -3207,18 +3238,18 @@ function planToday(variant){const r=planTarget();if(!r)return {err:'目標の大
   let type=role(today);const order=['jog','pace','lsd'];if(variant)type=order[(order.indexOf(type)+variant)%3];
   const rest=!PLAN.run[today];const sumW=days.reduce((a,d)=>a+wt[d===today?type:role(d)],0)||1;
   let km=rem*wt[type]/sumW,why=[];
-  const lim={jog:[4,14],pace:[6,16],lsd:[12,Math.max(14,Math.min(32,Math.round(P.peak*0.45)))]}[type];
-  if(rest){type=variant?type:'jog';km=5;why.push('今日は休養日の設定です。走るなら軽いジョグにします。');}
-  else if(rem<=0){type='jog';km=5;why.push('今週の目標距離は達成しています。今日は体をほぐす軽いジョグにします。');}
+  const lim={jog:[KU(4),KU(14)],pace:[KU(6),KU(16)],lsd:[KU(12),Math.max(KU(14),Math.min(KU(32),Math.round(P.peak*0.45)))]}[type];
+  if(rest){type=variant?type:'jog';km=KU(5);why.push('今日は休養日の設定です。走るなら軽いジョグにします。');}
+  else if(rem<=0){type='jog';km=KU(5);why.push('今週の目標距離は達成しています。今日は体をほぐす軽いジョグにします。');}
   else{km=Math.min(lim[1],Math.max(lim[0],km));why.push(`今週の残り ${rem.toFixed(1)}km を、${days.map(d=>WD[d]).join('・')}の${days.length}日で走ります。`);
     why.push(type==='lsd'?'今日は長い距離をゆっくり走るLSDの日です。':type==='pace'?'今日は目標に近いペースで走るペース走の日です。':'今日は楽なペースのジョグです。'+(days.some(d=>d!==today&&role(d)==='lsd')?'週末の長い距離（LSD）に備えて、距離は控えめにします。':''));}
   if(doneToday>0)why.push(`今日はすでに ${doneToday.toFixed(1)}km 走っています。`);
   why.push(`大会まで${P.weeks.length-1}週。今週は「${PH[wk.ph]}」の週です（目標 ${wk.km}km）。`);
   km=Math.round(km*2)/2;
-  const jogP=Math.min(900,Math.round(gp+80)),lsdP=Math.min(900,Math.round(gp+70)),paceP=Math.round(gp+(wk.ph==='base'||wk.ph==='recover'?10:0));
+  const jogP=Math.min(PMAX,Math.round(gp+80*UK)),lsdP=Math.min(PMAX,Math.round(gp+70*UK)),paceP=Math.round(gp+(wk.ph==='base'||wk.ph==='recover'?Math.round(10*UK):0));
   const st=[];const add=(name,pace,k)=>{if(k>0.05)st.push({name,pace,km:k});};
-  if(type==='lsd'){add('ジョグ（ウォームアップ）',jogP,1);add('LSD',lsdP,km-1);}
-  else if(type==='pace'){const wu=km>=8?2:1.5;add('ジョグ（ウォームアップ）',jogP,wu);add(paceP>Math.round(gp)?'一定速走（目標ペース+10秒）':'一定速走（目標ペース）',paceP,Math.max(2,km-2*wu));add('ジョグ（クールダウン）',jogP,wu);}
+  if(type==='lsd'){add('ジョグ（ウォームアップ）',jogP,KU(1));add('LSD',lsdP,km-KU(1));}
+  else if(type==='pace'){const wu=km>=KU(8)?KU(2):KU(1.5);add('ジョグ（ウォームアップ）',jogP,wu);add(paceP>Math.round(gp)?(MI?'一定速走（目標ペース+16秒）':'一定速走（目標ペース+10秒）'):'一定速走（目標ペース）',paceP,Math.max(KU(2),km-2*wu));add('ジョグ（クールダウン）',jogP,wu);}
   else add('ジョグ',jogP,km);
   const stages=st.map(x=>({id:gid(),name:x.name,pace:x.pace,bpm:cadFromPace(x.pace),auto:true,min:Math.max(0.5,Math.round(x.km*x.pace/60*2)/2)}));
   return {r,goal,gp,P,wk,doneWeek,rem,days,type,km:stages.reduce((a,s)=>a+kmOf(s),0),stages,why,variant:variant||0};}
@@ -3515,7 +3546,7 @@ const IX={en:0,'zh-CN':1,'zh-TW':2,ko:3};
 const JP=/[぀-ヿ一-鿿！-～]/;
 const NW=s=>s.replace(/\s+/g,' ');const D=new Map();const W=(ja,...t)=>{D.set(NW(ja),t);};
 const PT=[];const P=(re,f)=>{PT.push([re,f]);};
-let LANG='ja';try{const v=store.get('cbgm-lang','ja');if(IX[v]!=null)LANG=v;}catch(e){}
+let LANG=MI?'en':'ja';try{const v=store.get('cbgm-lang',MI?'en':'ja');if(IX[v]!=null||v==='ja')LANG=v;}catch(e){}
 const L=()=>IX[LANG];
 /* duration words: "1時間5分", "6分23秒", "5分", "30秒" */
 function dur(s){const m=/^(?:(\d+)時間)?(?:(\d+)分)?(?:(\d+)秒)?$/.exec(s);if(!m||!(m[1]||m[2]||m[3]))return s;const [h,mi,se]=[m[1],m[2],m[3]];
@@ -3527,6 +3558,10 @@ const pick=a=>a[L()];
 /* ---- dictionary & patterns are injected here ---- */
 /* exact strings: [ja, en, zh-CN, zh-TW, ko] */
 W('マラソンBGM','Marathon BGM','马拉松BGM','馬拉松BGM','마라톤 BGM');
+W('この版は距離をマイル（mi）で扱う「マラソンBGM（マイル）」です。使い方の説明の距離はマイルに読み替えて表示しています。画面の写真はkm版のものです。','This is Marathon BGM (Mile), which works in miles. Distances in this guide are shown in miles; the screenshots are from the km version.','这是以英里（mi）计算距离的“马拉松BGM（英里）”。使用说明中的距离已换算为英里显示。画面截图来自公里版。','這是以英里（mi）計算距離的「馬拉松BGM（英里）」。使用說明中的距離已換算為英里顯示。畫面截圖來自公里版。','이 버전은 거리를 마일(mi)로 다루는 「마라톤 BGM (마일)」입니다. 사용 설명의 거리는 마일로 바꿔 표시합니다. 화면 사진은 km 버전의 것입니다.');
+W('マラソンBGM（マイル）','Marathon BGM (Mile)','马拉松BGM（英里）','馬拉松BGM（英里）','마라톤 BGM (마일)');
+W('マラソンBGM（マイル）｜走るペースに合わせて手持ちの曲を流す無料アプリ','Marathon BGM (Mile) — play your own songs at your running pace (free)','马拉松BGM（英里）｜按跑步配速播放你自己的歌曲（免费）','馬拉松BGM（英里）｜依跑步配速播放你自己的歌曲（免費）','마라톤 BGM (마일) — 달리기 페이스에 맞춰 내 노래를 재생 (무료)');
+W('一定速走（目標ペース+16秒）','Steady run (goal pace +16s)','匀速跑（目标配速+16秒）','勻速跑（目標配速+16秒）','일정 속도주 (목표 페이스 +16초)');
 W('マラソンBGM（HTML版）','Marathon BGM (HTML)','马拉松BGM（HTML版）','馬拉松BGM（HTML版）','마라톤 BGM (HTML판)');
 W('画面ロック','Lock screen','锁定屏幕','鎖定螢幕','화면 잠금');
 W('本番待機を始める','Start race standby','开始比赛待机','開始比賽待機','대회 대기 시작');
@@ -3983,6 +4018,7 @@ W('土','Sat','周六','週六','토');
 W('日','Sun','周日','週日','일');
 W('休','Rest','休','休','휴');
 W('ご意見・ご要望：','Feedback and requests: ','意见与建议：','意見與建議：','의견·요청: ');
+W('メールの返信は原則行っていません。','As a rule, emails are not answered.','原则上不回复邮件。','原則上不回覆郵件。','메일에는 원칙적으로 답장하지 않습니다.');
 W('可能な範囲内で機能改善に取り組んでいます。','Features are improved as far as possible.','我们会在可能的范围内改进功能。','我們會在可能的範圍內改善功能。','가능한 범위에서 기능을 개선하고 있습니다.');
 W('GPS：スタート30分前に自動でONになります','GPS: turns on automatically 30 minutes before the start','GPS：起跑前30分钟自动开启','GPS：起跑前30分鐘自動開啟','GPS: 출발 30분 전에 자동으로 켜집니다');
 W('ネット接続あり','Online','已联网','已連網','온라인');
@@ -4032,8 +4068,8 @@ W('http:// か https:// で始まるURLを入れてください','Enter a URL st
 P(/^その他（([\d.]+)km）$/,m=>['Other ('+m[1]+' km)','其他（'+m[1]+'km）','其他（'+m[1]+'km）','기타 ('+m[1]+'km)']);
 P(/^結果 (完走|リタイア)$/,m=>{const f=m[1]==='完走';return ['Result '+(f?'Finished':'DNF'),'结果 '+(f?'完赛':'退赛'),'結果 '+(f?'完賽':'退賽'),'결과 '+(f?'완주':'기권')];});
 W('確定','Confirm','确定','確定','확정');W('確定し直す','Re-confirm','重新确定','重新確定','다시 확정');W('取消','Undo','撤销','撤銷','취소');W('ひとつ前の看板','Previous marker','上一个标识','上一個標示','이전 표지');W('ひとつ先の看板','Next marker','下一个标识','下一個標示','다음 표지');
-P(/^(.+)を、いま押した位置に直しました$/,m=>{const n=m[1]==='中間点'?['the halfway point','中点','中點','중간 지점']:[m[1].replace('キロ',' km'),m[1].replace('キロ','公里'),m[1].replace('キロ','公里'),m[1].replace('キロ','km')];return [`${n[0]} was moved to where you just pressed`,`${n[1]}已改为刚才按下的位置`,`${n[2]}已改為剛才按下的位置`,`${n[3]}을(를) 방금 누른 위치로 고쳤습니다`];});
-P(/^(.+)の確定を取り消しました$/,m=>{const n=m[1]==='中間点'?['halfway','中点','中點','중간 지점']:[m[1].replace('キロ',' km'),m[1].replace('キロ','公里'),m[1].replace('キロ','公里'),m[1].replace('キロ','km')];return [`Confirmation at ${n[0]} undone`,`已撤销${n[1]}的确定`,`已撤銷${n[2]}的確定`,`${n[3]} 확정을 취소했습니다`];});
+P(/^(.+)を、いま押した位置に直しました$/,m=>{const n=m[1]==='中間点'?['the halfway point','中点','中點','중간 지점']:[m[1].replace('キロ','km'),m[1].replace('キロ','公里'),m[1].replace('キロ','公里'),m[1].replace('キロ','km')];return [`${n[0]} was moved to where you just pressed`,`${n[1]}已改为刚才按下的位置`,`${n[2]}已改為剛才按下的位置`,`${n[3]}을(를) 방금 누른 위치로 고쳤습니다`];});
+P(/^(.+)の確定を取り消しました$/,m=>{const n=m[1]==='中間点'?['halfway','中点','中點','중간 지점']:[m[1].replace('キロ','km'),m[1].replace('キロ','公里'),m[1].replace('キロ','公里'),m[1].replace('キロ','km')];return [`Confirmation at ${n[0]} undone`,`已撤销${n[1]}的确定`,`已撤銷${n[2]}的確定`,`${n[3]} 확정을 취소했습니다`];});
 W('取り消す確定はありません','Nothing to undo','没有可撤销的确定','沒有可撤銷的確定','취소할 확정이 없습니다');
 P(/^あと(1キロ|500メートル)で(.+)です$/,m=>{const d=m[1]==='1キロ'?['1 kilometer','1公里','1公里','1킬로미터']:['500 meters','500米','500公尺','500미터'];const q=m[2].match(/^第(\d+)折り返し$/),n=/^折り返し$/.test(m[2])?['the turnaround','折返点','折返點','반환점']:q?[`turnaround ${q[1]}`,`第${q[1]}折返点`,`第${q[1]}折返點`,`제${q[1]} 반환점`]:[m[2],m[2],m[2],m[2]];return [`${d[0]} to ${n[0]}`,`距${n[1]}还有${d[1]}`,`距${n[2]}還有${d[2]}`,`${n[3]}까지 ${d[3]}`];});
 W('最終関門を通過しました','Final cutoff passed','已通过最后关门点','已通過最後關門點','마지막 관문을 통과했습니다');W('制限時間を過ぎていますが、ゴールを目指しましょう','The time limit has passed, but keep going for the finish','已超过限时，但请继续冲向终点','已超過限時，但請繼續衝向終點','제한 시간이 지났지만 골을 향해 달립시다');
@@ -4538,6 +4574,7 @@ P(/^ロスタイム (.+)$/,m=>[`Start loss ${m[1]}`,`起跑损失 ${m[1]}`,`起�
 P(/^このペースならゴール ([\d:]+)（([\d:]+)着）$/,m=>[`At this pace: finish ${m[1]} (${m[2]})`,`按此配速完赛 ${m[1]}（${m[2]}到达）`,`按此配速完賽 ${m[1]}（${m[2]}抵達）`,`이 페이스면 골 ${m[1]}(${m[2]} 도착)`]);
 P(/^消費カロリー（目安） 約([\d,]+) kcal$/,m=>[`Calories burned (est.) about ${m[1]} kcal`,`消耗卡路里（参考） 约${m[1]} kcal`,`消耗卡路里（參考） 約${m[1]} kcal`,`소비 칼로리(목안) 약 ${m[1]} kcal`]);
 P(/^消費カロリー 約([\d,]+) kcal$/,m=>[`Calories about ${m[1]} kcal`,`卡路里 约${m[1]} kcal`,`卡路里 約${m[1]} kcal`,`칼로리 약 ${m[1]} kcal`]);
+W('走っている間は切り替えられません','You cannot switch while running','跑步时无法切换','跑步時無法切換','달리는 중에는 전환할 수 없습니다');
 W('音声案内の音量','Voice guidance volume','语音提示音量','語音提示音量','음성 안내 음량');W('小','Low','小','小','작게');W('大','High','大','大','크게');
 W('小さい','Quiet','小','小','작음');W('やや小さい','Slightly quiet','较小','較小','조금 작음');W('標準','Standard','标准','標準','표준');W('やや大きい','Slightly loud','较大','較大','조금 큼');W('大きい','Loud','大','大','큼');
 W('試しに聞く','Test','试听','試聽','들어 보기');
@@ -4577,9 +4614,9 @@ W('15秒タップしなければ取りやめます','Stops if you don\'t tap for
 W('確定をやめました','Confirmation stopped','已停止确定','已停止確定','확정을 그만두었습니다');
 W('確定できる看板がありません','There is no marker to confirm','没有可确定的路标','沒有可確定的路標','확정할 표지판이 없습니다');
 P(/^推定([\d.]+)キロ$/,m=>[`Estimated ${m[1]} km`,`估计${m[1]}公里`,`估計${m[1]}公里`,`추정 ${m[1]}킬로미터`]);
-P(/^(中間点|[\d.]+キロ)の看板で確定できます$/,m=>[`You can confirm at the ${m[1]==='中間点'?'halfway':m[1].replace('キロ',' km')} marker`,`可以在${m[1].replace('キロ','公里')}的路标确定`,`可以在${m[1].replace('キロ','公里')}的路標確定`,`${m[1].replace('キロ','킬로미터')} 표지판에서 확정할 수 있습니다`]);
-P(/^(中間点|[\d.]+キロ)を確定し直せます$/,m=>[`You can re-confirm ${m[1]==='中間点'?'the halfway point':m[1].replace('キロ',' km')}`,`可以重新确定${m[1].replace('キロ','公里')}`,`可以重新確定${m[1].replace('キロ','公里')}`,`${m[1].replace('キロ','킬로미터')}를 다시 확정할 수 있습니다`]);
-P(/^(中間点|[\d.]+キロ)で確定しますか？(もう一度2回タップすると確定します。?)?$/,m=>[`Confirm at ${m[1]==='中間点'?'the halfway point':m[1].replace('キロ',' km')}?${m[2]?' Double-tap again to confirm.':''}`,`确定为${m[1].replace('キロ','公里')}吗？${m[2]?'再双击一次即确定。':''}`,`確定為${m[1].replace('キロ','公里')}嗎？${m[2]?'再雙擊一次即確定。':''}`,`${m[1].replace('キロ','킬로미터')}로 확정할까요?${m[2]?' 한 번 더 두 번 탭하면 확정합니다.':''}`]);
+P(/^(中間点|[\d.]+キロ)の看板で確定できます$/,m=>[`You can confirm at the ${m[1]==='中間点'?'halfway':PL(m[1].replace('キロ',''),'kilometer')} marker`,`可以在${m[1].replace('キロ','公里')}的路标确定`,`可以在${m[1].replace('キロ','公里')}的路標確定`,`${m[1].replace('キロ','킬로미터')} 표지판에서 확정할 수 있습니다`]);
+P(/^(中間点|[\d.]+キロ)を確定し直せます$/,m=>[`You can re-confirm ${m[1]==='中間点'?'the halfway point':PL(m[1].replace('キロ',''),'kilometer')}`,`可以重新确定${m[1].replace('キロ','公里')}`,`可以重新確定${m[1].replace('キロ','公里')}`,`${m[1].replace('キロ','킬로미터')}를 다시 확정할 수 있습니다`]);
+P(/^(中間点|[\d.]+キロ)で確定しますか？(もう一度2回タップすると確定します。?)?$/,m=>[`Confirm at ${m[1]==='中間点'?'the halfway point':PL(m[1].replace('キロ',''),'kilometer')}?${m[2]?' Double-tap again to confirm.':''}`,`确定为${m[1].replace('キロ','公里')}吗？${m[2]?'再双击一次即确定。':''}`,`確定為${m[1].replace('キロ','公里')}嗎？${m[2]?'再雙擊一次即確定。':''}`,`${m[1].replace('キロ','킬로미터')}로 확정할까요?${m[2]?' 한 번 더 두 번 탭하면 확정합니다.':''}`]);
 W('聞き取り中…','Listening…','正在聆听…','正在聆聽…','듣는 중…');
 W('「16キロ確定」「中間点確定」「取消」のように話してください','Say e.g. "16 km confirm", "halfway confirm" or "cancel"','请说“16公里确定”“中间点确定”“取消”等','請說「16公里確定」「中間點確定」「取消」等','"16킬로 확정", "중간 지점 확정", "취소"처럼 말하세요');
 W('確定する','Confirm','确定','確定','확정');
@@ -4597,10 +4634,10 @@ W('離れすぎているので、確定しませんでした','is too far away, 
 W('中間点でよろしいですか？','Halfway point — is that right?','中间点，对吗？','中間點，對嗎？','중간 지점이 맞습니까?');
 P(/^([\d.]+)キロでよろしいですか？$/,m=>[`${m[1]} km — is that right?`,`${m[1]}公里，对吗？`,`${m[1]}公里，對嗎？`,`${m[1]}킬로미터가 맞습니까?`]);
 P(/^([\d.]+)キロの看板はありません$/,m=>[`There is no ${m[1]} km marker`,`没有${m[1]}公里的路标`,`沒有${m[1]}公里的路標`,`${m[1]}킬로미터 표지판은 없습니다`]);
-P(/^(中間点|[\d.]+キロ)の確定を取り消しますか？$/,m=>[`Cancel the ${m[1]==='中間点'?'halfway':m[1].replace('キロ',' km')} confirmation?`,`要取消${m[1].replace('キロ','公里')}的确定吗？`,`要取消${m[1].replace('キロ','公里')}的確定嗎？`,`${m[1].replace('キロ','킬로미터')} 확정을 취소할까요?`]);
+P(/^(中間点|[\d.]+キロ)の確定を取り消しますか？$/,m=>[`Cancel the ${m[1]==='中間点'?'halfway':PL(m[1].replace('キロ',''),'kilometer')} confirmation?`,`要取消${m[1].replace('キロ','公里')}的确定吗？`,`要取消${m[1].replace('キロ','公里')}的確定嗎？`,`${m[1].replace('キロ','킬로미터')} 확정을 취소할까요?`]);
 P(/^推定は([\d.]+)キロです$/,m=>[`The estimate is ${m[1]} km`,`估计为${m[1]}公里`,`估計為${m[1]}公里`,`추정은 ${m[1]}킬로미터입니다`]);
-P(/^(中間点|[\d.]+キロ)は離れすぎているので、確定しませんでした$/,m=>[`${m[1].replace('キロ',' km')} is too far away, so it was not confirmed`,`${m[1].replace('キロ','公里')}相差太远，未确定`,`${m[1].replace('キロ','公里')}相差太遠，未確定`,`${m[1].replace('キロ','킬로미터')}는 너무 멀어서 확정하지 않았습니다`]);
-P(/^(中間点|[\d.]+キロ)まで確定しているので、(中間点|[\d.]+キロ)は確定できません$/,m=>[`Already confirmed up to ${m[1].replace('キロ',' km')}, so ${m[2].replace('キロ',' km')} cannot be confirmed`,`已确定到${m[1].replace('キロ','公里')}，无法确定${m[2].replace('キロ','公里')}`,`已確定到${m[1].replace('キロ','公里')}，無法確定${m[2].replace('キロ','公里')}`,`${m[1].replace('キロ','킬로미터')}까지 확정했으므로 ${m[2].replace('キロ','킬로미터')}는 확정할 수 없습니다`]);
+P(/^(中間点|[\d.]+キロ)は離れすぎているので、確定しませんでした$/,m=>[`${m[1]==='中間点'?'the halfway point':PL(m[1].replace('キロ',''),'kilometer')} is too far away, so it was not confirmed`,`${m[1].replace('キロ','公里')}相差太远，未确定`,`${m[1].replace('キロ','公里')}相差太遠，未確定`,`${m[1].replace('キロ','킬로미터')}는 너무 멀어서 확정하지 않았습니다`]);
+P(/^(中間点|[\d.]+キロ)まで確定しているので、(中間点|[\d.]+キロ)は確定できません$/,m=>[`Already confirmed up to ${m[1]==='中間点'?'the halfway point':PL(m[1].replace('キロ',''),'kilometer')}, so ${m[2]==='中間点'?'the halfway point':PL(m[2].replace('キロ',''),'kilometer')} cannot be confirmed`,`已确定到${m[1].replace('キロ','公里')}，无法确定${m[2].replace('キロ','公里')}`,`已確定到${m[1].replace('キロ','公里')}，無法確定${m[2].replace('キロ','公里')}`,`${m[1].replace('キロ','킬로미터')}까지 확정했으므로 ${m[2].replace('キロ','킬로미터')}는 확정할 수 없습니다`]);
 /* 2026-11-09 */
 W('確定しました','Confirmed','已确定','已確定','확정했습니다');
 W('確定を取り消しました','Confirmation cancelled','已取消确定','已取消確定','확정을 취소했습니다');
@@ -4695,14 +4732,15 @@ function tr1(c){if(!JP.test(c))return c;const n=NW(c),v=D.get(n)||D.get(n+'。')
     const inner=whole?whole[L()]:(en?'(':'（')+(tr1(b[2])??b[2])+(en?')':'）');
     const r=part(b[1])+(en&&b[1]&&!/\s$/.test(b[1])?' ':'')+inner+part(b[3]);if(r!==c)return r;}
   return null;}
-function tr(s){if(LANG==='ja'||!s||!JP.test(s))return s;const core=s.trim();if(!core)return s;const r=tr1(core);return r==null?s:s.replace(core,r);}
+function tr(s){let o=s;if(LANG!=='ja'&&s&&JP.test(s)){const core=s.trim();if(core){const r=tr1(core);if(r!=null)o=s.replace(core,r);}}return UC(o);}
 /* speech: sentence by sentence */
-function trSay(t){if(LANG==='ja')return t;const w=D.get(NW(t.trim()));if(w)return w[L()];const parts=t.split('。').map(x=>x.trim()).filter(Boolean);
+function trSay(t){return UC(trSay0(t),true);}
+function trSay0(t){if(LANG==='ja')return t;const w=D.get(NW(t.trim()));if(w)return w[L()];const parts=t.split('。').map(x=>x.trim()).filter(Boolean);
   const end=LANG==='en'||LANG==='ko'?'. ':'。';return parts.map(x=>{const r=tr1(x);return (r==null?x:r).replace(/[.。]\s*$/,'');}).join(end)+(LANG==='en'||LANG==='ko'?'.':'。');}
 /* ---- DOM ---- */
 const TXT=new WeakMap(),ATR=new WeakMap(),ATTRS=['placeholder','aria-label','title'];
 const skip=el=>!el||el.closest('script,style,[data-notr],.song-name,.ml-info b');
-function doText(n){const p=n.parentElement;if(skip(p))return;let r=TXT.get(n);if(!r||n.data!==r.out){r={ja:n.data};TXT.set(n,r);}
+function doText(n){const p=n.parentElement;if(skip(p)){if(MI&&p&&!p.closest('script,style')&&/^[^A-Za-z぀-ヿ一-鿿]*(km\/h|km)[^A-Za-z]*$/.test(n.data)){const o=UC(n.data);if(o!==n.data)n.data=o;}return;}let r=TXT.get(n);if(!r||n.data!==r.out){r={ja:n.data};TXT.set(n,r);}
   if(p.classList.contains('sn')){const mm=/^(\d+)ステージ$/.exec(r.ja.trim());if(mm){const out=LANG==='ja'?r.ja:tr('第'+mm[1]+'ステージ');r.out=out;if(n.data!==out)n.data=out;return;}}
   const out=tr(r.ja);r.out=out;if(n.data!==out)n.data=out;}
 function doAttr(el){if(skip(el))return;let rec=ATR.get(el);if(!rec){rec={};ATR.set(el,rec);}
@@ -4863,19 +4901,19 @@ function gxParse(text){const doc=new DOMParser().parseFromString(text,'applicati
   /* 距離：時計が記録した距離（TCX）があれば使い、なければ位置から計算（GPSの飛びは除く） */
   const useDm=pts.filter(p=>p.dm!=null).length>pts.length*0.8;let cum=0,last=pts[0];pts[0].c=0;
   for(let i=1;i<pts.length;i++){const p=pts[i];if(useDm&&p.dm!=null){cum=Math.max(cum,p.dm-(pts[0].dm||0));}
-    else{const d=hav(last,p),dt=(p.t-last.t)/1000;if(d/Math.max(dt,1)<=12){cum+=d;last=p;}}p.c=cum;}
+    else{const d=hav(last,p),dt=(p.t-last.t)/1000;if(d/Math.max(dt,1)<=12){cum+=d;last=p;}}p.c=cum/UK;}
   const src=/strava/i.test(creator)?'Strava':/garmin/i.test(creator)?'Garmin':/coros/i.test(creator)?'COROS':/suunto/i.test(creator)?'Suunto':/polar/i.test(creator)?'Polar':(tcx?'TCX':'GPX');
-  return {pts,src,fmt:tcx?'TCX':'GPX',name,dist:cum,el:pts[pts.length-1].t-pts[0].t,t0:pts[0].t,ele:pts.some(p=>p.e!=null)};}
+  return {pts,src,fmt:tcx?'TCX':'GPX',name,dist:cum/UK,el:pts[pts.length-1].t-pts[0].t,t0:pts[0].t,ele:pts.some(p=>p.e!=null)};}
 /* 本番らしい記録かどうか（名前か距離から） */
-function gxGuessRace(g){return /マラソン|marathon|ハーフ|half|大会|race|レース|駅伝/i.test(g.name)||Math.abs(g.dist/1000-42.195)<2.5||Math.abs(g.dist/1000-21.0975)<1.2;}
-function gxEvKm(it){return it.ev==='full'?42.195:it.ev==='half'?21.0975:(parseFloat(it.evKm)||+(it.g.dist/1000).toFixed(2));}
+function gxGuessRace(g){return /マラソン|marathon|ハーフ|half|大会|race|レース|駅伝/i.test(g.name)||Math.abs(g.dist/1000-FULL)<KU(2.5)||Math.abs(g.dist/1000-HALF)<KU(1.2);}
+function gxEvKm(it){return it.ev==='full'?FULL:it.ev==='half'?HALF:(parseFloat(it.evKm)||+(it.g.dist/1000).toFixed(2));}
 function gxDup(t0){return raceLogs.some(x=>Math.abs((x.startAt||0)-t0)<60000)||(CLOUD&&CLOUD.index||[]).some(x=>Math.abs((x.startAt||0)-t0)<60000);}
 $('#gxFile').addEventListener('change',async e=>{const fs=[...e.target.files];e.target.value='';if(!fs.length)return;GX.items=[];const bad=[];
   for(const f of fs){if(/\.fit$/i.test(f.name)){bad.push(f.name+'（FIT形式は読めません。GPXかTCXで書き出してください）');continue;}
     let g=null;try{g=gxParse(await f.text());}catch(err){g=null;}
     if(!g||g.err){bad.push(f.name+(g&&g.err==='nopts'?'（位置と時刻の記録がありません）':'（読み込めませんでした）'));continue;}
     const race=gxGuessRace(g),dk=g.dist/1000,it={id:'g'+GX.items.length,f:f.name,g,on:!gxDup(g.t0),dup:gxDup(g.t0),kind:race?'race':'prac',
-      name:race?g.name:'',ev:Math.abs(dk-42.195)<3?'full':Math.abs(dk-21.0975)<1.5?'half':'other',evKm:dk.toFixed(2),goal:''};
+      name:race?g.name:'',ev:Math.abs(dk-FULL)<KU(3)?'full':Math.abs(dk-HALF)<KU(1.5)?'half':'other',evKm:dk.toFixed(2),goal:''};
     GX.items.push(it);
     if(!race){const sp={la:g.pts[0].la,lo:g.pts[0].lo};placeName(sp).then(n=>{if(n&&!it.name&&it.kind==='prac'){it.name=n;gxRender();}});}}
   GX.bad=bad;gxRender();});
@@ -5236,7 +5274,7 @@ function fxRender(){const run=MODE==='race'&&R.running,c=run?fxCand():null,w=$('
 /* 実績・本番：出走した大会の一覧（日付・大会名・写真URL・種目・状況・ネットタイム・1km平均）。行を選ぶと下の「本番のログ」に出す */
 function rlStat(x){if(!x)return '';if(x.live)return 'run';if(x.result==='finish'||x.result==='dnf')return x.result;
   if(x.log){const k=+x.km||0,r=logKm(x);if(k&&r)return r>=k-0.05?'finish':'dnf';}return '';}
-function rlEvent(km){km=+km||0;if(!km)return '—';if(Math.abs(km-42.195)<0.01)return 'フル';if(Math.abs(km-21.0975)<0.01)return 'ハーフ';return `その他（${+km.toFixed(3)}km）`;}
+function rlEvent(km){km=+km||0;if(!km)return '—';if(Math.abs(km-FULL)<0.01)return 'フル';if(Math.abs(km-HALF)<0.01)return 'ハーフ';return `その他（${+km.toFixed(3)}km）`;}
 function rlPhotoOk(u){return /^https?:\/\/[^\s"'<>]+$/i.test(String(u||'').trim());}
 function rlItems(){const out=[],seen={};const cur=curLogData();
   if(cur&&kindOf(cur)==='race'&&(cur.live||cur.id==='cur'))out.push({id:'cur',name:cur.name||'本番',startAt:cur.startAt,km:cur.km,el:cur.el||0,st:cur.live?'run':rlStat(cur),reach:logKm(cur),photo:cur.photo||''});
@@ -5503,7 +5541,7 @@ function offPanelClear(){const d=logData();if(!d||d.id!==OP.id||!d.off)return;if
 function seasonOf(ms){const d=new Date(ms),y=d.getMonth()>=6?d.getFullYear():d.getFullYear()-1;return y;}
 function dashData(){const it=rlItems().filter(x=>x.id!=='cur'&&x.st!=='run'),now=seasonOf(Date.now());
   const loc=id=>raceLogs.find(x=>x.id===id)||CLOUD.cache[id]||null;
-  const kind=x=>{const k=+x.km||0;return Math.abs(k-42.195)<0.01?'full':Math.abs(k-21.0975)<0.01?'half':null;};
+  const kind=x=>{const k=+x.km||0,F=typeof FULL!=='undefined'?FULL:42.195,H=typeof HALF!=='undefined'?HALF:21.0975;return Math.abs(k-F)<0.01?'full':Math.abs(k-H)<0.01?'half':null;};
   const out={season:now,full:{all:[],cur:[]},half:{all:[],cur:[]},dnf:{all:0,cur:0},n:{all:it.length,cur:0}};
   it.forEach(x=>{const cur=seasonOf(x.startAt)===now;if(cur)out.n.cur++;if(x.st==='dnf'){out.dnf.all++;if(cur)out.dnf.cur++;}
     const k=kind(x);if(!k||x.st!=='finish'||!(x.el>0))return;const L=loc(x.id),o=L&&L.off||{};
@@ -5675,6 +5713,11 @@ vcStart=function(){if(!(MODE==='race'&&R.running&&!R.done))return;clearTimeout(T
 {const _r=reset;reset=function(){tsReset();return _r.apply(this,arguments);};}
 {const _s=raceStop;raceStop=function(){clearTimeout(TS.timer);TS.step=0;TS.goal=false;vcHide();return _s.apply(this,arguments);};}
 
+
+/* km版とマイル版を行き来するリンク（同じファイルを両方に置く。開いたアドレスで表示を切り替える） */
+{const a=document.getElementById('unitLink');if(a){if(typeof MI!=='undefined'&&MI){a.href='https://shinichiokabe.github.io/marathon-bgm/';a.textContent='Kilometer version（km版）はこちら →';}
+  else{a.href='https://shinichiokabe.github.io/marathon-bgm-mile/';a.textContent='Mile version（マイル版）はこちら →';}
+  a.addEventListener('click',e=>{if(R&&R.running){e.preventDefault();say('走っている間は切り替えられません。');}});}}
 </script>
 </body>
 </html>
