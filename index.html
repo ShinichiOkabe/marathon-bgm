@@ -72,7 +72,7 @@
 .pk-it.skip label span{color:var(--muted);opacity:.55}
 .pk-it .pkSkip{flex:none;font-size:.72rem;padding:4px 7px}
 .pk-er{display:flex;gap:6px;margin:6px 0}.pk-er input{flex:1;min-width:0;font-size:1rem;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
-.pk-add{margin-top:12px}.pk-ask{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}.pk-ask-c{background:var(--surface);color:var(--ink);border-radius:14px;padding:18px 16px;max-width:360px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.3)}.pk-ask-c p{margin:0 0 14px;font-size:1.05rem;line-height:1.5}.pk-ask-b{display:flex;justify-content:flex-end;gap:10px}.pk-note{font-size:.8rem;margin:0 0 4px}
+.pk-add{margin-top:12px}.app-ask-t{white-space:pre-line;max-height:60vh;overflow:auto;font-size:.98rem!important}.pk-ask{position:fixed;inset:0;z-index:2147483100;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}.pk-ask-c{background:var(--surface);color:var(--ink);border-radius:14px;padding:18px 16px;max-width:360px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.3)}.pk-ask-c p{margin:0 0 14px;font-size:1.05rem;line-height:1.5}.pk-ask-b{display:flex;justify-content:flex-end;gap:10px}.pk-note{font-size:.8rem;margin:0 0 4px}
 body.pk-open{overflow:hidden}
 .off-grid{display:grid;grid-template-columns:auto 1fr;gap:0;margin:8px 0 6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}.og-i{display:contents}.og-l,.og-v{padding:7px 10px;border-bottom:1px solid var(--line)}.og-l{color:var(--muted);font-size:.82rem;white-space:nowrap;background:color-mix(in srgb,var(--line) 35%,transparent)}.og-v{font-size:.98rem}.og-v b{font-size:1.08rem}.off-grid .og-i:last-child .og-l,.off-grid .og-i:last-child .og-v{border-bottom:0}
 </style>
@@ -820,7 +820,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-10g</p>
+  <p class="ver" data-notr translate="no">版 2026-11-10i</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -866,7 +866,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-10g」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-10i」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -1018,7 +1018,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>比べる記録がDropboxにある「☁」の記録でも、選べば読み込んで比べます。以前の版の記録は位置と天気がないため、地図と天気以外で比べます。</p>
 <h3>公式記録を入れる</h3>
 <p>大会の公式記録（記録証やリザルト）が出たら、「4. 実績」の一覧でその大会を選び、「公式記録」の枠の「<strong>公式記録を入力</strong>」を押します。入力用の画面に切り替わります。</p>
-<ul><li><strong>5K毎・中間点・ゴール（ネット）・グロス</strong>のタイムを「時:分:秒」（例 1:23:45）で入れます。わからない地点は空のままでかまいません。入力欄の灰色の文字と「アプリの記録」の列は、アプリで測った時間です。</li>
+<ul><li><strong>5K毎・中間点・ゴール（ネット）・グロス</strong>のタイムを入れます。数字だけ続けて入れれば「:」は自動で入ります（例 12345 → 1:23:45、2750 → 27:50）。わからない地点は空のままでかまいません。入力欄の灰色の文字と「アプリの記録」の列は、アプリで測った時間です。</li>
 <li>スプリット（5K毎・中間点）が号砲からの時間（グロス）で書かれているリザルトのときは、「スプリットの基準」を「号砲から（グロス）」にします。</li>
 <li><strong>総合順位・種目別順位</strong>（と種目・部門名、メモ）を入れます。</li>
 <li>アプリの記録と2分以上違う地点はオレンジ色になり、前の地点より短いタイムは赤で知らせます。入れ間違いがないか確かめてください。</li>
@@ -1028,7 +1028,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h3>実績のダッシュボード</h3>
 <p>「4. 実績」の上の「📊 ダッシュボード」を押すと、<strong>通算</strong>と<strong>今季</strong>（7月〜翌年6月）の、フルとハーフの<strong>完走回数</strong>と<strong>ベストタイム</strong>（大会名・日付つき）が出ます。出走回数とリタイアの回数も出ます。ベストタイムは、公式ネットタイムを入れた大会はその時間（「公式」と表示）、入れていない大会はアプリで測ったネットタイムです。</p>
 <h3>分かれた記録を1つにまとめる</h3>
-<p>途中で終了してしまい、もう一度スタートしたため、同じ大会の記録が2つに分かれたときに使います。「出走した大会の一覧」の下の「分かれた記録を1つにまとめる」を押します。</p>
+<p>途中で終了してしまい、もう一度スタートしたため、同じ大会の記録が2つに分かれたときに使います。「出走した大会の一覧」の下の「分かれた記録を1つにまとめる」を押します（同じ日に本番の記録が2つあり、先の記録が完走になっていないときだけ表示されます）。</p>
 <ol><li>「前半の記録」と「後半の記録」を選びます（同じ日の記録が2つあれば、自動で選ばれます）。</li>
 <li>「後半の記録の距離」を選びます。もう一度スタートして0 kmから数え直しているときは「0 kmから数え直している」を選び、「後半を始めた地点（km）」を入れます（前半を終えた地点が自動で入ります）。後半で看板を確定して正しい距離になっているときは「看板で確定したので、正しい距離になっている」を選びます。</li>
 <li>まとめた結果（距離・ネットタイム・完走かどうか）を確かめて「確認してまとめる」を押します。前半のスタート時刻を基準に、後半の記録をつなげ、1 km毎の通過タイムを計算し直します。後半の記録は削除されます。</li></ol>
@@ -1103,7 +1103,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-10g" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-10i" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1255,7 +1255,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>A "☁" log stored in Dropbox is loaded when you choose it. Logs from earlier versions have no positions or weather, so they are compared on everything except the map and weather.</p>
 <h3>Enter the official result</h3>
 <p>When the official result (certificate or results list) is out, choose the race in the list in "4. Results" and press "<strong>Enter official result</strong>" in the "Official result" box. A separate input screen opens.</p>
-<ul><li>Enter the times at <strong>every 5K, the halfway point, the finish (net) and gross</strong> as h:mm:ss (e.g. 1:23:45). Leave unknown points empty. The grey text and the "App log" column show the app's own measurement.</li>
+<ul><li>Enter the times at <strong>every 5K, the halfway point, the finish (net) and gross</strong> by typing just the digits; the colons are added automatically (e.g. 12345 → 1:23:45, 2750 → 27:50). Leave unknown points empty. The grey text and the "App log" column show the app's own measurement.</li>
 <li>If the results list gives split times from the gun (gross), set "Split times are measured" to "from the gun (gross)".</li>
 <li>Enter the <strong>overall place and event place</strong> (and event/category name, notes).</li>
 <li>Points that differ from the app's log by 2 minutes or more turn orange, and a time shorter than the previous point is shown in red. Please check what you entered.</li>
@@ -1265,7 +1265,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <h3>Results dashboard</h3>
 <p>Press "📊 Dashboard" at the top of "4. Results" to see, for <strong>all time</strong> and <strong>this season</strong> (July to June), the number of <strong>finishes</strong> and the <strong>best time</strong> (with race and date) for full and half marathons, plus the number of races and DNFs. Best times use the official net time where entered (marked "Official"), otherwise the net time measured by the app.</p>
 <h3>Merge a split record</h3>
-<p>Use this when one race was split into two records because you ended it part-way and started again. Press "Merge a split record" under the race list.</p>
+<p>Use this when one race was split into two records because you ended it part-way and started again. Press "Merge a split record" under the race list (it appears only when there are two race records on the same day and the first one is not a finish).</p>
 <ol><li>Choose the "First part" and the "Second part" (two records from the same day are chosen automatically).</li>
 <li>Choose the "Distance in the second part". If you started again and it counted from 0 km, choose "Counted again from 0 km" and enter "Where the second part started (km)" (where the first part ended is filled in). If you confirmed markers in the second part so its distance is already right, choose "Already correct".</li>
 <li>Check the result (distance, net time, finished or not) and press "Check and merge". The second part is joined on based on the start time of the first part, and the 1 km splits are recalculated. The second record is deleted.</li></ol>
@@ -4648,7 +4648,7 @@ W('基本','Basics','基本','基本','기본');
 W('暑さ','Heat','炎热','炎熱','더위');
 W('寒さ','Cold','寒冷','寒冷','추위');
 W('夜間','Night','夜间','夜間','야간');
-W('準備できたものにチェックを入れます。','Check each item once it is packed.','准备好的物品请打勾。','準備好的物品請打勾。','준비된 것에 체크합니다.');W('基本の持ち物はいつも入ります。必要な対策を追加で選んでください。','Basic items are always included. Choose any extra conditions you need.','基本物品始终包含在内。请再选择需要的对策。','基本物品始終包含在內。請再選擇需要的對策。','기본 준비물은 항상 들어갑니다. 필요한 대책을 추가로 선택하세요.');W('キャンセル','Cancel','取消','取消','취소');W('クリアする','Clear','清除','清除','지우기');W('戻す','Restore','恢复','恢復','되돌리기');W('準備しました','Packed','已准备','已準備','준비 완료');W('✓ 準備しました','✓ Packed','✓ 已准备','✓ 已準備','✓ 준비 완료');W('今回は持って行かない','Not bringing','这次不带','這次不帶','이번엔 안 가져감');W('持って行く','Bring','要带','要帶','가져감');W('準備できたものにチェックを入れます。今回持って行かないものは「今回は持って行かない」を押すと、数から外れます。','Check each item once it is packed. Tap "Not bringing" for anything you will leave behind; it is taken out of the count.','准备好的物品请打勾。这次不带的物品点“这次不带”，即不计入数量。','準備好的物品請打勾。這次不帶的物品點「這次不帶」，即不計入數量。','준비된 것에 체크합니다. 이번에 안 가져갈 것은 「이번엔 안 가져감」을 누르면 개수에서 빠집니다.');
+W('準備できたものにチェックを入れます。','Check each item once it is packed.','准备好的物品请打勾。','準備好的物品請打勾。','준비된 것에 체크합니다.');W('基本の持ち物はいつも入ります。必要な対策を追加で選んでください。','Basic items are always included. Choose any extra conditions you need.','基本物品始终包含在内。请再选择需要的对策。','基本物品始終包含在內。請再選擇需要的對策。','기본 준비물은 항상 들어갑니다. 필요한 대책을 추가로 선택하세요.');W('数字だけ続けて入れれば「:」は自動で入ります','Just type the digits; the colons are added automatically','只需连续输入数字，“:”会自动加上','只需連續輸入數字，「:」會自動加上','숫자만 이어서 입력하면 「:」은 자동으로 들어갑니다');W('記録証やリザルトのタイムを入れます。','Enter the times from your certificate or results.','请输入成绩证书或成绩表上的时间。','請輸入成績證書或成績表上的時間。','기록증이나 결과의 시간을 입력합니다.');W('（例 12345 → 1:23:45、2750 → 27:50）。わからない地点は空のままでかまいません。灰色の文字はアプリの記録です。',' (e.g. 12345 → 1:23:45, 2750 → 27:50). Leave unknown points blank. Gray text is the app\'s own record.','（例 12345 → 1:23:45、2750 → 27:50）。不知道的地点可以留空。灰色文字是应用的记录。','（例 12345 → 1:23:45、2750 → 27:50）。不知道的地點可以留空。灰色文字是應用的紀錄。','(예 12345 → 1:23:45, 2750 → 27:50). 모르는 지점은 비워 두어도 됩니다. 회색 글자는 앱의 기록입니다.');W('走り続ける','Keep running','继续跑','繼續跑','계속 달리기');W('消す','Remove','删除','刪除','지우기');W('まとめる','Merge','合并','合併','합치기');W('キャンセル','Cancel','取消','取消','취소');W('クリアする','Clear','清除','清除','지우기');W('戻す','Restore','恢复','恢復','되돌리기');W('準備しました','Packed','已准备','已準備','준비 완료');W('✓ 準備しました','✓ Packed','✓ 已准备','✓ 已準備','✓ 준비 완료');W('今回は持って行かない','Not bringing','这次不带','這次不帶','이번엔 안 가져감');W('持って行く','Bring','要带','要帶','가져감');W('準備できたものにチェックを入れます。今回持って行かないものは「今回は持って行かない」を押すと、数から外れます。','Check each item once it is packed. Tap "Not bringing" for anything you will leave behind; it is taken out of the count.','准备好的物品请打勾。这次不带的物品点“这次不带”，即不计入数量。','準備好的物品請打勾。這次不帶的物品點「這次不帶」，即不計入數量。','준비된 것에 체크합니다. 이번에 안 가져갈 것은 「이번엔 안 가져감」을 누르면 개수에서 빠집니다.');
 W('すべて準備できました','All packed!','全部准备好了','全部準備好了','모두 준비되었습니다');
 W('今回は使わない','Not this time','这次不用','這次不用','이번엔 안 씀');
 W('持ち物のアレンジ','Customize items','自定义物品','自訂物品','준비물 편집');
@@ -5512,7 +5512,7 @@ const GU={snap:null,at:0};
   if(MODE==='race'&&R.running&&!R.done){try{runSave();const o=store.get(RUN_KEY,null);snap=o?JSON.parse(JSON.stringify(o)):null;}catch(e){snap=null;}}
   const r=_s.apply(this,arguments);if(snap&&R.done){GU.snap=snap;GU.at=Date.now();try{endRender();}catch(e){}}return r;};}
 function goalUndo(){const s=GU.snap;if(!s||MODE!=='race'||!R.done)return;
-  if(!confirm(TR('ゴール（終了）を取り消して、走行を続けますか？')+'\n'+TR('記録は終了する前の状態に戻り、時間はそのまま進みます。')))return;
+  if(!__OK){askThen(TR('ゴール（終了）を取り消して、走行を続けますか？')+'\n'+TR('記録は終了する前の状態に戻り、時間はそのまま進みます。'),'走り続ける',()=>goalUndo());return;}
   GU.snap=null;const id='L'+s.startAt;raceLogs=raceLogs.filter(x=>x.id!==id);store.set(LOGS_KEY,raceLogs);
   try{endHide();}catch(e){}
   s.ev=(s.ev||[]).concat([{type:'undo',msg:'ゴール（終了）を取り消して再開',t:Math.round(s.acc+(Date.now()-s.t0)),at:Date.now()}]);
@@ -5588,24 +5588,29 @@ function offRender(){const d=logData();const ok=HIST.kind==='race'&&d&&!d.loadin
 /* --- 公式記録を入力する画面 --- */
 const offPanel=document.createElement('div');offPanel.className='off-panel';offPanel.id='offPanel';offPanel.hidden=true;offPanel.setAttribute('role','dialog');document.body.appendChild(offPanel);
 const OP={id:null};
+/* 数字だけで入れた時間に「:」を入れる（12345→1:23:45、2750→27:50） */
+function offFmtDigits(v){const d=String(v||'').replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248)).replace(/\D/g,'').slice(0,6);
+  if(d.length<=2)return d;if(d.length<=4)return d.slice(0,-2)+':'+d.slice(-2);return d.slice(0,-4)+':'+d.slice(-4,-2)+':'+d.slice(-2);}
+function offNormT(v){let s=String(v||'').trim().replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248)).replace(/[：．.・,，\s]+/g,':').replace(/^:+|:+$/g,'');
+  if(/^\d+$/.test(s))s=s.length<=2?'':offFmtDigits(s);return s;}
 function offPanelOpen(id){const d=logData();if(!d||d.id!==id)return;OP.id=id;const o=d.off||{},S=o.splits||{},B=offBase(d);
-  const inp=(id,v,ph)=>`<input id="${id}" inputmode="numeric" autocomplete="off" placeholder="${ph||''}" value="${v==null?'':esc(String(v))}">`;
-  const pr=offPts(d).filter(p=>!p.goal).map(p=>{const r=recAt(B,p.k);return `<tr data-k="${offKey(p.k)}"><th>${esc(TR(p.lab))}</th><td>${inp('ofs_'+offKey(p.k).replace('.','_'),S[offKey(p.k)]!=null?hms(S[offKey(p.k)]):'',r?hms(r):'')}</td><td class="rec" data-notr>${offT(r)}</td><td class="df" data-notr></td></tr>`;}).join('');
+  const inp=(id,v,ph,t)=>`<input id="${id}"${t?' class="oft"':''} inputmode="numeric" autocomplete="off" placeholder="${ph||''}" value="${v==null?'':esc(String(v))}">`;
+  const pr=offPts(d).filter(p=>!p.goal).map(p=>{const r=recAt(B,p.k);return `<tr data-k="${offKey(p.k)}"><th>${esc(TR(p.lab))}</th><td>${inp('ofs_'+offKey(p.k).replace('.','_'),S[offKey(p.k)]!=null?hms(S[offKey(p.k)]):'',r?hms(r):'',1)}</td><td class="rec" data-notr>${offT(r)}</td><td class="df" data-notr></td></tr>`;}).join('');
   offPanel.innerHTML=`<div class="op-card"><div class="op-h"><b>公式記録の入力</b><span class="sub" data-notr>${esc(logLabel(d))}</span></div>
-  <p class="sub">記録証やリザルトのタイムを「時:分:秒」（例 1:23:45）で入れます。わからない地点は空のままでかまいません。灰色の文字はアプリの記録です。</p>
+  <p class="sub">記録証やリザルトのタイムを入れます。<b>数字だけ続けて入れれば「:」は自動で入ります</b>（例 12345 → 1:23:45、2750 → 27:50）。わからない地点は空のままでかまいません。灰色の文字はアプリの記録です。</p>
   <label class="f">スプリット（5K毎・中間点）の基準<select id="ofBasis"><option value="net">スタートライン通過から（ネット）</option><option value="gross">号砲から（グロス）</option></select></label>
   <table class="op-t"><thead><tr><th>地点</th><th>公式タイム</th><th>アプリの記録</th><th>差</th></tr></thead><tbody>${pr}
-  <tr class="goal"><th>ゴール（ネット）</th><td>${inp('ofNet',o.net?hms(o.net):'',hms(B.el))}</td><td class="rec" data-notr>${offT(B.el)}</td><td class="df" data-notr></td></tr>
-  <tr class="goal"><th>グロス</th><td>${inp('ofGross',o.gross?hms(o.gross):'',recLoss(d)!=null?hms(B.el+recLoss(d)):'')}</td><td class="rec" data-notr>${recLoss(d)!=null?hms(B.el+recLoss(d)):'—'}</td><td class="df" data-notr></td></tr></tbody></table>
+  <tr class="goal"><th>ゴール（ネット）</th><td>${inp('ofNet',o.net?hms(o.net):'',hms(B.el),1)}</td><td class="rec" data-notr>${offT(B.el)}</td><td class="df" data-notr></td></tr>
+  <tr class="goal"><th>グロス</th><td>${inp('ofGross',o.gross?hms(o.gross):'',recLoss(d)!=null?hms(B.el+recLoss(d)):'',1)}</td><td class="rec" data-notr>${recLoss(d)!=null?hms(B.el+recLoss(d)):'—'}</td><td class="df" data-notr></td></tr></tbody></table>
   <div class="op-g"><label>総合順位${inp('ofRank',o.rank,'例 1234')}</label><label>種目別順位${inp('ofDivRank',o.divRank,'例 123')}</label><label class="w">種目・部門名<input id="ofDiv" autocomplete="off" placeholder="例 フル男子50歳代" value="${esc(o.div||'')}"></label></div>
   <label class="off-memo">メモ<textarea id="ofMemo" rows="2" placeholder="天気・体調・反省など">${esc(o.memo||'')}</textarea></label>
   <div class="off-warn" id="ofWarn" hidden></div>
   <div class="op-b"><button class="primary" type="button" id="ofSave">確認して保存</button><button class="small" type="button" id="ofBack">戻る（保存しない）</button>${o.net||o.gross||Object.keys(S).length?'<button class="small" type="button" id="ofClear">公式タイムを消す</button>':''}</div></div>`;
   $('#ofBasis').value=o.basis==='gross'?'gross':'net';offPanel.hidden=false;offPanel.scrollTop=0;
-  offPanel.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',offCheck));$('#ofBasis').addEventListener('change',offCheck);
+  offPanel.querySelectorAll('input.oft').forEach(x=>x.addEventListener('input',e=>{if(e.inputType&&!/^insert|^delete/.test(e.inputType))return;const f=offFmtDigits(x.value);if(f!==x.value){x.value=f;try{x.setSelectionRange(f.length,f.length);}catch(er){}}}));offPanel.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',offCheck));$('#ofBasis').addEventListener('change',offCheck);
   $('#ofBack').onclick=offPanelClose;$('#ofSave').onclick=offPanelSave;const c=$('#ofClear');if(c)c.onclick=offPanelClear;offCheck();}
 function offPanelClose(){offPanel.hidden=true;offPanel.innerHTML='';OP.id=null;offBox.dataset.h='';renderLog();}
-function offRead2(d){const v=id=>{const e=$('#'+id);return e?e.value.trim():'';},tm=s=>s?hmsMs(s):null,num=s=>{s=s.replace(/[^\d]/g,'');return s?+s:null;};
+function offRead2(d){const v=id=>{const e=$('#'+id);return e?e.value.trim():'';},tm=s=>s?hmsMs(offNormT(s)):null,num=s=>{s=s.replace(/[^\d]/g,'');return s?+s:null;};
   const o={basis:$('#ofBasis').value,splits:{},bad:[]};offPts(d).filter(p=>!p.goal).forEach(p=>{const s=v('ofs_'+offKey(p.k).replace('.','_'));if(s){const t=tm(s);if(t>0)o.splits[offKey(p.k)]=t;else o.bad.push(p.lab);}});
   const n=v('ofNet'),g=v('ofGross');o.net=n?tm(n):null;o.gross=g?tm(g):null;if(n&&!(o.net>0))o.bad.push('ゴール');if(g&&!(o.gross>0))o.bad.push('グロス');
   o.rank=num(v('ofRank'));o.divRank=num(v('ofDivRank'));o.div=v('ofDiv');o.memo=v('ofMemo');return o;}
@@ -5636,8 +5641,8 @@ function offPanelSave(){const d=logData();if(!d||d.id!==OP.id)return;const r=off
   if(o.net)L.push(`${TR('ゴール（ネット）')}：${offT(B.el)} → ${hms(o.net)}`+(offBig(o.net,B.el)?' ⚠':''));if(o.gross)L.push(`${TR('グロス')}：${hms(o.gross)}`);
   if(o.rank)L.push(`${TR('総合順位')}：${o.rank}`);if(o.divRank)L.push(`${TR('種目別順位')}：${o.div?o.div+' ':''}${o.divRank}`);
   if(n||o.net)L.push('',TR('入力した地点のタイムに合わせて、あいだの各ラップを配り直して記録を補正します。'));if(lvl==='warn')L.push('',TR('⚠ アプリの記録と大きくずれています。'));
-  if(!confirm(L.join('\n')))return;offSaveTo(d,o);offPanelClose();setTimeout(()=>{const m=$('#offMsg');if(m)m.textContent=TR('公式記録を保存しました');},50);}
-function offPanelClear(){const d=logData();if(!d||d.id!==OP.id||!d.off)return;if(!confirm(TR('公式タイムを消して、アプリの記録に戻しますか？（順位・種目・メモは残ります）')))return;
+  if(!__OK){askThen(L.join('\n'),'保存する',()=>offPanelSave());return;}offSaveTo(d,o);offPanelClose();setTimeout(()=>{const m=$('#offMsg');if(m)m.textContent=TR('公式記録を保存しました');},50);}
+function offPanelClear(){const d=logData();if(!d||d.id!==OP.id||!d.off)return;if(!__OK){askThen(TR('公式タイムを消して、アプリの記録に戻しますか？（順位・種目・メモは残ります）'),'消す',()=>offPanelClear());return;}
   const o=Object.assign({},d.off);delete o.net;delete o.gross;delete o.splits;offSaveTo(d,o);offPanelClose();}
 {const _rl=renderLog;renderLog=function(){const r=_rl.apply(this,arguments);try{offRender();}catch(e){}
   try{const d=logData(),i=$('#logInfo');if(d&&d.off&&i&&!d.loading&&!i.querySelector('.off-s')){const o=d.off;if(o.net||o.splits){const s=document.createElement('span');s.className='off-s';s.textContent='公式';i.appendChild(s);}}}catch(e){}return r;};}
@@ -5674,10 +5679,13 @@ const mgBox=document.createElement('div');mgBox.className='offbox mgbox';mgBox.i
 function mgCands(){return raceLogs.filter(x=>kindOf(x)==='race'&&(x.log||[]).length).sort((a,b)=>a.startAt-b.startAt);}
 function mgEndKm(A){const ev=(A.ev||[]).filter(e=>e.km!=null).map(e=>+e.km),f=A._fin&&A._fin.g;return Math.max(logKm(A),f||0,...ev);}
 function mgUsesAbs(A,B){const man=(B._fin&&B._fin.fixes||[]).map(f=>f.km),mx=Math.max(0,...man);return mx>mgEndKm(A)-0.5;}
-function mgRender(){$('#mgOpen').closest('.mg-open').hidden=HIST.kind!=='race';mgBox.hidden=!MG.on||HIST.kind!=='race';if(mgBox.hidden)return;
+/* 分かれた記録の候補：同じ日に本番の記録が2つ以上あり、先の記録が完走していない */
+function mgPairs(){const C=mgCands(),P=[];for(let i=1;i<C.length;i++){const p=C[i-1],q=C[i];if(new Date(p.startAt).toDateString()!==new Date(q.startAt).toDateString())continue;
+  const full=p.result==='finish'&&mgEndKm(p)>=(p.km||0)-0.5;if(!full)P.push([p,q]);}return P;}
+function mgRender(){const has=mgPairs().length>0;if(!has)MG.on=false;$('#mgOpen').closest('.mg-open').hidden=HIST.kind!=='race'||!has;mgBox.hidden=!MG.on||HIST.kind!=='race';if(mgBox.hidden)return;
   const C=mgCands();if(C.length<2){mgBox.innerHTML='<div class="off-h"><b>分かれた記録を1つにまとめる</b></div><div class="sub">この端末にある本番の記録が2つ以上あるときに使えます。</div>';return;}
   const opt=(x,s)=>`<option value="${esc(x.id)}"${s?' selected':''}>${logLabel(x)}</option>`;
-  let a=C[C.length-2],b=C[C.length-1];for(let i=C.length-1;i>0;i--){const p=C[i-1],q=C[i];if(new Date(p.startAt).toDateString()===new Date(q.startAt).toDateString()){a=p;b=q;break;}}
+  let a=C[C.length-2],b=C[C.length-1];{const PP=mgPairs();if(PP.length){[a,b]=PP[PP.length-1];}}
   const keep=mgBox.dataset.a&&C.find(x=>x.id===mgBox.dataset.a);if(keep){a=keep;b=C.find(x=>x.id===mgBox.dataset.b)||b;}
   mgBox.innerHTML=`<div class="off-h"><b>分かれた記録を1つにまとめる</b><span class="sub">同じ大会の記録が、途中で終了したために2つに分かれたときに使います。前半の記録の時間を基準に、後半の記録をつなげます。</span></div>
   <label class="f">前半の記録<select id="mgA">${C.map(x=>opt(x,x.id===a.id)).join('')}</select></label>
@@ -5713,7 +5721,7 @@ function mgPreview(){const A=raceLogs.find(x=>x.id===$('#mgA').value),B=raceLogs
   p.textContent=`まとめた記録：${(+k).toFixed(2)} km　ネット ${hms(m.el)}（前半 ${(mode==='add'?off:mgEndKm(A)).toFixed(2)} km ${hms(A.el||0)} ＋ あいだ ${hms(Math.max(0,B.startAt-A.startAt-(A.el||0)))} ＋ 後半 ${hms(B.el||0)}）`+(m.result==='finish'?'　完走':'');
   $('#mgGo').disabled=false;return {A,B,m};}
 function mgRun(){const r=mgPreview();if(!r)return;const {A,B,m}=r;
-  if(!confirm(TR('2つの記録を1つにまとめますか？')+'\n\n'+$('#mgPrev').textContent+'\n\n'+TR('後半の記録は削除され、前半の記録にまとめます。'))) return;
+  if(!__OK){askThen(TR('2つの記録を1つにまとめますか？')+'\n\n'+$('#mgPrev').textContent+'\n\n'+TR('後半の記録は削除され、前半の記録にまとめます。'),'まとめる',()=>mgRun());return;}
   raceLogs=raceLogs.filter(x=>x.id!==B.id).map(x=>x.id===A.id?m:x);store.set(LOGS_KEY,raceLogs);try{cloudForget(B);}catch(e){}try{cloudSync();}catch(e){}
   MG.on=false;mgBox.dataset.a='';logSelId=A.id;renderLog();mgRender();try{rlPick(A.id);}catch(e){}}
 {const _rl=renderLog;renderLog=function(){const r=_rl.apply(this,arguments);try{if(!MG.on){mgBox.hidden=true;}const w=$('#mgOpen');if(w)w.closest('.mg-open').hidden=HIST.kind!=='race';}catch(e){}return r;};}
@@ -5920,6 +5928,15 @@ function pkRender(){const v=PK.view;let h='';
   const upd=()=>{const bl=pkBlocked();b.disabled=bl;b.title=bl?TR('本番の待機中と走っている間は開けません'):'';if(bl&&!pkPanel.hidden)pkClose();};setInterval(upd,2000);upd();}}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pkPanel.hidden)pkBack();});
 
+
+/* 画面内の確認（ブラウザの確認ダイアログが出ない端末でも動く） */
+let __OK=0;
+function appAsk(msg,okTxt,cb){let m=document.getElementById('appAskBox');if(m)m.remove();m=document.createElement('div');m.id='appAskBox';m.className='pk-ask';
+  m.innerHTML=`<div class="pk-ask-c" role="alertdialog"><p class="app-ask-t">${esc(String(msg))}</p><div class="pk-ask-b"><button class="small" type="button" id="appAskNo">${esc(TR('キャンセル'))}</button><button class="primary-sm" type="button" id="appAskOk">${esc(TR(okTxt||'OK'))}</button></div></div>`;
+  document.body.appendChild(m);const close=()=>m.remove();m.querySelector('#appAskNo').onclick=close;m.onclick=e=>{if(e.target===m)close();};m.querySelector('#appAskOk').onclick=()=>{close();cb();};}
+function askThen(msg,okTxt,fn){appAsk(msg,okTxt,()=>{__OK=1;try{fn();}finally{__OK=0;}});}
+
+{const _rlm=renderLog;renderLog=function(){const r=_rlm.apply(this,arguments);try{mgRender();}catch(e){}return r;};try{mgRender();}catch(e){}}
 </script>
 </body>
 </html>
