@@ -54,6 +54,26 @@
 @media (prefers-color-scheme:dark){.op-t input.bad{background:#3b1d0a;color:#fed7aa}}
 .vl-r{display:flex;align-items:center;gap:8px;margin:6px 0}.vl-r input{flex:1}.vl-e{font-size:.8rem;color:var(--muted)}.vl-v{min-width:5em;font-weight:700;font-size:.85rem}.vlrow #vlTest{margin:2px 0 4px}
 .unit-row{margin:2px 0 6px;text-align:right}.unit-link{display:inline-block;font-size:.8rem;font-weight:700;color:var(--accent);text-decoration:none;padding:3px 10px;border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));border-radius:999px;background:var(--surface)}
+.wrap header .unit-row{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}.wrap header .unit-row .unit-link{white-space:nowrap;font-size:.76rem}.pk-btn{cursor:pointer;font-family:inherit}.pk-btn:disabled{opacity:.45;cursor:not-allowed}
+.pk-top{display:flex;justify-content:space-between;gap:8px;margin-bottom:4px}
+.pk-sec{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0}
+.pk-st{font-weight:800;margin-bottom:6px}
+.pk-opt{display:flex;align-items:center;gap:8px;padding:8px 2px;font-size:1rem}
+.pk-opt input{width:20px;height:20px}
+.pk-panel #pkMake{width:100%;margin-top:6px}
+.pk-foot{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;margin:16px 0}
+.pk-sum{color:var(--muted);font-size:.85rem;margin:2px 0 8px}
+.pk-prog{position:sticky;top:-12px;z-index:2;background:var(--bg);padding:8px 0;font-size:1rem;border-bottom:1px solid var(--line)}.pk-prog b{font-size:1.2rem}.pk-prog.ok{color:#15803d}
+.pk-grp{margin:12px 0}.pk-gt{font-weight:800;color:var(--accent);margin-bottom:4px}
+.pk-it{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:6px 2px}
+.pk-it label{display:flex;align-items:flex-start;gap:10px;flex:1;font-size:.98rem;line-height:1.35;cursor:pointer}
+.pk-it input{width:22px;height:22px;flex:none;margin-top:1px}
+.pk-it.on{background:color-mix(in srgb,#16a34a 8%,transparent)}.pk-done{flex:none;font-size:.78rem;font-weight:800;color:#15803d;white-space:nowrap}.pk-hint{font-size:.8rem;margin:6px 0 0}
+.pk-it.skip label span{color:var(--muted);opacity:.55}
+.pk-it .pkSkip{flex:none;font-size:.72rem;padding:4px 7px}
+.pk-er{display:flex;gap:6px;margin:6px 0}.pk-er input{flex:1;min-width:0;font-size:1rem;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.pk-add{margin-top:12px}.pk-ask{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}.pk-ask-c{background:var(--surface);color:var(--ink);border-radius:14px;padding:18px 16px;max-width:360px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.3)}.pk-ask-c p{margin:0 0 14px;font-size:1.05rem;line-height:1.5}.pk-ask-b{display:flex;justify-content:flex-end;gap:10px}.pk-note{font-size:.8rem;margin:0 0 4px}
+body.pk-open{overflow:hidden}
 </style>
 </head>
 <body>
@@ -799,7 +819,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-09l</p>
+  <p class="ver" data-notr translate="no">版 2026-11-10f</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -845,7 +865,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-09l」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-10f」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -901,6 +921,14 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>項目</th><th>入れるもの</th><th>例</th></tr></thead><tbody><tr><td>大会名・種目</td><td>フル／ハーフ／その他（距離を入力）</td><td>水戸黄門漫遊マラソン、フル</td></tr><tr><td>開催日・スタート時刻</td><td>号砲の時刻</td><td>2026/11/1、9:00</td></tr><tr><td>ウェーブの遅れ</td><td>先頭ウェーブのスタートから、自分が並ぶブロックのウェーブがスタートするまでの分数（ウェーブがない大会は0）</td><td>10</td></tr><tr><td>制限時間</td><td>時:分。ウェーブスタートの大会は、大会の制限時間に「先頭ウェーブから最終ウェーブがスタートするまでの時間差」を足して入れる</td><td>6:00＋20分→6:20</td></tr><tr><td>目標タイム</td><td>時:分:秒</td><td>4:30:00</td></tr><tr><td>関門</td><td>1行に1か所「距離km 閉鎖時刻」</td><td>10 10:40</td></tr><tr><td>給水所・エイド</td><td>1行に1か所「距離km 内容」</td><td>15 水 バナナ</td></tr><tr><td>折り返し地点（任意）</td><td>1行に1か所「距離km 名前」。通過時刻を記録に残します</td><td>10.5 第1折り返し</td></tr></tbody></table>
 <figure class="gfig"><img src="guide/g_race.webp" loading="lazy" alt="「大会」タブの入力例。関門・給水所・折り返し地点を1行ずつ書くと、下に読み取った内容が出ます" onerror="this.parentNode.hidden=true"><figcaption>「大会」タブの入力例。関門・給水所・折り返し地点を1行ずつ書くと、下に読み取った内容が出ます</figcaption></figure>
 <p>給水所の「内容」は、「水」は給水、「食」は食べ物、それ以外は書いた品名のままです。入力欄の下の「読み取った…」で、正しく読めたか確かめられます。別の大会に切り替えるときは、「本番レース情報・戦略を保存」の「読み込む」を押します。</p>
+<h3>持ち物チェックリスト</h3>
+<p>画面上部の「<b>🎒 持ち物チェックリスト</b>」で、大会の持ち物を確かめる画面が開きます（本番の待機中と走っている間は開けません）。</p>
+<ol><li>「① 種目」で「マラソン（フル・ハーフなど）」か「ウルトラマラソン」を選びます。</li>
+<li>「② 必要な対策」で「暑さ」「寒さ」「雨」「夜間」から必要なものを選びます。「基本」の持ち物はいつも入ります。</li>
+<li>「<b>③ 持ち物チェックリスト作成</b>」を押すと、持ち物の一覧が出ます。準備できたものにチェックを入れます。チェックはこの端末に残り、閉じて開き直しても消えません。チェックすると右に「✓ 準備しました」と出ます。</li>
+<li>「<b>リセット</b>」→「クリアしてよろしいですか？」で「OK」を押すと、チェックを消して最初の画面に戻ります。</li>
+<li>「<b>✏️ アレンジする</b>」で、種目・対策ごとに持ち物を追加・編集・削除できます。「この対策を最初の持ち物に戻す」で元の内容に戻せます。</li></ol>
+<p>「← 戻る」で直前の画面に戻ります。同じ持ち物が2つの対策にあるときは、一覧には1回だけ出ます。</p>
 <h3>イヤホン・ヘッドホンの選び方（注意）</h3>
 <ul><li><strong>耳をふさがないタイプを選ぶ</strong>：大会中は、周りのランナーの声、係員の指示、救急車の音などが聞こえることが大切です。耳の穴をふさがない「オープンイヤー型」で、耳に掛けて固定する「耳掛け式」のBluetoothヘッドホンがおすすめです。走っても外れにくく、周りの音も聞こえます。</li>
 <li><strong>電池が最後までもつものを選ぶ</strong>：連続で再生できる時間が「目標タイム＋スタート前の待ち時間（1〜2時間）」より長いものを選びます。たとえば目標が5時間なら、連続再生7時間以上が目安です。</li>
@@ -1074,7 +1102,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-09l" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-10f" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1130,6 +1158,14 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Item</th><th>What to enter</th><th>Example</th></tr></thead><tbody><tr><td>Race name / event</td><td>Full / Half / Other (enter the distance)</td><td>Mito Komon Marathon, Full</td></tr><tr><td>Date / start time</td><td>Time of the starting gun</td><td>2026/11/1, 9:00</td></tr><tr><td>Wave delay</td><td>Minutes from the start of the first wave until the wave of your block starts (0 if the race has no waves)</td><td>10</td></tr><tr><td>Time limit</td><td>h:mm. For wave starts, add "the time between the first and the last wave start" to the race's time limit</td><td>6:00 + 20 min → 6:20</td></tr><tr><td>Target time</td><td>h:mm:ss</td><td>4:30:00</td></tr><tr><td>Cutoffs</td><td>One per line: "distance-km closing-time"</td><td>10 10:40</td></tr><tr><td>Aid stations</td><td>One per line: "distance-km contents"</td><td>15 water banana</td></tr><tr><td>Turnarounds (optional)</td><td>One per line: "distance-km name". The time you pass each one is logged</td><td>10.5 1st turnaround</td></tr></tbody></table>
 <figure class="gfig"><img src="guide/g_race_en.webp" loading="lazy" alt="Example &quot;Race&quot; tab. Write checkpoints, aid stations and turnarounds one per line; what was read appears below" onerror="this.parentNode.hidden=true"><figcaption>Example "Race" tab. Write checkpoints, aid stations and turnarounds one per line; what was read appears below</figcaption></figure>
 <p>For aid station contents, "水" means water, "食" means food, and anything else is shown as written. Check below the input box that it was read correctly. To switch to another race, press "Load" in "Save race info &amp; strategy".</p>
+<h3>Packing checklist</h3>
+<p>Tap "<b>🎒 Packing checklist</b>" at the top to open a screen for checking your race-day items (it cannot be opened while waiting for or running a race).</p>
+<ol><li>In "① Event", choose "Marathon (full, half, etc.)" or "Ultramarathon".</li>
+<li>In "② Conditions to prepare for", choose from Heat, Cold, Rain and Night. The basic items are always included.</li>
+<li>Tap "<b>③ Create packing checklist</b>" to see the list, and check off each item as you pack it. Checks are kept on this device. A checked item shows "✓ Packed".</li>
+<li>"<b>Reset</b>" → "Clear the checklist?" → OK clears the checks and returns to the first screen.</li>
+<li>"<b>✏️ Customize</b>" lets you add, edit or delete items for each event and condition. "Restore the original items for this condition" undoes your changes.</li></ol>
+<p>"← Back" returns to the previous screen. An item that appears under two conditions is listed only once. The item names are in Japanese; you can rename them with "Customize".</p>
 <h3>Choosing earphones or headphones (caution)</h3>
 <ul><li><strong>Choose a type that leaves your ears open</strong>: during a race it is important to hear other runners, marshals' instructions and ambulances. We recommend "open-ear" Bluetooth headphones that hook over the ear: they don't block the ear canal, stay in place while running, and let you hear what is around you.</li>
 <li><strong>Choose one whose battery lasts to the finish</strong>: its continuous playback time should be longer than "your goal time + the wait before the start (1–2 hours)". For example, with a 5-hour goal, aim for 7 hours or more of continuous playback.</li>
@@ -4596,6 +4632,39 @@ P(/^ロスタイム (.+)$/,m=>[`Start loss ${m[1]}`,`起跑损失 ${m[1]}`,`起�
 P(/^このペースならゴール ([\d:]+)（([\d:]+)着）$/,m=>[`At this pace: finish ${m[1]} (${m[2]})`,`按此配速完赛 ${m[1]}（${m[2]}到达）`,`按此配速完賽 ${m[1]}（${m[2]}抵達）`,`이 페이스면 골 ${m[1]}(${m[2]} 도착)`]);
 P(/^消費カロリー（目安） 約([\d,]+) kcal$/,m=>[`Calories burned (est.) about ${m[1]} kcal`,`消耗卡路里（参考） 约${m[1]} kcal`,`消耗卡路里（參考） 約${m[1]} kcal`,`소비 칼로리(목안) 약 ${m[1]} kcal`]);
 P(/^消費カロリー 約([\d,]+) kcal$/,m=>[`Calories about ${m[1]} kcal`,`卡路里 约${m[1]} kcal`,`卡路里 約${m[1]} kcal`,`칼로리 약 ${m[1]} kcal`]);
+W('🎒 持ち物チェックリスト','🎒 Packing checklist','🎒 物品清单','🎒 物品清單','🎒 준비물 체크리스트');
+W('← 戻る','← Back','← 返回','← 返回','← 돌아가기');
+W('持ち物チェックリスト','Packing checklist','物品清单','物品清單','준비물 체크리스트');
+W('大会の前に、持ち物がそろっているか確かめます。','Check that you have everything before race day.','赛前确认物品是否齐全。','賽前確認物品是否齊全。','대회 전에 준비물이 다 갖춰졌는지 확인합니다.');
+W('① 種目','① Event','① 项目','① 項目','① 종목');
+W('② 必要な対策','② Conditions to prepare for','② 需要的对策','② 需要的對策','② 필요한 대책');
+W('③ 持ち物チェックリスト作成','③ Create packing checklist','③ 生成物品清单','③ 產生物品清單','③ 준비물 체크리스트 만들기');
+W('✏️ アレンジする（持ち物の追加・編集・削除）','✏️ Customize (add, edit, delete items)','✏️ 自定义（添加・编辑・删除物品）','✏️ 自訂（新增・編輯・刪除物品）','✏️ 편집하기 (준비물 추가・수정・삭제)');
+W('✏️ アレンジする','✏️ Customize','✏️ 自定义','✏️ 自訂','✏️ 편집하기');
+W('マラソン（フル・ハーフなど）','Marathon (full, half, etc.)','马拉松（全程・半程等）','馬拉松（全程・半程等）','마라톤 (풀・하프 등)');
+W('ウルトラマラソン','Ultramarathon','超级马拉松','超級馬拉松','울트라마라톤');
+W('基本','Basics','基本','基本','기본');
+W('暑さ','Heat','炎热','炎熱','더위');
+W('寒さ','Cold','寒冷','寒冷','추위');
+W('夜間','Night','夜间','夜間','야간');
+W('準備できたものにチェックを入れます。','Check each item once it is packed.','准备好的物品请打勾。','準備好的物品請打勾。','준비된 것에 체크합니다.');W('基本の持ち物はいつも入ります。必要な対策を追加で選んでください。','Basic items are always included. Choose any extra conditions you need.','基本物品始终包含在内。请再选择需要的对策。','基本物品始終包含在內。請再選擇需要的對策。','기본 준비물은 항상 들어갑니다. 필요한 대책을 추가로 선택하세요.');W('キャンセル','Cancel','取消','取消','취소');W('クリアする','Clear','清除','清除','지우기');W('戻す','Restore','恢复','恢復','되돌리기');W('準備しました','Packed','已准备','已準備','준비 완료');W('✓ 準備しました','✓ Packed','✓ 已准备','✓ 已準備','✓ 준비 완료');W('今回は持って行かない','Not bringing','这次不带','這次不帶','이번엔 안 가져감');W('持って行く','Bring','要带','要帶','가져감');W('準備できたものにチェックを入れます。今回持って行かないものは「今回は持って行かない」を押すと、数から外れます。','Check each item once it is packed. Tap "Not bringing" for anything you will leave behind; it is taken out of the count.','准备好的物品请打勾。这次不带的物品点“这次不带”，即不计入数量。','準備好的物品請打勾。這次不帶的物品點「這次不帶」，即不計入數量。','준비된 것에 체크합니다. 이번에 안 가져갈 것은 「이번엔 안 가져감」을 누르면 개수에서 빠집니다.');
+W('すべて準備できました','All packed!','全部准备好了','全部準備好了','모두 준비되었습니다');
+W('今回は使わない','Not this time','这次不用','這次不用','이번엔 안 씀');
+W('持ち物のアレンジ','Customize items','自定义物品','自訂物品','준비물 편집');
+W('持ち物を追加・編集・削除できます。変えた内容はすぐに保存されます。','Add, edit or delete items. Changes are saved right away.','可添加・编辑・删除物品。修改会立即保存。','可新增・編輯・刪除物品。修改會立即儲存。','준비물을 추가・수정・삭제할 수 있습니다. 바꾼 내용은 바로 저장됩니다.');
+W('対策','Condition','对策','對策','대책');
+W('追加','Add','添加','新增','추가');
+W('この対策を最初の持ち物に戻す','Restore the original items for this condition','将此对策恢复为初始物品','將此對策恢復為初始物品','이 대책을 처음 준비물로 되돌리기');
+W('まだ持ち物がありません。','No items yet.','还没有物品。','還沒有物品。','아직 준비물이 없습니다.');
+W('選んだ対策に持ち物がありません。「アレンジする」で追加できます。','No items for the selected conditions. Add some with "Customize".','所选对策没有物品。可在“自定义”中添加。','所選對策沒有物品。可在「自訂」中新增。','선택한 대책에 준비물이 없습니다. 「편집하기」에서 추가할 수 있습니다.');
+W('対策を1つ以上選んでください。','Choose at least one condition.','请至少选择一项对策。','請至少選擇一項對策。','대책을 하나 이상 선택하세요.');
+W('クリアしてよろしいですか？','Clear the checklist?','确定要清除吗？','確定要清除嗎？','지우시겠습니까?');
+W('同じ持ち物がすでにあります。','That item is already on the list.','已有相同的物品。','已有相同的物品。','같은 준비물이 이미 있습니다.');
+W('この対策の持ち物を、最初の内容に戻しますか？','Restore the original items for this condition?','要将此对策的物品恢复为初始内容吗？','要將此對策的物品恢復為初始內容嗎？','이 대책의 준비물을 처음 내용으로 되돌리시겠습니까?');
+W('この持ち物を削除しますか？','Delete this item?','要删除此物品吗？','要刪除此物品嗎？','이 준비물을 삭제하시겠습니까?');
+W('本番の待機中と走っている間は、持ち物チェックリストは開けません。','The packing checklist cannot be opened while waiting for or running a race.','正式比赛待机中和跑步中无法打开物品清单。','正式比賽待機中和跑步中無法開啟物品清單。','대회 대기 중과 달리는 동안에는 준비물 체크리스트를 열 수 없습니다.');
+W('本番の待機中と走っている間は開けません','Not available while waiting for or running a race','正式比赛待机中和跑步中无法打开','正式比賽待機中和跑步中無法開啟','대회 대기 중과 달리는 동안에는 열 수 없습니다');
+W('追加する持ち物（例：予備のゼッケン留め）','Item to add (e.g. spare bib pins)','要添加的物品（例：备用号码布别针）','要新增的物品（例：備用號碼布別針）','추가할 준비물 (예: 예비 번호표 핀)');
 W('目標タイムは「3:30:00」「1:40:00」「45:00」のように入れてください。','Enter the goal time like 3:30:00, 1:40:00 or 45:00.','目标时间请按“3:30:00”“1:40:00”“45:00”输入。','目標時間請依「3:30:00」「1:40:00」「45:00」輸入。','목표 시간은 "3:30:00", "1:40:00", "45:00"처럼 입력하세요.');
 W('目標タイムが大会の距離に合っていません。目標タイムを確かめてください。','The goal time does not fit the race distance. Please check it.','目标时间与比赛距离不符，请检查。','目標時間與比賽距離不符，請檢查。','목표 시간이 대회 거리에 맞지 않습니다. 확인하세요.');
 W('例）1:40:00','e.g. 1:40:00','例）1:40:00','例）1:40:00','예) 1:40:00');W('例）0:50:00','e.g. 0:50:00','例）0:50:00','例）0:50:00','예) 0:50:00');W('例）0:25:00','e.g. 0:25:00','例）0:25:00','例）0:25:00','예) 0:25:00');
@@ -5411,7 +5480,7 @@ function vlSet(n){n=Math.max(1,Math.min(5,Math.round(+n)||3));VL.lv=n;Object.ass
     $('#vlTest').onclick=()=>say('1キロ。ラップ5分30秒。目標どおりです。');}}
 
 /* ---- 3. 確定を押したら：声で「○キロ、確定しました」と言い、画面を緑色に光らせる（取消はオレンジ色） ---- */
-function fxSayLab(k){const D=rcKm(),h=Math.round(D/2*10000)/10000;return D>2&&Math.abs(k-h)<1e-6?'中間点':(+(+k).toFixed(2))+'キロ';}
+function fxSayLab(k){return (+(+k).toFixed(2))+'キロ';}
 const FXF=document.createElement('div');FXF.className='fxflash';FXF.hidden=true;FXF.setAttribute('aria-live','assertive');document.body.appendChild(FXF);
 function fxFlash(big,small,kind){FXF.className='fxflash'+(kind?' '+kind:'');FXF.innerHTML=`<b>${big}</b><span>${small}</span>`;FXF.hidden=false;clearTimeout(FXF._t);FXF._t=setTimeout(()=>{FXF.hidden=true;},1800);
   try{navigator.vibrate&&navigator.vibrate(kind==='undo'?[80,60,80]:200);}catch(e){}}
@@ -5746,6 +5815,103 @@ vcStart=function(){if(!(MODE==='race'&&R.running&&!R.done))return;clearTimeout(T
 {const a=document.getElementById('unitLink');if(a){if(typeof MI!=='undefined'&&MI){a.href='https://shinichiokabe.github.io/marathon-bgm/';a.textContent='Kilometer version（km版）はこちら →';}
   else{a.href='https://shinichiokabe.github.io/marathon-bgm-mile/';a.textContent='Mile version（マイル版）はこちら →';}
   a.addEventListener('click',e=>{if(R&&R.running){e.preventDefault();say('走っている間は切り替えられません。');}});}}
+
+/* ===================== 持ち物チェックリスト =====================
+   上部の「持ち物チェックリスト」から開く別画面。種目（マラソン／ウルトラ）と対策（基本・暑さ・寒さ・雨・夜間）を選び、
+   「持ち物チェックリスト作成」で一覧を作る。チェックはこの端末に残る。持ち物は「アレンジ」で追加・編集・削除できる。
+   本番の待機中・走っている間は開かない */
+const PK_KEY='cbgm-pack';
+const PK_CATS=[['base','基本'],['hot','暑さ'],['cold','寒さ'],['rain','雨'],['night','夜間']];
+const PK_EVS=[['marathon','マラソン（フル・ハーフなど）'],['ultra','ウルトラマラソン']];
+const PK_DEF={
+ marathon:{
+  base:['ゼッケン（ビブス）','ゼッケン留め（マグネット式や安全ピン）','計測チップ','参加受付表・引換証、大会要項','身分証明書（マイナンバーカード等）','現金・交通系ICカード（Suica/PASMOなど）','ランニングシューズ（履き慣れたもの）','ランニングウェア一式（ランシャツ・ランパン、ベースレイヤー）','ランニングソックス','GPSウォッチ','スマートフォン','ジェル','皮膚保護バーム・ワセリン、ニップレス、日焼け止め、リップクリーム','帽子','サングラス','アームカバー','ニップレス','マスク、カーフスリーブ、膝・足首サポーター','ボディー用ウェットティッシュ','ランニングポーチ・ウエストポーチ（補給食や小物入れ）','ヘッドホン','充電器（USBケーブル、GPSウォッチ用ケーブル…）','マイカップ','着替え一式','バスタオル','汗ふきシート、プロテイン・補給食、携帯食','お風呂道具'],
+  hot:['電解質','塩タブレット','日焼け止め','手袋（日差しや寒さ対策）','冷却用品'],
+  cold:['手袋','アームウォーマー','カイロ','防寒着','腹巻'],
+  rain:['防水スプレー対策','レインウェア、簡易ポンチョ','防水袋','大きめのポリ袋、チャック付きポリ袋（荷物保護用）','替え靴下','タオル','着替え'],
+  night:['ヘッドライト','予備ライト','予備電池','反射材','モバイルバッテリー']},
+ ultra:{
+  base:['ゼッケン（ビブス）','ゼッケン留め（マグネット式や安全ピン）','計測チップ','参加受付表・引換証、大会要項','身分証明書（マイナンバーカード等）','現金・交通系ICカード（Suica/PASMOなど）','ランニングシューズ（履き慣れたもの）','ランニングウェア一式（ランシャツ・ランパン、ベースレイヤー）','ランニングソックス','替えウェア、ランニングソックス','GPSウォッチ','スマートフォン','ジェル','固形補給食','電解質','塩分','皮膚保護バーム・ワセリン、ニップレス、日焼け止め、リップクリーム','帽子','サングラス','アームカバー','ニップレス','テーピング','絆創膏','マスク、カーフスリーブ、膝・足首サポーター','ボディー用ウェットティッシュ','ランニングポーチ・ウエストポーチ（補給食や小物入れ）','ヘッドホン（予備も考慮）','充電器（USBケーブル、GPSウォッチ用ケーブル…）','マイカップ','ランニングベスト','着替え一式','バスタオル','汗ふきシート、プロテイン・補給食、携帯食','お風呂道具'],
+  hot:['キャップ','サングラス','日焼け止め','冷却用品','ハイドレーション（給水）'],
+  cold:['長袖','防風ジャケット','手袋','カイロ','ネックウォーマー','エマージェンシーシート'],
+  rain:['レインウェア、簡易ポンチョ','防水袋','大きめのポリ袋、チャック付きポリ袋（荷物保護用）','替えウェア','替え靴下','替えシューズ','防水スマホケース'],
+  night:['ヘッドライト','予備ライト','予備電池','反射材','モバイルバッテリー']}};
+if(SHARED_KEYS.indexOf(PK_KEY)<0)SHARED_KEYS.push(PK_KEY);
+function pkInit(){return {view:'select',ev:'marathon',opt:{base:true,hot:false,cold:false,rain:false,night:false},chk:{},skip:{},items:null};}
+let PK=(()=>{try{const o=store.get(PK_KEY,null);if(o&&typeof o==='object')return Object.assign(pkInit(),o,{opt:Object.assign(pkInit().opt,o.opt||{})});}catch(e){}return pkInit();})();
+const PKH=[];/* 「戻る」で戻る画面の履歴 */
+function pkSave(){try{store.set(PK_KEY,PK);}catch(e){}}
+function pkItems(ev,cat){const c=PK.items&&PK.items[ev]&&PK.items[ev][cat];return Array.isArray(c)?c:PK_DEF[ev][cat].slice();}
+function pkSetItems(ev,cat,arr){if(!PK.items)PK.items={};if(!PK.items[ev])PK.items[ev]={};PK.items[ev][cat]=arr;pkSave();}
+/* 選んだ対策の持ち物（同じ名前は最初の対策にだけ出す） */
+function pkList(){PK.opt.base=true;const seen={},out=[];for(const [c,lab] of PK_CATS){if(!PK.opt[c])continue;const its=[];for(const n of pkItems(PK.ev,c)){const k=String(n).trim();if(!k||seen[k])continue;seen[k]=1;its.push(k);}if(its.length)out.push({c,lab,its});}return out;}
+const pkK=n=>PK.ev+'|'+n;
+const pkBlocked=()=>!!((typeof RS!=='undefined'&&(RS.armed||RS.pre))||(typeof R!=='undefined'&&R.running&&!R.done));
+const pkPanel=document.createElement('div');pkPanel.className='off-panel pk-panel';pkPanel.id='pkPanel';pkPanel.hidden=true;pkPanel.setAttribute('role','dialog');document.body.appendChild(pkPanel);
+function pkGo(v,push){if(push!==false&&PK.view!==v)PKH.push(PK.view);PK.view=v;if(v!=='edit')pkSave();pkRender();pkPanel.scrollTop=0;}
+function pkBack(){if(PKH.length||PK.view!=='select'){PK.view=PKH.length?PKH.pop():'select';pkSave();pkRender();pkPanel.scrollTop=0;}else pkClose();}
+function pkOpen(){if(pkBlocked()){try{say('本番の待機中と走っている間は、持ち物チェックリストは開けません。');}catch(e){}alert(TR('本番の待機中と走っている間は、持ち物チェックリストは開けません。'));return;}
+  PKH.length=0;if(PK.view==='edit')PK.view='select';pkRender();pkPanel.hidden=false;pkPanel.scrollTop=0;document.body.classList.add('pk-open');}
+function pkClose(){pkPanel.hidden=true;PKH.length=0;if(PK.view==='edit')PK.view='select';pkSave();document.body.classList.remove('pk-open');}
+function pkHead(t,sub){return `<div class="pk-top"><button class="small" type="button" id="pkBack">← 戻る</button><button class="small" type="button" id="pkClose">閉じる</button></div><div class="op-h"><b>${t}</b>${sub?`<span class="sub">${sub}</span>`:''}</div>`;}
+
+/* 画面内の確認（ブラウザの確認ダイアログが出ない端末でも動くように） */
+function pkAsk(msg,okTxt,cb){let m=document.getElementById('pkAskBox');if(m)m.remove();m=document.createElement('div');m.id='pkAskBox';m.className='pk-ask';
+  m.innerHTML=`<div class="pk-ask-c" role="alertdialog"><p>${esc(TR(msg))}</p><div class="pk-ask-b"><button class="small" type="button" id="pkAskNo">${esc(TR('キャンセル'))}</button><button class="primary-sm" type="button" id="pkAskOk">${esc(TR(okTxt||'OK'))}</button></div></div>`;
+  pkPanel.appendChild(m);const close=()=>m.remove();m.querySelector('#pkAskNo').onclick=close;m.onclick=e=>{if(e.target===m)close();};m.querySelector('#pkAskOk').onclick=()=>{close();cb();};}
+function pkToast(msg){const x=document.getElementById('pkMsg2');if(x){x.textContent=TR(msg);clearTimeout(x._t);x._t=setTimeout(()=>{x.textContent='';},4000);}}
+function pkRender(){const v=PK.view;let h='';
+  if(v==='select'){
+    h=pkHead('持ち物チェックリスト','大会の前に、持ち物がそろっているか確かめます。')+
+    `<div class="pk-sec"><div class="pk-st">① 種目</div>${PK_EVS.map(([k,l])=>`<label class="pk-opt"><input type="radio" name="pkEv" value="${k}"${PK.ev===k?' checked':''}> <span>${l}</span></label>`).join('')}</div>
+     <div class="pk-sec"><div class="pk-st">② 必要な対策</div><p class="sub pk-note">基本の持ち物はいつも入ります。必要な対策を追加で選んでください。</p>${PK_CATS.filter(c=>c[0]!=='base').map(([k,l])=>`<label class="pk-opt"><input type="checkbox" class="pkOpt" value="${k}"${PK.opt[k]?' checked':''}> <span>${l}</span></label>`).join('')}</div>
+     <button class="primary" type="button" id="pkMake">③ 持ち物チェックリスト作成</button>
+     <p class="ml-msg" id="pkMsg"></p>
+     <div class="pk-foot"><button class="small" type="button" id="pkEdit">✏️ アレンジする（持ち物の追加・編集・削除）</button></div>`;
+  }else if(v==='list'){
+    const L=pkList();let all=0,done=0;L.forEach(g=>g.its.forEach(n=>{all++;if(PK.chk[pkK(n)])done++;}));
+    const evl=(PK_EVS.find(e=>e[0]===PK.ev)||PK_EVS[0])[1],opl=PK_CATS.filter(c=>PK.opt[c[0]]).map(c=>c[1]).join('・');
+    h=pkHead('持ち物チェックリスト','')+
+    `<div class="pk-sum"><span>${esc(evl)}</span> ／ <span>${esc(opl)}</span></div>
+     <p class="sub pk-hint" style="border-bottom:1px solid var(--line);padding-bottom:8px">準備できたものにチェックを入れます。</p>
+     ${L.length?L.map(g=>`<div class="pk-grp"><div class="pk-gt"><span>${g.lab}</span></div>${g.its.map(n=>{const k=pkK(n),sk=false;return `<div class="pk-it${PK.chk[k]?' on':''}${sk?' skip':''}"><label><input type="checkbox" class="pkChk" data-n="${esc(n)}"${PK.chk[k]?' checked':''}${sk?' disabled':''}> <span data-notr>${esc(n)}</span></label>${PK.chk[k]?'<span class="pk-done">✓ 準備しました</span>':''}</div>`;}).join('')}</div>`).join(''):'<p class="sub">選んだ対策に持ち物がありません。「アレンジする」で追加できます。</p>'}
+     <div class="pk-foot"><button class="small" type="button" id="pkReset">リセット</button><button class="small" type="button" id="pkEdit">✏️ アレンジする</button></div>`;
+  }else if(v==='edit'){
+    const ec=PK.editCat||'base',ee=PK.editEv||PK.ev,its=pkItems(ee,ec);
+    h=pkHead('持ち物のアレンジ','持ち物を追加・編集・削除できます。変えた内容はすぐに保存されます。')+
+    `<label class="f"><span>種目</span><select id="pkEe">${PK_EVS.map(([k,l])=>`<option value="${k}"${ee===k?' selected':''}>${l}</option>`).join('')}</select></label>
+     <label class="f"><span>対策</span><select id="pkEc">${PK_CATS.map(([k,l])=>`<option value="${k}"${ec===k?' selected':''}>${l}</option>`).join('')}</select></label>
+     <div class="pk-ed">${its.map((n,i)=>`<div class="pk-er"><input type="text" class="pkEi" data-i="${i}" value="${esc(n)}" data-notr><button class="small pkDel" type="button" data-i="${i}">削除</button></div>`).join('')||'<p class="sub">まだ持ち物がありません。</p>'}</div>
+     <p class="ml-msg" id="pkMsg2"></p><div class="pk-er pk-add"><input type="text" id="pkNew" placeholder="${esc(TR('追加する持ち物（例：予備のゼッケン留め）'))}"><button class="primary-sm" type="button" id="pkAdd">追加</button></div>
+     <div class="pk-foot"><button class="small" type="button" id="pkDef">この対策を最初の持ち物に戻す</button></div>`;
+  }
+  pkPanel.innerHTML=`<div class="op-card">${h}</div>`;
+  $('#pkBack').onclick=pkBack;$('#pkClose').onclick=pkClose;
+  const ed=$('#pkEdit');if(ed)ed.onclick=()=>{PK.editEv=PK.ev;PK.editCat=(PK_CATS.find(c=>c[0]!=='base'&&PK.opt[c[0]])||PK_CATS[0])[0];if(v==='list')PK.editCat='base';pkGo('edit');};
+  if(v==='select'){
+    pkPanel.querySelectorAll('input[name=pkEv]').forEach(r=>r.onchange=()=>{PK.ev=r.value;pkSave();});
+    pkPanel.querySelectorAll('.pkOpt').forEach(c=>c.onchange=()=>{PK.opt[c.value]=c.checked;pkSave();});
+    $('#pkMake').onclick=()=>{PK.opt.base=true;pkGo('list');};
+  }else if(v==='list'){
+    pkPanel.querySelectorAll('.pkChk').forEach(c=>c.onchange=()=>{const k=pkK(c.dataset.n);if(c.checked)PK.chk[k]=1;else delete PK.chk[k];pkSave();const y=pkPanel.scrollTop;pkRender();pkPanel.scrollTop=y;});
+    pkPanel.querySelectorAll('.pkSkip').forEach(b=>b.onclick=()=>{const k=pkK(b.dataset.n);if(PK.skip[k])delete PK.skip[k];else{PK.skip[k]=1;delete PK.chk[k];}pkSave();const y=pkPanel.scrollTop;pkRender();pkPanel.scrollTop=y;});
+    $('#pkReset').onclick=()=>pkAsk('クリアしてよろしいですか？','クリアする',()=>{const keep=PK.items;PK=pkInit();PK.items=keep;PKH.length=0;pkSave();pkRender();pkPanel.scrollTop=0;});
+  }else if(v==='edit'){
+    const ee=PK.editEv||PK.ev,ec=PK.editCat||'base';
+    $('#pkEe').onchange=e=>{PK.editEv=e.target.value;pkRender();};$('#pkEc').onchange=e=>{PK.editCat=e.target.value;pkRender();};
+    pkPanel.querySelectorAll('.pkEi').forEach(inp=>inp.onchange=()=>{const a=pkItems(ee,ec).slice(),i=+inp.dataset.i,nv=inp.value.trim();if(!nv){inp.value=a[i];return;}
+      const old=a[i];a[i]=nv;pkSetItems(ee,ec,a);if(old!==nv){const ok=ee+'|'+old;if(PK.chk[ok]){PK.chk[ee+'|'+nv]=1;delete PK.chk[ok];}if(PK.skip[ok]){PK.skip[ee+'|'+nv]=1;delete PK.skip[ok];}pkSave();}});
+    pkPanel.querySelectorAll('.pkDel').forEach(b=>b.onclick=()=>{const i=+b.dataset.i,nm=pkItems(ee,ec)[i];pkAsk(TR('この持ち物を削除しますか？')+' 「'+nm+'」','削除',()=>{const a=pkItems(ee,ec).slice();const j=a.indexOf(nm);if(j<0)return;a.splice(j,1);pkSetItems(ee,ec,a);const y=pkPanel.scrollTop;pkRender();pkPanel.scrollTop=y;});});
+    const add=()=>{const n=$('#pkNew').value.trim();if(!n)return;const a=pkItems(ee,ec).slice();if(a.indexOf(n)>=0){pkToast('同じ持ち物がすでにあります。');return;}a.push(n);pkSetItems(ee,ec,a);pkRender();pkPanel.scrollTop=pkPanel.scrollHeight;setTimeout(()=>{const x=$('#pkNew');if(x)x.focus();},0);};
+    $('#pkAdd').onclick=add;$('#pkNew').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();add();}};
+    $('#pkDef').onclick=()=>pkAsk('この対策の持ち物を、最初の内容に戻しますか？','戻す',()=>{if(PK.items&&PK.items[ee])delete PK.items[ee][ec];pkSave();pkRender();});
+  }}
+/* ボタン（マイル版／km版へのリンクの横） */
+{const row=document.querySelector('.unit-row');if(row){const a=document.getElementById('unitLink');if(a)a.setAttribute('data-notr','');row.removeAttribute('data-notr');row.removeAttribute('translate');if(a)a.setAttribute('translate','no');
+  const b=document.createElement('button');b.type='button';b.className='unit-link pk-btn';b.id='packOpen';b.innerHTML='<span>🎒 持ち物チェックリスト</span>';row.insertBefore(b,row.firstChild);b.onclick=pkOpen;
+  const upd=()=>{const bl=pkBlocked();b.disabled=bl;b.title=bl?TR('本番の待機中と走っている間は開けません'):'';if(bl&&!pkPanel.hidden)pkClose();};setInterval(upd,2000);upd();}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pkPanel.hidden)pkBack();});
+
 </script>
 </body>
 </html>
