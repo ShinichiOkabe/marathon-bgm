@@ -17,13 +17,38 @@
 <meta property="og:description" content="マラソンBGMは、スマホの中の自分の曲（MP3など）を、走るペースに合ったテンポで音程を変えずに流す無料のWebアプリです。練習メニュー、マラソン大会本番の目標タイム・関門・給水所、GPS、1km毎の音声案内に対応。登録不要でオフラインでも使えます。">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
-<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}.duckrow{display:block;margin-top:10px}.duckrow select{display:block;width:100%;margin-top:4px}.duckrow .hint{display:block;font-size:.72rem;color:var(--muted);margin-top:3px;font-weight:400}
+.fxflash{position:fixed;inset:0;z-index:2147483000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#15803d;color:#fff;text-align:center;animation:fxf .12s ease-out}
+.fxflash.undo{background:#c2410c}.fxflash b{font-size:4rem;line-height:1.1;font-weight:900}.fxflash b span{font-size:inherit}.fxflash>span{font-size:1.6rem;font-weight:700}
+@keyframes fxf{from{transform:scale(1.05)}to{transform:none}}
+.gundo{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);display:flex;flex-wrap:wrap;gap:6px;align-items:center}.gundo .sub{font-size:.75rem}
+.offbox{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.off-h b{display:block;margin-bottom:2px}.off-h .sub{font-size:.75rem}
+.off-rec{margin:6px 0 8px}.off-g{display:grid;grid-template-columns:1fr 1fr;gap:8px}.off-g label,.off-memo{display:flex;flex-direction:column;gap:3px;font-size:.8rem;font-weight:700}
+.off-g input,.off-memo textarea{font-size:1rem;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-weight:400;box-sizing:border-box;width:100%}
+.off-memo{margin-top:8px}.off-g input.bad{border-color:#d9480f;background:#fff4e6;color:#7c2d12}
+.off-warn{margin-top:8px;padding:8px 10px;border-radius:8px;font-size:.82rem;line-height:1.5}.off-warn.warn{background:#fff4e6;color:#9a3412;border:1px solid #fdba74}.off-warn.err{background:#fde8e8;color:#9b1c1c;border:1px solid #f8b4b4}
+.offbox .ctrls{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.off-s{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;background:var(--accent);color:#fff;font-size:.75rem;font-weight:700}.off-memo-v{margin-top:4px;font-size:.8rem;color:var(--muted);white-space:pre-wrap}
+.dashbtn{margin-left:auto}.hist-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.dash-card{max-width:440px}.dash-t{width:100%;border-collapse:collapse;margin:8px 0;font-size:.85rem}.dash-t th,.dash-t td{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;vertical-align:top}
+.dash-t thead th{font-size:.75rem;color:var(--muted)}.dash-t thead th small{display:block;font-weight:400}.dash-t td.n{font-size:1.2rem;font-weight:800;white-space:nowrap}.dash-t td small{display:block;}.dash-t td.n small{display:inline;margin-left:1px;font-size:.75rem}.dash-t td small{font-size:.7rem;color:var(--muted)}
+.dash-t td b{font-size:1.05rem}.offtag{display:inline!important;margin-left:4px;padding:0 5px;border-radius:6px;background:var(--accent);color:#fff!important}
+.mgbox .f{display:block;margin-top:8px}.mgbox select,.mgbox input{display:block;width:100%;margin-top:3px}.mg-open{margin:8px 0}
+@media (prefers-color-scheme:dark){.off-g input.bad{background:#3b1d0a;color:#fed7aa}.off-warn.warn{background:#3b1d0a;color:#fed7aa;border-color:#9a3412}.off-warn.err{background:#3b0d0d;color:#fecaca;border-color:#9b1c1c}}
+.vcbox{position:fixed;left:12px;right:12px;top:14%;z-index:2000;margin:0 auto;max-width:420px;background:#0f172a;color:#fff;border-radius:18px;padding:18px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.vcbox .vc-t{font-size:1.6rem;font-weight:800}.vcbox .vc-s{margin:8px 0;font-size:.9rem;opacity:.85;line-height:1.5}.vcbox .vc-e{font-size:1rem;margin-bottom:10px}
+.vcbox .vc-q b{display:block;font-size:3rem;font-weight:900;line-height:1.1}.vcbox .vc-q b span{font-size:inherit}.vcbox .vc-q>span{display:block;font-size:1.2rem;font-weight:700;margin-top:4px}
+.vcbox .vc-b{display:flex;gap:10px;justify-content:center;margin-top:10px}.vcbox .vc-b .primary{font-size:1.2rem;padding:12px 22px}.vcbox .small{color:inherit;background:transparent;border:1px solid rgba(255,255,255,.5)}
+.vc-hint{position:absolute;top:calc(env(safe-area-inset-top,0px) + 8px);left:0;right:0;margin:0 auto;width:max-content;max-width:calc(100% - 32px);padding:4px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);text-align:center;font-size:.78rem;color:var(--ink);pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.vcbox{pointer-events:none}.vcbox button{pointer-events:auto}.ts-dots{display:flex;gap:8px;justify-content:center;margin-bottom:8px}.ts-dots i{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.25)}.ts-dots i.on{background:#4ade80}
+</style>
 </head>
 <body>
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<!-- 文字の形（Webフォント）は画面の表示を待たせないように読み込む。ネットが切れている・不安定なときは読み込まない（端末の文字で表示） -->
+<script>if(navigator.onLine!==false){const l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap';l.media='print';l.onload=()=>{l.media='all';};document.head.appendChild(l);}</script>
 <style>
 /* Layout: one narrow column like a running watch screen — run panel on top, then menu, then songs */
 :root{
@@ -760,7 +785,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-06b</p>
+  <p class="ver" data-notr translate="no">版 2026-11-09c</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -805,7 +830,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-06b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-09c」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -868,6 +893,10 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p><strong>ネットタイムとグロスタイム</strong>：走っている間の大きなタイマーは、自分が「スタート」を押してからの時間（ネットタイム）です。ゴールすると、グロスタイムも表示します。グロスタイムは「スタート時刻＋ウェーブの遅れ」（自分のウェーブのスタート）からゴールまでの時間で、ネットタイムは、自分がスタートラインを通過してからゴールまでの時間です。本番では、走っている間に曲を一時停止しても時計は止まりません。グロスタイムはログとCSVにも残ります。</p>
 <p><strong>距離の確定</strong>：走っている間は「＜　10km 確定　＞　取消」のボタンが出ます。真ん中のボタンには、推定の距離から選んだ看板（1km、2km…、中間点、…）と、今の推定の距離が出ます。GPSは実際より長めに測ることが多いので、推定が10.15 kmなら「10km 確定」のように、推定を超えない一番先の看板を出します。</p>
 <ul><li>距離の看板を通ったら「確定」を押します（ロック中は長押し）。推定の現在地がその距離に合います。</li><li>出ている看板が違うときは、左右の矢印（＜ ＞）でひとつ前・ひとつ先の看板に変えてから確定します。</li><li>「取消」は、直前の確定を取り消します（ロック中は長押し）。</li><li>同じ看板をもう一度確定すると（ボタンは「確定し直す」になります）、あとで押した位置をその距離にします。押すのが早すぎたときは、看板の所でもう一度押してください。</li></ul>
+<p><strong>確定したことの確かめ方</strong>：確定を押すと、声で「21キロ、確定しました」（中間点なら「中間点、確定しました」）と言い、画面全体が<strong>緑色</strong>に光って「21 km 確定しました」と出ます。取消を押したときは<strong>オレンジ色</strong>で「確定を取り消しました」と出ます。左右の矢印で看板を変えたときも、選んだ看板の距離を声で言います。</p>
+<p><strong>2回タップで確定する</strong>：画面ロック中に、下のボタン以外の場所を<strong>2回続けてタップ</strong>すると、「推定16.1キロ。16キロの看板で確定できます」と読み上げます。<strong>もう一度2回タップ</strong>すると「16キロで確定しますか？」と聞くので、<strong>さらに2回タップ</strong>すると確定します（確定する時刻は、1回目にタップした時刻です）。15秒タップしなければ取りやめます。声の聞き取りは使わないので、ネットがなくても使えます。看板が違うときは、下のバーの矢印で選んでから2回タップします。</p>
+<p><strong>現在地は戻りません</strong>：GPSなどで一度進んだ距離より、推定の現在地が戻ることはありません（自分で看板を確定し直したときだけ変わります）。スマホを開き直したときも、それまでに進んだ距離から続けます。</p>
+<p><strong>ゴール（終了）を間違えて押したとき</strong>：終了の画面に出る「ゴール（終了）を取り消して走り続ける」を押すと、終了する前の状態に戻って走行を続けます（終了から20分以内。時間はそのまま進んでいます）。</p>
 <figure class="gfig"><img src="guide/g_fx.webp" loading="lazy" alt="距離の確定のボタン（上：ロックしていないとき、下：ロック中）" onerror="this.parentNode.hidden=true"><figcaption>距離の確定のボタン（上：ロックしていないとき、下：ロック中）</figcaption></figure>
 <p>距離の看板を通ったときに「距離の確定」で合わせると、現在地を正しく直せます。ここで合わせておくと、ゴールしたあとの1 km毎の時刻もより正確になります（「8. 記録（ログ）とグラフ・実績」の「距離と時間の調整（時間配分）」）。5 km地点からは1 km毎に、目標より10分以上遅れていないかを直近5 kmで判定し、遅れていれば直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに）。一度調整したあとは、速さが時速0.3 km以上変わるときか、完走優先に切り替えるときだけ調整し直します。</p>
 <h2 id="h-6">6. リラックス</h2>
@@ -876,7 +905,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h2 id="h-7">7. 音と音声のお知らせ</h2>
 <p>「曲」タブの一番上の「流す音」で、曲・ドラム・無音を選べます。ドラムと無音では曲を使わないので、曲の一覧（曲を追加）、紫の枠「🎵 曲の登録（マイリスト）」、「曲の先頭へ」「次の曲」のボタンは表示されません。合図音、音量、リズムの微調整（曲がゆっくりに感じたら「早く」）は「音・合図」タブで変えられます。</p>
 <table><thead><tr><th>流す音</th><th>流れる音</th></tr></thead><tbody><tr><td>曲を流す</td><td>「使う」にチェックした曲を、ペースに合わせた速さで</td></tr><tr><td>ドラム</td><td>曲の代わりに、ペースに合った歩数（例：171歩/分）でドラム</td></tr><tr><td>無音</td><td>音楽なし。合図音と音声のお知らせだけ</td></tr></tbody></table>
-<p>音声のお知らせを読み上げている間は、曲やドラムの音量を自動で大きく下げ、読み終わると元に戻します。案内が重なるときは、1 km毎のラップ案内を先に読み、中間点・30分毎・給水所・折り返しの手前の案内は、そのあとに読みます。本番では、次のようなときに音声で知らせます。1 km毎のお知らせは「音・合図」タブで外せます。「1km毎にバイブレーション」にチェックを入れると、1 km毎に1回ブルッと震えます（本番と練習の屋外。Androidのみ。iPhoneは非対応）。1 km毎に画面に出るラップの表示には、直近1 kmのペースをそのまま続けたときのゴール予想（ネットタイムとゴールの時刻）も出ます。制限時間に間に合わない予想のときは、そのことも表示します。</p>
+<p>音声のお知らせを読み上げている間は、曲やドラムの音量を自動で大きく下げ、読み終わると元に戻します。どこまで下げるかは「音・合図」タブの「音声案内のときの曲の音量」で選べます（初めは「ほぼ消す」）。案内の声の大きさはスマホのメディアの音量で決まるので、案内が小さいときはスマホの音量を上げてください。案内が重なるときは、1 km毎のラップ案内を先に読み、中間点・30分毎・給水所・折り返しの手前の案内は、そのあとに読みます。本番では、次のようなときに音声で知らせます。1 km毎のお知らせは「音・合図」タブで外せます。「1km毎にバイブレーション」にチェックを入れると、1 km毎に1回ブルッと震えます（本番と練習の屋外。Androidのみ。iPhoneは非対応）。1 km毎に画面に出るラップの表示には、直近1 kmのペースをそのまま続けたときのゴール予想（ネットタイムとゴールの時刻）も出ます。制限時間に間に合わない予想のときは、そのことも表示します。</p>
 <table><thead><tr><th>いつ</th><th>言うことの例</th></tr></thead><tbody><tr><td>スタート5分前・スタート時刻</td><td>「スタート5分前です」「スタート時刻です」</td></tr><tr><td>1 km毎</td><td>「17キロ。ラップ6分12秒。」（画面にも大きく表示）</td></tr><tr><td>30分ごと</td><td>「60分経過。戦略では9.8キロ地点です」</td></tr><tr><td>給水所の300 m手前</td><td>「まもなく給水所です。水、バナナがあります」</td></tr><tr><td>戦略を自動で調整したとき</td><td>「直近5キロのペースに合わせて…」</td></tr></tbody></table>
 <h2 id="h-8">8. 記録（ログ）とグラフ・実績</h2>
 <p>本番では、スタート時刻と1 km毎の通過時間を自動で記録します。中間点（大会の距離の半分）と、「大会」タブに入れた折り返し地点の通過時刻も記録します。見る場所は、画面の一番上の「4. 実績」です（「本番」の「戦略・記録」タブの「「4. 実績」を開く」からも開けます）。</p>
@@ -937,6 +966,20 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>一覧で大会を選ぶと、その下の「比べる記録」に、同じ大会の前回の記録が自動で選ばれます（大会名が同じ記録、または位置があればスタート地点と距離が同じ記録を「同じ大会」とみなします）。ほかの記録を選んだり、「比べない」にしたりもできます。比べると、次のように表示が変わります。</p>
 <ul><li><strong>ペースのグラフ</strong>：比べる記録のペースが紫の線で重なります。</li><li><strong>差のグラフ</strong>：各地点で、比べる記録より何分速いか・遅いかを表示します。ペースのグラフと同じく上ほど速く（マイナスが上）、どこで差がついたかがわかります。</li><li><strong>前半・後半</strong>：比べる記録の前半・後半も並べて表示します。</li><li><strong>表</strong>：「比較差」（各地点の経過タイムの差。速ければ青、遅ければ赤）、「比較ラップ」、「比較の天気」（天気・気温・風）の列が加わります。</li><li><strong>地図</strong>：「地図を表示」を押すと、比べる記録の道すじも紫の点線で重なります。</li></ul>
 <p>比べる記録がDropboxにある「☁」の記録でも、選べば読み込んで比べます。以前の版の記録は位置と天気がないため、地図と天気以外で比べます。</p>
+<h3>公式記録を入れる</h3>
+<p>大会の公式記録（記録証やリザルト）が出たら、「4. 実績」の一覧でその大会を選び、下に出る「公式記録」に入れます。</p>
+<ul><li><strong>公式ネットタイム・公式グロスタイム</strong>：「時:分:秒」（例 3:57:31）で入れます。アプリの記録と2分以上（または2%以上）違うときは、入力欄がオレンジ色になり、「大きくずれています。入れ間違いがないか確かめてください」と出ます。</li>
+<li><strong>総合順位・部門名・部門順位・メモ</strong>：わかる分だけ入れます。</li>
+<li>「確認して保存」を押すと、変わる内容（アプリの記録 → 公式）が出ます。「OK」で確定します。</li>
+<li>公式ネットタイムを入れると、1 km毎の通過タイムとラップを公式タイムに合わせて配り直します（それぞれの区間の割合はそのまま）。グロスタイムとロスタイムも公式に合わせます。</li>
+<li>「公式タイムを消す（アプリの記録に戻す）」で、アプリで測った記録に戻せます（順位・部門・メモは残ります）。</li></ul>
+<h3>実績のダッシュボード</h3>
+<p>「4. 実績」の上の「📊 ダッシュボード」を押すと、<strong>通算</strong>と<strong>今季</strong>（7月〜翌年6月）の、フルとハーフの<strong>完走回数</strong>と<strong>ベストタイム</strong>（大会名・日付つき）が出ます。出走回数とリタイアの回数も出ます。ベストタイムは、公式ネットタイムを入れた大会はその時間（「公式」と表示）、入れていない大会はアプリで測ったネットタイムです。</p>
+<h3>分かれた記録を1つにまとめる</h3>
+<p>途中で終了してしまい、もう一度スタートしたため、同じ大会の記録が2つに分かれたときに使います。「出走した大会の一覧」の下の「分かれた記録を1つにまとめる」を押します。</p>
+<ol><li>「前半の記録」と「後半の記録」を選びます（同じ日の記録が2つあれば、自動で選ばれます）。</li>
+<li>「後半の記録の距離」を選びます。もう一度スタートして0 kmから数え直しているときは「0 kmから数え直している」を選び、「後半を始めた地点（km）」を入れます（前半を終えた地点が自動で入ります）。後半で看板を確定して正しい距離になっているときは「看板で確定したので、正しい距離になっている」を選びます。</li>
+<li>まとめた結果（距離・ネットタイム・完走かどうか）を確かめて「確認してまとめる」を押します。前半のスタート時刻を基準に、後半の記録をつなげ、1 km毎の通過タイムを計算し直します。後半の記録は削除されます。</li></ol>
 <h3>記録をDropboxに保存する</h3>
 <p>Dropbox（ドロップボックス）は、ファイルをインターネット上に預けておけるサービスです。保存先をDropboxにすると、ゴールしたあと本番の記録を自動でDropboxに保存します。スマホには直近5件しか残さないので容量を使わず、スマホを変えても記録はなくならず、パソコンでも同じ記録を見られます。無料のプラン（Dropbox Basic）で十分足ります（1回の記録は大きくても数十KBです）。</p>
 <h4>はじめて使うとき（1回だけ）</h4>
@@ -964,6 +1007,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>こんなとき</th><th>どうするか</th></tr></thead><tbody><tr><td>走っている途中でスマホの電源が切れた・画面が消えた・アプリが閉じた</td><td>マラソンBGMを開き直すだけで、続きから自動で再開します。「🔊 画面のどこかに一度ふれてください」と出たら、一度ふれます（下の「画面が消えた・アプリが閉じたとき」）</td></tr><tr><td>1 km毎の音声のお知らせが出ない</td><td>画面に「🔊 画面のどこかに一度ふれてください」が出ていないか確かめ、出ていればふれます。「音・合図」タブの「1km毎にお知らせ（音声と画面）」にチェックがあるかも確かめます</td></tr><tr><td>天気・場所名が出ない、Dropboxに保存されない</td><td>機内モードをOFFにしてネットにつなぎ、このアプリを開きます</td></tr><tr><td>Bluetoothイヤホンが切れて音楽が止まった</td><td>つながったらオレンジ色の「▶ 音楽を再開」を押します。タイマーは止まっていません</td></tr><tr><td>曲が流れない</td><td>「曲」タブで「使う」にチェックがあるか、「流す音」が「曲を流す」か、スマホの音量を確かめます</td></tr><tr><td>GPSが使えない</td><td>https://shinichiokabe.github.io/marathon-bgm/ で開いているか、Chromeの位置情報が「許可」かを確かめます</td></tr><tr><td>「スタート」が押せない（本番）</td><td>スタート時刻の1秒前までは押せません</td></tr><tr><td>マイリストを読み込んでも大会名が変わらない</td><td>マイリストは曲だけです。大会は「本番レース情報・戦略を保存」の「読み込む」を押します</td></tr><tr><td>「上書き」が押せない</td><td>上書きできるのは黄色の行（読み込み中）だけです。先にその行の「読み込む」を押します</td></tr><tr><td>日本語がおかしい</td><td>ブラウザの自動翻訳を「元の表示」に戻します</td></tr><tr><td>直したはずのところが古いまま</td><td>ページの一番下の「版」を確かめ、古ければChromeのタブを閉じて開き直します</td></tr><tr><td>「このファイルは読み込めません」と出る（CSV）</td><td>「4. 練習で走る」の「CSVの形式」と合っているか、とくに1行目が「marathon-bgm-bulk」で始まっているかを確かめます。Excelなどで開いて保存し直すと、形式が変わって読めなくなることがあります</td></tr></tbody></table>
 <p>待機中と走っている間は、画面をつけたままにしておくと確実です。ほかのアプリに切り替えると、音楽や音声が止まることがあります。</p>
 <h3>画面が消えた・アプリが閉じたとき</h3>
+<p>走っている間と本番待機中は、画面が消えないようにしています（スマホの省電力モードなどで画面ONの許可が外れても、すぐに取り直します）。それでも画面が消えるときは、スマホの「画面消灯（スリープ）」の時間を長くし、省電力モードをOFFにしてください。ネットにつながっていなくても、一度開いたことがあれば、スマホに保存した控えですぐに開きます。</p>
 <ol><li>マラソンBGMを開き直します（ホーム画面のアイコンから）。走っている途中なら、続きから自動で再開します。</li>
 <li>画面に「🔊 画面のどこかに一度ふれてください」と出たら、画面のどこかに一度ふれます。スマホの決まりで、開き直したあとは一度ふれるまで音声を出せないためです。ふれると、1 km毎のお知らせなどが再開します（ふれる前のお知らせも、直近のものを読み上げます）。</li>
 <li>画面が消えていた間は、GPSの位置を記録できません。その間の距離は推定になり、高低差と地図は、その区間を直線でつなぎます。消える前と開き直したあとの記録（高低差を含む）は残ります。</li>
@@ -1006,7 +1050,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-06b" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-09c" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1069,6 +1113,10 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p><strong>Net time and gross time</strong>: the big timer while running is the time since you pressed "Start" (net time). When you finish, gross time is shown as well. Gross time is the time from "start time + wave delay" (the start of your wave) to the finish; net time is the time from when you crossed the start line to the finish. In a race, the clock does not stop even if you pause the music while running. Gross time is also kept in the log and CSV.</p>
 <p><strong>Confirm distance</strong>: while running, the buttons "&lt;  10km Confirm  &gt;  Undo" appear. The middle button shows the marker chosen from the estimated distance (1 km, 2 km, …, Halfway, …) and the current estimate. GPS usually measures a little long, so with an estimate of 10.15 km it shows "10km Confirm", the furthest marker not beyond the estimate.</p>
 <ul><li>When you pass a distance marker, press "Confirm" (long-press while locked). The estimated position is set to that distance.</li><li>If the marker shown is wrong, change it with the left/right arrows (&lt; &gt;) before confirming.</li><li>"Undo" cancels the last confirmation (long-press while locked).</li><li>Confirming the same marker again (the button shows "Re-confirm") moves it to where you pressed the second time. If you pressed too early, press again at the marker.</li></ul>
+<p><strong>How you know it was confirmed</strong>: when you press Confirm, the voice says "21 kilometers confirmed" ("Halfway point confirmed" at the halfway point) and the whole screen flashes <strong>green</strong> with "21 km Confirmed". Undo flashes <strong>orange</strong> with "Confirmation cancelled". When you change the marker with the arrows, the voice reads out the chosen distance.</p>
+<p><strong>Confirm by double-tapping</strong>: while the screen is locked, <strong>double-tap</strong> anywhere except the bottom buttons and the app reads out e.g. "Estimated 16.1 km. You can confirm at the 16 km marker". <strong>Double-tap again</strong> and it asks "Confirm at 16 km?"; <strong>double-tap once more</strong> to confirm (the time recorded is when you first tapped). If you don't tap for 15 seconds, it stops. No speech recognition is used, so it works without an internet connection. If the marker is wrong, choose it with the arrows on the bottom bar first, then double-tap.</p>
+<p><strong>Your position never goes back</strong>: the estimated position never drops below the distance you have already covered by GPS etc. (it changes only when you confirm a marker yourself). This also holds after you reopen the app.</p>
+<p><strong>If you press Finish by mistake</strong>: on the finish screen, press "Cancel the finish and keep running" to go back to the state before you finished and carry on (within 20 minutes; the clock has kept running).</p>
 <figure class="gfig"><img src="guide/g_fx_en.webp" loading="lazy" alt="Distance confirm buttons (top: unlocked, bottom: locked)" onerror="this.parentNode.hidden=true"><figcaption>Distance confirm buttons (top: unlocked, bottom: locked)</figcaption></figure>
 <p>Confirming at distance markers corrects your position. Correcting here also makes the per-km times more accurate after you finish (see "Adjusting distance and time" in "8. Log, graphs and results"). From 5 km on, every 1 km the app checks over the last 5 km whether you are 10 or more minutes behind target; if so, the strategy is adjusted automatically to your pace over the last 5 km (or to a speed that lets you finish if you might exceed the time limit). After an adjustment, it re-adjusts only when the speed changes by 0.3 km/h or more, or when switching to finish-first.</p>
 <h2 id="e-6">6. Relax</h2>
@@ -1077,7 +1125,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <h2 id="e-7">7. Sounds and voice notices</h2>
 <p>Under "Sound to play" at the top of the "Songs" tab, choose Songs, Drum or Silent. Drum and Silent do not use songs, so the song list ("Add songs"), the purple box "🎵 Song lists (my lists)" and the "Restart song" / "Next song" buttons are not shown. Beeps, volume and fine-tuning of the rhythm (press "Faster" if the songs feel slow) are on the "Sound &amp; cues" tab.</p>
 <table><thead><tr><th>Sound to play</th><th>What you hear</th></tr></thead><tbody><tr><td>Songs</td><td>The songs checked "Use", at a speed matched to your pace</td></tr><tr><td>Drum</td><td>Instead of songs, a drum at the step rate for your pace (e.g. 171 steps/min)</td></tr><tr><td>Silent</td><td>No music; only beeps and voice notices</td></tr></tbody></table>
-<p>While a voice notice is being read out, the volume of songs and drums is lowered a lot automatically and restored when it ends. When notices overlap, the per-km lap notice is read first, and the halfway, every-30-minute, aid-station and turnaround-ahead notices are read after it. In a race, the app tells you things by voice at the times below. You can turn off the every-1-km notice on the "Sound &amp; cues" tab. Check "Vibrate every 1 km" to get one short vibration every 1 km (Race and outdoor Training; Android only, not supported on iPhone). The lap shown on screen every 1 km also shows a finish prediction (net time and clock time at the finish) if you keep the pace of the last 1 km. If the prediction misses the time limit, that is shown too.</p>
+<p>While a voice notice is being read out, the volume of songs and drums is lowered a lot automatically and restored when it ends. Choose how far it drops under "Music volume during voice guidance" on the "Sound &amp; cues" tab (default: "Almost mute"). The voice volume follows the phone's media volume, so turn the phone up if the voice is quiet. When notices overlap, the per-km lap notice is read first, and the halfway, every-30-minute, aid-station and turnaround-ahead notices are read after it. In a race, the app tells you things by voice at the times below. You can turn off the every-1-km notice on the "Sound &amp; cues" tab. Check "Vibrate every 1 km" to get one short vibration every 1 km (Race and outdoor Training; Android only, not supported on iPhone). The lap shown on screen every 1 km also shows a finish prediction (net time and clock time at the finish) if you keep the pace of the last 1 km. If the prediction misses the time limit, that is shown too.</p>
 <table><thead><tr><th>When</th><th>Example of what is said</th></tr></thead><tbody><tr><td>5 minutes before the start / at the start time</td><td>"5 minutes to the start" / "It is your start time"</td></tr><tr><td>Every 1 km</td><td>"17 kilometers. Lap 6 minutes 12 seconds." (also shown large on screen)</td></tr><tr><td>Every 30 minutes</td><td>"60 minutes elapsed. The strategy puts you at 9.8 km."</td></tr><tr><td>300 m before an aid station</td><td>"Aid station soon. Water and bananas."</td></tr><tr><td>When the strategy is adjusted automatically</td><td>"Adjusted to your pace over the last 5 kilometers…"</td></tr></tbody></table>
 <h2 id="e-8">8. Log, graphs and results</h2>
 <p>In a race, the start time and the time at every 1 km are recorded automatically. The time you pass halfway (half the race distance) and each turnaround entered on the "Race" tab is recorded too. Find them under "4. Results" at the top of the screen (you can also open it with "Open 4. Results" on the "Race" → "Strategy &amp; log" tab).</p>
@@ -1138,6 +1186,20 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>When you choose a race in the list, "Compare with" below it automatically picks your previous log of the same race (a log with the same race name, or, when positions are available, the same start point and distance, counts as the same race). You can choose another log or "No comparison" instead. When comparing:</p>
 <ul><li><strong>Pace graph</strong>: the compared log's pace is drawn as a purple line.</li><li><strong>Difference graph</strong>: how many minutes faster or slower you were at each point. As in the pace graph, higher means faster (minus is up), so you can see where you gained or lost time.</li><li><strong>Halves</strong>: the compared log's first and second halves are shown alongside.</li><li><strong>Table</strong>: columns "vs compared" (difference in elapsed time at each point; blue if faster, red if slower), "Comp. lap" and "Compared weather" (weather, temperature, wind) are added.</li><li><strong>Map</strong>: after "Show map", the compared route is drawn as a dotted purple line.</li></ul>
 <p>A "☁" log stored in Dropbox is loaded when you choose it. Logs from earlier versions have no positions or weather, so they are compared on everything except the map and weather.</p>
+<h3>Enter the official result</h3>
+<p>When the official result (certificate or results list) is out, choose the race in the list in "4. Results" and fill in "Official result" below it.</p>
+<ul><li><strong>Official net time / official gross time</strong>: enter as h:mm:ss (e.g. 3:57:31). If it differs from the app's log by 2 minutes or more (or 2% or more), the box turns orange and a warning asks you to check what you entered.</li>
+<li><strong>Overall place, category, category place, notes</strong>: fill in what you know.</li>
+<li>Press "Check and save" to see what will change (app log → official). Press "OK" to save.</li>
+<li>With an official net time, every 1 km split and lap is redistributed to match it (keeping the proportions of each section). Gross time and start loss follow the official times too.</li>
+<li>"Remove official times (back to the app's log)" restores the app's own measurement (places, category and notes are kept).</li></ul>
+<h3>Results dashboard</h3>
+<p>Press "📊 Dashboard" at the top of "4. Results" to see, for <strong>all time</strong> and <strong>this season</strong> (July to June), the number of <strong>finishes</strong> and the <strong>best time</strong> (with race and date) for full and half marathons, plus the number of races and DNFs. Best times use the official net time where entered (marked "Official"), otherwise the net time measured by the app.</p>
+<h3>Merge a split record</h3>
+<p>Use this when one race was split into two records because you ended it part-way and started again. Press "Merge a split record" under the race list.</p>
+<ol><li>Choose the "First part" and the "Second part" (two records from the same day are chosen automatically).</li>
+<li>Choose the "Distance in the second part". If you started again and it counted from 0 km, choose "Counted again from 0 km" and enter "Where the second part started (km)" (where the first part ended is filled in). If you confirmed markers in the second part so its distance is already right, choose "Already correct".</li>
+<li>Check the result (distance, net time, finished or not) and press "Check and merge". The second part is joined on based on the start time of the first part, and the 1 km splits are recalculated. The second record is deleted.</li></ol>
 <h3>Save your logs to Dropbox</h3>
 <p>Dropbox is a service that keeps your files on the internet. With Dropbox chosen, race logs are saved to Dropbox automatically after the finish. Only the latest 5 stay on your phone, so they take little space, they survive a change of phone, and you can see the same logs on a computer. The free plan (Dropbox Basic) is plenty (one log is a few tens of KB at most).</p>
 <h4>First time (once only)</h4>
@@ -1165,6 +1227,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Problem</th><th>What to do</th></tr></thead><tbody><tr><td>My phone turned off, the screen went off or the app closed while running</td><td>Just open Marathon BGM again; it resumes automatically. If "🔊 Touch the screen once" appears, tap once (see "If the screen went off or the app closed" below)</td></tr><tr><td>No voice notice every 1 km</td><td>Check whether "🔊 Touch the screen once" is shown and tap if so. Also check that "Announce every 1 km (voice and screen)" is checked on the "Sound &amp; cues" tab</td></tr><tr><td>No weather or place name; not saved to Dropbox</td><td>Turn airplane mode off, go online and open this app</td></tr><tr><td>My Bluetooth earphones disconnected and the music stopped</td><td>When they reconnect, press the orange "▶ Resume music". The timer has not stopped</td></tr><tr><td>Songs do not play</td><td>On the "Songs" tab, check that "Use" is checked, that "Sound to play" is "Songs", and the phone's volume</td></tr><tr><td>GPS does not work</td><td>Check that you opened https://shinichiokabe.github.io/marathon-bgm/ and that Chrome's location permission is "Allow"</td></tr><tr><td>I cannot press "Start" (race)</td><td>It cannot be pressed until 1 second before your start time</td></tr><tr><td>Loading a my list does not change the race name</td><td>My lists are songs only. For a race, press "Load" in "Save race info &amp; strategy"</td></tr><tr><td>I cannot press "Overwrite"</td><td>Only the yellow row ("Loaded") can be overwritten. Press "Load" on that row first</td></tr><tr><td>The text looks wrong</td><td>Turn off the browser's automatic translation (show original)</td></tr><tr><td>A fix does not seem to be there</td><td>Check the version label ("版 …") at the bottom of the page. If it is old, close the Chrome tab and open it again</td></tr><tr><td>"This file cannot be loaded" (CSV)</td><td>Check that it matches the "CSV format" in "4. Training", especially that line 1 starts with "marathon-bgm-bulk". Opening and re-saving in Excel etc. can change the format so it can no longer be read</td></tr></tbody></table>
 <p>During standby and while running, keeping the screen on is the safest. Switching to another app may stop the music and voice.</p>
 <h3>If the screen went off or the app closed</h3>
+<p>While you are running and during race standby, the app keeps the screen on (if the phone drops the keep-screen-on permission, e.g. in power-saving mode, the app takes it again right away). If the screen still turns off, make the phone's screen timeout (sleep) longer and turn off power saving. Even without an internet connection, the app opens at once from the copy saved on your phone, as long as you have opened it once before.</p>
 <ol><li>Open Marathon BGM again (from the home-screen icon). If you were running, it resumes automatically.</li>
 <li>If "🔊 Touch the screen once" appears, tap the screen once. Phones do not allow a page to speak after reopening until you touch it. After the tap, the every-1-km notices and others resume (the latest notices from before the tap are read out).</li>
 <li>While the screen was off, GPS positions cannot be recorded. Distance for that time is estimated, and the elevation and map join that section with a straight line. The records before and after (including elevation) are kept.</li>
@@ -1770,7 +1833,7 @@ function cpInfo(pos,el,now){const c=nextCp(pos);if(!c)return null;const g=rcGunM
   return {c,close,left,dist,need,spare};}
 function doFix(k,tt){if(MODE!=='race'||!R.running||!(k>0))return;const el=tt!=null?tt:elapsed(),e=rcEff();
   const last=RS.fix[RS.fix.length-1];if(last&&k<=last.km)return;RS.fix.push({km:k,t:el});if(GPS.on){GPS.base=k;GPS.dist=0;GPS.t0=GPS.lastEl=el;}
-  let msg=`${k}キロ通過。`;if(e){const d=el-k*e*1000;msg+=Math.abs(d)<30000?'目標どおりです。':`目標より${sayMin(d)}${d>0?'遅れ':'早い'}です。`;}
+  let msg=`${fxSayLab(k)}、確定しました。`;if(e){const d=el-k*e*1000;msg+=Math.abs(d)<30000?'目標どおりです。':`目標より${sayMin(d)}${d>0?'遅れ':'早い'}です。`;}
   const ci=cpInfo(k,el,Date.now());if(ci&&ci.need)msg+=`次の関門まで${+ci.dist.toFixed(1)}キロ、残り${sayMin(ci.left)}、必要ペース${sayPace(ci.need)}です。`;
   say(msg);renderRun();}
 /* ---------- GPS（必要なときだけON。ONの間は実際に走った距離で現在地とペースを直す） ---------- */
@@ -3421,7 +3484,9 @@ setInterval(()=>{if(opt.src==='drum'&&R.running&&!R.paused&&!INT.on){try{if(getC
   _a();renderTabs();renderSrc();if(chg){renderSongs();renderRun();}const ss=document.querySelector('.srcsel');if(ss)ss.hidden=MODE==='relax';const sr=$('#shufRow');if(sr)sr.hidden=MODE!=='race';vibRowUI();};}
 function vibRowUI(){const r=$('#optVibRow');if(r)r.hidden=!(MODE==='race'||(MODE==='practice'&&opt.outdoor));}
 {const _sc3=startClicks;startClicks=function(){if(MODE==='relax'){stopClicks();return;}return _sc3.apply(this,arguments);};}
-renderAll();loadSaved().then(()=>{checkResume();checkPracResume();renderLog();});setTimeout(()=>{checkResume();checkPracResume();},1500);
+/* 再開は、端末に保存した最新の状態（IndexedDB）を読み終えてから行う。先に古い控え（localStorage）で再開すると、前の地点に戻ってしまうため。
+   読み込みが止まってしまったときだけ、8秒後に控えで再開する */
+renderAll();loadSaved().then(()=>{window.__kvReady=true;checkResume();checkPracResume();renderLog();});setTimeout(()=>{if(window.__kvReady)return;checkResume();checkPracResume();},8000);
 </script>
 <script>
 /* ===================== i18n (ja / en / zh-CN / zh-TW / ko) ===================== */
@@ -4455,6 +4520,117 @@ P(/^ロスタイム (.+)$/,m=>[`Start loss ${m[1]}`,`起跑损失 ${m[1]}`,`起�
 P(/^このペースならゴール ([\d:]+)（([\d:]+)着）$/,m=>[`At this pace: finish ${m[1]} (${m[2]})`,`按此配速完赛 ${m[1]}（${m[2]}到达）`,`按此配速完賽 ${m[1]}（${m[2]}抵達）`,`이 페이스면 골 ${m[1]}(${m[2]} 도착)`]);
 P(/^消費カロリー（目安） 約([\d,]+) kcal$/,m=>[`Calories burned (est.) about ${m[1]} kcal`,`消耗卡路里（参考） 约${m[1]} kcal`,`消耗卡路里（參考） 約${m[1]} kcal`,`소비 칼로리(목안) 약 ${m[1]} kcal`]);
 P(/^消費カロリー 約([\d,]+) kcal$/,m=>[`Calories about ${m[1]} kcal`,`卡路里 约${m[1]} kcal`,`卡路里 約${m[1]} kcal`,`칼로리 약 ${m[1]} kcal`]);
+W('画面を2回タップすると、推定の距離を読み上げます（3回で確定）','Double-tap the screen to hear the estimated distance (3 times to confirm)','双击屏幕会朗读估计距离（3次即确定）','雙擊螢幕會朗讀估計距離（3次即確定）','화면을 두 번 탭하면 추정 거리를 읽어 줍니다(3번이면 확정)');
+W('もう一度2回タップすると、確定するか聞きます','Double-tap again and you will be asked to confirm','再双击一次会询问是否确定','再雙擊一次會詢問是否確定','한 번 더 두 번 탭하면 확정할지 묻습니다');
+W('もう一度2回タップすると確定します','Double-tap again to confirm','再双击一次即确定','再雙擊一次即確定','한 번 더 두 번 탭하면 확정합니다');
+W('15秒タップしなければ取りやめます','Stops if you don\'t tap for 15 seconds','15秒内不点击则取消','15秒內不點擊則取消','15초 동안 탭하지 않으면 그만둡니다');
+W('確定をやめました','Confirmation stopped','已停止确定','已停止確定','확정을 그만두었습니다');
+W('確定できる看板がありません','There is no marker to confirm','没有可确定的路标','沒有可確定的路標','확정할 표지판이 없습니다');
+P(/^推定([\d.]+)キロ$/,m=>[`Estimated ${m[1]} km`,`估计${m[1]}公里`,`估計${m[1]}公里`,`추정 ${m[1]}킬로미터`]);
+P(/^(中間点|[\d.]+キロ)の看板で確定できます$/,m=>[`You can confirm at the ${m[1]==='中間点'?'halfway':m[1].replace('キロ',' km')} marker`,`可以在${m[1].replace('キロ','公里')}的路标确定`,`可以在${m[1].replace('キロ','公里')}的路標確定`,`${m[1].replace('キロ','킬로미터')} 표지판에서 확정할 수 있습니다`]);
+P(/^(中間点|[\d.]+キロ)を確定し直せます$/,m=>[`You can re-confirm ${m[1]==='中間点'?'the halfway point':m[1].replace('キロ',' km')}`,`可以重新确定${m[1].replace('キロ','公里')}`,`可以重新確定${m[1].replace('キロ','公里')}`,`${m[1].replace('キロ','킬로미터')}를 다시 확정할 수 있습니다`]);
+P(/^(中間点|[\d.]+キロ)で確定しますか？(もう一度2回タップすると確定します。?)?$/,m=>[`Confirm at ${m[1]==='中間点'?'the halfway point':m[1].replace('キロ',' km')}?${m[2]?' Double-tap again to confirm.':''}`,`确定为${m[1].replace('キロ','公里')}吗？${m[2]?'再双击一次即确定。':''}`,`確定為${m[1].replace('キロ','公里')}嗎？${m[2]?'再雙擊一次即確定。':''}`,`${m[1].replace('キロ','킬로미터')}로 확정할까요?${m[2]?' 한 번 더 두 번 탭하면 확정합니다.':''}`]);
+W('聞き取り中…','Listening…','正在聆听…','正在聆聽…','듣는 중…');
+W('「16キロ確定」「中間点確定」「取消」のように話してください','Say e.g. "16 km confirm", "halfway confirm" or "cancel"','请说“16公里确定”“中间点确定”“取消”等','請說「16公里確定」「中間點確定」「取消」等','"16킬로 확정", "중간 지점 확정", "취소"처럼 말하세요');
+W('確定する','Confirm','确定','確定','확정');
+W('確定を取り消す','Cancel confirmation','取消确定','取消確定','확정 취소');
+W('「はい」か「いいえ」で答えるか、ボタンを押してください','Answer "yes" or "no", or press a button','请回答“是”或“不是”，或按按钮','請回答「是」或「不是」，或按按鈕','"네" 또는 "아니요"로 답하거나 버튼을 누르세요');
+W('画面を2回タップすると、声で距離を確定できます','Double-tap the screen to confirm the distance by voice','双击屏幕即可用语音确定距离','雙擊螢幕即可用語音確定距離','화면을 두 번 탭하면 음성으로 거리를 확정할 수 있습니다');
+W('この端末では、声で確定することはできません','Voice confirmation is not available on this device','此设备无法用语音确定','此裝置無法用語音確定','이 기기에서는 음성으로 확정할 수 없습니다');
+W('ボタンで確定してください','Please confirm with the button','请用按钮确定','請用按鈕確定','버튼으로 확정하세요');
+W('マイクが許可されていません','The microphone is not allowed','未允许使用麦克风','未允許使用麥克風','마이크가 허용되지 않았습니다');
+W('聞き取れませんでした','Could not hear you','没有听清','沒有聽清','알아듣지 못했습니다');
+W('ネットにつながっていないと、声で確定できません','Voice confirmation needs an internet connection','未连接网络时无法用语音确定','未連接網路時無法用語音確定','인터넷에 연결되어 있지 않으면 음성으로 확정할 수 없습니다');
+W('確定しませんでした','Not confirmed','未确定','未確定','확정하지 않았습니다');
+W('取り消す確定はありません','There is nothing to cancel','没有可取消的确定','沒有可取消的確定','취소할 확정이 없습니다');
+W('離れすぎているので、確定しませんでした','is too far away, so it was not confirmed','相差太远，未确定','相差太遠，未確定','너무 멀어서 확정하지 않았습니다');
+W('中間点でよろしいですか？','Halfway point — is that right?','中间点，对吗？','中間點，對嗎？','중간 지점이 맞습니까?');
+P(/^([\d.]+)キロでよろしいですか？$/,m=>[`${m[1]} km — is that right?`,`${m[1]}公里，对吗？`,`${m[1]}公里，對嗎？`,`${m[1]}킬로미터가 맞습니까?`]);
+P(/^([\d.]+)キロの看板はありません$/,m=>[`There is no ${m[1]} km marker`,`没有${m[1]}公里的路标`,`沒有${m[1]}公里的路標`,`${m[1]}킬로미터 표지판은 없습니다`]);
+P(/^(中間点|[\d.]+キロ)の確定を取り消しますか？$/,m=>[`Cancel the ${m[1]==='中間点'?'halfway':m[1].replace('キロ',' km')} confirmation?`,`要取消${m[1].replace('キロ','公里')}的确定吗？`,`要取消${m[1].replace('キロ','公里')}的確定嗎？`,`${m[1].replace('キロ','킬로미터')} 확정을 취소할까요?`]);
+P(/^推定は([\d.]+)キロです$/,m=>[`The estimate is ${m[1]} km`,`估计为${m[1]}公里`,`估計為${m[1]}公里`,`추정은 ${m[1]}킬로미터입니다`]);
+P(/^(中間点|[\d.]+キロ)は離れすぎているので、確定しませんでした$/,m=>[`${m[1].replace('キロ',' km')} is too far away, so it was not confirmed`,`${m[1].replace('キロ','公里')}相差太远，未确定`,`${m[1].replace('キロ','公里')}相差太遠，未確定`,`${m[1].replace('キロ','킬로미터')}는 너무 멀어서 확정하지 않았습니다`]);
+P(/^(中間点|[\d.]+キロ)まで確定しているので、(中間点|[\d.]+キロ)は確定できません$/,m=>[`Already confirmed up to ${m[1].replace('キロ',' km')}, so ${m[2].replace('キロ',' km')} cannot be confirmed`,`已确定到${m[1].replace('キロ','公里')}，无法确定${m[2].replace('キロ','公里')}`,`已確定到${m[1].replace('キロ','公里')}，無法確定${m[2].replace('キロ','公里')}`,`${m[1].replace('キロ','킬로미터')}까지 확정했으므로 ${m[2].replace('キロ','킬로미터')}는 확정할 수 없습니다`]);
+/* 2026-11-09 */
+W('確定しました','Confirmed','已确定','已確定','확정했습니다');
+W('確定を取り消しました','Confirmation cancelled','已取消确定','已取消確定','확정을 취소했습니다');
+W('中間点、確定しました','Halfway point confirmed','中间点已确定','中間點已確定','중간 지점을 확정했습니다');
+P(/^([\d.]+)キロ、確定しました$/,m=>[`${PL(m[1],'kilometer')} confirmed`,`${m[1]}公里已确定`,`${m[1]}公里已確定`,`${m[1]}킬로미터 확정`]);
+W('音声案内の聞こえ方を確かめます','Checking how the voice guidance sounds','确认语音提示的音量','確認語音提示的音量','음성 안내가 들리는지 확인합니다');
+W('ゴール（終了）を取り消して、走行を続けますか？','Cancel the finish and keep running?','要取消终点（结束）并继续跑步吗？','要取消終點（結束）並繼續跑步嗎？','골(종료)을 취소하고 계속 달릴까요?');
+W('記録は終了する前の状態に戻り、時間はそのまま進みます。','The log returns to its state before you finished, and the clock keeps running.','记录恢复到结束前的状态，时间继续计算。','紀錄恢復到結束前的狀態，時間繼續計算。','기록은 종료 전 상태로 돌아가고 시간은 계속 흐릅니다.');
+W('ゴールを取り消しました','Finish cancelled','已取消终点','已取消終點','골을 취소했습니다');
+W('再開','Resumed','继续','繼續','재개');
+W('ゴール（終了）を取り消して走り続ける','Cancel the finish and keep running','取消终点（结束）并继续跑','取消終點（結束）並繼續跑','골(종료)을 취소하고 계속 달리기');
+W('間違えて終了したときに使います（終了から20分以内）。','Use this if you finished by mistake (within 20 minutes).','误操作结束时使用（结束后20分钟内）。','誤操作結束時使用（結束後20分鐘內）。','실수로 종료했을 때 사용합니다(종료 후 20분 이내).');
+W('ゴール（終了）を取り消して再開','Finish cancelled, resumed','取消终点（结束）并继续','取消終點（結束）並繼續','골(종료) 취소 후 재개');
+W('音声案内のときの曲の音量','Music volume during voice guidance','语音提示时的音乐音量','語音提示時的音樂音量','음성 안내 중 음악 음량');
+W('ほぼ消す（案内がいちばん聞き取りやすい）','Almost mute (voice easiest to hear)','几乎静音（最容易听清提示）','幾乎靜音（最容易聽清提示）','거의 끄기(안내가 가장 잘 들림)');
+W('小さくする','Lower','调小','調小','작게');
+W('少し下げる','Slightly lower','稍微调小','稍微調小','조금 낮추기');
+W('案内の声の大きさはスマホの音量（メディアの音量）で決まります。案内が小さいときは、ここを「ほぼ消す」にして、スマホの音量を上げてください。','The voice volume follows the phone\'s media volume. If the voice is too quiet, choose "Almost mute" here and turn up the phone volume.','提示声音的大小取决于手机的媒体音量。提示声音太小时，请在此选择“几乎静音”，并调高手机音量。','提示聲音的大小取決於手機的媒體音量。提示聲音太小時，請在此選擇「幾乎靜音」，並調高手機音量。','안내 음량은 휴대폰의 미디어 음량을 따릅니다. 안내가 작으면 여기를 "거의 끄기"로 하고 휴대폰 음량을 올리세요.');
+W('公式記録','Official result','官方成绩','官方成績','공식 기록');
+W('大会の公式記録（記録証・リザルト）を入れると、記録と各ラップを公式タイムに合わせて直します。','Enter the official result (certificate / results list) to adjust the log and every lap to the official time.','输入比赛官方成绩（成绩证书・成绩表）后，会按官方时间调整记录和每段配速。','輸入比賽官方成績（成績證書・成績表）後，會依官方時間調整紀錄和每段配速。','대회 공식 기록(기록증·결과)을 입력하면 기록과 각 랩을 공식 시간에 맞춰 고칩니다.');
+W('公式ネットタイム','Official net time','官方净时间','官方淨時間','공식 넷 타임');
+W('公式グロスタイム','Official gross time','官方总时间','官方總時間','공식 그로스 타임');
+W('総合順位','Overall place','总排名','總排名','종합 순위');
+W('部門名','Category','组别','組別','부문명');
+W('部門順位','Category place','组别排名','組別排名','부문 순위');
+W('部門','Category','组别','組別','부문');
+W('メモ','Notes','备注','備註','메모');
+W('例 3:57:31','e.g. 3:57:31','例 3:57:31','例 3:57:31','예 3:57:31');
+W('例 3:58:14','e.g. 3:58:14','例 3:58:14','例 3:58:14','예 3:58:14');
+W('例 1234','e.g. 1234','例 1234','例 1234','예 1234');
+W('例 123','e.g. 123','例 123','例 123','예 123');
+W('例 男子50歳代','e.g. Men 50–59','例 男子50岁组','例 男子50歲組','예 남자 50대');
+W('天気・体調・反省など','Weather, condition, lessons…','天气・身体状况・反省等','天氣・身體狀況・反省等','날씨·컨디션·반성 등');
+W('確認して保存','Check and save','确认并保存','確認並保存','확인하고 저장');
+W('公式タイムを消す（アプリの記録に戻す）','Remove official times (back to the app\'s log)','删除官方时间（恢复为应用记录）','刪除官方時間（恢復為應用紀錄）','공식 시간 지우기(앱 기록으로 되돌리기)');
+W('時間は「時:分:秒」（例 3:57:31）で入れてください。','Enter times as h:mm:ss (e.g. 3:57:31).','时间请按“时:分:秒”（例 3:57:31）输入。','時間請依「時:分:秒」（例 3:57:31）輸入。','시간은 "시:분:초"(예 3:57:31)로 입력하세요.');
+W('グロスタイムがネットタイムより短くなっています。入れ間違いがないか確かめてください。','The gross time is shorter than the net time. Please check what you entered.','总时间比净时间短。请检查是否输入错误。','總時間比淨時間短。請檢查是否輸入錯誤。','그로스 타임이 넷 타임보다 짧습니다. 입력을 확인하세요.');
+P(/^公式(ネット|グロス)タイムが、アプリの記録（([\d:]+)）と ([\d:]+) (長い|短い)です。大きくずれています。入れ間違いがないか確かめてください。$/,m=>[`The official ${m[1]==='ネット'?'net':'gross'} time is ${m[3]} ${m[4]==='長い'?'longer':'shorter'} than the app's log (${m[2]}). That is a large difference — please check what you entered.`,`官方${m[1]==='ネット'?'净':'总'}时间比应用记录（${m[2]}）${m[4]==='長い'?'长':'短'} ${m[3]}，差距很大。请检查是否输入错误。`,`官方${m[1]==='ネット'?'淨':'總'}時間比應用紀錄（${m[2]}）${m[4]==='長い'?'長':'短'} ${m[3]}，差距很大。請檢查是否輸入錯誤。`,`공식 ${m[1]==='ネット'?'넷':'그로스'} 타임이 앱 기록(${m[2]})보다 ${m[3]} ${m[4]==='長い'?'깁니다':'짧습니다'}. 차이가 큽니다. 입력을 확인하세요.`]);
+W('入力を直してください','Please correct the input','请修改输入','請修改輸入','입력을 고쳐 주세요');
+W('次の内容で公式記録を保存しますか？','Save the official result as follows?','要按以下内容保存官方成绩吗？','要依以下內容保存官方成績嗎？','다음 내용으로 공식 기록을 저장할까요?');
+W('ネットタイム','Net time','净时间','淨時間','넷 타임');
+W('グロスタイム','Gross time','总时间','總時間','그로스 타임');
+W('各ラップは、公式ネットタイムに合わせて配り直します。','Every lap is redistributed to match the official net time.','各段配速会按官方净时间重新分配。','各段配速會依官方淨時間重新分配。','각 랩은 공식 넷 타임에 맞춰 다시 배분합니다.');
+W('⚠ アプリの記録と大きくずれています。','⚠ Large difference from the app\'s log.','⚠ 与应用记录差距很大。','⚠ 與應用紀錄差距很大。','⚠ 앱 기록과 차이가 큽니다.');
+W('公式記録を保存しました','Official result saved','已保存官方成绩','已保存官方成績','공식 기록을 저장했습니다');
+W('公式タイムを消して、アプリの記録に戻しますか？（順位・部門・メモは残ります）','Remove the official times and go back to the app\'s log? (Places, category and notes are kept.)','要删除官方时间并恢复为应用记录吗？（排名・组别・备注会保留）','要刪除官方時間並恢復為應用紀錄嗎？（排名・組別・備註會保留）','공식 시간을 지우고 앱 기록으로 되돌릴까요? (순위·부문·메모는 남습니다)');
+W('アプリの記録に戻しました','Back to the app\'s log','已恢复为应用记录','已恢復為應用紀錄','앱 기록으로 되돌렸습니다');
+P(/^アプリの記録：ネット ([\d:—]+)$/,m=>[`App log: net ${m[1]}`,`应用记录：净 ${m[1]}`,`應用紀錄：淨 ${m[1]}`,`앱 기록: 넷 ${m[1]}`]);
+W('→ 公式に合わせて表示中','→ showing official times','→ 按官方时间显示','→ 依官方時間顯示','→ 공식 시간으로 표시 중');
+W('公式','Official','官方','官方','공식');
+P(/^総合 (\d+)位$/,m=>[`Overall ${m[1]}`,`总排名 第${m[1]}名`,`總排名 第${m[1]}名`,`종합 ${m[1]}위`]);
+W('実績のダッシュボード','Results dashboard','成绩仪表板','成績儀表板','기록 대시보드');
+W('📊 ダッシュボード','📊 Dashboard','📊 仪表板','📊 儀表板','📊 대시보드');
+W('通算','All time','累计','累計','통산');
+W('今季','This season','本赛季','本賽季','이번 시즌');
+W('種目','Event','项目','項目','종목');
+W('完走','Finished','完赛','完賽','완주');
+W('ベスト','Best','最佳','最佳','베스트');
+W('回','×','次','次','회');
+P(/^出走 (\d+)回（今季 (\d+)回）・リタイア (\d+)回（今季 (\d+)回）$/,m=>[`Races ${m[1]} (this season ${m[2]}) · DNF ${m[3]} (this season ${m[4]})`,`参赛 ${m[1]}次（本赛季 ${m[2]}次）・退赛 ${m[3]}次（本赛季 ${m[4]}次）`,`參賽 ${m[1]}次（本賽季 ${m[2]}次）・退賽 ${m[3]}次（本賽季 ${m[4]}次）`,`출전 ${m[1]}회(이번 시즌 ${m[2]}회)·기권 ${m[3]}회(이번 시즌 ${m[4]}회)`]);
+W('ベストは公式ネットタイムを入れた大会はその時間、入れていない大会はアプリで測ったネットタイムです。今季は7月から翌年6月までです。この端末とDropboxにある本番の記録から数えます。','Best times use the official net time where you entered one, otherwise the net time measured by the app. The season runs from July to June. Counted from the race logs on this device and in Dropbox.','最佳成绩：已输入官方净时间的比赛使用官方时间，其他使用应用测得的净时间。本赛季为7月至次年6月。根据本设备和Dropbox中的比赛记录统计。','最佳成績：已輸入官方淨時間的比賽使用官方時間，其他使用應用測得的淨時間。本賽季為7月至次年6月。根據本裝置和Dropbox中的比賽紀錄統計。','베스트는 공식 넷 타임을 입력한 대회는 그 시간, 입력하지 않은 대회는 앱이 잰 넷 타임입니다. 시즌은 7월부터 다음 해 6월까지입니다. 이 기기와 Dropbox에 있는 실전 기록으로 셉니다.');
+W('分かれた記録を1つにまとめる','Merge a split record','合并分开的记录','合併分開的紀錄','나뉜 기록 합치기');
+W('同じ大会の記録が、途中で終了したために2つに分かれたときに使います。前半の記録の時間を基準に、後半の記録をつなげます。','Use this when one race was split into two records because it was ended part-way. The second record is joined on, based on the time of the first record.','同一场比赛因中途结束而分成两条记录时使用。以前半段记录的时间为基准，接上后半段记录。','同一場比賽因中途結束而分成兩筆紀錄時使用。以前半段紀錄的時間為基準，接上後半段紀錄。','같은 대회 기록이 중간에 종료되어 둘로 나뉘었을 때 사용합니다. 앞부분 기록의 시간을 기준으로 뒷부분 기록을 잇습니다.');
+W('この端末にある本番の記録が2つ以上あるときに使えます。','Available when this device has two or more race logs.','本设备中有两条以上比赛记录时可用。','本裝置中有兩筆以上比賽紀錄時可用。','이 기기에 실전 기록이 2개 이상 있을 때 사용할 수 있습니다.');
+W('前半の記録','First part','前半段记录','前半段紀錄','앞부분 기록');
+W('後半の記録','Second part','后半段记录','後半段紀錄','뒷부분 기록');
+W('後半の記録の距離','Distance in the second part','后半段记录的距离','後半段紀錄的距離','뒷부분 기록의 거리');
+W('0 kmから数え直している（前半の続きの距離を足す）','Counted again from 0 km (add the distance of the first part)','从0公里重新计算（加上前半段的距离）','從0公里重新計算（加上前半段的距離）','0 km부터 다시 셈(앞부분의 거리를 더함)');
+W('看板で確定したので、正しい距離になっている','Already correct (confirmed at distance markers)','已在路标处确定，距离正确','已在路標處確定，距離正確','거리 표지판에서 확정해서 거리가 맞음');
+W('後半を始めた地点（km）','Where the second part started (km)','后半段开始的地点（公里）','後半段開始的地點（公里）','뒷부분을 시작한 지점(km)');
+W('確認してまとめる','Check and merge','确认并合并','確認並合併','확인하고 합치기');
+W('やめる','Cancel','取消','取消','그만두기');
+W('前半と後半に、別の記録を選んでください。','Choose two different records for the first and second part.','请为前半段和后半段选择不同的记录。','請為前半段和後半段選擇不同的紀錄。','앞부분과 뒷부분에 서로 다른 기록을 고르세요.');
+W('後半の記録は、前半の記録よりあとにスタートしたものを選んでください。','The second part must have started after the first part.','后半段记录请选择比前半段晚开始的记录。','後半段紀錄請選擇比前半段晚開始的紀錄。','뒷부분 기록은 앞부분보다 나중에 시작한 것을 고르세요.');
+W('後半を始めた地点（km）を入れてください。','Enter where the second part started (km).','请输入后半段开始的地点（公里）。','請輸入後半段開始的地點（公里）。','뒷부분을 시작한 지점(km)을 입력하세요.');
+W('2つの記録を1つにまとめますか？','Merge the two records into one?','要把两条记录合并为一条吗？','要把兩筆紀錄合併為一筆嗎？','두 기록을 하나로 합칠까요?');
+W('後半の記録は削除され、前半の記録にまとめます。','The second record will be deleted and merged into the first.','后半段记录将被删除并合并到前半段记录中。','後半段紀錄將被刪除並合併到前半段紀錄中。','뒷부분 기록은 삭제되고 앞부분 기록으로 합쳐집니다.');
+W('ここから後半の記録（まとめた記録）','Second part starts here (merged record)','从这里开始为后半段记录（合并的记录）','從這裡開始為後半段紀錄（合併的紀錄）','여기부터 뒷부분 기록(합친 기록)');
+W('統合','merged','合并','合併','합침');
+P(/^まとめた記録：([\d.]+) km　ネット ([\d:]+)（前半 ([\d.]+) km ([\d:]+) ＋ あいだ ([\d:]+) ＋ 後半 ([\d:]+)）(　完走)?$/,m=>[`Merged: ${m[1]} km, net ${m[2]} (first ${m[3]} km ${m[4]} + gap ${m[5]} + second ${m[6]})${m[7]?', finished':''}`,`合并后：${m[1]} 公里 净 ${m[2]}（前半段 ${m[3]} 公里 ${m[4]} ＋ 间隔 ${m[5]} ＋ 后半段 ${m[6]}）${m[7]?' 完赛':''}`,`合併後：${m[1]} 公里 淨 ${m[2]}（前半段 ${m[3]} 公里 ${m[4]} ＋ 間隔 ${m[5]} ＋ 後半段 ${m[6]}）${m[7]?' 完賽':''}`,`합친 기록: ${m[1]} km 넷 ${m[2]} (앞부분 ${m[3]} km ${m[4]} + 사이 ${m[5]} + 뒷부분 ${m[6]})${m[7]?' 완주':''}`]);
 
 const SEPS1=[' ／ ','／'],SEPS=['。','　','、','・'];
 const isEn=()=>LANG==='en'||LANG==='ko';
@@ -4969,7 +5145,7 @@ function fxMarks(){const D=rcKm(),M=[];for(let k=1;k<D-1e-6;k++)M.push({km:k,lab
   if(D>2){const h=Math.round(D/2*10000)/10000;if(!M.some(m=>Math.abs(m.km-h)<1e-6))M.push({km:h,lab:'中間点',half:true});}return M.sort((a,b)=>a.km-b.km);}
 const fxLast=()=>{const f=(RS.fix||[]).filter(x=>!x.gps);return f[f.length-1]||null;};
 function fxCand(){const M=fxMarks();if(!M.length)return null;const est=posInfo(elapsed()).pos,last=fxLast();
-  if(FX.off&&Date.now()-FX.touch>30000)FX.off=0;
+  if(FX.off&&Date.now()-FX.touch>60000)FX.off=0;
   let b=-1;M.forEach((m,j)=>{if(m.km<=est+0.1)b=j;});const li=last?M.findIndex(m=>Math.abs(m.km-last.km)<1e-6):-1,mi=Math.max(0,li);
   if(b<mi)b=mi;let i=Math.min(M.length-1,Math.max(mi,b+FX.off));FX.off=i-b;return {M,i,m:M[i],est,last,mi,redo:last&&Math.abs(M[i].km-last.km)<1e-6};}
 /* 確定したときのGPSの状態を控えておき、取消のときに元へ戻す */
@@ -5088,6 +5264,300 @@ function netAll(){try{netRender();}catch(e){}try{netMapUI();}catch(e){}try{netCl
 addEventListener('online',()=>{try{(CLOUD.index||[]).forEach(e=>{e._fail=0;});}catch(e){}netAll();setTimeout(()=>{try{renderLog();}catch(e){}},400);});
 addEventListener('offline',()=>{netAll();try{renderLog();}catch(e){}});
 netAll();
+
+
+/* ===================== 2026-11-09：本番の不具合の手直しと、公式記録・ダッシュボード・記録の統合 ===================== */
+const TR=x=>typeof I18N!=='undefined'?I18N.tr(x):x;
+
+/* ---- 1. 画面を消さない：走っている間・本番待機中は、画面ONの許可が外れたらすぐ取り直す。
+        許可が取れない端末（省電力モードなど）では、音のない小さな動画を流して画面をつけたままにする ---- */
+const KEEP={vid:null,on:false};
+function keepNeed(){return (R.running&&!R.paused&&!R.done)||RS.armed||RS.pre;}
+function keepVid(on){try{if(on&&!KEEP.vid){const v=document.createElement('video');v.setAttribute('playsinline','');v.setAttribute('muted','');v.muted=true;v.loop=true;
+      v.style.cssText='position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;left:0;bottom:0';v.src='data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAMzbW9vdgAAAGxtdmhkAAAAAAAAAAAAAAAAAAAD6AAAD6AAAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAl10cmFrAAAAXHRraGQAAAADAAAAAAAAAAAAAAABAAAAAAAAD6AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAABAAAAAQAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAA+gAAAAAAABAAAAAAHVbWRpYQAAACBtZGhkAAAAAAAAAAAAAAAAAABAAAABAABVxAAAAAAALWhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAABgG1pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAUBzdGJsAAAAuHN0c2QAAAAAAAAAAQAAAKhhdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAABAAEABIAAAASAAAAAAAAAABFUxhdmM2MC4zMS4xMDIgbGlieDI2NAAAAAAAAAAAAAAAGP//AAAALmF2Y0MBQsAK/+EAFmdCwArZHsBEAAADAAQAAAMACDxImSABAAVoy4PLIAAAABBwYXNwAAAAAQAAAAEAAAAUYnRydAAAAAAAAAVGAAAFRgAAABhzdHRzAAAAAAAAAAEAAAAEAABAAAAAABRzdHNzAAAAAAAAAAEAAAABAAAAHHN0c2MAAAAAAAAAAQAAAAEAAAAEAAAAAQAAACRzdHN6AAAAAAAAAAAAAAAEAAAChgAAAAoAAAAKAAAACQAAABRzdGNvAAAAAAAAAAEAAANjAAAAYnVkdGEAAABabWV0YQAAAAAAAAAhaGRscgAAAAAAAAAAbWRpcmFwcGwAAAAAAAAAAAAAAAAtaWxzdAAAACWpdG9vAAAAHWRhdGEAAAABAAAAAExhdmY2MC4xNi4xMDAAAAAIZnJlZQAAAqttZGF0AAACcAYF//9s3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE2NCByMzEwOCAzMWUxOWY5IC0gSC4yNjQvTVBFRy00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAyMyAtIGh0dHA6Ly93d3cudmlkZW9sYW4ub3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTAgcmVmPTMgZGVibG9jaz0xOjA6MCBhbmFseXNlPTB4MToweDExMSBtZT1oZXggc3VibWU9NyBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVkX3JlZj0xIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MSA4eDhkY3Q9MCBjcW09MCBkZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0tMiB0aHJlYWRzPTEgbG9va2FoZWFkX3RocmVhZHM9MSBzbGljZWRfdGhyZWFkcz0wIG5yPTAgZGVjaW1hdGU9MSBpbnRlcmxhY2VkPTAgYmx1cmF5X2NvbXBhdD0wIGNvbnN0cmFpbmVkX2ludHJhPTAgYmZyYW1lcz0wIHdlaWdodHA9MCBrZXlpbnQ9MjUwIGtleWludF9taW49MSBzY2VuZWN1dD00MCBpbnRyYV9yZWZyZXNoPTAgcmNfbG9va2FoZWFkPTQwIHJjPWNyZiBtYnRyZWU9MSBjcmY9MjMuMCBxY29tcD0wLjYwIHFwbWluPTAgcXBtYXg9NjkgcXBzdGVwPTQgaXBfcmF0aW89MS40MCBhcT0xOjEuMDAAgAAAAA5liIQF////D0UAAVefgAAAAAZBmjgL+oAAAAAGQZpUAt6gAAAABUGaYBX1';document.body.appendChild(v);KEEP.vid=v;}
+    if(KEEP.vid){if(on){const p=KEEP.vid.play();if(p&&p.catch)p.catch(()=>{});}else KEEP.vid.pause();}KEEP.on=on;}catch(e){}}
+async function keepAwake(){if(!keepNeed()){keepVid(false);try{if(wake&&!wake.released)await wake.release();}catch(e){}wake=null;return;}
+  if(document.visibilityState!=='visible')return;let ok=false;
+  try{if('wakeLock' in navigator){if(!wake||wake.released){wake=await navigator.wakeLock.request('screen');wake.addEventListener('release',()=>{setTimeout(keepAwake,400);});}ok=!!wake&&!wake.released;}}catch(e){ok=false;}
+  keepVid(!ok);}
+lockScreen=keepAwake;
+setInterval(keepAwake,10000);document.addEventListener('visibilitychange',()=>setTimeout(keepAwake,300));
+document.addEventListener('pointerdown',()=>{if(keepNeed()&&KEEP.on&&KEEP.vid&&KEEP.vid.paused)keepVid(true);},true);
+['reset','finish','raceStop','start','pause'].forEach(n=>{try{const f=window[n];if(typeof f!=='function')return;window[n]=function(){const r=f.apply(this,arguments);setTimeout(keepAwake,200);return r;};}catch(e){}});
+
+/* ---- 2. 音声案内を聞き取りやすく：案内のあいだ曲をどこまで下げるか（初めは「ほぼ消す」） ---- */
+{const v=+store.get('cbgm-duck',0.05);DUCK.lv=[0.05,0.15,0.3].includes(v)?v:0.05;
+  const km=$('#optKm');if(km){const lab=km.closest('label');const w=document.createElement('label');w.className='f duckrow';
+    w.innerHTML='音声案内のときの曲の音量<select id="optDuck"><option value="0.05">ほぼ消す（案内がいちばん聞き取りやすい）</option><option value="0.15">小さくする</option><option value="0.3">少し下げる</option></select><span class="hint">案内の声の大きさはスマホの音量（メディアの音量）で決まります。案内が小さいときは、ここを「ほぼ消す」にして、スマホの音量を上げてください。</span>';
+    lab.after(w);const s=$('#optDuck');s.value=String(DUCK.lv);s.addEventListener('change',()=>{DUCK.lv=+s.value;store.set('cbgm-duck',DUCK.lv);say('音声案内の聞こえ方を確かめます。');});}}
+
+/* ---- 3. 確定を押したら：声で「○キロ、確定しました」と言い、画面を緑色に光らせる（取消はオレンジ色） ---- */
+function fxSayLab(k){const D=rcKm(),h=Math.round(D/2*10000)/10000;return D>2&&Math.abs(k-h)<1e-6?'中間点':(+(+k).toFixed(2))+'キロ';}
+const FXF=document.createElement('div');FXF.className='fxflash';FXF.hidden=true;FXF.setAttribute('aria-live','assertive');document.body.appendChild(FXF);
+function fxFlash(big,small,kind){FXF.className='fxflash'+(kind?' '+kind:'');FXF.innerHTML=`<b>${big}</b><span>${small}</span>`;FXF.hidden=false;clearTimeout(FXF._t);FXF._t=setTimeout(()=>{FXF.hidden=true;},1800);
+  try{navigator.vibrate&&navigator.vibrate(kind==='undo'?[80,60,80]:200);}catch(e){}}
+FXF.addEventListener('pointerdown',()=>{FXF.hidden=true;});
+const fxLabHtml=k=>{const s=fxSayLab(k);return s==='中間点'?'<span>中間点</span>':`<span data-notr>${+(+k).toFixed(2)} km</span>`;};
+{const _df=doFix;doFix=function(k){const n=(RS.fix||[]).length;const r=_df.apply(this,arguments);try{if((RS.fix||[]).length>n)fxFlash(fxLabHtml(k),TR('確定しました'),'ok');}catch(e){}return r;};}
+{const _fu=fxUndo;fxUndo=function(){const f=fxLast();const r=_fu.apply(this,arguments);try{if(f&&!(RS.fix||[]).includes(f))fxFlash(fxLabHtml(f.km),TR('確定を取り消しました'),'undo');}catch(e){}return r;};}
+
+/* ---- 4. 現在地を戻さない：GPSなどで一度進んだ距離より、推定の距離が戻らないようにする。
+        戻してよいのは、自分で看板の距離を確定したり取り消したりしたときだけ。この最大の距離は再起動しても引き継ぐ ---- */
+const hiKey=()=>{const m=(RS.fix||[]).filter(x=>!x.gps),l=m[m.length-1];return m.length+':'+(l?l.km+'@'+l.t:'');};
+{const _pi=posInfo;posInfo=function(el){const r=_pi.apply(this,arguments);
+  try{if(MODE!=='race'||!R.running||!RS.startAt)return r;const k=hiKey(),h=RS.hi;
+    if(!h||h.key!==k){RS.hi={pos:r.pos,el,key:k};return r;}
+    if(el+2000<h.el)return r; /* 過去の時刻の位置を聞かれたときは、そのまま */
+    if(r.pos<h.pos-1e-4)return Object.assign({},r,{pos:h.pos,held:true});
+    if(el>=h.el){h.pos=r.pos;h.el=el;}}catch(e){}return r;};}
+{const _rs=runSave;runSave=function(){const r=_rs.apply(this,arguments);try{if(MODE==='race'&&RS.startAt&&!R.done&&RS.hi){const o=store.get(RUN_KEY,null);if(o&&o.startAt===RS.startAt){o.hi={pos:+RS.hi.pos.toFixed(3),el:Math.round(RS.hi.el)};store.set(RUN_KEY,o);}}}catch(e){}return r;};}
+{const _rr=resumeRace;resumeRace=function(){const s=resumeSnap;
+  /* 前に進んでいた距離（GPSで測った分を含む）を、続きの起点にする */
+  try{if(s&&s.hi&&s.hi.pos>0){const man=(s.fix||[]).filter(x=>!x.gps),lf=(s.fix||[])[(s.fix||[]).length-1],base=Math.max(lf?lf.km:0,s.gps?s.gps.km:0);
+    if(s.hi.pos>base+0.02&&(!lf||s.hi.el>=lf.t))s.gps={km:s.hi.pos,t:s.hi.el};}}catch(e){}
+  const r=_rr.apply(this,arguments);try{if(s&&s.hi)RS.hi={pos:s.hi.pos,el:s.hi.el,key:hiKey()};}catch(e){}return r;};}
+
+/* ---- 5. ゴール（終了）の取り消し：長押しで間違えて終えたときは、終了の画面から走行を続けられる ---- */
+const GU={snap:null,at:0};
+{const _s=raceStop;raceStop=function(){let snap=null;
+  if(MODE==='race'&&R.running&&!R.done){try{runSave();const o=store.get(RUN_KEY,null);snap=o?JSON.parse(JSON.stringify(o)):null;}catch(e){snap=null;}}
+  const r=_s.apply(this,arguments);if(snap&&R.done){GU.snap=snap;GU.at=Date.now();try{endRender();}catch(e){}}return r;};}
+function goalUndo(){const s=GU.snap;if(!s||MODE!=='race'||!R.done)return;
+  if(!confirm(TR('ゴール（終了）を取り消して、走行を続けますか？')+'\n'+TR('記録は終了する前の状態に戻り、時間はそのまま進みます。')))return;
+  GU.snap=null;const id='L'+s.startAt;raceLogs=raceLogs.filter(x=>x.id!==id);store.set(LOGS_KEY,raceLogs);
+  try{endHide();}catch(e){}
+  s.ev=(s.ev||[]).concat([{type:'undo',msg:'ゴール（終了）を取り消して再開',t:Math.round(s.acc+(Date.now()-s.t0)),at:Date.now()}]);
+  s.goalLogged=false;s.paused=false;R.done=false;R.running=false;resumeSnap=s;resumeRace();
+  try{fxFlash('<span>再開</span>',TR('ゴールを取り消しました'),'undo');}catch(e){}}
+{const _er=endRender;endRender=function(){const r=_er.apply(this,arguments);
+  try{const ok=ENDP.on&&ENDP.mode==='race'&&GU.snap&&R.done&&Date.now()-GU.at<20*60000;let b=$('#goalUndo');
+    if(ok&&!b){b=document.createElement('div');b.className='gundo';b.id='goalUndoRow';b.innerHTML='<button class="small" type="button" id="goalUndo">ゴール（終了）を取り消して走り続ける</button><span class="sub">間違えて終了したときに使います（終了から20分以内）。</span>';endBox.appendChild(b);$('#goalUndo').onclick=goalUndo;}
+    else if(!ok&&b){const w=$('#goalUndoRow');if(w)w.remove();}}catch(e){}return r;};}
+{const _eh=endHide;endHide=function(){GU.snap=GU.snap&&R.done&&MODE==='race'&&ENDP.on?GU.snap:null;return _eh.apply(this,arguments);};}
+
+/* ---- 6. 公式記録：公式のネットタイム・グロスタイム・順位・部門・メモを記録し、各ラップを公式タイムに合わせて配り直す ---- */
+const OFF_WARN_MS=120000,OFF_WARN_R=0.02;
+const offBig=(a,b)=>a!=null&&b!=null&&b>0&&(Math.abs(a-b)>=OFF_WARN_MS||Math.abs(a-b)/b>=OFF_WARN_R);
+function offBase(d){return d._offBase||{el:d.el,log:d.log||[],geo:d.geo||null};}
+function offScale(d){const B=offBase(d),o=d.off||{};if(!o.net||!B.el){if(d._offBase){d.el=B.el;d.log=JSON.parse(JSON.stringify(B.log));d.geo=B.geo?JSON.parse(JSON.stringify(B.geo)):B.geo;delete d._offBase;}return;}
+  if(!d._offBase)d._offBase=JSON.parse(JSON.stringify({el:d.el,log:d.log||[],geo:d.geo||null}));
+  const f=o.net/B.el;d.el=o.net;d.log=B.log.map(x=>Object.assign({},x,{t:Math.round(x.t*f)}));
+  if(B.geo){const g=JSON.parse(JSON.stringify(B.geo));(g.pass||[]).forEach(p=>{if(p.t!=null)p.t=Math.round(p.t*f);});(g.trk||[]).forEach(p=>{if(p[4]!=null)p[4]=Math.round(p[4]*f);});d.geo=g;}}
+{const _lo=lossOf;lossOf=function(d){if(d&&d.off&&d.off.gross&&(d.off.net||d.el))return Math.max(0,d.off.gross-(d.off.net||d.el));return _lo.apply(this,arguments);};}
+{const _rf=raceFinalize;raceFinalize=function(d){if(d&&d._offBase){d.el=d._offBase.el;d.log=d._offBase.log;d.geo=d._offBase.geo;delete d._offBase;}const r=_rf.apply(this,arguments);try{if(d&&d.off&&d.off.net)offScale(d);}catch(e){}return r;};}
+const offBox=document.createElement('div');offBox.className='offbox';offBox.id='offBox';offBox.hidden=true;
+offBox.innerHTML=`<div class="off-h"><b>公式記録</b><span class="sub">大会の公式記録（記録証・リザルト）を入れると、記録と各ラップを公式タイムに合わせて直します。</span></div>
+<div class="off-rec sub" id="offRec"></div>
+<div class="off-g"><label>公式ネットタイム<input id="offNet" inputmode="numeric" placeholder="例 3:57:31" autocomplete="off"></label><label>公式グロスタイム<input id="offGross" inputmode="numeric" placeholder="例 3:58:14" autocomplete="off"></label>
+<label>総合順位<input id="offRank" inputmode="numeric" placeholder="例 1234" autocomplete="off"></label><label>部門名<input id="offDiv" placeholder="例 男子50歳代" autocomplete="off"></label><label>部門順位<input id="offDivRank" inputmode="numeric" placeholder="例 123" autocomplete="off"></label></div>
+<label class="off-memo">メモ<textarea id="offMemo" rows="2" placeholder="天気・体調・反省など"></textarea></label>
+<div class="off-warn" id="offWarn" hidden></div>
+<div class="ctrls"><button class="primary-sm" type="button" id="offSave">確認して保存</button><button class="small" type="button" id="offClear" hidden>公式タイムを消す（アプリの記録に戻す）</button><span class="sub" id="offMsg"></span></div>`;
+{const pr=$('#photoRow');if(pr)pr.after(offBox);}
+const offT=ms=>ms==null?'—':hms(ms);
+function offRead(){const g=id=>$('#'+id).value.trim(),num=v=>{v=v.replace(/[^\d]/g,'');return v?+v:null;};
+  const nv=g('offNet'),gv=g('offGross');const net=nv?hmsMs(nv):null,gross=gv?hmsMs(gv):null;
+  return {net,gross,netBad:!!nv&&!(net>0),grossBad:!!gv&&!(gross>0),rank:num(g('offRank')),div:g('offDiv'),divRank:num(g('offDivRank')),memo:g('offMemo')};}
+function offWarnRender(d){const w=$('#offWarn'),o=offRead();const B=offBase(d),ls0=d._offBase?(d.waveAt&&d.startAt?Math.max(0,d.startAt-d.waveAt):null):lossOf(Object.assign({},d,{off:null}));
+  const recG=B.el&&ls0!=null?B.el+ls0:null,L=[];let lvl='';
+  if(o.netBad||o.grossBad){L.push('時間は「時:分:秒」（例 3:57:31）で入れてください。');lvl='err';}
+  if(o.net&&o.gross&&o.gross<o.net){L.push('グロスタイムがネットタイムより短くなっています。入れ間違いがないか確かめてください。');lvl='err';}
+  if(o.net&&offBig(o.net,B.el)){L.push(`公式ネットタイムが、アプリの記録（${hms(B.el)}）と ${fmt(Math.abs(o.net-B.el))} ${o.net>B.el?'長い':'短い'}です。大きくずれています。入れ間違いがないか確かめてください。`);lvl=lvl||'warn';}
+  if(o.gross&&recG&&offBig(o.gross,recG)){L.push(`公式グロスタイムが、アプリの記録（${hms(recG)}）と ${fmt(Math.abs(o.gross-recG))} ${o.gross>recG?'長い':'短い'}です。大きくずれています。入れ間違いがないか確かめてください。`);lvl=lvl||'warn';}
+  w.hidden=!L.length;w.className='off-warn'+(lvl?' '+lvl:'');w.innerHTML=L.map(x=>`<div>${esc(x)}</div>`).join('');
+  $('#offNet').classList.toggle('bad',!!(o.netBad||(o.net&&offBig(o.net,B.el))));$('#offGross').classList.toggle('bad',!!(o.grossBad||(o.gross&&recG&&offBig(o.gross,recG))||(o.net&&o.gross&&o.gross<o.net)));
+  return {o,lvl,recG};}
+function offRender(){const d=logData();const ok=HIST.kind==='race'&&d&&!d.loading&&d.id!=='cur'&&!d.live;offBox.hidden=!ok;if(!ok)return;
+  if(offBox.dataset.id!==d.id){offBox.dataset.id=d.id;const o=d.off||{};const s=(id,v)=>{$('#'+id).value=v==null?'':v;};
+    s('offNet',o.net?hms(o.net):'');s('offGross',o.gross?hms(o.gross):'');s('offRank',o.rank);s('offDiv',o.div||'');s('offDivRank',o.divRank);s('offMemo',o.memo||'');$('#offMsg').textContent='';}
+  const B=offBase(d),ls0=d.waveAt&&d.startAt?Math.max(0,d.startAt-d.waveAt):null;
+  $('#offRec').textContent=`アプリの記録：ネット ${offT(B.el)}　グロス ${B.el&&ls0!=null?hms(B.el+ls0):'—'}`+(d.off&&d.off.net?`　→ 公式に合わせて表示中`:'');
+  $('#offClear').hidden=!(d.off&&(d.off.net||d.off.gross));offWarnRender(d);}
+['offNet','offGross'].forEach(id=>$('#'+id).addEventListener('input',()=>{const d=logData();if(d&&!d.loading)offWarnRender(d);}));
+function offSaveTo(d,o){const loc=raceLogs.find(x=>x.id===d.id)||d;
+  delete o.netBad;delete o.grossBad;Object.keys(o).forEach(k=>{if(o[k]==null||o[k]==='')delete o[k];});[loc,d].forEach(x=>{if(!x)return;x.off=Object.assign({},o,{at:Date.now()});if(!Object.keys(o).length)delete x.off;offScale(x);});
+  const e=(CLOUD.index||[]).find(x=>x.id===d.id);if(e){e.el=loc.el;}
+  if(raceLogs.includes(loc)){if(loc.cloud)delete loc.cloud;store.set(LOGS_KEY,raceLogs);}else if(CLOUD.cache[d.id]){CLOUD.cache[d.id].dirty=true;}
+  try{cloudSync();}catch(err){}}
+$('#offSave').addEventListener('click',()=>{const d=logData();if(!d||d.loading||d.id==='cur')return;const {o,lvl,recG}=offWarnRender(d),m=$('#offMsg');
+  if(lvl==='err'){m.textContent=TR('入力を直してください');return;}
+  const B=offBase(d),L=[TR('次の内容で公式記録を保存しますか？'),''];
+  L.push(`${TR('ネットタイム')}：${offT(B.el)} → ${o.net?hms(o.net):offT(B.el)}`+(o.net&&offBig(o.net,B.el)?' ⚠':''));
+  if(o.gross)L.push(`${TR('グロスタイム')}：${recG?hms(recG):'—'} → ${hms(o.gross)}`+(recG&&offBig(o.gross,recG)?' ⚠':''));
+  if(o.rank)L.push(`${TR('総合順位')}：${o.rank}`);if(o.div||o.divRank)L.push(`${TR('部門')}：${o.div||''} ${o.divRank?o.divRank:''}`);if(o.memo)L.push(`${TR('メモ')}：${o.memo}`);
+  if(o.net)L.push('',TR('各ラップは、公式ネットタイムに合わせて配り直します。'));if(lvl==='warn')L.push('',TR('⚠ アプリの記録と大きくずれています。'));
+  if(!confirm(L.join('\n')))return;offSaveTo(d,o);offBox.dataset.id='';m.textContent=TR('公式記録を保存しました');renderLog();});
+$('#offClear').addEventListener('click',()=>{const d=logData();if(!d||!d.off)return;if(!confirm(TR('公式タイムを消して、アプリの記録に戻しますか？（順位・部門・メモは残ります）')))return;
+  const o=Object.assign({},d.off);delete o.net;delete o.gross;offSaveTo(d,o);offBox.dataset.id='';$('#offMsg').textContent=TR('アプリの記録に戻しました');renderLog();});
+{const _rl=renderLog;renderLog=function(){const r=_rl.apply(this,arguments);try{offRender();}catch(e){}
+  try{const d=logData(),i=$('#logInfo');if(d&&d.off&&i&&!d.loading&&!i.querySelector('.off-s')){const o=d.off,P=[];if(o.net)P.push('公式');if(o.rank)P.push(`総合 ${o.rank}位`);if(o.div||o.divRank)P.push(`${o.div||'部門'}${o.divRank?' '+o.divRank+'位':''}`);
+      if(P.length){const s=document.createElement('span');s.className='off-s';s.textContent=P.join('　');i.appendChild(s);}
+      if(o.memo){const s=document.createElement('div');s.className='off-memo-v';s.textContent=o.memo;i.appendChild(s);}}}catch(e){}return r;};}
+
+/* ---- 7. 実績のダッシュボード：通算と今季（7月〜翌年6月）の、フル・ハーフの完走回数とベストタイム ---- */
+function seasonOf(ms){const d=new Date(ms),y=d.getMonth()>=6?d.getFullYear():d.getFullYear()-1;return y;}
+function dashData(){const it=rlItems().filter(x=>x.id!=='cur'&&x.st!=='run'),now=seasonOf(Date.now());
+  const loc=id=>raceLogs.find(x=>x.id===id)||CLOUD.cache[id]||null;
+  const kind=x=>{const k=+x.km||0;return Math.abs(k-42.195)<0.01?'full':Math.abs(k-21.0975)<0.01?'half':null;};
+  const out={season:now,full:{all:[],cur:[]},half:{all:[],cur:[]},dnf:{all:0,cur:0},n:{all:it.length,cur:0}};
+  it.forEach(x=>{const cur=seasonOf(x.startAt)===now;if(cur)out.n.cur++;if(x.st==='dnf'){out.dnf.all++;if(cur)out.dnf.cur++;}
+    const k=kind(x);if(!k||x.st!=='finish'||!(x.el>0))return;const L=loc(x.id),o=L&&L.off||{};
+    const e={id:x.id,name:x.name,startAt:x.startAt,el:x.el,off:!!o.net,rank:o.rank,div:o.div,divRank:o.divRank};out[k].all.push(e);if(cur)out[k].cur.push(e);});
+  return out;}
+const dashBox=document.createElement('div');dashBox.className='kcal-panel dash-panel';dashBox.id='dashPanel';dashBox.hidden=true;dashBox.setAttribute('role','dialog');document.body.appendChild(dashBox);
+function dashRender(){const D=dashData(),day=ms=>{const d=new Date(ms);return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`;};
+  const best=a=>a.length?a.slice().sort((p,q)=>p.el-q.el)[0]:null;
+  const cell=(a)=>{const b=best(a);return `<td class="n">${a.length}<small>回</small></td><td>${b?`<b data-notr>${hms(b.el)}</b>${b.off?'<small class="offtag">公式</small>':''}<small><span data-notr>${day(b.startAt)} ${esc(b.name||'')}</span></small>`:'—'}</td>`;};
+  const sy=D.season;
+  dashBox.innerHTML=`<div class="kcal-card dash-card"><h2>実績のダッシュボード</h2>
+  <table class="dash-t"><thead><tr><th></th><th colspan="2">通算</th><th colspan="2">今季<small data-notr>${sy}/7〜${sy+1}/6</small></th></tr><tr><th>種目</th><th>完走</th><th>ベスト</th><th>完走</th><th>ベスト</th></tr></thead><tbody>
+  <tr><th>フル</th>${cell(D.full.all)}${cell(D.full.cur)}</tr><tr><th>ハーフ</th>${cell(D.half.all)}${cell(D.half.cur)}</tr></tbody></table>
+  <p class="sub">出走 ${D.n.all}回（今季 ${D.n.cur}回）・リタイア ${D.dnf.all}回（今季 ${D.dnf.cur}回）</p>
+  <p class="sub">ベストは公式ネットタイムを入れた大会はその時間、入れていない大会はアプリで測ったネットタイムです。今季は7月から翌年6月までです。この端末とDropboxにある本番の記録から数えます。</p>
+  <div class="row"><button class="primary-sm" type="button" id="dashClose">閉じる</button></div></div>`;
+  $('#dashClose').onclick=()=>{dashBox.hidden=true;};}
+dashBox.addEventListener('click',e=>{if(e.target===dashBox)dashBox.hidden=true;});
+{const h=document.querySelector('#histSec .hist-h');if(h){const b=document.createElement('button');b.className='small dashbtn';b.type='button';b.id='dashOpen';b.textContent='📊 ダッシュボード';h.appendChild(b);b.onclick=()=>{dashRender();dashBox.hidden=false;};}}
+
+/* ---- 8. 同じ大会の記録が2つに分かれたとき（途中で終了して、もう一度スタートしたときなど）に1つにまとめる ---- */
+const MG={on:false};
+const mgBox=document.createElement('div');mgBox.className='offbox mgbox';mgBox.id='mgBox';mgBox.hidden=true;
+{const rl=$('#raceList');if(rl){rl.after(mgBox);const b=document.createElement('button');b.className='small';b.type='button';b.id='mgOpen';b.textContent='分かれた記録を1つにまとめる';const w=document.createElement('div');w.className='ctrls mg-open';w.appendChild(b);rl.after(w);b.onclick=()=>{MG.on=!MG.on;mgRender();};}}
+function mgCands(){return raceLogs.filter(x=>kindOf(x)==='race'&&(x.log||[]).length).sort((a,b)=>a.startAt-b.startAt);}
+function mgEndKm(A){const ev=(A.ev||[]).filter(e=>e.km!=null).map(e=>+e.km),f=A._fin&&A._fin.g;return Math.max(logKm(A),f||0,...ev);}
+function mgUsesAbs(A,B){const man=(B._fin&&B._fin.fixes||[]).map(f=>f.km),mx=Math.max(0,...man);return mx>mgEndKm(A)-0.5;}
+function mgRender(){$('#mgOpen').closest('.mg-open').hidden=HIST.kind!=='race';mgBox.hidden=!MG.on||HIST.kind!=='race';if(mgBox.hidden)return;
+  const C=mgCands();if(C.length<2){mgBox.innerHTML='<div class="off-h"><b>分かれた記録を1つにまとめる</b></div><div class="sub">この端末にある本番の記録が2つ以上あるときに使えます。</div>';return;}
+  const opt=(x,s)=>`<option value="${esc(x.id)}"${s?' selected':''}>${logLabel(x)}</option>`;
+  let a=C[C.length-2],b=C[C.length-1];for(let i=C.length-1;i>0;i--){const p=C[i-1],q=C[i];if(new Date(p.startAt).toDateString()===new Date(q.startAt).toDateString()){a=p;b=q;break;}}
+  const keep=mgBox.dataset.a&&C.find(x=>x.id===mgBox.dataset.a);if(keep){a=keep;b=C.find(x=>x.id===mgBox.dataset.b)||b;}
+  mgBox.innerHTML=`<div class="off-h"><b>分かれた記録を1つにまとめる</b><span class="sub">同じ大会の記録が、途中で終了したために2つに分かれたときに使います。前半の記録の時間を基準に、後半の記録をつなげます。</span></div>
+  <label class="f">前半の記録<select id="mgA">${C.map(x=>opt(x,x.id===a.id)).join('')}</select></label>
+  <label class="f">後半の記録<select id="mgB">${C.map(x=>opt(x,x.id===b.id)).join('')}</select></label>
+  <label class="f">後半の記録の距離<select id="mgMode"><option value="add">0 kmから数え直している（前半の続きの距離を足す）</option><option value="abs">看板で確定したので、正しい距離になっている</option></select></label>
+  <label class="f" id="mgOffRow">後半を始めた地点（km）<input id="mgOff" inputmode="decimal"></label>
+  <div class="sub" id="mgPrev"></div><div class="ctrls"><button class="primary-sm" type="button" id="mgGo">確認してまとめる</button><button class="small" type="button" id="mgCancel">やめる</button></div>`;
+  $('#mgMode').value=mgUsesAbs(a,b)?'abs':'add';$('#mgOff').value=(+mgEndKm(a).toFixed(2));
+  const upd=()=>{mgBox.dataset.a=$('#mgA').value;mgBox.dataset.b=$('#mgB').value;$('#mgOffRow').hidden=$('#mgMode').value!=='add';mgPreview();};
+  ['mgA','mgB'].forEach(id=>$('#'+id).addEventListener('change',()=>{const A=raceLogs.find(x=>x.id===$('#mgA').value),B=raceLogs.find(x=>x.id===$('#mgB').value);if(A&&B){$('#mgMode').value=mgUsesAbs(A,B)?'abs':'add';$('#mgOff').value=(+mgEndKm(A).toFixed(2));}upd();}));
+  ['mgMode','mgOff'].forEach(id=>$('#'+id).addEventListener('input',upd));$('#mgMode').addEventListener('change',upd);
+  $('#mgCancel').onclick=()=>{MG.on=false;mgRender();};$('#mgGo').onclick=mgRun;upd();}
+function mgBuild(A,B,mode,off){const dt=B.startAt-A.startAt,D=+A.km||+B.km||0;if(!(dt>0))return null;
+  const aEnd=mode==='add'?off:mgEndKm(A);const pts=[[0,0]];(A.log||[]).forEach(x=>{if(x.km<=aEnd+1e-6)pts.push([+x.km,x.t]);});
+  if(mode==='add')pts.push([off,dt]);
+  (B.log||[]).forEach(x=>{const k=mode==='add'?off+(+x.km):+x.km;if(k>aEnd+1e-6)pts.push([k,dt+x.t]);});if(B.el){const bk=mode==='add'?off+mgEndKm(B):mgEndKm(B);if(bk>aEnd+1e-6)pts.push([Math.min(D||bk,bk),dt+B.el]);}
+  pts.sort((p,q)=>p[0]-q[0]||p[1]-q[1]);const P=[];pts.forEach(p=>{const l=P[P.length-1];if(l&&p[1]<l[1])return;if(l&&Math.abs(p[0]-l[0])<1e-6){l[1]=Math.max(l[1],p[1]);return;}P.push(p);});
+  const T=g=>{for(let i=1;i<P.length;i++)if(g<=P[i][0]){const u=P[i-1],v=P[i],f=(g-u[0])/Math.max(1e-9,v[0]-u[0]);return Math.round(u[1]+(v[1]-u[1])*f);}return P[P.length-1][1];};
+  const endK=Math.min(D||P[P.length-1][0],P[P.length-1][0]),tg={};(A.log||[]).forEach(x=>{if(x.tgt!=null)tg[x.km]=x.tgt;});if(mode==='abs')(B.log||[]).forEach(x=>{if(x.tgt!=null&&tg[x.km]==null)tg[x.km]=x.tgt;});const tgOf=k=>tg[k]!=null?tg[k]:(A.goal&&D?Math.round(k/D*A.goal*1000):null);
+  const rows=[];for(let k=1;k<=Math.floor(endK+1e-6);k++)rows.push({km:k,t:T(k),src:'統合',tgt:tgOf(k)});
+  if(D&&endK>=D-0.05&&(!rows.length||rows[rows.length-1].km<D-1e-6))rows.push({km:D,t:T(D),src:'統合',tgt:tgOf(D)});
+  const el=dt+(B.el||0),sh=(arr,km)=>(arr||[]).map(e=>Object.assign({},e,{t:e.t!=null?e.t+dt:e.t},km&&e.km!=null&&mode==='add'?{km:+(e.km+off).toFixed(3)}:{}));
+  const geo=A.geo||B.geo?{sp:(A.geo&&A.geo.sp)||(B.geo&&B.geo.sp)||null,cps:(A.geo&&A.geo.cps)||null,gun:(A.geo&&A.geo.gun)||null,limit:(A.geo&&A.geo.limit)||0,
+    trk:((A.geo&&A.geo.trk)||[]).filter(p=>p[0]<=aEnd+1e-6).concat(((B.geo&&B.geo.trk)||[]).map(p=>[mode==='add'?+(p[0]+off).toFixed(3):p[0],p[1],p[2],p[3],p[4]!=null?p[4]+dt:p[4]]).filter(p=>p[0]>aEnd)),
+    pass:((A.geo&&A.geo.pass)||[]).filter(p=>p.km<=aEnd+1e-6).concat(sh((B.geo&&B.geo.pass)||[],true).filter(p=>p.km>aEnd))}:null;
+  const m=Object.assign({},A,{log:rows,el,endAt:B.endAt||A.endAt,ev:(A.ev||[]).concat([{type:'merge',msg:'ここから後半の記録（まとめた記録）',t:dt,at:B.startAt,km:+aEnd.toFixed(2)}],sh(B.ev,true)),geo,merged:{from:[A.id,B.id],mode,off:mode==='add'?off:null},photo:A.photo||B.photo||'',kcal:A.kcal&&B.kcal?A.kcal+B.kcal:(A.kcal||B.kcal||null)});
+  delete m._fin;delete m._orig;delete m._offBase;delete m.off;delete m.cloud;if(D)m.result=endK>=D-0.05?'finish':'dnf';return m;}
+function mgPreview(){const A=raceLogs.find(x=>x.id===$('#mgA').value),B=raceLogs.find(x=>x.id===$('#mgB').value),p=$('#mgPrev');
+  if(!A||!B||A===B){p.textContent=TR('前半と後半に、別の記録を選んでください。');$('#mgGo').disabled=true;return null;}
+  if(B.startAt<=A.startAt){p.textContent=TR('後半の記録は、前半の記録よりあとにスタートしたものを選んでください。');$('#mgGo').disabled=true;return null;}
+  const off=parseFloat($('#mgOff').value);const mode=$('#mgMode').value;if(mode==='add'&&!(off>=0)){p.textContent=TR('後半を始めた地点（km）を入れてください。');$('#mgGo').disabled=true;return null;}
+  const m=mgBuild(A,B,mode,off);if(!m){$('#mgGo').disabled=true;return null;}const k=logKm(m);
+  p.textContent=`まとめた記録：${(+k).toFixed(2)} km　ネット ${hms(m.el)}（前半 ${(mode==='add'?off:mgEndKm(A)).toFixed(2)} km ${hms(A.el||0)} ＋ あいだ ${hms(Math.max(0,B.startAt-A.startAt-(A.el||0)))} ＋ 後半 ${hms(B.el||0)}）`+(m.result==='finish'?'　完走':'');
+  $('#mgGo').disabled=false;return {A,B,m};}
+function mgRun(){const r=mgPreview();if(!r)return;const {A,B,m}=r;
+  if(!confirm(TR('2つの記録を1つにまとめますか？')+'\n\n'+$('#mgPrev').textContent+'\n\n'+TR('後半の記録は削除され、前半の記録にまとめます。'))) return;
+  raceLogs=raceLogs.filter(x=>x.id!==B.id).map(x=>x.id===A.id?m:x);store.set(LOGS_KEY,raceLogs);try{cloudForget(B);}catch(e){}try{cloudSync();}catch(e){}
+  MG.on=false;mgBox.dataset.a='';logSelId=A.id;renderLog();mgRender();try{rlPick(A.id);}catch(e){}}
+{const _rl=renderLog;renderLog=function(){const r=_rl.apply(this,arguments);try{if(!MG.on){mgBox.hidden=true;}const w=$('#mgOpen');if(w)w.closest('.mg-open').hidden=HIST.kind!=='race';}catch(e){}return r;};}
+
+
+/* ===================== 本番：画面ロック中に2回タップして、声で距離を確定する =====================
+   画面のボタン以外の場所を2回続けてタップ → ピッと鳴って約6秒聞き取る →「16キロ確定」「中間点確定」「取消」と話す →
+   「16キロでよろしいですか？」と聞き返す →「はい」（または画面の「確定する」）で確定。推定から大きく離れた距離は受け付けない */
+const VC={rec:null,busy:false,stage:'',pend:null,tap:0,tx:0,ty:0,timer:0};
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
+const vcBox=document.createElement('div');vcBox.className='vcbox';vcBox.hidden=true;vcBox.setAttribute('role','dialog');document.body.appendChild(vcBox);
+function vcShow(h){vcBox.innerHTML=h;vcBox.hidden=false;}
+function vcHide(){vcBox.hidden=true;vcBox.innerHTML='';}
+function vcBeep(hi){try{const ac=getCtx();ac.resume();const t=ac.currentTime+.02;blip(t,hi?1320:880,.12,.35);if(hi)blip(t+.14,1760,.12,.3);}catch(e){}}
+function vcEnd(){clearTimeout(VC.timer);try{VC.rec&&VC.rec.abort();}catch(e){}VC.rec=null;VC.busy=false;VC.stage='';VC.pend=null;vcHide();try{duck(false);}catch(e){}}
+/* 漢数字（十六、二十一 など）を数字に */
+function vcKanji(t){const d={'〇':0,'零':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9};
+  return t.replace(/[〇零一二三四五六七八九十]+/g,s=>{if(!/十/.test(s)){let n='';for(const c of s)n+=d[c];return n;}const [a,b]=s.split('十');return String((a?d[a]||0:1)*10+(b?d[b]||0:0));});}
+function vcNorm(t){return vcKanji(String(t||'').replace(/[０-９．]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/\s+/g,'')).toLowerCase();}
+/* 聞き取った言葉 → {act:'fix',km} / {act:'undo'} / null */
+function vcParse(alts){const M=fxMarks(),half=M.find(m=>m.half);
+  for(const a of alts){const t=vcNorm(a);
+    if(/取り?消|とりけし|キャンセル|cancel|undo/.test(t))return {act:'undo',heard:a};
+    if(/中間|ちゅうかん|half/.test(t)&&half)return {act:'fix',km:half.km,half:true,heard:a};
+    const m=/(\d+(?:\.\d+)?)/.exec(t);if(m){const k=+m[1];const mk=M.find(x=>!x.half&&Math.abs(x.km-k)<1e-6);if(mk)return {act:'fix',km:mk.km,heard:a};return {act:'bad',km:k,heard:a};}}
+  return null;}
+const vcYes=t=>/はい|うん|ok|オッケー|おっけー|お願い|おねがい|確定|かくてい|yes|yeah|そう/.test(vcNorm(t));
+const vcNo=t=>/いいえ|いや|違|ちが|no|やめ|キャンセル|だめ|ダメ/.test(vcNorm(t));
+function vcListen(onRes,onFail){if(!SR){onFail('nosr');return;}let got=false;
+  try{const r=new SR();VC.rec=r;r.lang=typeof I18N!=='undefined'?I18N.voice():'ja-JP';r.interimResults=false;r.maxAlternatives=5;r.continuous=false;
+    r.onresult=e=>{got=true;const alts=[];const res=e.results[e.results.length-1];for(let i=0;i<res.length;i++)alts.push(res[i].transcript);onRes(alts);};
+    r.onerror=e=>{if(!got){got=true;onFail(e.error||'err');}};
+    r.onend=()=>{if(!got){got=true;onFail('none');}};
+    r.start();clearTimeout(VC.timer);VC.timer=setTimeout(()=>{try{r.stop();}catch(e){}},7000);}catch(e){onFail('err');}}
+function vcFail(code){const net=code==='network'||!navigator.onLine,deny=code==='not-allowed'||code==='service-not-allowed';
+  const m=code==='nosr'?'この端末では、声で確定することはできません。ボタンで確定してください。':deny?'マイクが許可されていません。ボタンで確定してください。':net?'聞き取れませんでした。ネットにつながっていないと、声で確定できません。ボタンで確定してください。':'聞き取れませんでした。';
+  vcEnd();say(m);}
+function vcStart(){if(VC.busy||!(MODE==='race'&&R.running&&!R.done))return;VC.busy=true;VC.stage='cmd';
+  try{speechSynthesis.cancel();}catch(e){}try{duck(true);}catch(e){}vcBeep(false);
+  const est=posInfo(elapsed()).pos;
+  vcShow(`<div class="vc-t">🎤 <span>聞き取り中…</span></div><div class="vc-s"><span>「16キロ確定」「中間点確定」「取消」のように話してください</span></div><div class="vc-e"><span>推定</span> <span data-notr>${est.toFixed(2)} km</span></div><button class="small" type="button" id="vcStop">やめる</button>`);
+  $('#vcStop').onclick=vcEnd;
+  setTimeout(()=>{if(VC.stage!=='cmd')return;const el=elapsed();vcListen(alts=>vcGot(alts,el),vcFail);},150);}
+function vcGot(alts,el){const p=vcParse(alts),est=posInfo(el).pos,last=fxLast();
+  if(!p){vcEnd();say('聞き取れませんでした。');return;}
+  if(p.act==='bad'){vcEnd();say(`${+p.km.toFixed(2)}キロの看板はありません。`);return;}
+  if(p.act==='undo'){if(!last){vcEnd();say('取り消す確定はありません。');return;}VC.pend={act:'undo'};vcAsk(`${fxSayLab(last.km)}の確定を取り消しますか？`,fxLabHtml(last.km),'確定を取り消す');return;}
+  if(Math.abs(p.km-est)>3){vcEnd();say(`推定は${est.toFixed(1)}キロです。${fxSayLab(p.km)}は離れすぎているので、確定しませんでした。`);return;}
+  if(last&&p.km<last.km-1e-6){vcEnd();say(`${fxSayLab(last.km)}まで確定しているので、${fxSayLab(p.km)}は確定できません。`);return;}
+  VC.pend={act:'fix',km:p.km,el};vcAsk(`${fxSayLab(p.km)}でよろしいですか？`,fxLabHtml(p.km),'確定する');}
+function vcAsk(q,lab,okTxt){VC.stage='ask';try{VC.rec&&VC.rec.abort();}catch(e){}
+  vcShow(`<div class="vc-q"><b>${lab}</b><span>${esc(TR(q))}</span></div><div class="vc-s"><span>「はい」か「いいえ」で答えるか、ボタンを押してください</span></div><div class="vc-b"><button class="primary" type="button" id="vcOk">${esc(TR(okTxt))}</button><button class="small" type="button" id="vcNo">やめる</button></div>`);
+  $('#vcOk').onclick=vcDo;$('#vcNo').onclick=()=>{vcEnd();say('確定しませんでした。');};
+  /* 聞き返しを読み上げたあと、「はい／いいえ」を聞き取る（聞き取れなければボタンを待つ） */
+  try{duck(false);}catch(e){}
+  try{if(!('speechSynthesis' in window))throw 0;const u=new SpeechSynthesisUtterance(I18N.trSay(q));u.lang=I18N.voice();u.volume=1;
+    u.onend=()=>{if(VC.stage!=='ask')return;try{duck(true);}catch(e){}vcBeep(false);vcListen(alts=>{if(VC.stage!=='ask')return;if(alts.some(vcYes))vcDo();else if(alts.some(vcNo)){vcEnd();say('確定しませんでした。');}else{VC.rec=null;try{duck(false);}catch(e){}}},()=>{VC.rec=null;try{duck(false);}catch(e){}});};
+    speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}
+  clearTimeout(VC.timer);VC.timer=setTimeout(()=>{if(VC.stage==='ask'){vcEnd();say('確定しませんでした。');}},20000);}
+function vcDo(){const p=VC.pend;vcEnd();if(!p||!(MODE==='race'&&R.running))return;
+  if(p.act==='undo'){fxUndo();return;}
+  const last=fxLast();if(last&&Math.abs(last.km-p.km)<1e-6)fxPop(last);
+  try{speechSynthesis.cancel();}catch(e){}doFix(p.km,p.el);FX.off=0;renderRun();vcBeep(true);}
+/* 2回タップ（ロック中、下のボタン以外の場所） */
+lockLayer.addEventListener('pointerdown',e=>{if(e.target.closest('button,.lock-bar,.vcbox'))return;if(!(MODE==='race'&&R.running&&!R.done))return;
+  const now=Date.now(),near=Math.hypot(e.clientX-VC.tx,e.clientY-VC.ty)<60;
+  if(now-VC.tap<450&&near){VC.tap=0;vcStart();}else{VC.tap=now;VC.tx=e.clientX;VC.ty=e.clientY;}},true);
+{const _r=reset;reset=function(){vcEnd();return _r.apply(this,arguments);};}
+/* ロック中の画面の上に、使い方を小さく出す */
+{const h=document.createElement('div');h.className='vc-hint';h.id='vcHint';h.innerHTML='<span>画面を2回タップすると、推定の距離を読み上げます（3回で確定）</span>';lockLayer.insertBefore(h,lockLayer.firstChild);
+  const upd=()=>{h.hidden=!(MODE==='race'&&R.running&&!R.done);};const _l=lock;lock=function(){const r=_l.apply(this,arguments);upd();return r;};setInterval(upd,3000);upd();}
+
+
+/* ===================== 2回タップを3回して確定（声の聞き取りは使わない。ネットがなくても動く） =====================
+   1回目：推定の距離と、確定できる看板を読み上げる → 2回目：「○キロで確定しますか？」→ 3回目：確定（時刻は1回目にタップした時刻）。
+   15秒タップしなければ取りやめ。看板を変えたいときは、下のバーの矢印で選んでから */
+const TS={step:0,el:0,km:null,redo:false,timer:0};
+function tsReset(msg){clearTimeout(TS.timer);TS.step=0;TS.km=null;vcHide();if(msg)say(msg);}
+function tsDots(n){return `<div class="ts-dots">${[1,2,3].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</div>`;}
+vcStart=function(){if(!(MODE==='race'&&R.running&&!R.done))return;clearTimeout(TS.timer);try{speechSynthesis.cancel();}catch(e){}
+  if(TS.step===0){const el=elapsed(),c=fxCand();if(!c){say('確定できる看板がありません。');return;}
+    TS.step=1;TS.el=el;TS.km=c.m.km;TS.redo=!!c.redo;vcBeep(false);
+    say(`推定${c.est.toFixed(1)}キロ。${fxSayLab(c.m.km)}${c.redo?'を確定し直せます。':'の看板で確定できます。'}`);
+    vcShow(`${tsDots(1)}<div class="vc-q"><b>${fxLabHtml(c.m.km)}</b><span><span>推定</span> <span data-notr>${c.est.toFixed(2)} km</span></span></div><div class="vc-s"><span>もう一度2回タップすると、確定するか聞きます</span><br><small>15秒タップしなければ取りやめます</small></div>`);}
+  else if(TS.step===1){TS.step=2;vcBeep(false);say(`${fxSayLab(TS.km)}で確定しますか？もう一度2回タップすると確定します。`);
+    vcShow(`${tsDots(2)}<div class="vc-q"><b>${fxLabHtml(TS.km)}</b><span>${esc(TR(fxSayLab(TS.km)+'で確定しますか？'))}</span></div><div class="vc-s"><span>もう一度2回タップすると確定します</span><br><small>15秒タップしなければ取りやめます</small></div>`);}
+  else{const km=TS.km,el=TS.el;tsReset();if(!(MODE==='race'&&R.running))return;const last=fxLast();if(last&&Math.abs(last.km-km)<1e-6)fxPop(last);
+    doFix(km,el);FX.off=0;renderRun();vcBeep(true);return;}
+  const b=$('#vcStop');if(b)b.onclick=()=>tsReset('確定をやめました。');
+  TS.timer=setTimeout(()=>tsReset('確定をやめました。'),15000);};
+{const _r=reset;reset=function(){tsReset();return _r.apply(this,arguments);};}
+{const _s=raceStop;raceStop=function(){tsReset();return _s.apply(this,arguments);};}
 
 </script>
 </body>
