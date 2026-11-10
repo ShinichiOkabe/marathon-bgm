@@ -357,6 +357,7 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .unlock{position:relative;overflow:hidden;width:100%;padding:14px;font-size:1rem;font-weight:700;border-radius:12px;border:2px solid var(--accent);background:var(--accent-soft);color:var(--ink);-webkit-touch-callout:none}
 .lock-bar .stopbtn{border-color:var(--warn);background:var(--pause-bg)}
 .lock-layer.inmode #btnUnlock,.lock-layer.inmode #btnLockStop{display:none!important}
+.ag-dist{display:flex;gap:10px;flex-wrap:wrap}.ag-dist .f{flex:1 1 8em;max-width:12em}
 .free-row{margin:4px 0 10px}.free-box{margin:6px 0 0 4px}.free-box .f{max-width:14em}
 #menuSec.free-on #presets,#menuSec.free-on #agPanel,#menuSec.free-on #menuList,#menuSec.free-on #csvBox,#menuSec.free-on .fx-hide{display:none!important}
 .lock-bar #lockPause{flex:1 1 100%;padding:16px 6px;font-size:1.1rem}
@@ -702,6 +703,7 @@ body.live .recv{display:none}
       <div class="rp">
         <div class="strat-h"><b>練習メニューの自動生成</b><span class="sub">目標の大会と目標タイムから、今週の練習距離を決め、本日の練習メニューを作ります。</span></div>
         <label class="f" for="agRace">目標の大会（保存されている本番レース情報から選ぶ）<select id="agRace"></select></label>
+        <div class="ag-dist" id="agDist" hidden><label class="f" for="agEv">種目<select id="agEv"><option value="フル">フル</option><option value="ハーフ">ハーフ</option><option value="その他">その他</option></select></label><label class="f" for="agKm" id="agKmWrap">距離（km）<input type="number" id="agKm" min="1" max="250" step="0.1" inputmode="decimal"></label></div>
         <div class="sub" id="agRaceInfo"></div>
         <label class="f" for="agGoal">目標タイム<input type="text" id="agGoal" inputmode="numeric" placeholder="例）3:30:00" autocomplete="off"></label>
         <div class="sub" id="agPace"></div>
@@ -832,7 +834,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-10o</p>
+  <p class="ver" data-notr translate="no">版 2026-11-10q</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -879,7 +881,7 @@ body.live .recv{display:none}
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <p><strong>屋内の練習のロック</strong>：屋内の練習では、スマホを台に置いて走ることが多いので、ロック中のボタンは「ペースダウン」「ペースアップ」「一時停止／終了」の3つだけで、どれも<strong>1回押す</strong>だけで動きます。「一時停止／終了」を押すとタイマーと曲が止まり、下に大きな「再開する」、画面の上に「終了」が出ます。タオルなどが触れても一時停止になるだけなので、「再開する」を押せば続きから走れます。練習をやめるときは、上の「終了」を押します。メニューを最後まで終えると、ロックは自動で外れます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-10o」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-10q」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -904,7 +906,7 @@ body.live .recv{display:none}
 <h3>練習メニューを自動で作る</h3>
 <p>「メニュー」タブの「自動生成」を押すと、目標の大会に向けた本日の練習メニューを作れます。</p>
 <figure class="gfig"><img src="guide/g_auto.webp" loading="lazy" alt="自動生成の画面。大会と目標タイムを選び、「本日の練習メニューを自動生成する」を押します" onerror="this.parentNode.hidden=true"><figcaption>自動生成の画面。大会と目標タイムを選び、「本日の練習メニューを自動生成する」を押します</figcaption></figure>
-<ol><li>「目標の大会」で、保存されている本番レース情報から大会を選びます（「2. 本番」の「大会」タブで、開催日と距離を入れて保存した大会が出ます）。</li><li>「目標タイム」を確かめます。大会に目標タイムを入れてあればそれが入ります。変えることもできます。目標タイムは大会ごとに覚えるので、フル・ハーフ・10kmなど、どの距離の大会でも使えます。「3:30:00」「1:40」（時:分）、「45:00」（分:秒）のように入れます。</li><li>必要なら「練習する曜日の設定」で、走る曜日（初期は火曜が休み）、LSDの曜日（初期は土曜）、ペース走の曜日（初期は水曜）を選びます。</li><li>「今週の練習距離」に、今週の目標距離・ここまでの距離・曜日ごとの実績が出ます。</li><li>「本日の練習メニューを自動生成する」を押すと、今日のメニューと、そうした理由が出ます。「このメニューで走る」を押すと、練習メニューがそのステージに入れ替わります。「作り直す」を押すと、ジョグ・ペース走・LSDを順に入れ替えて作り直します。</li></ol>
+<ol><li>「目標の大会」で、保存されている本番レース情報から大会を選びます（「2. 本番」の「大会」タブで、開催日と距離を入れて保存した大会が出ます）。大会を決めていないときは「大会を決めずに距離で選ぶ」を選び、種目（フル／ハーフ／その他の距離）を選びます。このときは開催日がないので調整の週は入らず、いつも土台づくりの週として、最近4週の距離をもとに今週の目標距離を決めます。</li><li>「目標タイム」を確かめます。大会に目標タイムを入れてあればそれが入ります。変えることもできます。目標タイムは大会ごとに覚えるので、フル・ハーフ・10kmなど、どの距離の大会でも使えます。「3:30:00」「1:40」（時:分）、「45:00」（分:秒）のように入れます。</li><li>必要なら「練習する曜日の設定」で、走る曜日（初期は火曜が休み）、LSDの曜日（初期は土曜）、ペース走の曜日（初期は水曜）を選びます。</li><li>「今週の練習距離」に、今週の目標距離・ここまでの距離・曜日ごとの実績が出ます。</li><li>「本日の練習メニューを自動生成する」を押すと、今日のメニューと、そうした理由が出ます。「このメニューで走る」を押すと、練習メニューがそのステージに入れ替わります。「作り直す」を押すと、ジョグ・ペース走・LSDを順に入れ替えて作り直します。</li></ol>
 <p>週の目標距離は、「走行距離」の記録の最近4週の平均から始め、週に最大10%ずつ増やします。4週に1回は距離を落とす回復週、大会前の3週は距離を減らす調整期間です。いちばん多い週の距離は目標タイムで決まります。今日の距離は、今週の残り距離を残りの練習日で分けて決めます（LSDの日は多め、ペース走の日はやや多め）。ペースは、ジョグとLSDが目標ペースより1分10〜20秒ほど遅く、ペース走は目標ペース（距離を増やしている時期は＋10秒）です。</p>
 <p><strong>休みの曜日に走ったとき</strong>：「練習する曜日」は、自動生成がメニューを作る曜日の設定です。休みの曜日に走っても記録はそのまま今週の距離に数え、曜日の欄には走った距離が出ます。その分だけ残りの距離が減り、残りの練習日のメニューが軽くなります。走らなかった休みの曜日には「休」と出ます。</p>
 <p>自動生成のメニューは、一般的な練習の考え方に沿った目安です。体調や脚の状態に合わせて、ステージの距離やペースを変えて使ってください。</p>
@@ -939,7 +941,9 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h3>時間の入れ方（数字だけでOK）</h3>
 <p>目標タイム・制限時間・ペース・公式記録などの時間は、<b>数字だけ続けて入れれば「:」は自動で入ります</b>。スマホの数字キーのままで入れられます。</p>
 <table><thead><tr><th>欄</th><th>入れる数字</th><th>なる形</th></tr></thead><tbody>
-<tr><td>目標タイム・公式記録（時:分:秒）</td><td>40110<br>33000<br>5000</td><td>4:01:10<br>3:30:00<br>0:50:00（4けたは分:秒）</td></tr>
+<tr><td>目標タイム（時:分:秒）</td><td>40110<br>330<br>4500</td><td>4:01:10<br>3:30:00（フルマラソンのとき）<br>0:45:00（10 kmのとき）</td></tr>
+<tr><td colspan="3">目標タイムを3〜4けたで入れたときは、「時:分」と「分:秒」のうち、大会の距離に合うほうになります。</td></tr>
+<tr><td>公式記録（時:分:秒）</td><td>40110<br>2750</td><td>4:01:10<br>0:27:50（4けたは分:秒）</td></tr>
 <tr><td>制限時間（時:分）</td><td>600<br>1330</td><td>6:00<br>13:30</td></tr>
 <tr><td>1kmのペース（分:秒）</td><td>530</td><td>5:30</td></tr>
 <tr><td>関門（1行ずつ）</td><td>10 140<br>30 1330</td><td>10 kmを号砲から1:40<br>30 kmが13:30に閉鎖</td></tr></tbody></table>
@@ -1126,7 +1130,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <p><strong>Lock during indoor training</strong>: indoors you usually put the phone on the machine, so the locked screen has only three buttons, "Pace down", "Pace up" and "Pause / End", and each works with a <strong>single tap</strong>. "Pause / End" stops the timer and the music and shows a large "Resume" button at the bottom and "End" at the top. If a towel touches it, training is only paused; press "Resume" to continue. To stop training, press "End" at the top. When you finish the whole menu, the lock is released automatically.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-10o" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-10q" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1151,7 +1155,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h3>Auto-generate a training menu</h3>
 <p>Press "Auto plan" on the "Menu" tab to make today's menu toward your target race.</p>
 <figure class="gfig"><img src="guide/g_auto_en.webp" loading="lazy" alt="Auto plan: choose the race and target time, then generate today's menu" onerror="this.parentNode.hidden=true"><figcaption>Auto plan: choose the race and target time, then generate today's menu</figcaption></figure>
-<ol><li>Under "Target race", choose a race from your saved race info (races saved with a date and distance on "2. Race" → "Race" tab appear here).</li><li>Check the "Goal time". The race's goal time is filled in if you entered one; you can change it. The goal time is kept for each race, so it works for any distance — full, half, 10 km and so on. Enter it like 3:30:00, 1:40 (h:mm) or 45:00 (mm:ss).</li><li>If needed, use "Training days" to choose your running days (Tuesday is a rest day at first), the LSD day (Saturday at first) and the pace run day (Wednesday at first).</li><li>"This week's distance" shows this week's target, the distance so far and each day's distance.</li><li>Press "Generate today's menu" to see today's menu and why it was chosen. "Run this menu" replaces your training menu with those stages. "Remake" cycles through jog, pace run and LSD.</li></ol>
+<ol><li>Under "Target race", choose a race from your saved race info (races saved with a date and distance on "2. Race" → "Race" tab appear here). If you have no race yet, choose "Choose by distance (no race)" and pick the event (full / half / other distance). Without a race date there are no taper weeks; every week is a base-building week, and this week's target comes from your last 4 weeks.</li><li>Check the "Goal time". The race's goal time is filled in if you entered one; you can change it. The goal time is kept for each race, so it works for any distance — full, half, 10 km and so on. Enter it like 3:30:00, 1:40 (h:mm) or 45:00 (mm:ss).</li><li>If needed, use "Training days" to choose your running days (Tuesday is a rest day at first), the LSD day (Saturday at first) and the pace run day (Wednesday at first).</li><li>"This week's distance" shows this week's target, the distance so far and each day's distance.</li><li>Press "Generate today's menu" to see today's menu and why it was chosen. "Run this menu" replaces your training menu with those stages. "Remake" cycles through jog, pace run and LSD.</li></ol>
 <p>The weekly target starts from your average of the last 4 weeks in "Distance" and grows by up to 10% a week. Every 4th week is a lighter recovery week, and the 3 weeks before the race taper off. The peak week depends on your goal time. Today's distance is the rest of this week's target split over the remaining running days (more on the LSD day, a little more on the pace run day). Jog and LSD are about 1:10 to 1:20 per km slower than goal pace; the pace run is at goal pace (+10 s while building up distance).</p>
 <p><strong>If you run on a rest day</strong>: "Training days" only sets the days the generator makes a menu for. A run on a rest day still counts toward this week's distance, and the day shows the distance you ran. The rest of the week's target goes down by that amount, so the menus for the remaining running days get lighter. A rest day with no run shows "Rest".</p>
 <p>Generated menus are a general guide. Adjust the stage distances and paces to how you and your legs feel.</p>
@@ -1186,7 +1190,9 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <h3>Entering times (digits only)</h3>
 <p>For target times, time limits, paces and official times, <b>just type the digits; the colons are added automatically</b>, so the phone's number pad is enough.</p>
 <table><thead><tr><th>Field</th><th>Type</th><th>Becomes</th></tr></thead><tbody>
-<tr><td>Target / official times (h:mm:ss)</td><td>40110<br>33000<br>5000</td><td>4:01:10<br>3:30:00<br>0:50:00 (4 digits = mm:ss)</td></tr>
+<tr><td>Target time (h:mm:ss)</td><td>40110<br>330<br>4500</td><td>4:01:10<br>3:30:00 (for a marathon)<br>0:45:00 (for a 10 km race)</td></tr>
+<tr><td colspan="3">When you type 3–4 digits for a target time, it becomes h:mm or mm:ss, whichever fits the race distance.</td></tr>
+<tr><td>Official times (h:mm:ss)</td><td>40110<br>2750</td><td>4:01:10<br>0:27:50 (4 digits = mm:ss)</td></tr>
 <tr><td>Time limit (h:mm)</td><td>600<br>1330</td><td>6:00<br>13:30</td></tr>
 <tr><td>Pace (m:ss)</td><td>530</td><td>5:30</td></tr>
 <tr><td>Checkpoints (one per line)</td><td>10 140<br>30 1330</td><td>10 km, 1:40 after the gun<br>30 km closes at 13:30</td></tr></tbody></table>
@@ -1856,7 +1862,7 @@ function clearMode(k){if(clrBlocked(k)){clrMsg(k,'走っている間・待機中
   clearTimeout(clrArm[k]);clrArm[k]=0;if(R.done&&k==='practice'&&MODE==='practice')reset();
   if(k==='practice'){const st={id:gid(),name:'ステージ1',pace:420,bpm:cadFromPace(420),auto:true,min:10};
     if(MODE==='practice')menu=[st];else practiceMenu=[st];activePreset='custom';saveMenu();setActivePM(null);
-    try{PLAN.race='none';PLAN.goal=0;planSave();AG.res=null;$('#agResult').hidden=$('#agPlan').hidden=true;$('#agMsg').textContent='';agRender();}catch(e){}
+    try{PLAN.race='none';PLAN.dist={ev:'フル',km:0};Object.keys(PLAN.goals).forEach(k=>{if(k.indexOf('__dist')===0)delete PLAN.goals[k];});PLAN.goal=0;planSave();AG.res=null;$('#agResult').hidden=$('#agPlan').hidden=true;$('#agMsg').textContent='';agRender();}catch(e){}
     clrMsg(k,'練習の内容をクリアしました。「練習メニューの保存」に保存してあれば「読み込む」で元に戻せます。');}
   else if(k==='race'){RC=Object.assign({},RCD,{strat:[]});store.set('cbgm-race',RC);setActiveRP(null);if(MODE==='race')menu=virtualMenu();
     clrMsg(k,'本番の内容をクリアしました。「本番レース情報・戦略を保存」に保存してあれば「読み込む」で元に戻せます。');}
@@ -3300,7 +3306,11 @@ const WD=['月','火','水','木','金','土','日'];
 const dowMon=t=>(new Date(t).getDay()+6)%7;
 function presetKm(rc){return rc.ev==='フル'?FULL:rc.ev==='ハーフ'?HALF:(+rc.km||0);}
 function planRaces(){return racePresets.filter(p=>p.rc&&/^\d{4}-\d\d-\d\d$/.test(p.rc.date||'')&&presetKm(p.rc)>0).map(p=>({id:p.id,name:p.rc.name||p.name,date:p.rc.date,time:p.rc.time,km:presetKm(p.rc),goal:+p.rc.goal||0,at:new Date(p.rc.date+'T'+(p.rc.time||'09:00')+':00').getTime()})).sort((a,b)=>a.at-b.at);}
-function planTarget(){if(PLAN.race==='none')return null;const L=planRaces(),now=Date.now();let r=L.find(x=>x.id===PLAN.race);if(!r)r=L.find(x=>x.at>now)||null;return r;}
+function planDistKm(){const d=PLAN.dist||{};return d.ev==='ハーフ'?HALF:d.ev==='その他'?(+d.km>0?+d.km:0):FULL;}
+/* 大会を決めずに距離で選んだとき：開催日のない「仮の大会」（16週先に置き、いつも土台づくりの週になる） */
+function planVirt(){const km=planDistKm();if(!(km>0))return null;const d=PLAN.dist||{};
+  return {id:'__dist_'+(d.ev||'フル')+(d.ev==='その他'?'_'+(+km.toFixed(3)):''),virt:true,name:d.ev==='その他'?`${+km.toFixed(3)}km`:(d.ev||'フル'),date:'',time:'',km,goal:0,at:weekStart(Date.now())+16*7*DAYMS+3*DAYMS};}
+function planTarget(){const L=planRaces(),now=Date.now();if(PLAN.race==='none')return planVirt();let r=L.find(x=>x.id===PLAN.race);if(!r)r=L.find(x=>x.at>now)||null;return r||planVirt();}
 /* 週ごとの目標距離：最近4週の平均から週に最大10%ずつ増やし、4週に1回は回復週、大会前3週は調整期間 */
 function peakFor(goal,km){const h=goal/3600*(FULL/Math.max(KU(5),km));let pk=h<=3?80:h<=3.5?65:h<=4?55:h<=4.5?45:40;if(km<KU(30))pk*=0.7;if(km<KU(15))pk*=0.7;return Math.round(KU(pk));}
 function planWeeks(r,goal){const w0=weekStart(Date.now()),wr=weekStart(r.at),n=Math.max(1,Math.round((wr-w0)/(7*DAYMS))+1);
@@ -3315,7 +3325,7 @@ function planWeeks(r,goal){const w0=weekStart(Date.now()),wr=weekStart(r.at),n=M
   return {weeks:W,peak,base:Math.round(base)};}
 const PH={base:'土台づくり',peak:'距離を走り込む',recover:'回復',taper:'調整',race:'大会'};
 /* 本日のメニュー：今週の残り距離を、残りの練習日で分ける（LSDの日は多め、ペース走は少し多め） */
-function planToday(variant){const r=planTarget();if(!r)return {err:'目標の大会を選んでください。'};const goal=planGoal(r);if(!(goal>0))return {err:'目標タイムを入れてください。'};
+function planToday(variant){const r=planTarget();if(!r)return {err:'「その他」の距離を入れてください。'};const goal=planGoal(r);if(!(goal>0))return {err:'目標タイムを入れてください。'};
   {const gp0=goal/r.km;if(gp0<PMIN||gp0>PMAX)return {err:'目標タイムが大会の距離に合っていません。目標タイムを確かめてください。'};}
   if(r.at<dayStart(Date.now()))return {err:'目標の大会の開催日が過ぎています。別の大会を選んでください。'};
   const gp=goal/r.km,P=planWeeks(r,goal),wk=P.weeks[0],now=Date.now(),w0=weekStart(now),today=dowMon(now),t0=dayStart(now);
@@ -3333,7 +3343,7 @@ function planToday(variant){const r=planTarget();if(!r)return {err:'目標の大
   else{km=Math.min(lim[1],Math.max(lim[0],km));why.push(`今週の残り ${rem.toFixed(1)}km を、${days.map(d=>WD[d]).join('・')}の${days.length}日で走ります。`);
     why.push(type==='lsd'?'今日は長い距離をゆっくり走るLSDの日です。':type==='pace'?'今日は目標に近いペースで走るペース走の日です。':'今日は楽なペースのジョグです。'+(days.some(d=>d!==today&&role(d)==='lsd')?'週末の長い距離（LSD）に備えて、距離は控えめにします。':''));}
   if(doneToday>0)why.push(`今日はすでに ${doneToday.toFixed(1)}km 走っています。`);
-  why.push(`大会まで${P.weeks.length-1}週。今週は「${PH[wk.ph]}」の週です（目標 ${wk.km}km）。`);
+  why.push(r.virt?`大会を決めずに組んでいます。今週は「${PH[wk.ph]}」の週です（目標 ${wk.km}km）。`:`大会まで${P.weeks.length-1}週。今週は「${PH[wk.ph]}」の週です（目標 ${wk.km}km）。`);
   km=Math.round(km*2)/2;
   const jogP=Math.min(PMAX,Math.round(gp+80*UK)),lsdP=Math.min(PMAX,Math.round(gp+70*UK)),paceP=Math.round(gp+(wk.ph==='base'||wk.ph==='recover'?Math.round(10*UK):0));
   const st=[];const add=(name,pace,k)=>{if(k>0.05)st.push({name,pace,km:k});};
@@ -3344,13 +3354,15 @@ function planToday(variant){const r=planTarget();if(!r)return {err:'目標の大
   return {r,goal,gp,P,wk,doneWeek,rem,days,type,km:stages.reduce((a,s)=>a+kmOf(s),0),stages,why,variant:variant||0};}
 let AG={open:false,res:null,variant:0};
 function agRaceOpts(){const L=planRaces(),now=Date.now(),t=planTarget();
-  $('#agRace').innerHTML=L.length?`<option value="none"${PLAN.race==='none'?' selected':''}>選ばない</option>`+L.map(r=>`<option value="${r.id}"${t&&t.id===r.id?' selected':''}>${esc(r.name)}（${r.date}・${+r.km.toFixed(3)}km）${r.at<now?'（終了）':''}</option>`).join(''):'<option value="">保存されている本番レース情報がありません</option>';}
+  $('#agRace').innerHTML=`<option value="none"${!t||t.virt?' selected':''}>大会を決めずに距離で選ぶ</option>`+L.map(r=>`<option value="${r.id}"${t&&t.id===r.id?' selected':''}>${esc(r.name)}（${r.date}・${+r.km.toFixed(3)}km）${r.at<now?'（終了）':''}</option>`).join('');}
 function agRender(){const pan=$('#agPanel');if(!pan||pan.hidden)return;agRaceOpts();
   const r=planTarget(),info=$('#agRaceInfo');
-  if(!r&&PLAN.race==='none'&&planRaces().length){info.textContent='目標の大会を選ぶと、今週の練習距離と本日の練習メニューを作れます。';$('#agGoal').value='';$('#agPace').innerHTML='';$('#agWeek').innerHTML='';$('#agGo').disabled=true;return;}
+  {const v=!r||r.virt,d=PLAN.dist||{};$('#agDist').hidden=!v;if(v){$('#agEv').value=d.ev||'フル';$('#agKmWrap').hidden=(d.ev||'フル')!=='その他';const k=$('#agKm');if(document.activeElement!==k)k.value=d.km||'';}}
+  if(!r){info.textContent='「その他」の距離を入れてください。';$('#agGoal').value='';$('#agPace').innerHTML='';$('#agWeek').innerHTML='';$('#agGo').disabled=true;return;}
+  if(false){info.textContent='目標の大会を選ぶと、今週の練習距離と本日の練習メニューを作れます。';if(!$('#agMsg').textContent)$('#agGoal').value='';$('#agPace').innerHTML='';$('#agWeek').innerHTML='';$('#agGo').disabled=true;return;}
   if(!r){info.textContent='「2. 本番」の「大会」タブで、開催日と距離を入れて本番レース情報を保存すると、ここで選べます。';$('#agWeek').innerHTML='';$('#agGo').disabled=true;return;}
   const wks=Math.max(0,Math.round((weekStart(r.at)-weekStart(Date.now()))/(7*DAYMS)));const goal=planGoal(r);$('#agGoal').placeholder=TR(agGoalPh(r));
-  info.innerHTML=`<span>開催日</span> ${r.date}　<span>あと</span> <b class="num">${wks}</b> <span>週</span>`;
+  info.innerHTML=r.virt?`<span>開催日を決めずに、距離と目標タイムから練習を組みます。調整の週は入りません。</span>`:`<span>開催日</span> ${r.date}　<span>あと</span> <b class="num">${wks}</b> <span>週</span>`;
   const g=$('#agGoal');if(document.activeElement!==g)g.value=goal?fmtHMS(goal):'';
   $('#agPace').innerHTML=goal?`<span>目標ペース</span> <b class="num">${fmtPace(goal/r.km)}</b>/km`:'';
   $('#agDays').innerHTML=WD.map((w,i)=>`<button type="button" class="small${PLAN.run[i]?' on':''}" data-agday="${i}" aria-pressed="${!!PLAN.run[i]}">${w}</button>`).join('');
@@ -3362,7 +3374,7 @@ function agRender(){const pan=$('#agPanel');if(!pan||pan.hidden)return;agRaceOpt
     return `<div class="${cls}">${w}<b>${v>0?v.toFixed(1):!PLAN.run[i]?'休':i===today?'今日':'—'}</b></div>`;}).join('');
   $('#agWeek').innerHTML=`<div class="strat-h"><b>今週の練習距離</b></div><div class="ag-kpi"><div><span>今週の目標</span><b>${wk.km} km</b><i>${P.base?`<span>最近4週の平均</span> ${P.base}km/<span>週</span>`:''}</i></div><div><span>ここまで</span><b>${done.toFixed(1)} km</b><i><span>残り</span> ${Math.max(0,wk.km-done).toFixed(1)} km</i></div></div>
     <div class="ag-bar"><i style="width:${Math.min(100,done/Math.max(1,wk.km)*100)}%"></i></div><div class="ag-wk">${cells}</div>
-    <div class="sub"><span>練習する曜日</span>：${WD.filter((w,i)=>PLAN.run[i]).join(' ')}　<span>LSD</span>：${WD[PLAN.lsd]}　<span>ペース走</span>：${WD[PLAN.paceDay]}</div>`;}
+    <div class="sub"><span>練習する曜日</span>：${WD.filter((w,i)=>PLAN.run[i]).map(w=>`<span>${w}</span>`).join(' ')}　<span>LSD</span>：<span>${WD[PLAN.lsd]}</span>　<span>ペース走</span>：<span>${WD[PLAN.paceDay]}</span></div>`;}
 function agShow(res){const box=$('#agResult'),pl=$('#agPlan');if(res.err){$('#agMsg').textContent=res.err;box.hidden=pl.hidden=true;return;}$('#agMsg').textContent='';
   const d=new Date(),tot=res.stages.reduce((a,s)=>a+ +s.min,0),maxP=Math.max(...res.stages.map(s=>3600/s.pace));
   box.hidden=false;box.innerHTML=`<div class="strat-h"><b>本日（${d.getMonth()+1}/${d.getDate()} ${WD[dowMon(d)]}）の練習メニュー</b></div>
@@ -3382,10 +3394,14 @@ function agShow(res){const box=$('#agResult'),pl=$('#agPlan');if(res.err){$('#ag
 $('#agOpen').addEventListener('click',()=>{const p=$('#agPanel');p.hidden=!p.hidden;$('#agOpen').setAttribute('aria-expanded',!p.hidden);if(!p.hidden)agRender();});
 $('#agRace').addEventListener('change',e=>{PLAN.race=e.target.value||null;const r=planTarget();PLAN.goal=planGoal(r);planSave();$('#agMsg').textContent='';AG.res=null;$('#agResult').hidden=$('#agPlan').hidden=true;agRender();});
 $('#agGoal').addEventListener('change',e=>{const r=planTarget(),raw=String(e.target.value).trim(),v=agParse(raw);
+  if(!r&&raw){$('#agMsg').textContent=TR('「その他」の距離を入れてください。');return;}
   if(!raw){if(r){delete PLAN.goals[r.id];PLAN.goal=planGoal(r);planSave();}agRender();return;}
-  if(!(v>=300)){$('#agMsg').textContent=TR('目標タイムは「3:30:00」「1:40:00」「45:00」のように入れてください。');agRender();return;}
-  const gp=r?v/r.km:0;if(r&&(gp<PMIN||gp>PMAX)){$('#agMsg').textContent=TR('目標タイムが大会の距離に合っていません。目標タイムを確かめてください。');agRender();return;}
+  if(!(v>=300)){$('#agMsg').textContent=TR('目標タイムは「3:30:00」「1:40:00」「45:00」のように入れてください。');return;}
+  const gp=r?v/r.km:0;if(r&&(gp<PMIN||gp>PMAX)){$('#agMsg').textContent=TR('目標タイムが大会の距離に合っていません。目標タイムを確かめてください。');return;}
   if(r)PLAN.goals[r.id]=v;PLAN.goal=v;planSave();$('#agMsg').textContent='';agRender();});
+function agDistChanged(){AG.res=null;$('#agResult').hidden=$('#agPlan').hidden=true;$('#agMsg').textContent='';const r=planTarget();PLAN.goal=planGoal(r);planSave();agRender();try{renderAll();}catch(e){}}
+$('#agEv').addEventListener('change',e=>{PLAN.dist=Object.assign({},PLAN.dist,{ev:e.target.value});agDistChanged();});
+$('#agKm').addEventListener('change',e=>{const v=+e.target.value;PLAN.dist=Object.assign({},PLAN.dist,{km:v>0&&v<=250?Math.round(v*1000)/1000:0});agDistChanged();});
 $('#agDays').addEventListener('click',e=>{const b=e.target.closest('[data-agday]');if(!b)return;const i=+b.dataset.agday;PLAN.run[i]=PLAN.run[i]?0:1;if(!PLAN.run.some(Boolean))PLAN.run[i]=1;planSave();agRender();});
 $('#agLsd').addEventListener('change',e=>{PLAN.lsd=+e.target.value;planSave();agRender();});
 $('#agPaceDay').addEventListener('change',e=>{PLAN.paceDay=+e.target.value;planSave();agRender();});
@@ -4388,7 +4404,7 @@ W('まもなくエイドです','Aid station coming up','即将到达补给站',
 W('給水所・エイド（任意）「距離km 内容」を1行ずつ（水＝給水、食＝食べ物、そのほかは書いた品名のまま。例「水 バナナ」「カニ汁」「水 食」）','Aid stations (optional): one per line, "distance-km contents" (水 = water, 食 = food, anything else is shown as written; e.g. "水 banana", "crab soup", "水 食")','补给站（可选）：每行一个，“距离km 内容”（水＝供水，食＝食物，其他按所写品名显示；例“水 香蕉”“蟹汤”“水 食”）','補給站（可選）：每行一個，「距離km 內容」（水＝供水，食＝食物，其他按所寫品名顯示；例「水 香蕉」「蟹湯」「水 食」）','급수소・에이드 (선택): 한 줄에 하나씩 "거리km 내용" (水 = 급수, 食 = 음식, 그 밖은 쓴 그대로; 예 "水 바나나" "게국" "水 食")');
 W('給水','Water','供水','供水','급수');
 W('食べ物','Food','食物','食物','음식');
-W('水','water','水','水','물');
+W('水','Wed','周三','週三','수');
 W('上書きしました ✓','Overwritten ✓','已覆盖 ✓','已覆寫 ✓','덮어썼습니다 ✓');
 W('保存しました ✓','Saved ✓','已保存 ✓','已儲存 ✓','저장했습니다 ✓');
 W('メニュー','Menu','菜单','菜單','메뉴');
@@ -4651,7 +4667,7 @@ P(/^([\d.]+)km 戦略を自動調整：直近5km 時速([\d.]+)kmでは制限時
 P(/^([\d.]+)km 戦略を自動調整：直近5kmのペース 時速([\d.]+)km（(.+)\/km）$/,m=>[`${m[1]} km auto-adjusted: last 5 km pace ${m[2]} km/h (${m[3]}/km)`,`${m[1]}公里 自动调整：最近5公里配速 时速${m[2]}公里（${m[3]}/公里）`,`${m[1]}公里 自動調整：最近5公里配速 時速${m[2]}公里（${m[3]}/公里）`,`${m[1]}km 자동 조정: 최근 5km 페이스 시속 ${m[2]}km (${m[3]}/km)`]);
 P(/^(.+＆.+)$/,m=>{const parts=m[1].split('＆').map(x=>nm(x));return [parts.join(' & '),parts.join('＆'),parts.join('＆'),parts.join(' & ')];});
 P(/^水と、(.+)があります$/,m=>[`Water and ${m[1]} available`,`有水和${m[1]}`,`有水和${m[1]}`,`물과 ${m[1]}이(가) 있습니다`]);
-P(/^(.+)があります$/,m=>{const a=m[1].split('、').map(x=>nm(x));return [`${a.join(', ')} available`,`有${a.join('、')}`,`有${a.join('、')}`,`${a.join(', ')}이(가) 있습니다`];});
+P(/^(.+)があります$/,m=>{const a=m[1].split('、').map(x=>x==='水'?['water','水','水','물'][L()]:nm(x));return [`${a.join(', ')} available`,`有${a.join('、')}`,`有${a.join('、')}`,`${a.join(', ')}이(가) 있습니다`];});
 P(/^関門 (\d+)か所$/,m=>[`${m[1]} cutoffs`,`关门点${m[1]}处`,`關門點${m[1]}處`,`관문 ${m[1]}곳`]);
 P(/^給水 (\d+)か所$/,m=>[`${m[1]} aid stations`,`补给站${m[1]}处`,`補給站${m[1]}處`,`급수 ${m[1]}곳`]);
 P(/^ドラム：(\d+|—)歩\/分のテンポで鳴らします$/,m=>[`Drum: playing at ${m[1]} steps/min`,`鼓点：以每分钟${m[1]}步的节奏播放`,`鼓點：以每分鐘${m[1]}步的節奏播放`,`드럼: ${m[1]}보/분 템포로 울립니다`]);
@@ -4668,6 +4684,11 @@ P(/^ロスタイム (.+)$/,m=>[`Start loss ${m[1]}`,`起跑损失 ${m[1]}`,`起�
 P(/^このペースならゴール ([\d:]+)（([\d:]+)着）$/,m=>[`At this pace: finish ${m[1]} (${m[2]})`,`按此配速完赛 ${m[1]}（${m[2]}到达）`,`按此配速完賽 ${m[1]}（${m[2]}抵達）`,`이 페이스면 골 ${m[1]}(${m[2]} 도착)`]);
 P(/^消費カロリー（目安） 約([\d,]+) kcal$/,m=>[`Calories burned (est.) about ${m[1]} kcal`,`消耗卡路里（参考） 约${m[1]} kcal`,`消耗卡路里（參考） 約${m[1]} kcal`,`소비 칼로리(목안) 약 ${m[1]} kcal`]);
 P(/^消費カロリー 約([\d,]+) kcal$/,m=>[`Calories about ${m[1]} kcal`,`卡路里 约${m[1]} kcal`,`卡路里 約${m[1]} kcal`,`칼로리 약 ${m[1]} kcal`]);
+W('大会を決めずに距離で選ぶ','Choose by distance (no race)','不指定比赛，按距离选择','不指定比賽，按距離選擇','대회 없이 거리로 선택');
+W('「その他」の距離を入れてください。','Enter the distance for "Other".','请输入“其他”的距离。','請輸入「其他」的距離。','"기타"의 거리를 입력하세요.');
+W('開催日を決めずに、距離と目標タイムから練習を組みます。調整の週は入りません。','Training is planned from the distance and goal time, without a race date. No taper weeks are included.','不设比赛日期，根据距离和目标时间安排训练。不包含调整周。','不設比賽日期，根據距離和目標時間安排訓練。不包含調整週。','대회 날짜 없이 거리와 목표 시간으로 연습을 짭니다. 조정 주는 없습니다.');
+P(/^大会を決めずに組んでいます。今週は「(.+)」の週です（目標 (\d+)km）。$/,m=>{const ph={'土台づくり':['base building','打基础','打基礎','기초 다지기'],'距離を走り込む':['high mileage','跑量积累','跑量累積','거리 늘리기'],'回復':['recovery','恢复','恢復','회복']}[m[1]]||[m[1],m[1],m[1],m[1]];return [`Planned without a race. This is a ${ph[0]} week (target ${m[2]} km).`,`未指定比赛。本周是“${ph[1]}”周（目标${m[2]}公里）。`,`未指定比賽。本週是「${ph[2]}」週（目標${m[2]}公里）。`,`대회 없이 짰습니다. 이번 주는 "${ph[3]}" 주입니다 (목표 ${m[2]}km).`];});
+W('先に「目標の大会」を選んでください。','Choose a "Target race" first.','请先选择“目标比赛”。','請先選擇「目標比賽」。','먼저 "목표 대회"를 선택하세요.');
 P(/^((?:\d+時間)?(?:\d+分)?)たちました$/,m=>m[1]?[`${dur(m[1])} elapsed`,`已过${dur(m[1])}`,`已過${dur(m[1])}`,`${dur(m[1])} 지났습니다`]:null);
 P(/^推定([\d.]+)キロです$/,m=>[`About ${m[1]} kilometers`,`估计${m[1]}公里`,`估計${m[1]}公里`,`추정 ${m[1]}킬로미터입니다`]);
 P(/^([\d.]+)キロです$/,m=>[`${m[1]} kilometers`,`${m[1]}公里`,`${m[1]}公里`,`${m[1]}킬로미터입니다`]);
@@ -6059,16 +6080,24 @@ function askThen(msg,okTxt,fn){appAsk(msg,okTxt,()=>{__OK=1;try{fn();}finally{__
 /* ===================== 時間の入力は数字だけで（「:」は自動） =====================
    40110 → 4:01:10、5000 → 0:50:00（時:分:秒の欄）／ 600 → 6:00（時:分の欄）／ 530 → 5:30（1kmのペースの欄）。
    「:」「.」を打っても同じ形にそろえる */
-const TF_SEL=[['#rcGoal','hms'],['#agGoal','hms'],['input.oft','hms'],['[data-f=goal]','hms'],['#rcLimit','hm'],['input[data-f=pace]','ms']];
+const TF_SEL=[['#rcGoal','goal'],['#agGoal','goal'],['input.oft','hms'],['[data-f=goal]','goal'],['#rcLimit','hm'],['input[data-f=pace]','ms']];
 function tfKind(el){if(!el||el.tagName!=='INPUT')return null;for(const [q,k] of TF_SEL)if(el.matches(q))return k;return null;}
 function tfDigits(v){const t=String(v||'').replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248));return /^[\d:：.．・\s]*$/.test(t)?t.replace(/\D/g,''):null;}
-function tfLive(d,k){const n=k==='hms'?6:4;d=d.slice(0,n);if(d.length<=2)return d;if(d.length<=4||k!=='hms')return d.slice(0,-2)+':'+d.slice(-2);return d.slice(0,-4)+':'+d.slice(-4,-2)+':'+d.slice(-2);}
-function tfFinal(d,k){if(!d)return '';if(k==='hms'){if(d.length<=2)return d;if(d.length<=4)return '0:'+d.padStart(4,'0').slice(0,2)+':'+d.slice(-2);return tfLive(d,k);}
+function tfLive(d,k){const H=k==='hms'||k==='goal',n=H?6:4;d=d.slice(0,n);if(d.length<=2)return d;if(d.length<=4||!H)return d.slice(0,-2)+':'+d.slice(-2);return d.slice(0,-4)+':'+d.slice(-4,-2)+':'+d.slice(-2);}
+/* 目標タイム：3〜4けたは「時:分」か「分:秒」かを、大会の距離からペースが合う方に決める（330→3:30:00、4500→0:45:00） */
+function tfGoalKm(el){try{if(el&&el.id==='agGoal'){const r=planTarget();return r?r.km:0;}if(el&&el.id==='rcGoal')return presetKm(RC);}catch(e){}return 0;}
+function tfHMS(t){t=Math.round(t);return Math.floor(t/3600)+':'+String(Math.floor(t%3600/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');}
+function tfFinal(d,k,el){if(!d)return '';
+  if(k==='goal'&&d.length>=3&&d.length<=4){const a=+d.slice(0,-2),b=+d.slice(-2),km=tfGoalKm(el);if(b>59)return tfLive(d,k);
+    const hm=a*3600+b*60,ms=a*60+b,ok=t=>km>0&&t/km>=PMIN&&t/km<=PMAX;
+    return tfHMS(ok(hm)?hm:ok(ms)?ms:km>0?hm:(a<10?hm:ms));}
+  if(k==='goal')k='hms';
+  if(k==='hms'){if(d.length<=2)return d;if(d.length<=4)return '0:'+d.padStart(4,'0').slice(0,2)+':'+d.slice(-2);return tfLive(d,k);}
   if(d.length<=2)return (+d)+':00';return tfLive(d,k);}
 function tfApply(){document.querySelectorAll(TF_SEL.map(x=>x[0]).join(',')).forEach(el=>{if(el.getAttribute('inputmode')!=='numeric')el.setAttribute('inputmode','numeric');});}
 document.addEventListener('input',e=>{const el=e.target,k=tfKind(el);if(!k||e.isComposing||el.__tf)return;const d=tfDigits(el.value);if(d==null)return;const f=tfLive(d,k);
   if(f!==el.value){el.value=f;try{el.setSelectionRange(f.length,f.length);}catch(er){}}},true);
-document.addEventListener('change',e=>{const el=e.target,k=tfKind(el);if(!k)return;const d=tfDigits(el.value);if(d==null)return;const f=tfFinal(d,k);
+document.addEventListener('change',e=>{const el=e.target,k=tfKind(el);if(!k)return;const d=tfDigits(el.value);if(d==null)return;const f=tfFinal(d,k,el);
   if(f!==el.value){el.value=f;el.__tf=1;try{el.dispatchEvent(new Event('input',{bubbles:true}));}finally{el.__tf=0;}}},true);
 tfApply();new MutationObserver(()=>tfApply()).observe(document.body,{childList:true,subtree:true});
 </script>
