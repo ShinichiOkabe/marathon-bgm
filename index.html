@@ -357,6 +357,8 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .unlock{position:relative;overflow:hidden;width:100%;padding:14px;font-size:1rem;font-weight:700;border-radius:12px;border:2px solid var(--accent);background:var(--accent-soft);color:var(--ink);-webkit-touch-callout:none}
 .lock-bar .stopbtn{border-color:var(--warn);background:var(--pause-bg)}
 .lock-layer.inmode #btnUnlock,.lock-layer.inmode #btnLockStop{display:none!important}
+.free-row{margin:4px 0 10px}.free-box{margin:6px 0 0 4px}.free-box .f{max-width:14em}
+#menuSec.free-on #presets,#menuSec.free-on #agPanel,#menuSec.free-on #menuList,#menuSec.free-on #csvBox,#menuSec.free-on .fx-hide{display:none!important}
 .lock-bar #lockPause{flex:1 1 100%;padding:16px 6px;font-size:1.1rem}
 .inpause{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:16px;padding:calc(env(safe-area-inset-top,0px) + 24px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);background:var(--bg)}
 .inpause[hidden]{display:none}
@@ -689,11 +691,13 @@ body.live .recv{display:none}
   <section id="menuSec">
     <div class="sec-head">
       <div><h2>練習メニュー</h2><p class="sub">ステージごとに「1km何分で走るか」と時間を決めます。曲の速さは、そのペースで走りやすいリズムに自動で合わせます。</p></div>
-      <span class="total" id="menuTotal">合計 45分</span>
+      <span class="total fx-hide" id="menuTotal">合計 45分</span>
       <div class="clr-wrap"><button class="small clr" data-clear="practice">練習の内容をクリア</button><p class="ml-msg" id="clrMsg-practice"></p></div>
     </div>
+    <div class="free-row"><label class="chk"><input type="checkbox" id="freeOn"> 時間を決めずに走る（「終了」を押すまで・最長4時間）</label>
+      <div class="free-box" id="freeBox" hidden><label class="f" for="freePace">ペース（1 km何分）<input type="text" id="freePace" data-f="pace" inputmode="numeric" autocomplete="off" placeholder="例）6:30"></label><p class="sub">テンポはこのペースで一定です。10分ごとに経過時間と距離（屋内は推定）を声で知らせ、4時間たつと自動で終了します。</p></div></div>
     <div class="chips" id="presets"></div>
-    <div><button class="small ag-open" type="button" id="agOpen" aria-expanded="false">自動生成</button></div>
+    <div class="fx-hide"><button class="small ag-open" type="button" id="agOpen" aria-expanded="false">自動生成</button></div>
     <div class="ag" id="agPanel" hidden>
       <div class="rp">
         <div class="strat-h"><b>練習メニューの自動生成</b><span class="sub">目標の大会と目標タイムから、今週の練習距離を決め、本日の練習メニューを作ります。</span></div>
@@ -713,14 +717,14 @@ body.live .recv{display:none}
       <div class="rp" id="agPlan" hidden></div>
     </div>
     <div class="list" id="menuList"></div>
-    <div><button class="small" id="btnAddSeg">＋ ステージを追加</button></div>
+    <div class="fx-hide"><button class="small" id="btnAddSeg">＋ ステージを追加</button></div>
     <div class="rp" id="csvBox">
       <div class="strat-h"><b>練習メニュー・CSVを読み込む</b><span class="sub">保存したCSVを選ぶと、ここに表示します。</span></div>
       <div class="ctrls"><button class="primary-sm" id="csvBtn">CSVファイルを選ぶ</button><input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></div>
       <div class="csv-sel" id="csvSel" hidden></div>
       <p class="ml-msg" id="csvMsg"></p>
     </div>
-    <div class="rp">
+    <div class="rp fx-hide">
       <div class="strat-h"><b>練習メニューの保存</b><span class="sub">練習メニュー（ステージ・ペース・時間）に名前を付けて保存しておくと、あとで読み込めます。練習モードでだけ保存・読み込みできます。曲は「曲」タブのマイリストで別に登録します。</span></div>
       <div class="ml-save"><input type="text" id="pmName" maxlength="40" placeholder="保存名（例：火曜のペース走）" aria-label="保存名"><button class="primary-sm" id="pmSave">保存</button></div>
       <p class="ml-msg" id="pmMsg"></p>
@@ -828,7 +832,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-10m</p>
+  <p class="ver" data-notr translate="no">版 2026-11-10o</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -875,7 +879,7 @@ body.live .recv{display:none}
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <p><strong>屋内の練習のロック</strong>：屋内の練習では、スマホを台に置いて走ることが多いので、ロック中のボタンは「ペースダウン」「ペースアップ」「一時停止／終了」の3つだけで、どれも<strong>1回押す</strong>だけで動きます。「一時停止／終了」を押すとタイマーと曲が止まり、下に大きな「再開する」、画面の上に「終了」が出ます。タオルなどが触れても一時停止になるだけなので、「再開する」を押せば続きから走れます。練習をやめるときは、上の「終了」を押します。メニューを最後まで終えると、ロックは自動で外れます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-10m」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-10o」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -891,6 +895,7 @@ body.live .recv{display:none}
 <h2 id="h-4">4. 練習で走る</h2>
 <p>練習メニューのステージごとに、そのペースで走りやすいテンポで曲を流します。</p>
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
+<p><strong>時間を決めずに走る</strong>：「練習メニュー」の「時間を決めずに走る（「終了」を押すまで・最長4時間）」にチェックを入れ、ペース（1 km何分）を入れます。数字だけで入れられます（例：630 → 6:30）。テンポはそのペースで一定です。走っている間は経過時間と距離（屋内は経過時間とペースからの推定、屋外はGPSの距離）を表示し、10分ごとに「10分たちました。推定1.4キロです。」のように声で知らせます。終えるときは「終了」を押します（屋内は「一時停止／終了」→「終了」、屋外は「練習を終了」を長押し）。4時間たつと自動で終了します。それより長く走るときは、もう一度スタートしてください。</p>
 <table><thead><tr><th></th><th>屋内</th><th>屋外（GPS）</th></tr></thead><tbody><tr><td>ステージが進むとき</td><td>決めた時間がたったとき</td><td>決めた距離を走ったとき</td></tr><tr><td>1 km毎のお知らせとラップ表</td><td>なし</td><td>あり</td></tr></tbody></table>
 <p>屋外では、「GPSの位置をつかみました。」と出てからスタートしてください。走っている途中の「ペースアップ／ダウン」は、時速を0.1 kmずつ変えてテンポを合わせます。「練習の内容をクリア」はメニューだけを空にします（2回押す）。</p>
 <p><strong>途中でやめるとき（一時停止と練習を終了）</strong>：「一時停止」はタイマーを止めるだけで、もう一度押すと続きから走れます。練習を途中で終えるときは「練習を終了」を押し、「もう一度押すと終了」と出たらもう一度押します。画面ロック中は、屋外の練習では下のバーの「練習を終了」を長押しします。屋内の練習では「一時停止／終了」を押してから、画面の上の「終了」を押します。終了すると、そこまでの距離で消費カロリーを出し、屋外なら「この練習を記録に残しますか？」と聞かれます。そのあと「おつかれさまでした」の欄で保存が済んだら、「閉じる」を押して終えます。</p>
@@ -1121,7 +1126,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <p><strong>Lock during indoor training</strong>: indoors you usually put the phone on the machine, so the locked screen has only three buttons, "Pace down", "Pace up" and "Pause / End", and each works with a <strong>single tap</strong>. "Pause / End" stops the timer and the music and shows a large "Resume" button at the bottom and "End" at the top. If a towel touches it, training is only paused; press "Resume" to continue. To stop training, press "End" at the top. When you finish the whole menu, the lock is released automatically.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-10m" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-10o" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1137,6 +1142,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h2 id="e-4">4. Training</h2>
 <p>For each stage of your training menu, songs play at a tempo that makes that pace easy to run.</p>
 <ol><li>Press "1. Training" and choose "Indoor (stages advance by time)" or "Outdoor (advance by GPS distance)".</li><li>On the "Menu" tab, choose "Steady run", "LSD", "Build-up" or "Jog", or enter a pace (min per km) and time for each stage.</li><li>Save menus you use often with "Save practice menu" below: enter a name (e.g. Tuesday pace run) and press "Save". Next time, just press "Load".</li><li>Press "Start". A beep sounds when the stage changes, and the tempo changes too.</li><li>When you are done, long-press "Unlock" and press "Reset". The app stops automatically when the menu is finished.</li></ol>
+<p><strong>Run without a time limit</strong>: in "Training menu", check "Run without a time limit (until you press "End", up to 4 hours)" and enter a pace (min per km). Digits are enough (e.g. 630 → 6:30). The tempo stays at that pace. While you run, the elapsed time and distance are shown (indoors estimated from time and pace, outdoors by GPS), and every 10 minutes you hear e.g. "10 minutes. About 1.4 km." To stop, press "End" (indoors "Pause / End" → "End"; outdoors long-press "End training"). Training ends automatically after 4 hours; to run longer, start again.</p>
 <table><thead><tr><th></th><th>Indoor</th><th>Outdoor (GPS)</th></tr></thead><tbody><tr><td>When the stage advances</td><td>When the set time has passed</td><td>When you have run the set distance</td></tr><tr><td>Every-1-km notices and lap table</td><td>No</td><td>Yes</td></tr></tbody></table>
 <p>Outdoors, start after the message saying the GPS position has been found. "Pace up / Pace down" while running changes the speed by 0.1 km/h at a time and adjusts the tempo. "Clear training" empties only the menu (press twice).</p>
 <p><strong>Stopping partway (Pause and End training)</strong>: "Pause" only stops the timer; press it again to continue. To end training early, press "End training" and press it again when "Press again to end" appears. While the screen is locked, long-press "End training" in the bottom bar (outdoor), or press "Pause / End" and then "End" at the top (indoor). The calories are calculated for the distance run so far, and outdoors you are asked "Save this training run?". Then, when saving is done in the "Well done!" box, press "Close" to finish.</p>
@@ -1542,7 +1548,7 @@ async function kvCheck(k,id,saved){if(!DB.ok)return null;const r=await tx(['kv']
   const v=r&&r.result;return Array.isArray(v)&&v.some(m=>m.id===id&&m.saved===saved);}
 function applyKV(k,v){switch(k){
   case 'cbgm-offset':cadOffset=Math.max(-30,Math.min(30,+v||0));$('#cadOffset').value=cadOffset;break;
-  case 'cbgm-menu-pace':if(validMenu(v)&&!R.running&&!R.acc){const nm=v.map(toStage);if(MODE==='practice')menu=nm;else practiceMenu=nm;}break;
+  case 'cbgm-menu-pace':if(validMenu(v)&&!R.running&&!R.acc&&!(window.FREE&&FREE.on)){const nm=v.map(toStage);if(MODE==='practice')menu=nm;else practiceMenu=nm;}break;
   case 'cbgm-race':if(v&&typeof v==='object'){if(RC&&RC._t&&(!v._t||v._t<RC._t)){kvPut('cbgm-race',RC);break;}RC=Object.assign({},RCD,v);if(MODE==='race'&&!R.running&&!RS.pre)menu=virtualMenu();}break;
   case 'cbgm-shuffle':opt.shuffle=!!v;break;
   case 'cbgm-mode':if(['practice','race','relax'].includes(v)&&v!==MODE&&!R.running)setMode(v);break;
@@ -1681,7 +1687,7 @@ async function loadSaved(){if(!await idbOpen()){updateStoreInfo();raceExpire();a
 
 /* ---------- songs per stage ---------- */
 function songStages(s){if(!Array.isArray(s.stages))return 'all';const ids=pMenu().map(g=>g.id);const a=s.stages.filter(x=>ids.includes(x));return a.length?a:'all';}
-function eligible(s,segIdx){if(!used(s))return false;if(MODE!=='practice')return true;const g=menu[segIdx];if(!g)return true;const st=songStages(s);return st==='all'||st.includes(g.id);}
+function eligible(s,segIdx){if(!used(s))return false;if(MODE!=='practice')return true;const g=menu[segIdx];if(!g||g.id==='free')return true;const st=songStages(s);return st==='all'||st.includes(g.id);}
 
 /* ---------- tempo match ---------- */
 function match(songBpm,target){
@@ -1844,11 +1850,13 @@ function renderAll(){renderMenu();renderSongs();renderRun();renderML();updateSto
 /* ---------- events ---------- */
 /* ---------- clear the inputs of each mode (saved my lists / race settings stay and can be loaded again) ---------- */
 const clrArm={};
-function clearMode(k){if(R.running||R.acc>0||RS.pre||RS.armed){clrMsg(k,'走っている間・待機中はクリアできません。',true);return;}
+function clrBlocked(k){return !!(R.running||RS.pre||RS.armed||(R.acc>0&&!(k==='practice'&&MODE==='practice'&&R.done)));}
+function clearMode(k){if(clrBlocked(k)){clrMsg(k,'走っている間・待機中はクリアできません。',true);return;}
   if(!clrArm[k]){clrArm[k]=setTimeout(()=>{clrArm[k]=0;renderClr();},4000);renderClr();return;}
-  clearTimeout(clrArm[k]);clrArm[k]=0;
+  clearTimeout(clrArm[k]);clrArm[k]=0;if(R.done&&k==='practice'&&MODE==='practice')reset();
   if(k==='practice'){const st={id:gid(),name:'ステージ1',pace:420,bpm:cadFromPace(420),auto:true,min:10};
     if(MODE==='practice')menu=[st];else practiceMenu=[st];activePreset='custom';saveMenu();setActivePM(null);
+    try{PLAN.race='none';PLAN.goal=0;planSave();AG.res=null;$('#agResult').hidden=$('#agPlan').hidden=true;$('#agMsg').textContent='';agRender();}catch(e){}
     clrMsg(k,'練習の内容をクリアしました。「練習メニューの保存」に保存してあれば「読み込む」で元に戻せます。');}
   else if(k==='race'){RC=Object.assign({},RCD,{strat:[]});store.set('cbgm-race',RC);setActiveRP(null);if(MODE==='race')menu=virtualMenu();
     clrMsg(k,'本番の内容をクリアしました。「本番レース情報・戦略を保存」に保存してあれば「読み込む」で元に戻せます。');}
@@ -1857,7 +1865,7 @@ function clearMode(k){if(R.running||R.acc>0||RS.pre||RS.armed){clrMsg(k,'走っ�
   renderAll();renderClr();}
 function clrMsg(k,t,err){const m=$('#clrMsg-'+k);if(!m)return;m.textContent=t;m.classList.toggle('err',!!err);clearTimeout(m._t);m._t=setTimeout(()=>{m.textContent='';},12000);}
 const CLR_LABEL={practice:'練習の内容をクリア',race:'本番の内容をクリア',relax:'リラックスの内容をクリア'};
-function renderClr(){document.querySelectorAll('[data-clear]').forEach(b=>{const k=b.dataset.clear;b.textContent=clrArm[k]?'もう一度押すとクリア':CLR_LABEL[k];b.classList.toggle('danger',!!clrArm[k]);b.disabled=!!(R.running||R.acc>0||RS.pre||RS.armed);});}
+function renderClr(){document.querySelectorAll('[data-clear]').forEach(b=>{const k=b.dataset.clear;b.textContent=clrArm[k]?'もう一度押すとクリア':CLR_LABEL[k];b.classList.toggle('danger',!!clrArm[k]);b.disabled=clrBlocked(k);});}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-clear]');if(b)clearMode(b.dataset.clear);});
 function saveMenu(){store.set('cbgm-menu-pace',pMenu().map(({id,name,pace,min})=>({id,name,pace,min})));store.set('cbgm-preset-pace',activePreset);}
 let nameT=null;
@@ -2446,7 +2454,7 @@ function renderSpd(){const show=R.running&&MODE!=='relax';$('#spdRow').hidden=!s
   $('#spdNow').innerHTML=RS.spd?`<small>時速 ${RS.spd>0?'＋':'−'}${Math.abs(RS.spd).toFixed(1)} →</small><br>${v}`:v;}
 /* ---------- race: start button locked until 1 s before the start time ---------- */
 function startGateMs(){if(MODE!=='race'||R.running||R.done)return 0;const w=rcWaveMs();if(!w)return 0;const d=w-1000-Date.now();return d>0?d:0;}
-function startGateUI(){const b=$('#btnStart');if(!b)return;const g=startGateMs();b.disabled=g>0;
+function startGateUI(){const b=$('#btnStart');if(!b)return;const g=startGateMs();b.disabled=g>0||(!R.running&&((opt.src==='songs'&&!songs.some(used))||!totalMs()));
   if(g>0){const w=new Date(rcWaveMs()-1000);b.textContent=`スタート（${w.getHours()}:${String(w.getMinutes()).padStart(2,'0')}:${String(w.getSeconds()).padStart(2,'0')}から押せます）`;}
   else if(MODE==='race'&&!R.running&&!R.done&&b.dataset.gated)b.textContent='スタート（スタートライン通過で押す）';b.dataset.gated=g>0?'1':'';}
 $('#btnStart').addEventListener('click',e=>{if(startGateMs()>0){e.stopImmediatePropagation();e.preventDefault();}},true);
@@ -3292,7 +3300,7 @@ const WD=['月','火','水','木','金','土','日'];
 const dowMon=t=>(new Date(t).getDay()+6)%7;
 function presetKm(rc){return rc.ev==='フル'?FULL:rc.ev==='ハーフ'?HALF:(+rc.km||0);}
 function planRaces(){return racePresets.filter(p=>p.rc&&/^\d{4}-\d\d-\d\d$/.test(p.rc.date||'')&&presetKm(p.rc)>0).map(p=>({id:p.id,name:p.rc.name||p.name,date:p.rc.date,time:p.rc.time,km:presetKm(p.rc),goal:+p.rc.goal||0,at:new Date(p.rc.date+'T'+(p.rc.time||'09:00')+':00').getTime()})).sort((a,b)=>a.at-b.at);}
-function planTarget(){const L=planRaces(),now=Date.now();let r=L.find(x=>x.id===PLAN.race);if(!r)r=L.find(x=>x.at>now)||null;return r;}
+function planTarget(){if(PLAN.race==='none')return null;const L=planRaces(),now=Date.now();let r=L.find(x=>x.id===PLAN.race);if(!r)r=L.find(x=>x.at>now)||null;return r;}
 /* 週ごとの目標距離：最近4週の平均から週に最大10%ずつ増やし、4週に1回は回復週、大会前3週は調整期間 */
 function peakFor(goal,km){const h=goal/3600*(FULL/Math.max(KU(5),km));let pk=h<=3?80:h<=3.5?65:h<=4?55:h<=4.5?45:40;if(km<KU(30))pk*=0.7;if(km<KU(15))pk*=0.7;return Math.round(KU(pk));}
 function planWeeks(r,goal){const w0=weekStart(Date.now()),wr=weekStart(r.at),n=Math.max(1,Math.round((wr-w0)/(7*DAYMS))+1);
@@ -3336,9 +3344,10 @@ function planToday(variant){const r=planTarget();if(!r)return {err:'目標の大
   return {r,goal,gp,P,wk,doneWeek,rem,days,type,km:stages.reduce((a,s)=>a+kmOf(s),0),stages,why,variant:variant||0};}
 let AG={open:false,res:null,variant:0};
 function agRaceOpts(){const L=planRaces(),now=Date.now(),t=planTarget();
-  $('#agRace').innerHTML=L.length?L.map(r=>`<option value="${r.id}"${t&&t.id===r.id?' selected':''}>${esc(r.name)}（${r.date}・${+r.km.toFixed(3)}km）${r.at<now?'（終了）':''}</option>`).join(''):'<option value="">保存されている本番レース情報がありません</option>';}
+  $('#agRace').innerHTML=L.length?`<option value="none"${PLAN.race==='none'?' selected':''}>選ばない</option>`+L.map(r=>`<option value="${r.id}"${t&&t.id===r.id?' selected':''}>${esc(r.name)}（${r.date}・${+r.km.toFixed(3)}km）${r.at<now?'（終了）':''}</option>`).join(''):'<option value="">保存されている本番レース情報がありません</option>';}
 function agRender(){const pan=$('#agPanel');if(!pan||pan.hidden)return;agRaceOpts();
   const r=planTarget(),info=$('#agRaceInfo');
+  if(!r&&PLAN.race==='none'&&planRaces().length){info.textContent='目標の大会を選ぶと、今週の練習距離と本日の練習メニューを作れます。';$('#agGoal').value='';$('#agPace').innerHTML='';$('#agWeek').innerHTML='';$('#agGo').disabled=true;return;}
   if(!r){info.textContent='「2. 本番」の「大会」タブで、開催日と距離を入れて本番レース情報を保存すると、ここで選べます。';$('#agWeek').innerHTML='';$('#agGo').disabled=true;return;}
   const wks=Math.max(0,Math.round((weekStart(r.at)-weekStart(Date.now()))/(7*DAYMS)));const goal=planGoal(r);$('#agGoal').placeholder=TR(agGoalPh(r));
   info.innerHTML=`<span>開催日</span> ${r.date}　<span>あと</span> <b class="num">${wks}</b> <span>週</span>`;
@@ -4659,6 +4668,23 @@ P(/^ロスタイム (.+)$/,m=>[`Start loss ${m[1]}`,`起跑损失 ${m[1]}`,`起�
 P(/^このペースならゴール ([\d:]+)（([\d:]+)着）$/,m=>[`At this pace: finish ${m[1]} (${m[2]})`,`按此配速完赛 ${m[1]}（${m[2]}到达）`,`按此配速完賽 ${m[1]}（${m[2]}抵達）`,`이 페이스면 골 ${m[1]}(${m[2]} 도착)`]);
 P(/^消費カロリー（目安） 約([\d,]+) kcal$/,m=>[`Calories burned (est.) about ${m[1]} kcal`,`消耗卡路里（参考） 约${m[1]} kcal`,`消耗卡路里（參考） 約${m[1]} kcal`,`소비 칼로리(목안) 약 ${m[1]} kcal`]);
 P(/^消費カロリー 約([\d,]+) kcal$/,m=>[`Calories about ${m[1]} kcal`,`卡路里 约${m[1]} kcal`,`卡路里 約${m[1]} kcal`,`칼로리 약 ${m[1]} kcal`]);
+P(/^((?:\d+時間)?(?:\d+分)?)たちました$/,m=>m[1]?[`${dur(m[1])} elapsed`,`已过${dur(m[1])}`,`已過${dur(m[1])}`,`${dur(m[1])} 지났습니다`]:null);
+P(/^推定([\d.]+)キロです$/,m=>[`About ${m[1]} kilometers`,`估计${m[1]}公里`,`估計${m[1]}公里`,`추정 ${m[1]}킬로미터입니다`]);
+P(/^([\d.]+)キロです$/,m=>[`${m[1]} kilometers`,`${m[1]}公里`,`${m[1]}公里`,`${m[1]}킬로미터입니다`]);
+W('4時間たったので、練習を終了しました','4 hours have passed, so training has ended','已满4小时，训练已结束','已滿4小時，訓練已結束','4시간이 지나 연습을 종료했습니다');
+W('一時停止しました','Paused','已暂停','已暫停','일시정지했습니다');
+W('時間を決めずに走る（「終了」を押すまで・最長4時間）','Run without a time limit (until you press "End", up to 4 hours)','不限时间跑（直到按“结束”，最长4小时）','不限時間跑（直到按「結束」，最長4小時）','시간 제한 없이 달리기 ("종료"를 누를 때까지, 최대 4시간)');
+W('ペース（1 km何分）','Pace (min per km)','配速（每公里几分钟）','配速（每公里幾分鐘）','페이스 (1km당 분)');
+W('テンポはこのペースで一定です。10分ごとに経過時間と距離（屋内は推定）を声で知らせ、4時間たつと自動で終了します。','The tempo stays at this pace. Every 10 minutes you hear the elapsed time and distance (estimated indoors); training ends automatically after 4 hours.','节奏按此配速保持不变。每10分钟语音播报经过时间和距离（室内为估算），满4小时自动结束。','節奏按此配速保持不變。每10分鐘語音播報經過時間和距離（室內為估算），滿4小時自動結束。','템포는 이 페이스로 일정합니다. 10분마다 경과 시간과 거리(실내는 추정)를 음성으로 알리고, 4시간이 되면 자동으로 종료합니다.');
+W('時間を決めずに走る','No time limit','不限时间','不限時間','시간 제한 없음');
+W('「終了」を押すまで','Until you press "End"','直到按“结束”','直到按「結束」','"종료"를 누를 때까지');
+W('経過時間','Elapsed','经过时间','經過時間','경과 시간');
+W('推定の距離','Estimated distance','估算距离','估算距離','추정 거리');
+W('走った距離','Distance run','跑步距离','跑步距離','달린 거리');
+W('自動終了まで','Until auto end','距自动结束','距自動結束','자동 종료까지');
+W('一定のペース','Steady pace','固定配速','固定配速','일정한 페이스');
+W('選ばない','None','不选择','不選擇','선택 안 함');
+W('目標の大会を選ぶと、今週の練習距離と本日の練習メニューを作れます。','Choose a target race to get this week\'s distance and today\'s training menu.','选择目标比赛后，即可生成本周训练距离和今天的训练菜单。','選擇目標比賽後，即可產生本週訓練距離和今天的訓練菜單。','목표 대회를 고르면 이번 주 연습 거리와 오늘의 연습 메뉴를 만들 수 있습니다.');
 W('一時停止／終了','Pause / End','暂停／结束','暫停／結束','일시정지 / 종료');
 W('再開する','Resume','继续','繼續','재개하기');
 W('一時停止しました。','Paused.','已暂停。','已暫停。','일시정지했습니다.');
@@ -5418,6 +5444,45 @@ function fxRender(){const run=MODE==='race'&&R.running,c=run?fxCand():null,w=$('
   const lg=$('#lfxGo span'),lh=`<span>推定</span> <span data-notr>${c.est.toFixed(2)} km</span><br><small>${FX.off?`${lab} <span>を確定</span>`:`<span>${c.redo?'確定し直す':'確定'}</span>`}・<span>長押し</span></small>`;if(lg&&lg.dataset.h!==lh){lg.dataset.h=lh;lg.innerHTML=lh;}
   $('#lfxPrev').disabled=c.i<=c.mi;$('#lfxNext').disabled=c.i>=c.M.length-1;$('#lfxUndo').disabled=!c.last;}
 {const _rr=renderRun;renderRun=function(){const r=_rr.apply(this,arguments);try{fxRender();}catch(e){}return r;};}
+/* ===================== 練習：時間を決めずに走る（終了を押すまで・最長4時間） ===================== */
+window.FREE={on:!!store.get('cbgm-free',false),pace:+store.get('cbgm-free-pace',390)||390,saved:null,ann:-1};
+const FREE_MAX=4*3600000;
+function freeStage(){return {id:'free',name:'一定のペース',pace:FREE.pace,bpm:cadFromPace(FREE.pace),auto:true,min:600};}
+const isFreeM=m=>Array.isArray(m)&&m.length===1&&m[0].id==='free';
+function freeApply(){if(MODE==='practice'){if(!isFreeM(menu))FREE.saved=menu;menu=[freeStage()];}
+  else{if(practiceMenu&&!isFreeM(practiceMenu))FREE.saved=practiceMenu;practiceMenu=[freeStage()];}}
+function freeRestore(){let m=FREE.saved;if(!validMenu(m)){m=store.get('cbgm-menu-pace',null);m=validMenu(m)?m.map(toStage):fromPreset('steady');}
+  if(MODE==='practice')menu=m;else practiceMenu=m;FREE.saved=null;}
+{const _sm=saveMenu;saveMenu=function(){if(FREE.on&&isFreeM(pMenu()))return;return _sm.apply(this,arguments);};}
+/* 屋外はGPSの距離、屋内は経過時間とペース（ペースアップ／ダウンも入れる）から推定 */
+function freeKm(){if(opt.outdoor&&OD&&(OD.active||OD.done)&&OD.dist>0)return OD.active?odDist():OD.dist;
+  const el=rawEl(),v0=3600/FREE.pace;let km=0,t=0,spd=0;const v=x=>Math.max(2,v0+x);
+  for(const x of (RS.spdLog||[])){const tt=Math.min(+x.t||0,el);if(tt>t){km+=v(spd)*(tt-t)/3600000;t=tt;}spd=+x.spd||0;}
+  if(el>t)km+=v(spd)*(el-t)/3600000;return km;}
+{const _d=practiceDoneKm;practiceDoneKm=function(){if(FREE.on&&MODE==='practice'&&isFreeM(menu))return freeKm();return _d.apply(this,arguments);};}
+function freeTxt(id,t){const e=$(id);if(!e)return;let tt=t;try{tt=TR(t);}catch(_){}if(e.textContent!==t&&e.textContent!==tt)e.textContent=t;}
+function freeUI(){const box=$('#freeBox');if(!box)return;
+  if(FREE.on&&!isFreeM(pMenu())){FREE.on=false;store.set('cbgm-free',false);FREE.saved=null;try{saveMenu();}catch(e){}}
+  const on=FREE.on,busy=!!(R.running||R.acc>0||RS.pre||RS.armed),cb=$('#freeOn'),fp=$('#freePace');
+  cb.checked=on;cb.disabled=busy;box.hidden=!on;fp.disabled=busy;if(document.activeElement!==fp)fp.value=fmtPace(FREE.pace);
+  $('#menuSec').classList.toggle('free-on',on);
+  if(!(on&&MODE==='practice'))return;
+  const el=Math.min(FREE_MAX,R.done&&R.endAcc!=null?R.endAcc:rawEl()),out=opt.outdoor&&OD&&(OD.active||OD.done)&&OD.dist>0;
+  if(!R.done){freeTxt('#segCount','時間を決めずに走る');freeTxt('#segName','「終了」を押すまで');}
+  freeTxt('#bigLabel','経過時間');$('#segLeft').textContent=fmt(el);
+  freeTxt('#st1Label',out?'走った距離':'推定の距離');$('#totLeft').textContent=freeKm().toFixed(2)+' km';$('#totDist').textContent='';
+  freeTxt('#st2Label','自動終了まで');$('#nextSeg').textContent=fmt(Math.max(0,FREE_MAX-el));$('#nextSub').textContent='';}
+{const _rr=renderRun;renderRun=function(){const r=_rr.apply(this,arguments);try{freeUI();}catch(e){}return r;};}
+{const _s=start;start=function(){if(FREE.on&&MODE==='practice'&&(R.done||(!R.running&&R.acc===0)))FREE.ann=0;return _s.apply(this,arguments);};}
+setInterval(()=>{if(!(FREE.on&&MODE==='practice'&&isFreeM(menu)&&R.running&&!R.paused&&!R.done))return;const el=rawEl();
+  if(el>=FREE_MAX){R.acc=FREE_MAX;R.t0=Date.now();practiceEnd(true);try{speechSynthesis.cancel();}catch(e){}say('4時間たったので、練習を終了しました。おつかれさまでした。');return;}
+  const n=Math.floor(el/600000);if(FREE.ann<0){FREE.ann=n;return;}
+  if(n>FREE.ann){FREE.ann=n;const out=opt.outdoor&&OD&&OD.active&&OD.dist>0;queueSay(`${sayMin(n*600000)}たちました。${out?'':'推定'}${freeKm().toFixed(1)}キロです。`);}},1000);
+$('#freeOn').addEventListener('change',e=>{if(R.running||R.acc>0||RS.pre||RS.armed){e.target.checked=FREE.on;return;}
+  FREE.on=e.target.checked;store.set('cbgm-free',FREE.on);if(FREE.on)freeApply();else{freeRestore();saveMenu();}renderAll();});
+$('#freePace').addEventListener('change',e=>{const p=parsePace(e.target.value);if(p&&!(R.running||R.acc>0)){FREE.pace=p;store.set('cbgm-free-pace',p);if(FREE.on)freeApply();}
+  e.target.value=fmtPace(FREE.pace);renderAll();});
+try{if(FREE.on){const pm=MODE==='practice'?menu:practiceMenu;if(!isFreeM(pm))freeApply();}renderAll();}catch(e){}
 
 /* 実績・本番：出走した大会の一覧（日付・大会名・写真URL・種目・状況・ネットタイム・1km平均）。行を選ぶと下の「本番のログ」に出す */
 function rlStat(x){if(!x)return '';if(x.live)return 'run';if(x.result==='finish'||x.result==='dnf')return x.result;
