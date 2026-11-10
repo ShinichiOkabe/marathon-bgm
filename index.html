@@ -356,6 +356,13 @@ html[lang=ko] .spdbtn{font-size:.8rem}.langsel{display:inline-flex;align-items:c
 .lock-bar .t{font-weight:900;font-size:1rem}
 .unlock{position:relative;overflow:hidden;width:100%;padding:14px;font-size:1rem;font-weight:700;border-radius:12px;border:2px solid var(--accent);background:var(--accent-soft);color:var(--ink);-webkit-touch-callout:none}
 .lock-bar .stopbtn{border-color:var(--warn);background:var(--pause-bg)}
+.lock-layer.inmode #btnUnlock,.lock-layer.inmode #btnLockStop{display:none!important}
+.lock-bar #lockPause{flex:1 1 100%;padding:16px 6px;font-size:1.1rem}
+.inpause{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:16px;padding:calc(env(safe-area-inset-top,0px) + 24px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);background:var(--bg)}
+.inpause[hidden]{display:none}
+.inpause .inend{padding:12px 40px;font-size:1.05rem;font-weight:700;border-radius:12px;border:2px solid var(--warn);background:var(--pause-bg);color:var(--ink)}
+.inpause .mid{text-align:center;font-weight:900;font-size:1.5rem}.inpause .mid small{display:block;font-weight:500;font-size:.9rem;color:var(--muted);margin-top:6px}
+.inpause #inResume{width:min(100%,460px);padding:24px 12px;font-size:1.5rem;font-weight:900;border-radius:16px;border:2px solid var(--accent);background:var(--accent-soft);color:var(--ink)}
 .lock-bar .stopbtn .fill{background:var(--warn)}
 .unlock .fill{position:absolute;inset:0;width:0;background:var(--accent);opacity:.35}
 .unlock span{position:relative}
@@ -821,7 +828,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-10l</p>
+  <p class="ver" data-notr translate="no">版 2026-11-10m</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -866,8 +873,9 @@ body.live .recv{display:none}
 <figure class="gfig"><img src="guide/g_top.webp" loading="lazy" alt="練習モードの画面。上からモードのボタン、屋内／屋外、走るときの表示" onerror="this.parentNode.hidden=true"><figcaption>練習モードの画面。上からモードのボタン、屋内／屋外、走るときの表示</figcaption></figure>
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
+<p><strong>屋内の練習のロック</strong>：屋内の練習では、スマホを台に置いて走ることが多いので、ロック中のボタンは「ペースダウン」「ペースアップ」「一時停止／終了」の3つだけで、どれも<strong>1回押す</strong>だけで動きます。「一時停止／終了」を押すとタイマーと曲が止まり、下に大きな「再開する」、画面の上に「終了」が出ます。タオルなどが触れても一時停止になるだけなので、「再開する」を押せば続きから走れます。練習をやめるときは、上の「終了」を押します。メニューを最後まで終えると、ロックは自動で外れます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-10l」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-10m」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -885,7 +893,7 @@ body.live .recv{display:none}
 <ol><li>「1. 練習」を押し、「屋内（時間で進む）」か「屋外（GPSの距離で進む）」を選びます。</li><li>「メニュー」タブで「一定速走」「LSD」「ビルドアップ」「ジョグ」から選ぶか、ステージごとにペース（1 km何分）と時間を入れます。</li><li>よく使うメニューは、下の「練習メニューの保存」で名前（例：火曜のペース走）を付けて「保存」します。次からは「読み込む」だけです。</li><li>「スタート」を押します。ステージが変わると合図音が鳴り、テンポも変わります。</li><li>終わったら「解除」を長押しして「リセット」を押します。メニューを最後まで終えると自動で止まります。</li></ol>
 <table><thead><tr><th></th><th>屋内</th><th>屋外（GPS）</th></tr></thead><tbody><tr><td>ステージが進むとき</td><td>決めた時間がたったとき</td><td>決めた距離を走ったとき</td></tr><tr><td>1 km毎のお知らせとラップ表</td><td>なし</td><td>あり</td></tr></tbody></table>
 <p>屋外では、「GPSの位置をつかみました。」と出てからスタートしてください。走っている途中の「ペースアップ／ダウン」は、時速を0.1 kmずつ変えてテンポを合わせます。「練習の内容をクリア」はメニューだけを空にします（2回押す）。</p>
-<p><strong>途中でやめるとき（一時停止と練習を終了）</strong>：「一時停止」はタイマーを止めるだけで、もう一度押すと続きから走れます。練習を途中で終えるときは「練習を終了」を押し、「もう一度押すと終了」と出たらもう一度押します。画面ロック中は、下のバーの「練習を終了」を長押しします。終了すると、そこまでの距離で消費カロリーを出し、屋外なら「この練習を記録に残しますか？」と聞かれます。そのあと「おつかれさまでした」の欄で保存が済んだら、「閉じる」を押して終えます。</p>
+<p><strong>途中でやめるとき（一時停止と練習を終了）</strong>：「一時停止」はタイマーを止めるだけで、もう一度押すと続きから走れます。練習を途中で終えるときは「練習を終了」を押し、「もう一度押すと終了」と出たらもう一度押します。画面ロック中は、屋外の練習では下のバーの「練習を終了」を長押しします。屋内の練習では「一時停止／終了」を押してから、画面の上の「終了」を押します。終了すると、そこまでの距離で消費カロリーを出し、屋外なら「この練習を記録に残しますか？」と聞かれます。そのあと「おつかれさまでした」の欄で保存が済んだら、「閉じる」を押して終えます。</p>
 <div class="gfigs"><figure class="gfig"><img src="guide/g_end.webp" loading="lazy" alt="「練習を終了」は2回押すと終わります" onerror="this.parentNode.hidden=true"><figcaption>「練習を終了」は2回押すと終わります</figcaption></figure><figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="ロック中は「練習を終了」を長押し" onerror="this.parentNode.hidden=true"><figcaption>ロック中は「練習を終了」を長押し</figcaption></figure></div>
 <p><strong>曲の順番とシャッフル</strong>：練習には「曲をシャッフルして流す」はありません。練習では、曲ごとに流すステージ（「全ステージ」か、個別のステージ）を選べて、ステージが変わるとそのステージ用の曲を、「曲」タブで▲▼で並べた順に流すためです。流す順番を変えたいときは、▲▼で並べ替えてください。シャッフルは、本番（「曲」タブの「曲を追加」の下）とリラックスで使えます。</p>
 <h3>練習メニューを自動で作る</h3>
@@ -1111,8 +1119,9 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <figure class="gfig"><img src="guide/g_top_en.webp" loading="lazy" alt="Training screen: mode buttons, Indoor/Outdoor and the running display" onerror="this.parentNode.hidden=true"><figcaption>Training screen: mode buttons, Indoor/Outdoor and the running display</figcaption></figure>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
+<p><strong>Lock during indoor training</strong>: indoors you usually put the phone on the machine, so the locked screen has only three buttons, "Pace down", "Pace up" and "Pause / End", and each works with a <strong>single tap</strong>. "Pause / End" stops the timer and the music and shows a large "Resume" button at the bottom and "End" at the top. If a towel touches it, training is only paused; press "Resume" to continue. To stop training, press "End" at the top. When you finish the whole menu, the lock is released automatically.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-10l" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-10m" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1130,7 +1139,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <ol><li>Press "1. Training" and choose "Indoor (stages advance by time)" or "Outdoor (advance by GPS distance)".</li><li>On the "Menu" tab, choose "Steady run", "LSD", "Build-up" or "Jog", or enter a pace (min per km) and time for each stage.</li><li>Save menus you use often with "Save practice menu" below: enter a name (e.g. Tuesday pace run) and press "Save". Next time, just press "Load".</li><li>Press "Start". A beep sounds when the stage changes, and the tempo changes too.</li><li>When you are done, long-press "Unlock" and press "Reset". The app stops automatically when the menu is finished.</li></ol>
 <table><thead><tr><th></th><th>Indoor</th><th>Outdoor (GPS)</th></tr></thead><tbody><tr><td>When the stage advances</td><td>When the set time has passed</td><td>When you have run the set distance</td></tr><tr><td>Every-1-km notices and lap table</td><td>No</td><td>Yes</td></tr></tbody></table>
 <p>Outdoors, start after the message saying the GPS position has been found. "Pace up / Pace down" while running changes the speed by 0.1 km/h at a time and adjusts the tempo. "Clear training" empties only the menu (press twice).</p>
-<p><strong>Stopping partway (Pause and End training)</strong>: "Pause" only stops the timer; press it again to continue. To end training early, press "End training" and press it again when "Press again to end" appears. While the screen is locked, long-press "End training" in the bottom bar. The calories are calculated for the distance run so far, and outdoors you are asked "Save this training run?". Then, when saving is done in the "Well done!" box, press "Close" to finish.</p>
+<p><strong>Stopping partway (Pause and End training)</strong>: "Pause" only stops the timer; press it again to continue. To end training early, press "End training" and press it again when "Press again to end" appears. While the screen is locked, long-press "End training" in the bottom bar (outdoor), or press "Pause / End" and then "End" at the top (indoor). The calories are calculated for the distance run so far, and outdoors you are asked "Save this training run?". Then, when saving is done in the "Well done!" box, press "Close" to finish.</p>
 <div class="gfigs"><figure class="gfig"><img src="guide/g_end_en.webp" loading="lazy" alt="Press &quot;End training&quot; twice to finish" onerror="this.parentNode.hidden=true"><figcaption>Press "End training" twice to finish</figcaption></figure><figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="When locked, long-press &quot;End training&quot;" onerror="this.parentNode.hidden=true"><figcaption>When locked, long-press "End training"</figcaption></figure></div>
 <p><strong>Song order and shuffle</strong>: Training has no "Shuffle songs". In Training you can choose which stages each song plays in ("All stages" or particular stages), and when the stage changes, the songs for that stage play in the order you arranged with ▲▼ on the "Songs" tab. To change the order, rearrange the songs with ▲▼. Shuffle is available in Race (on the "Songs" tab, below "Add songs") and in Relax.</p>
 <h3>Auto-generate a training menu</h3>
@@ -1895,7 +1904,7 @@ function unlock(){wrapEl.inert=false;lockLayer.hidden=true;cancelHold();$('#btnL
 function cancelHold(){cancelAnimationFrame(holdRaf);holdRaf=0;lockLayer.querySelectorAll('.fill').forEach(f=>f.style.width='0');}
 /* press-and-hold buttons on the lock layer */
 function bindHold(btn,action){const fill=btn.querySelector('.fill');
-  const go=e=>{if(e)e.preventDefault();cancelHold();const t0=performance.now();
+  const go=e=>{if(e)e.preventDefault();cancelHold();if(btn.dataset.tap&&typeof inLock==='function'&&inLock()){action();return;}const t0=performance.now();
     const step=()=>{const p=Math.min(1,(performance.now()-t0)/HOLD);fill.style.width=(p*100)+'%';if(p>=1){cancelHold();action();return;}holdRaf=requestAnimationFrame(step);};holdRaf=requestAnimationFrame(step);};
   btn.addEventListener('pointerdown',go);['pointerup','pointerleave','pointercancel'].forEach(t=>btn.addEventListener(t,cancelHold));
   btn.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat)go(e);});btn.addEventListener('keyup',cancelHold);}
@@ -2428,7 +2437,7 @@ function changeSpd(d){if(!R.running||MODE==='relax')return;RS.spd=Math.round(((R
   renderRun();clearTimeout(spdRelock);spdRelock=setTimeout(()=>{if(R.running&&lockLayer.hidden)lock();},3000);}
 document.addEventListener('click',e=>{const b=e.target.closest('#spdUp,#spdDown');if(b)changeSpd(b.id==='spdUp'?0.1:-0.1);});
 {const row=document.createElement('div');row.className='spdlock';row.id='spdLock';row.hidden=true;
- row.innerHTML='<button class="unlock" id="lockSpdDown"><i class="fill"></i><span>ペースダウン<br><small>長押し 時速−0.1</small></span></button><button class="unlock" id="lockSpdUp"><i class="fill"></i><span>ペースアップ<br><small>長押し 時速＋0.1</small></span></button>';
+ row.innerHTML='<button class="unlock" id="lockSpdDown" data-tap="1"><i class="fill"></i><span>ペースダウン<br><small class="spdh">長押し 時速−0.1</small></span></button><button class="unlock" id="lockSpdUp" data-tap="1"><i class="fill"></i><span>ペースアップ<br><small class="spdh">長押し 時速＋0.1</small></span></button>';
  lockLayer.querySelector('.lock-bar').prepend(row);
  bindHold(row.querySelector('#lockSpdDown'),()=>changeSpd(-0.1));bindHold(row.querySelector('#lockSpdUp'),()=>changeSpd(0.1));
  const _l=lock;lock=function(){_l();row.hidden=!(R.running&&MODE!=='relax');};}
@@ -4650,6 +4659,12 @@ P(/^ロスタイム (.+)$/,m=>[`Start loss ${m[1]}`,`起跑损失 ${m[1]}`,`起�
 P(/^このペースならゴール ([\d:]+)（([\d:]+)着）$/,m=>[`At this pace: finish ${m[1]} (${m[2]})`,`按此配速完赛 ${m[1]}（${m[2]}到达）`,`按此配速完賽 ${m[1]}（${m[2]}抵達）`,`이 페이스면 골 ${m[1]}(${m[2]} 도착)`]);
 P(/^消費カロリー（目安） 約([\d,]+) kcal$/,m=>[`Calories burned (est.) about ${m[1]} kcal`,`消耗卡路里（参考） 约${m[1]} kcal`,`消耗卡路里（參考） 約${m[1]} kcal`,`소비 칼로리(목안) 약 ${m[1]} kcal`]);
 P(/^消費カロリー 約([\d,]+) kcal$/,m=>[`Calories about ${m[1]} kcal`,`卡路里 约${m[1]} kcal`,`卡路里 約${m[1]} kcal`,`칼로리 약 ${m[1]} kcal`]);
+W('一時停止／終了','Pause / End','暂停／结束','暫停／結束','일시정지 / 종료');
+W('再開する','Resume','继续','繼續','재개하기');
+W('一時停止しました。','Paused.','已暂停。','已暫停。','일시정지했습니다.');
+W('続けるときは「再開する」、やめるときは上の「終了」','To continue, press "Resume". To stop, press "End" at the top.','继续请按“继续”，结束请按上方的“结束”','繼續請按「繼續」，結束請按上方的「結束」','계속하려면 "재개하기", 그만두려면 위의 "종료"');
+W('時速＋0.1','+0.1 km/h','时速+0.1','時速+0.1','시속 +0.1');
+W('時速−0.1','−0.1 km/h','时速−0.1','時速−0.1','시속 −0.1');
 W('🎒 持ち物チェックリスト','🎒 Packing checklist','🎒 物品清单','🎒 物品清單','🎒 준비물 체크리스트');
 W('← 戻る','← Back','← 返回','← 返回','← 돌아가기');
 W('持ち物チェックリスト','Packing checklist','物品清单','物品清單','준비물 체크리스트');
@@ -4902,6 +4917,27 @@ function practiceEnd(sure){if(MODE!=='practice'||R.done||!(R.running||R.acc>0))r
   endArm=0;b.classList.remove('danger');b.textContent='練習を終了';
   const real=rawEl();R.endAcc=real;finish();R.acc=real;R.endAcc=real;try{unlock();}catch(e){}renderAll();say('練習を終了しました。おつかれさまでした。');}
 $('#btnEnd').addEventListener('click',()=>practiceEnd(false));
+/* ===================== 屋内の練習：ロック中は1回押し（ペース・一時停止／終了） ===================== */
+function inLock(){return MODE==='practice'&&!opt.outdoor;}
+{const bar=lockLayer.querySelector('.lock-bar');
+ const pb=document.createElement('button');pb.className='unlock stopbtn';pb.id='lockPause';pb.hidden=true;pb.innerHTML='<span>一時停止／終了</span>';bar.appendChild(pb);
+ const pz=document.createElement('div');pz.className='inpause';pz.id='inPause';pz.hidden=true;
+ pz.innerHTML='<button class="inend" id="inEnd">終了</button><div class="mid">一時停止中<small>続けるときは「再開する」、やめるときは上の「終了」</small></div><button id="inResume">再開する</button>';
+ lockLayer.appendChild(pz);
+ pb.addEventListener('click',e=>{e.preventDefault();if(!inLock()||!R.running||R.paused)return;pause();try{speechSynthesis.cancel();}catch(_){}say('一時停止しました。');});
+ pz.querySelector('#inResume').addEventListener('click',e=>{e.preventDefault();if(!inLock()||!R.paused)return;start();});
+ pz.querySelector('#inEnd').addEventListener('click',e=>{e.preventDefault();if(!inLock())return;practiceEnd(true);});}
+function inLockUI(){const pb=document.getElementById('lockPause'),pz=document.getElementById('inPause');if(!pb)return;
+  const on=inLock()&&!lockLayer.hidden;
+  if(on&&R.done){unlock();return;}
+  const run=on&&R.running&&!R.done;
+  pb.hidden=!(run&&!R.paused);pz.hidden=!(run&&R.paused);
+  lockLayer.querySelector('.lock-bar').hidden=!!(run&&R.paused);
+  lockLayer.classList.toggle('inmode',on);
+  lockLayer.querySelectorAll('.spdh').forEach(x=>{const t=on?(x.closest('#lockSpdUp')?'時速＋0.1':'時速−0.1'):(x.closest('#lockSpdUp')?'長押し 時速＋0.1':'長押し 時速−0.1');if(x.textContent!==t)x.textContent=t;});}
+{const _l=lock;lock=function(){_l.apply(this,arguments);try{inLockUI();}catch(e){}};}
+{const _u=unlock;unlock=function(){_u.apply(this,arguments);try{lockLayer.querySelector('.lock-bar').hidden=false;const pz=document.getElementById('inPause');if(pz)pz.hidden=true;}catch(e){}};}
+{const _rr=renderRun;renderRun=function(){_rr.apply(this,arguments);try{inLockUI();}catch(e){}};}
 {const _rr=renderRun;renderRun=function(){_rr.apply(this,arguments);try{const b=$('#btnEnd');b.hidden=!(MODE==='practice'&&!R.done&&(R.running||R.acc>0));lockStopUI();}catch(e){}};}
 {const _r=reset;reset=function(){R.endAcc=null;return _r.apply(this,arguments);};}
 {const _s=start;start=function(){if(R.done)R.endAcc=null;return _s.apply(this,arguments);};}
