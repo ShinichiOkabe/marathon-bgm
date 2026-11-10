@@ -820,7 +820,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-10i</p>
+  <p class="ver" data-notr translate="no">版 2026-11-10j</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -866,7 +866,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-10i」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-10j」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -922,6 +922,14 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>項目</th><th>入れるもの</th><th>例</th></tr></thead><tbody><tr><td>大会名・種目</td><td>フル／ハーフ／その他（距離を入力）</td><td>水戸黄門漫遊マラソン、フル</td></tr><tr><td>開催日・スタート時刻</td><td>号砲の時刻</td><td>2026/11/1、9:00</td></tr><tr><td>ウェーブの遅れ</td><td>先頭ウェーブのスタートから、自分が並ぶブロックのウェーブがスタートするまでの分数（ウェーブがない大会は0）</td><td>10</td></tr><tr><td>制限時間</td><td>時:分。ウェーブスタートの大会は、大会の制限時間に「先頭ウェーブから最終ウェーブがスタートするまでの時間差」を足して入れる</td><td>6:00＋20分→6:20</td></tr><tr><td>目標タイム</td><td>時:分:秒</td><td>4:30:00</td></tr><tr><td>関門</td><td>1行に1か所「距離km 閉鎖時刻」</td><td>10 10:40</td></tr><tr><td>給水所・エイド</td><td>1行に1か所「距離km 内容」</td><td>15 水 バナナ</td></tr><tr><td>折り返し地点（任意）</td><td>1行に1か所「距離km 名前」。通過時刻を記録に残します</td><td>10.5 第1折り返し</td></tr></tbody></table>
 <figure class="gfig"><img src="guide/g_race.webp" loading="lazy" alt="「大会」タブの入力例。関門・給水所・折り返し地点を1行ずつ書くと、下に読み取った内容が出ます" onerror="this.parentNode.hidden=true"><figcaption>「大会」タブの入力例。関門・給水所・折り返し地点を1行ずつ書くと、下に読み取った内容が出ます</figcaption></figure>
 <p>給水所の「内容」は、「水」は給水、「食」は食べ物、それ以外は書いた品名のままです。入力欄の下の「読み取った…」で、正しく読めたか確かめられます。別の大会に切り替えるときは、「本番レース情報・戦略を保存」の「読み込む」を押します。</p>
+<h3>時間の入れ方（数字だけでOK）</h3>
+<p>目標タイム・制限時間・ペース・公式記録などの時間は、<b>数字だけ続けて入れれば「:」は自動で入ります</b>。スマホの数字キーのままで入れられます。</p>
+<table><thead><tr><th>欄</th><th>入れる数字</th><th>なる形</th></tr></thead><tbody>
+<tr><td>目標タイム・公式記録（時:分:秒）</td><td>40110<br>33000<br>5000</td><td>4:01:10<br>3:30:00<br>0:50:00（4けたは分:秒）</td></tr>
+<tr><td>制限時間（時:分）</td><td>600<br>1330</td><td>6:00<br>13:30</td></tr>
+<tr><td>1kmのペース（分:秒）</td><td>530</td><td>5:30</td></tr>
+<tr><td>関門（1行ずつ）</td><td>10 140<br>30 1330</td><td>10 kmを号砲から1:40<br>30 kmが13:30に閉鎖</td></tr></tbody></table>
+<p>開催日とスタート時刻は、スマホのカレンダーと時計の画面から選びます。</p>
 <h3>持ち物チェックリスト</h3>
 <p>画面上部の「<b>🎒 持ち物チェックリスト</b>」で、大会の持ち物を確かめる画面が開きます（本番の待機中と走っている間は開けません）。</p>
 <ol><li>「① 種目」で「マラソン（フル・ハーフなど）」か「ウルトラマラソン」を選びます。</li>
@@ -1103,7 +1111,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-10i" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-10j" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1159,6 +1167,14 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Item</th><th>What to enter</th><th>Example</th></tr></thead><tbody><tr><td>Race name / event</td><td>Full / Half / Other (enter the distance)</td><td>Mito Komon Marathon, Full</td></tr><tr><td>Date / start time</td><td>Time of the starting gun</td><td>2026/11/1, 9:00</td></tr><tr><td>Wave delay</td><td>Minutes from the start of the first wave until the wave of your block starts (0 if the race has no waves)</td><td>10</td></tr><tr><td>Time limit</td><td>h:mm. For wave starts, add "the time between the first and the last wave start" to the race's time limit</td><td>6:00 + 20 min → 6:20</td></tr><tr><td>Target time</td><td>h:mm:ss</td><td>4:30:00</td></tr><tr><td>Cutoffs</td><td>One per line: "distance-km closing-time"</td><td>10 10:40</td></tr><tr><td>Aid stations</td><td>One per line: "distance-km contents"</td><td>15 water banana</td></tr><tr><td>Turnarounds (optional)</td><td>One per line: "distance-km name". The time you pass each one is logged</td><td>10.5 1st turnaround</td></tr></tbody></table>
 <figure class="gfig"><img src="guide/g_race_en.webp" loading="lazy" alt="Example &quot;Race&quot; tab. Write checkpoints, aid stations and turnarounds one per line; what was read appears below" onerror="this.parentNode.hidden=true"><figcaption>Example "Race" tab. Write checkpoints, aid stations and turnarounds one per line; what was read appears below</figcaption></figure>
 <p>For aid station contents, "水" means water, "食" means food, and anything else is shown as written. Check below the input box that it was read correctly. To switch to another race, press "Load" in "Save race info &amp; strategy".</p>
+<h3>Entering times (digits only)</h3>
+<p>For target times, time limits, paces and official times, <b>just type the digits; the colons are added automatically</b>, so the phone's number pad is enough.</p>
+<table><thead><tr><th>Field</th><th>Type</th><th>Becomes</th></tr></thead><tbody>
+<tr><td>Target / official times (h:mm:ss)</td><td>40110<br>33000<br>5000</td><td>4:01:10<br>3:30:00<br>0:50:00 (4 digits = mm:ss)</td></tr>
+<tr><td>Time limit (h:mm)</td><td>600<br>1330</td><td>6:00<br>13:30</td></tr>
+<tr><td>Pace (m:ss)</td><td>530</td><td>5:30</td></tr>
+<tr><td>Checkpoints (one per line)</td><td>10 140<br>30 1330</td><td>10 km, 1:40 after the gun<br>30 km closes at 13:30</td></tr></tbody></table>
+<p>The race date and start time are picked from the phone's calendar and clock.</p>
 <h3>Packing checklist</h3>
 <p>Tap "<b>🎒 Packing checklist</b>" at the top to open a screen for checking your race-day items (it cannot be opened while waiting for or running a race).</p>
 <ol><li>In "① Event", choose "Marathon (full, half, etc.)" or "Ultramarathon".</li>
@@ -5607,7 +5623,7 @@ function offPanelOpen(id){const d=logData();if(!d||d.id!==id)return;OP.id=id;con
   <div class="off-warn" id="ofWarn" hidden></div>
   <div class="op-b"><button class="primary" type="button" id="ofSave">確認して保存</button><button class="small" type="button" id="ofBack">戻る（保存しない）</button>${o.net||o.gross||Object.keys(S).length?'<button class="small" type="button" id="ofClear">公式タイムを消す</button>':''}</div></div>`;
   $('#ofBasis').value=o.basis==='gross'?'gross':'net';offPanel.hidden=false;offPanel.scrollTop=0;
-  offPanel.querySelectorAll('input.oft').forEach(x=>x.addEventListener('input',e=>{if(e.inputType&&!/^insert|^delete/.test(e.inputType))return;const f=offFmtDigits(x.value);if(f!==x.value){x.value=f;try{x.setSelectionRange(f.length,f.length);}catch(er){}}}));offPanel.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',offCheck));$('#ofBasis').addEventListener('change',offCheck);
+  offPanel.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',offCheck));$('#ofBasis').addEventListener('change',offCheck);
   $('#ofBack').onclick=offPanelClose;$('#ofSave').onclick=offPanelSave;const c=$('#ofClear');if(c)c.onclick=offPanelClear;offCheck();}
 function offPanelClose(){offPanel.hidden=true;offPanel.innerHTML='';OP.id=null;offBox.dataset.h='';renderLog();}
 function offRead2(d){const v=id=>{const e=$('#'+id);return e?e.value.trim():'';},tm=s=>s?hmsMs(offNormT(s)):null,num=s=>{s=s.replace(/[^\d]/g,'');return s?+s:null;};
@@ -5937,6 +5953,22 @@ function appAsk(msg,okTxt,cb){let m=document.getElementById('appAskBox');if(m)m.
 function askThen(msg,okTxt,fn){appAsk(msg,okTxt,()=>{__OK=1;try{fn();}finally{__OK=0;}});}
 
 {const _rlm=renderLog;renderLog=function(){const r=_rlm.apply(this,arguments);try{mgRender();}catch(e){}return r;};try{mgRender();}catch(e){}}
+
+/* ===================== 時間の入力は数字だけで（「:」は自動） =====================
+   40110 → 4:01:10、5000 → 0:50:00（時:分:秒の欄）／ 600 → 6:00（時:分の欄）／ 530 → 5:30（1kmのペースの欄）。
+   「:」「.」を打っても同じ形にそろえる */
+const TF_SEL=[['#rcGoal','hms'],['#agGoal','hms'],['input.oft','hms'],['[data-f=goal]','hms'],['#rcLimit','hm'],['input[data-f=pace]','ms']];
+function tfKind(el){if(!el||el.tagName!=='INPUT')return null;for(const [q,k] of TF_SEL)if(el.matches(q))return k;return null;}
+function tfDigits(v){const t=String(v||'').replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248));return /^[\d:：.．・\s]*$/.test(t)?t.replace(/\D/g,''):null;}
+function tfLive(d,k){const n=k==='hms'?6:4;d=d.slice(0,n);if(d.length<=2)return d;if(d.length<=4||k!=='hms')return d.slice(0,-2)+':'+d.slice(-2);return d.slice(0,-4)+':'+d.slice(-4,-2)+':'+d.slice(-2);}
+function tfFinal(d,k){if(!d)return '';if(k==='hms'){if(d.length<=2)return d;if(d.length<=4)return '0:'+d.padStart(4,'0').slice(0,2)+':'+d.slice(-2);return tfLive(d,k);}
+  if(d.length<=2)return (+d)+':00';return tfLive(d,k);}
+function tfApply(){document.querySelectorAll(TF_SEL.map(x=>x[0]).join(',')).forEach(el=>{if(el.getAttribute('inputmode')!=='numeric')el.setAttribute('inputmode','numeric');});}
+document.addEventListener('input',e=>{const el=e.target,k=tfKind(el);if(!k||e.isComposing||el.__tf)return;const d=tfDigits(el.value);if(d==null)return;const f=tfLive(d,k);
+  if(f!==el.value){el.value=f;try{el.setSelectionRange(f.length,f.length);}catch(er){}}},true);
+document.addEventListener('change',e=>{const el=e.target,k=tfKind(el);if(!k)return;const d=tfDigits(el.value);if(d==null)return;const f=tfFinal(d,k);
+  if(f!==el.value){el.value=f;el.__tf=1;try{el.dispatchEvent(new Event('input',{bubbles:true}));}finally{el.__tf=0;}}},true);
+tfApply();new MutationObserver(()=>tfApply()).observe(document.body,{childList:true,subtree:true});
 </script>
 </body>
 </html>
