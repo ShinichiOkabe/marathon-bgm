@@ -75,6 +75,7 @@
 .pk-add{margin-top:12px}.app-ask-t{white-space:pre-line;max-height:60vh;overflow:auto;font-size:.98rem!important}.pk-ask{position:fixed;inset:0;z-index:2147483100;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}.pk-ask-c{background:var(--surface);color:var(--ink);border-radius:14px;padding:18px 16px;max-width:360px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.3)}.pk-ask-c p{margin:0 0 14px;font-size:1.05rem;line-height:1.5}.pk-ask-b{display:flex;justify-content:flex-end;gap:10px}.pk-note{font-size:.8rem;margin:0 0 4px}
 body.pk-open{overflow:hidden}
 .off-grid{display:grid;grid-template-columns:auto 1fr;gap:0;margin:8px 0 6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}.og-i{display:contents}.og-l,.og-v{padding:7px 10px;border-bottom:1px solid var(--line)}.og-l{color:var(--muted);font-size:.82rem;white-space:nowrap;background:color-mix(in srgb,var(--line) 35%,transparent)}.og-v{font-size:.98rem}.og-v b{font-size:1.08rem}.off-grid .og-i:last-child .og-l,.off-grid .og-i:last-child .og-v{border-bottom:0}
+.rlog #logTable th,.rlog #logTable td{width:1%}.rlog #logTable th.fill,.rlog #logTable td.fill{width:auto;padding:0;border-bottom-color:transparent}.rlog #logTable td,.rlog #logTable th{padding-left:9px;padding-right:9px}.rlog #logTable td.pn{min-width:0;max-width:22em}
 </style>
 </head>
 <body>
@@ -820,7 +821,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-10j</p>
+  <p class="ver" data-notr translate="no">版 2026-11-10k</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -866,7 +867,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>モード</th><th>設定のタブ</th></tr></thead><tbody><tr><td>練習</td><td>メニュー ／ 曲 ／ 音・合図</td></tr><tr><td>本番</td><td>大会 ／ 戦略・記録 ／ 曲 ／ 音・合図</td></tr><tr><td>リラックス</td><td>タブなし（リラックスと曲を1つの画面に。ドラム・無音・音・合図はありません）</td></tr></tbody></table>
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-10j」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-10k」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -1111,7 +1112,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>Mode</th><th>Settings tabs</th></tr></thead><tbody><tr><td>Training</td><td>Menu / Songs / Sound &amp; cues</td></tr><tr><td>Race</td><td>Race / Strategy &amp; log / Songs / Sound &amp; cues</td></tr><tr><td>Relax</td><td>No tabs (relax settings and songs on one screen; no Drum, Silent or Sound &amp; cues)</td></tr></tbody></table>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-10j" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-10k" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -2694,11 +2695,11 @@ function renderLog(){const sel=$('#logSel');if(!sel)return;const cur=curLogData(
   const rows=logRows(d),ls=lossOf(d);$('#logInfo').textContent=`スタート ${ymd(d.startAt)}　記録 ${rows.length}地点`+(d.el?`　ネット ${hms(d.el)}`:'')+(d.el&&ls!=null?`　グロス ${hms(gsum(d.el,ls))}`:'')+(ls!=null?`　ロスタイム ${hms(ls)}`:'')+(d.kcal?`　消費カロリー ${kcalTxt(d.kcal)}`:'')+(d.menu?`　メニュー ${d.menu}`:'')+(isP&&d.km?`　距離 ${(+d.km).toFixed(2)} km`:'');
   $('#logChart').innerHTML=logChart(rows,d);
   const evs=(d.ev||[]).filter(e=>!['start'].includes(e.type));
-  const wxOn=wxHas(d),pr=passShown(d),C=CMP.cur,nc=5+(wxOn?3:0)+(C?3:0);
-  const body=rows.map((x,i)=>({k:x.km,o:1,h:`<tr><td>${x.km}</td><td>${hms(x.t)}</td><td>${x.pace?fmtPace(x.pace):'—'}</td><td class="${x.diff!=null&&x.diff>60000?'late':''}">${x.diff!=null?sgn(x.diff):'—'}</td><td class="src">${x.src}</td>${wxOn?wxTds(d,x,i?rows[i-1].km:0):''}${C?cmpTds(d,x,i?rows[i-1].km:0):''}</tr>`}))
-    .concat(pr.map(p=>({k:p.km,o:0,h:`<tr class="pass pass-${p.type}"><td>${+p.km.toFixed(2)}</td><td>${hms(p.t)}</td><td colspan="2" class="pn"><span>${esc(p.name)}</span>${p.type==='cp'?cpCell(p):''}${p.type==='turn'&&p.gps?'<span class="gpsok">GPSで確認</span>':''}${p.type==='turn'&&!d.live&&!p.gps?`<button class="small pdel" type="button" data-pdel="${p.km}|${esc(p.name)}">削除</button>`:''}</td><td class="src">${p.src||''}</td>${wxOn?wxTds(d,p,null):''}${C?cmpTds(d,p,null):''}</tr>`})))
+  const wxOn=wxHas(d),pr=passShown(d),C=CMP.cur,nc=5+(wxOn?3:0)+(C?3:0);/* 4列＋埋め草1列 */
+  const body=rows.map((x,i)=>({k:x.km,o:1,h:`<tr><td>${x.km}</td><td>${hms(x.t)}</td><td>${x.pace?fmtPace(x.pace):'—'}</td><td class="${x.diff!=null&&x.diff>60000?'late':''}">${x.diff!=null?sgn(x.diff):'—'}</td>${wxOn?wxTds(d,x,i?rows[i-1].km:0):''}${C?cmpTds(d,x,i?rows[i-1].km:0):''}<td class="fill"></td></tr>`}))
+    .concat(pr.map(p=>({k:p.km,o:0,h:`<tr class="pass pass-${p.type}"><td>${+p.km.toFixed(2)}</td><td>${hms(p.t)}</td><td colspan="2" class="pn"><span>${esc(p.name)}</span>${p.type==='cp'?cpCell(p):''}${p.type==='turn'&&p.gps?'<span class="gpsok">GPSで確認</span>':''}${p.type==='turn'&&!d.live&&!p.gps?`<button class="small pdel" type="button" data-pdel="${p.km}|${esc(p.name)}">削除</button>`:''}</td>${wxOn?wxTds(d,p,null):''}${C?cmpTds(d,p,null):''}<td class="fill"></td></tr>`})))
     .sort((a,b)=>a.k-b.k||a.o-b.o);
-  $('#logTable').innerHTML=`<table><thead><tr><th>km</th><th>経過</th><th>ラップ</th><th>目標差</th><th>記録​</th>${wxOn?'<th>天気</th><th>気温</th><th>風</th>':''}${C?'<th class="cmp">比較差</th><th class="cmp">比較ラップ</th><th class="cmp">比較の天気</th>':''}</tr></thead><tbody>`+
+  $('#logTable').innerHTML=`<table><thead><tr><th>km</th><th>経過</th><th>ラップ</th><th>目標差</th>${wxOn?'<th>天気</th><th>気温</th><th>風</th>':''}${C?'<th class="cmp">比較差</th><th class="cmp">比較ラップ</th><th class="cmp">比較の天気</th>':''}<th class="fill"></th></tr></thead><tbody>`+
     body.map(x=>x.h).join('')+
     evs.map(e=>`<tr class="ev"><td colspan="${nc}">${clock(e.at)}　${esc(e.msg||e.type)}</td></tr>`).join('')+`</tbody></table>`;
   try{geoRender(d);}catch(e){}}
