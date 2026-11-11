@@ -834,7 +834,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-11b</p>
+  <p class="ver" data-notr translate="no">版 2026-11-11e</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -881,7 +881,7 @@ body.live .recv{display:none}
 <p><strong>画面ロック</strong>：スタートすると画面が自動でロックされ、ポケットの中でボタンが勝手に押されなくなります。使えるボタン（ペースアップ／ダウン、距離の確定・取消、ゴール、解除）は画面下のバーに並び、<strong>長押し</strong>で動きます。押し続けると色が左から満たされ、いっぱいになると実行されます。</p>
 <p><strong>屋内の練習のロック</strong>：屋内の練習では、スマホを台に置いて走ることが多いので、ロック中のボタンは「ペースダウン」「ペースアップ」「一時停止／終了」の3つだけで、どれも<strong>1回押す</strong>だけで動きます。「一時停止／終了」を押すとタイマーと曲が止まり、下に大きな「再開する」、画面の上に「終了」が出ます。タオルなどが触れても一時停止になるだけなので、「再開する」を押せば続きから走れます。練習をやめるときは、上の「終了」を押します。メニューを最後まで終えると、ロックは自動で外れます。</p>
 <figure class="gfig"><img src="guide/g_lock.webp" loading="lazy" alt="走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます" onerror="this.parentNode.hidden=true"><figcaption>走っている間の画面（ロック中）。下のバーのボタンは長押しで動きます</figcaption></figure>
-<p>ページの一番下には「版 2026-11-11b」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
+<p>ページの一番下には「版 2026-11-11e」のような版の表示があります。新しい版になったかを確かめるときに見ます。新しい版が出ると、画面の上に「新しい版があります」と出るので、「新しい版にする」を押します。</p>
 <h3 id="h-finish">終わったあと：記録の保存と「閉じる」</h3>
 <p>練習を終了したときや本番でゴールしたときは、画面がそのまま残り、「おつかれさまでした」の欄に記録の保存の状況が出ます。</p>
 <ul><li><strong>この記録</strong>：この端末に保存したか（屋外の練習は、下に出る確認で「保存する」を選びます）</li><li><strong>天気</strong>・<strong>場所名</strong>（練習）：ネットにつながると自動で取得します</li><li><strong>Dropbox</strong>：保存先がDropboxのとき、ネットにつながると自動で保存します</li></ul>
@@ -975,15 +975,15 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p><strong>現在地は戻りません</strong>：GPSなどで一度進んだ距離より、推定の現在地が戻ることはありません（自分で看板を確定し直したときだけ変わります）。スマホを開き直したときも、それまでに進んだ距離から続けます。</p>
 <p><strong>ゴール（終了）を間違えて押したとき</strong>：終了の画面に出る「ゴール（終了）を取り消して走り続ける」を押すと、終了する前の状態に戻って走行を続けます（終了から20分以内。時間はそのまま進んでいます）。</p>
 <figure class="gfig"><img src="guide/g_fx.webp" loading="lazy" alt="距離の確定のボタン（上：ロックしていないとき、下：ロック中）" onerror="this.parentNode.hidden=true"><figcaption>距離の確定のボタン（上：ロックしていないとき、下：ロック中）</figcaption></figure>
-<p>距離の看板を通ったときに「距離の確定」で合わせると、現在地を正しく直せます。ここで合わせておくと、ゴールしたあとの1 km毎の時刻もより正確になります（「8. 記録（ログ）とグラフ・実績」の「距離と時間の調整（時間配分）」）。5 km地点からは1 km毎に、目標より10分以上遅れていないかを直近5 kmで判定し、遅れていれば直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに）。一度調整したあとは、速さが時速0.3 km以上変わるときか、完走優先に切り替えるときだけ調整し直します。</p>
+<p>距離の看板を通ったときに「距離の確定」で合わせると、現在地を正しく直せます。ここで合わせておくと、ゴールしたあとの1 km毎の時刻もより正確になります（「8. 記録（ログ）とグラフ・実績」の「距離と時間の調整（時間配分）」）。5 km地点からは1 km毎に、目標より10分以上遅れていないかを直近5 kmで判定し、遅れていれば直近5 kmのペースに合わせて戦略を自動で調整します（制限時間を超えそうなときは完走できる速さに。ただし上げるのは直近5 kmの実際の速さの1割増しまでで、それでも足りないときは「関門か制限時間に間に合わないかもしれません」と知らせ、直近5 kmのペースに合わせるだけにします）。一度調整したあとは、速さが時速0.3 km以上変わるときか、完走優先に切り替えるときだけ調整し直します。</p>
 <h2 id="h-6">6. リラックス</h2>
 <p>「使う」にチェックした曲を、元の速さのまま「ストップ」を押すまで繰り返し流します。ストレッチやクールダウンのときに使えます。</p>
 <ol><li>「3. リラックス」を押します。</li><li>リラックスにはタブがなく、設定と曲が1つの画面にまとまっています。本番の「曲」タブと同じ並びで、曲を追加する場所・曲の一覧・紫の枠「🎵 曲の登録（マイリスト）」が続きます。マイリストで流したい曲の組み合わせを「読み込む」か、新しく登録します。</li><li>順番をバラバラにしたいときは「曲をシャッフルして流す」にチェックし、「再生」を押します。</li></ol>
 <h2 id="h-7">7. 音と音声のお知らせ</h2>
 <p>「曲」タブの一番上の「流す音」で、曲・ドラム・無音を選べます。ドラムと無音では曲を使わないので、曲の一覧（曲を追加）、紫の枠「🎵 曲の登録（マイリスト）」、「曲の先頭へ」「次の曲」のボタンは表示されません。合図音、音量、リズムの微調整（曲がゆっくりに感じたら「早く」）は「音・合図」タブで変えられます。</p>
 <table><thead><tr><th>流す音</th><th>流れる音</th></tr></thead><tbody><tr><td>曲を流す</td><td>「使う」にチェックした曲を、ペースに合わせた速さで</td></tr><tr><td>ドラム</td><td>曲の代わりに、ペースに合った歩数（例：171歩/分）でドラム</td></tr><tr><td>無音</td><td>音楽なし。合図音と音声のお知らせだけ</td></tr></tbody></table>
-<p>音声のお知らせを読み上げている間は、曲やドラムの音量を自動で大きく下げ、読み終わると元に戻します。「音・合図」タブの「<strong>音声案内の音量</strong>」で、5段階に調整できます（真ん中の「標準」がこれまでの大きさ）。案内の声はスマホのメディアの音量より大きくはできないため、「やや大きい」「大きい」では案内のあいだ曲をさらに下げ（「大きい」は止め）、少しゆっくり読みます。「試しに聞く」で確かめられます。それでも小さいときは、スマホの音量を上げてください。案内が重なるときの順番は、①2回・3回タップへの返事、②1 km毎のラップ、③そのほか（ステージの変わり目・給水所・折り返しの手前・最終関門・中間点・30分毎など）です。③の案内は、ラップのあとに1つずつ順番に読み、ほかの案内を途中で止めることはありません。タップへの返事で途中で止まったラップなどの案内は、返事のあとに最初から読み直します。2回タップで確定している途中は、ほかの案内は確定が終わるまで待ちます。本番では、次のようなときに音声で知らせます。1 km毎のお知らせは「音・合図」タブで外せます。「1km毎にバイブレーション」にチェックを入れると、1 km毎に1回ブルッと震えます（本番と練習の屋外。Androidのみ。iPhoneは非対応）。1 km毎に画面に出るラップの表示には、直近1 kmのペースをそのまま続けたときのゴール予想（ネットタイムとゴールの時刻）も出ます。制限時間に間に合わない予想のときは、そのことも表示します。</p>
-<table><thead><tr><th>いつ</th><th>言うことの例</th></tr></thead><tbody><tr><td>スタート5分前・スタート時刻</td><td>「スタート5分前です。GPSの位置はつかめています。誤差は8メートルです。」「スタート時刻です」（まだ位置が取れていないときは「GPSはまだ位置を探しています。空が広く見える所で待ってください。」）</td></tr><tr><td>1 km毎</td><td>「17キロ。ラップ6分12秒。」（画面にも大きく表示）</td></tr><tr><td>30分ごと</td><td>「60分経過。戦略では9.8キロ地点です」</td></tr><tr><td>給水所の300 m手前</td><td>「まもなく給水所です。水、バナナがあります」</td></tr><tr><td>戦略を自動で調整したとき</td><td>「直近5キロのペースに合わせて…」</td></tr><tr><td>3回タップしたとき</td><td>「トータル5.3キロ経過。平均ラップ5分45秒です。」→ もう一度3回タップで「現在時刻は、9時30分です。」</td></tr></tbody></table>
+<p>音声のお知らせを読み上げている間は、曲やドラムの音量を自動で大きく下げ、読み終わると元に戻します。「音・合図」タブの「<strong>音声案内の音量</strong>」で、5段階に調整できます（真ん中の「標準」がこれまでの大きさ）。案内の声はスマホのメディアの音量より大きくはできないため、「やや大きい」「大きい」では案内のあいだ曲をさらに下げ（「大きい」は止め）、少しゆっくり読みます。「試しに聞く」で確かめられます。それでも小さいときは、スマホの音量を上げてください。案内が重なるときの順番は、①2回・3回タップへの返事、②1 km毎のラップ、③そのほか（ステージの変わり目・給水所・折り返し・関門の手前・最終関門・中間点・30分毎など）です。③の案内は、ラップのあとに1つずつ順番に読み、ほかの案内を途中で止めることはありません。タップへの返事で途中で止まったラップなどの案内は、返事のあとに最初から読み直します。2回タップで確定している途中は、ほかの案内は確定が終わるまで待ちます。本番では、次のようなときに音声で知らせます。1 km毎のお知らせは「音・合図」タブで外せます。「1km毎にバイブレーション」にチェックを入れると、1 km毎に1回ブルッと震えます（本番と練習の屋外。Androidのみ。iPhoneは非対応）。1 km毎に画面に出るラップの表示には、直近1 kmのペースをそのまま続けたときのゴール予想（ネットタイムとゴールの時刻）も出ます。制限時間に間に合わない予想のときは、そのことも表示します。</p>
+<table><thead><tr><th>いつ</th><th>言うことの例</th></tr></thead><tbody><tr><td>スタート5分前・スタート時刻</td><td>「スタート5分前です。GPSの位置はつかめています。誤差は8メートルです。」「スタート時刻です」（まだ位置が取れていないときは「GPSはまだ位置を探しています。空が広く見える所で待ってください。」）</td></tr><tr><td>1 km毎</td><td>「17キロ。ラップ6分12秒。」（画面にも大きく表示）</td></tr><tr><td>30分ごと</td><td>「60分経過。戦略では9.8キロ地点です」</td></tr><tr><td>給水所の300 m手前</td><td>「まもなく給水所です。水、バナナがあります」</td></tr><tr><td>戦略を自動で調整したとき</td><td>「直近5キロのペースに合わせて…」</td></tr><tr><td>関門の1 km・700 m・300 m手前</td><td>「関門まで残り約0.7キロです。今のペースなら12分余裕があります。」（足りないときは「今のペースでは3分足りません。ペースを調整します。」と言い、関門の閉鎖の少し前（最大1分前）に着く速さにテンポを上げます。上げるのは直近3 kmの実際の速さの1割増しまでで、それでも足りないときは「関門に間に合わないかもしれません。」と知らせるだけで、無理にテンポは上げません。関門を通過したら元のペースに戻します。「今のペース」は直近3 kmの実際のペースで、3 km走るまではテンポのペースで計算します）</td></tr><tr><td>3回タップしたとき</td><td>「トータル5.3キロ経過。平均ラップ5分45秒です。」（本番で関門があるときは、続けて「関門まで残り約3.2キロです。今のペースなら12分余裕があります。」）→ もう一度3回タップで「現在時刻は、9時30分です。」</td></tr></tbody></table>
 <h2 id="h-8">8. 記録（ログ）とグラフ・実績</h2>
 <p>本番では、スタート時刻と1 km毎の通過時間を自動で記録します。中間点（大会の距離の半分）と、「大会」タブに入れた折り返し地点の通過時刻も記録します。見る場所は、画面の一番上の「4. 実績」です（「本番」の「戦略・記録」タブの「「4. 実績」を開く」からも開けます）。</p>
 <div class="gfigs"><figure class="gfig"><img src="guide/g_chart.webp" loading="lazy" alt="ペースのグラフと、前回・目標との差（上ほど速い）" onerror="this.parentNode.hidden=true"><figcaption>ペースのグラフと、前回・目標との差（上ほど速い）</figcaption></figure><figure class="gfig"><img src="guide/g_geo.webp" loading="lazy" alt="前半・後半と高低差（中間点・折り返しの線つき）" onerror="this.parentNode.hidden=true"><figcaption>前半・後半と高低差（中間点・折り返しの線つき）</figcaption></figure></div>
@@ -1131,7 +1131,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p><strong>Screen lock</strong>: when you start, the screen locks automatically so buttons are not pressed by accident in your pocket. The buttons you can use (Pace up / Pace down, Confirm distance / Undo, Finish, Unlock) are in the bar at the bottom and work with a <strong>long press</strong>. While you hold, the button fills with color from the left; when it is full, the action runs.</p>
 <p><strong>Lock during indoor training</strong>: indoors you usually put the phone on the machine, so the locked screen has only three buttons, "Pace down", "Pace up" and "Pause / End", and each works with a <strong>single tap</strong>. "Pause / End" stops the timer and the music and shows a large "Resume" button at the bottom and "End" at the top. If a towel touches it, training is only paused; press "Resume" to continue. To stop training, press "End" at the top. When you finish the whole menu, the lock is released automatically.</p>
 <figure class="gfig"><img src="guide/g_lock_en.webp" loading="lazy" alt="While running (locked). The buttons in the bottom bar work with a long press" onerror="this.parentNode.hidden=true"><figcaption>While running (locked). The buttons in the bottom bar work with a long press</figcaption></figure>
-<p>At the very bottom of the page you will see a version label such as "版 2026-11-11b" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
+<p>At the very bottom of the page you will see a version label such as "版 2026-11-11e" (版 means version). Check it to see whether you have the new version. When a new version is available, "A new version is available" appears at the top of the screen; press "Update now".</p>
 <h3 id="e-finish">After you finish: saving and "Close"</h3>
 <p>When you end training or finish a race, the screen stays as it is and a "Well done!" box shows how saving is going.</p>
 <ul><li><strong>This log</strong>: whether it was saved on this device (for outdoor training, choose "Save" in the question shown below)</li><li><strong>Weather</strong> and <strong>Place</strong> (training): fetched automatically once online</li><li><strong>Dropbox</strong>: when "Save to" is Dropbox, saved automatically once online</li></ul>
@@ -1225,15 +1225,15 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p><strong>Your position never goes back</strong>: the estimated position never drops below the distance you have already covered by GPS etc. (it changes only when you confirm a marker yourself). This also holds after you reopen the app.</p>
 <p><strong>If you press Finish by mistake</strong>: on the finish screen, press "Cancel the finish and keep running" to go back to the state before you finished and carry on (within 20 minutes; the clock has kept running).</p>
 <figure class="gfig"><img src="guide/g_fx_en.webp" loading="lazy" alt="Distance confirm buttons (top: unlocked, bottom: locked)" onerror="this.parentNode.hidden=true"><figcaption>Distance confirm buttons (top: unlocked, bottom: locked)</figcaption></figure>
-<p>Confirming at distance markers corrects your position. Correcting here also makes the per-km times more accurate after you finish (see "Adjusting distance and time" in "8. Log, graphs and results"). From 5 km on, every 1 km the app checks over the last 5 km whether you are 10 or more minutes behind target; if so, the strategy is adjusted automatically to your pace over the last 5 km (or to a speed that lets you finish if you might exceed the time limit). After an adjustment, it re-adjusts only when the speed changes by 0.3 km/h or more, or when switching to finish-first.</p>
+<p>Confirming at distance markers corrects your position. Correcting here also makes the per-km times more accurate after you finish (see "Adjusting distance and time" in "8. Log, graphs and results"). From 5 km on, every 1 km the app checks over the last 5 km whether you are 10 or more minutes behind target; if so, the strategy is adjusted automatically to your pace over the last 5 km (or to a speed that lets you finish if you might exceed the time limit, but never more than 10% above your actual speed over the last 5 km; if that is not enough, you hear "You may not make a cutoff or the time limit" and the pace simply follows your last 5 km). After an adjustment, it re-adjusts only when the speed changes by 0.3 km/h or more, or when switching to finish-first.</p>
 <h2 id="e-6">6. Relax</h2>
 <p>Plays the songs checked "Use" at their original speed, repeating until you press "Stop". Use it for stretching or cooling down.</p>
 <ol><li>Press "3. Relax".</li><li>Relax has no tabs: the settings and songs are on one screen. In the same order as the Race "Songs" tab come the place to add songs, the song list, and the purple box "🎵 Song lists (my lists)". "Load" a set of songs from a my list, or register a new one.</li><li>To play in random order, check "Shuffle songs" and press "Play".</li></ol>
 <h2 id="e-7">7. Sounds and voice notices</h2>
 <p>Under "Sound to play" at the top of the "Songs" tab, choose Songs, Drum or Silent. Drum and Silent do not use songs, so the song list ("Add songs"), the purple box "🎵 Song lists (my lists)" and the "Restart song" / "Next song" buttons are not shown. Beeps, volume and fine-tuning of the rhythm (press "Faster" if the songs feel slow) are on the "Sound &amp; cues" tab.</p>
 <table><thead><tr><th>Sound to play</th><th>What you hear</th></tr></thead><tbody><tr><td>Songs</td><td>The songs checked "Use", at a speed matched to your pace</td></tr><tr><td>Drum</td><td>Instead of songs, a drum at the step rate for your pace (e.g. 171 steps/min)</td></tr><tr><td>Silent</td><td>No music; only beeps and voice notices</td></tr></tbody></table>
-<p>While a voice notice is being read out, the volume of songs and drums is lowered a lot automatically and restored when it ends. Adjust "<strong>Voice guidance volume</strong>" on the "Sound &amp; cues" tab in 5 steps (the middle, "Standard", is the volume used so far). The voice cannot be louder than the phone's media volume, so "Slightly loud" and "Loud" lower the music further during guidance ("Loud" stops it) and read a little more slowly. Press "Test" to check. If it is still quiet, turn up the phone volume. When notices overlap, the order is: (1) replies to double- or triple-taps, (2) the per-km lap notice, (3) everything else (stage changes, aid stations, turnaround ahead, final checkpoint, halfway, every 30 minutes and so on). Notices in (3) are read one at a time after the lap notice and never cut off another notice. A lap or other notice cut off by a tap reply is read again from the start after the reply. While you are confirming with double-taps, other notices wait until you finish. In a race, the app tells you things by voice at the times below. You can turn off the every-1-km notice on the "Sound &amp; cues" tab. Check "Vibrate every 1 km" to get one short vibration every 1 km (Race and outdoor Training; Android only, not supported on iPhone). The lap shown on screen every 1 km also shows a finish prediction (net time and clock time at the finish) if you keep the pace of the last 1 km. If the prediction misses the time limit, that is shown too.</p>
-<table><thead><tr><th>When</th><th>Example of what is said</th></tr></thead><tbody><tr><td>5 minutes before the start / at the start time</td><td>"5 minutes to the start. GPS has your position. Accuracy 8 meters." / "It is your start time" (if there is no position yet: "GPS is still searching for your position. Please wait where you can see open sky.")</td></tr><tr><td>Every 1 km</td><td>"17 kilometers. Lap 6 minutes 12 seconds." (also shown large on screen)</td></tr><tr><td>Every 30 minutes</td><td>"60 minutes elapsed. The strategy puts you at 9.8 km."</td></tr><tr><td>300 m before an aid station</td><td>"Aid station soon. Water and bananas."</td></tr><tr><td>When the strategy is adjusted automatically</td><td>"Adjusted to your pace over the last 5 kilometers…"</td></tr><tr><td>When you triple-tap</td><td>"Total 5.3 kilometers. Average 5 minutes 45 seconds per kilometer." → triple-tap again: "The time is 9:30."</td></tr></tbody></table>
+<p>While a voice notice is being read out, the volume of songs and drums is lowered a lot automatically and restored when it ends. Adjust "<strong>Voice guidance volume</strong>" on the "Sound &amp; cues" tab in 5 steps (the middle, "Standard", is the volume used so far). The voice cannot be louder than the phone's media volume, so "Slightly loud" and "Loud" lower the music further during guidance ("Loud" stops it) and read a little more slowly. Press "Test" to check. If it is still quiet, turn up the phone volume. When notices overlap, the order is: (1) replies to double- or triple-taps, (2) the per-km lap notice, (3) everything else (stage changes, aid stations, turnaround and cutoffs ahead, final checkpoint, halfway, every 30 minutes and so on). Notices in (3) are read one at a time after the lap notice and never cut off another notice. A lap or other notice cut off by a tap reply is read again from the start after the reply. While you are confirming with double-taps, other notices wait until you finish. In a race, the app tells you things by voice at the times below. You can turn off the every-1-km notice on the "Sound &amp; cues" tab. Check "Vibrate every 1 km" to get one short vibration every 1 km (Race and outdoor Training; Android only, not supported on iPhone). The lap shown on screen every 1 km also shows a finish prediction (net time and clock time at the finish) if you keep the pace of the last 1 km. If the prediction misses the time limit, that is shown too.</p>
+<table><thead><tr><th>When</th><th>Example of what is said</th></tr></thead><tbody><tr><td>5 minutes before the start / at the start time</td><td>"5 minutes to the start. GPS has your position. Accuracy 8 meters." / "It is your start time" (if there is no position yet: "GPS is still searching for your position. Please wait where you can see open sky.")</td></tr><tr><td>Every 1 km</td><td>"17 kilometers. Lap 6 minutes 12 seconds." (also shown large on screen)</td></tr><tr><td>Every 30 minutes</td><td>"60 minutes elapsed. The strategy puts you at 9.8 km."</td></tr><tr><td>300 m before an aid station</td><td>"Aid station soon. Water and bananas."</td></tr><tr><td>When the strategy is adjusted automatically</td><td>"Adjusted to your pace over the last 5 kilometers…"</td></tr><tr><td>1 km, 700 m and 300 m before a cutoff</td><td>"About 0.7 kilometers to the cutoff. At this pace you have 12 minutes to spare." (If you are short: "At this pace you are 3 minutes short. Adjusting your pace." The tempo is raised so you reach the cutoff shortly (up to 1 minute) before it closes, but never more than 10% above your actual speed over the last 3 km; if that is not enough, you only hear "You may not make the cutoff." and the tempo is not raised. After the cutoff, the tempo returns to your original pace. "This pace" is your actual pace over the last 3 km; until you have run 3 km, the tempo pace is used.)</td></tr><tr><td>When you triple-tap</td><td>"Total 5.3 kilometers. Average 5 minutes 45 seconds per kilometer." → triple-tap again: "The time is 9:30."</td></tr></tbody></table>
 <h2 id="e-8">8. Log, graphs and results</h2>
 <p>In a race, the start time and the time at every 1 km are recorded automatically. The time you pass halfway (half the race distance) and each turnaround entered on the "Race" tab is recorded too. Find them under "4. Results" at the top of the screen (you can also open it with "Open 4. Results" on the "Race" → "Strategy &amp; log" tab).</p>
 <div class="gfigs"><figure class="gfig"><img src="guide/g_chart_en.webp" loading="lazy" alt="Pace graph and difference from the earlier race / target (faster is up)" onerror="this.parentNode.hidden=true"><figcaption>Pace graph and difference from the earlier race / target (faster is up)</figcaption></figure><figure class="gfig"><img src="guide/g_geo_en.webp" loading="lazy" alt="First/second half and elevation with halfway and turnaround lines" onerror="this.parentNode.hidden=true"><figcaption>First/second half and elevation with halfway and turnaround lines</figcaption></figure></div>
@@ -1967,8 +1967,13 @@ const sayMin=ms=>{const m=Math.round(Math.abs(ms)/60000);return m>=60?Math.floor
 function nextCp(pos){return rcCps().find(c=>c.km>pos+0.01)||null;}
 function cpInfo(pos,el,now){const c=nextCp(pos);if(!c)return null;const g=rcGunMs(),e=rcEff();
   const close=g!=null?g+c.sec*1000:null,left=!R.running?c.sec*1000-(+RC.wave||0)*60000:close!=null?close-now:(c.sec*1000-el-(RS.startAt&&g?RS.startAt-g:0));
-  const dist=Math.max(0,c.km-pos),need=dist>0.05&&left>0?left/1000/dist:null,spare=baseSpdAt(pos)&&left!=null?left-planSec(pos,c.km)*1000:null;
-  return {c,close,left,dist,need,spare};}
+  const dist=Math.max(0,c.km-pos),need=dist>0.05&&left>0?left/1000/dist:null,rp=recentPace3(pos,el),spare=left==null?null:rp?left-dist*rp*1000:baseSpdAt(pos)?left-planSec(pos,c.km)*1000:null;
+  return {c,close,left,dist,need,spare,rp};}
+/* 直近3 kmの実際のペース（秒/距離の単位）。3 km走るまではnull（そのときはテンポのペースで計算） */
+function recentPace3(pos,el){try{if(MODE!=='race'||!R.running||!RS.startAt)return null;const w=3/UK,x=pos-w;if(x<-1e-6)return null;
+  const L=[{km:0,t:0}].concat((RS.log||[]).filter(r=>r.km<=pos+1e-6));let a=L[0],b=null;for(const r of L){if(r.km<=x+1e-9)a=r;else{b=r;break;}}
+  const ta=b&&b.km>a.km?a.t+(b.t-a.t)*(x-a.km)/(b.km-a.km):a.t,xa=b&&b.km>a.km?x:a.km;
+  const p=(el-ta)/1000/Math.max(1e-6,pos-xa);return p>150*UK&&p<1200*UK?p:null;}catch(e){return null;}}
 function doFix(k,tt){if(MODE!=='race'||!R.running||!(k>0))return;const el=tt!=null?tt:elapsed(),e=rcEff();
   const last=RS.fix[RS.fix.length-1];if(last&&k<=last.km)return;RS.fix.push({km:k,t:el});if(GPS.on){GPS.base=k;GPS.dist=0;GPS.t0=GPS.lastEl=el;}
   let msg=`${fxSayLab(k)}、確定しました。`;if(e){const d=el-k*e*1000;msg+=Math.abs(d)<30000?'目標どおりです。':`目標より${sayMin(d)}${d>0?'遅れ':'早い'}です。`;}
@@ -2043,7 +2048,7 @@ function renderPos(run,t,e,km,now,w){
   $('#cpNext').textContent=`${+ci.c.km.toFixed(2)}km まで あと ${ci.dist.toFixed(1)} km`;
   const S=[`閉鎖まで ${raceIdle()?'0:00':!R.running&&ci.close?fmt(ci.close-now):ci.left>0?fmt(ci.left):'閉鎖'}`+(ci.close?`（${tm(ci.close).split(' ')[1]}）`:`（号砲から${fmtHM(ci.c.sec/60)}）`)];
   if(ci.need)S.push(`必要ペース ${fmtPace(ci.need)}/km 以内`);
-  if(ci.spare!=null)S.push(ci.spare>=0?`今のペースなら余裕 ${Math.round(ci.spare/60000)}分`:`今のペースでは ${Math.round(-ci.spare/60000)}分 足りません`);
+  if(ci.spare!=null)S.push(ci.spare>=0?`今のペースなら余裕 ${Math.floor(ci.spare/60000)}分`:`今のペースでは ${Math.ceil(-ci.spare/60000)}分 足りません`);
   $('#cpSub').textContent=S.join(' ／ ');}
 document.addEventListener('click',e=>{const id=e.target.id;if(id==='fix1')fixTap(3000);
   else if(id==='fixUndo'&&(RS.fix.length||FP.n)){undoKm();renderRun();clearTimeout(relockT);relockT=setTimeout(relockRace,3000);}});
@@ -2626,8 +2631,9 @@ function autoCheck(row){if(RC.autoSafe===false||RS.autoOff||row.src==='推定'||
   for(const c of rcCps()){if(c.km<=row.km+0.05)continue;const left=c.sec*1000-loss-row.t-M;need.push(left>0?(c.km-row.km)/(left/3600000):99);}
   const vReq=need.length?Math.max(...need):0;const prev=RS.log.filter(x=>x.km<=row.km-4.99).pop()||{km:0,t:0};
   const vAct=(row.km-prev.km)/Math.max(0.01,(row.t-prev.t)/3600000);if(!(vAct>2&&vAct<30))return;
-  const finish=vReq>vAct+0.05,mode=finish?'finish':'recent';
-  let v=finish?Math.ceil(vReq*10)/10:Math.round(vAct*10)/10;v=Math.min(20,Math.max(4,v));
+  /* 上げるのは直近5 kmの実際の速さの1割増しまで。それより速さが要るときは無理に上げず、直近5 kmのペースに合わせて「間に合わないかもしれません」と知らせる */
+  const over=vReq>vAct*1.1+1e-9,finish=vReq>vAct+0.05&&!over,mode=finish?'finish':'recent';
+  let v=finish?Math.min(Math.ceil(vReq*10)/10,Math.floor(vAct*1.1*10)/10):Math.round(vAct*10)/10;v=Math.max(4,v);
   const delay=row.tgt!=null?row.t-row.tgt:null,cur=RS.auto?RS.auto.spd:baseSpdAt(row.km);
   const prevMode=RS.auto?RS.auto.mode:null,prevAuto=RS.auto;
   RS.auto={mode,from:row.km,spd:v,delay,at:row.km,vReq:+vReq.toFixed(1),vAct:+vAct.toFixed(1)};
@@ -2637,7 +2643,7 @@ function autoCheck(row){if(RC.autoSafe===false||RS.autoOff||row.src==='推定'||
   let msg;
   if(finish){msg=`${row.km}キロ地点で目標より${sayMin(delay)}遅れています。直近5キロのペースでは制限時間を超えるため、完走できる時速${v.toFixed(1)}キロ、ペース${sayPace(3600/v)}に調整します。`;
     addEv('auto',`${row.km}km 戦略を自動調整：直近5km 時速${vAct.toFixed(1)}kmでは制限時間を超えるため 時速${v.toFixed(1)}km（${fmtPace(3600/v)}/km）`,{spd:v,delay});}
-  else{msg=`${row.km}キロ地点で目標より${sayMin(delay)}遅れています。直近5キロのペースに合わせて、時速${v.toFixed(1)}キロ、ペース${sayPace(3600/v)}に調整します。`;
+  else{msg=`${row.km}キロ地点で目標より${sayMin(delay)}遅れています。${over?'関門か制限時間に間に合わないかもしれません。':''}直近5キロのペースに合わせて、時速${v.toFixed(1)}キロ、ペース${sayPace(3600/v)}に調整します。`;
     addEv('auto',`${row.km}km 戦略を自動調整：直近5kmのペース 時速${v.toFixed(1)}km（${fmtPace(3600/v)}/km）`,{spd:v,delay});}
   /* 1 km毎のラップ案内と同時になるので、ラップ案内を先に読み、そのあとに知らせる */
   cue(false);setTimeout(()=>{try{queueSay(msg);}catch(e){say(msg);}},60);renderRun();}
@@ -4655,6 +4661,20 @@ P(/^走った距離は推定([\d.]+)キロです$/,m=>[`Estimated distance run: 
 P(/^ラップ (\d+:\d\d)$/,m=>[`Lap ${m[1]}`,`分段 ${m[1]}`,`分段 ${m[1]}`,`랩 ${m[1]}`]);
 P(/^目標より ([+−])(.+)$/,m=>{const late=m[1]==='+';return [`${m[2]} ${late?'behind':'ahead of'} target`,`比目标${late?'慢':'快'} ${m[2]}`,`比目標${late?'慢':'快'} ${m[2]}`,`목표보다 ${m[2]} ${late?'늦음':'빠름'}`];});
 P(/^(推定)?([\d.]+)キロ$/,m=>{const e=!!m[1];return [`${e?'About ':''}${PL(m[2],'kilometer')}`,`${e?'推定':''}${m[2]}公里`,`${e?'推定':''}${m[2]}公里`,`${e?'추정 ':''}${m[2]}킬로미터`];});
+P(/^関門まで残り約([\d.]+)キロです$/,m=>[`About ${PL(m[1],'kilometer')} to the cutoff`,`距关门点还有约${m[1]}公里`,`距關門點還有約${m[1]}公里`,`관문까지 약 ${m[1]}킬로미터 남았습니다`]);
+P(/^今のペースなら(\d+)分余裕があります$/,m=>[`At this pace you have ${dur(m[1]+'分')} to spare`,`按现在的配速还有${m[1]}分钟余裕`,`按現在的配速還有${m[1]}分鐘餘裕`,`지금 페이스라면 ${m[1]}분 여유가 있습니다`]);
+P(/^今のペースでは(\d+)分足りません$/,m=>[`At this pace you are ${dur(m[1]+'分')} short`,`按现在的配速还差${m[1]}分钟`,`按現在的配速還差${m[1]}分鐘`,`지금 페이스로는 ${m[1]}분 부족합니다`]);
+W('今のペースなら余裕は1分未満です','At this pace you have less than a minute to spare','按现在的配速余裕不到1分钟','按現在的配速餘裕不到1分鐘','지금 페이스라면 여유가 1분도 안 됩니다');
+W('ペースを調整します','Adjusting your pace','将调整配速','將調整配速','페이스를 조정합니다');
+W('関門の閉鎖時刻を過ぎています','The cutoff time has passed','已过关门时间','已過關門時間','관문 폐쇄 시각이 지났습니다');
+W('関門を通過しました','Cutoff passed','已通过关门点','已通過關門點','관문을 통과했습니다');
+W('元のペースに戻します','Returning to your original pace','恢复原来的配速','恢復原來的配速','원래 페이스로 돌아갑니다');
+W('関門に間に合うように調整中','Adjusting to make the cutoff','正在调整以赶上关门时间','正在調整以趕上關門時間','관문 시간에 맞추도록 조정 중');
+P(/^([\d.]+)km の関門の閉鎖に間に合う速さ（関門を通過したら元のペースに戻します）$/,m=>[`Speed to make the ${m[1]} km cutoff (returns to your original pace after the cutoff)`,`赶上${m[1]}公里关门点的速度（通过后恢复原配速）`,`趕上${m[1]}公里關門點的速度（通過後恢復原配速）`,`${m[1]} km 관문 폐쇄에 맞출 속도 (통과 후 원래 페이스로)`]);
+P(/^([\d.]+)km 関門（([\d.]+)km）に間に合うように調整 時速([\d.]+)km（(.+)\/km）$/,m=>[`${m[1]} km: adjusted to make the ${m[2]} km cutoff ${m[3]} km/h (${m[4]}/km)`,`${m[1]}公里 为赶上${m[2]}公里关门点调整 时速${m[3]}公里（${m[4]}/公里）`,`${m[1]}公里 為趕上${m[2]}公里關門點調整 時速${m[3]}公里（${m[4]}/公里）`,`${m[1]}km ${m[2]}km 관문에 맞춰 조정 시속 ${m[3]}km (${m[4]}/km)`]);
+W('今のテンポで走れば間に合います','You will make it if you keep to the current tempo','跟上现在的节奏就能赶上','跟上現在的節奏就能趕上','지금 템포대로 달리면 늦지 않습니다');
+W('関門に間に合わないかもしれません','You may not make the cutoff','可能赶不上关门时间','可能趕不上關門時間','관문 시간에 늦을 수 있습니다');
+W('関門か制限時間に間に合わないかもしれません','You may not make a cutoff or the time limit','可能赶不上关门时间或比赛限时','可能趕不上關門時間或比賽限時','관문 시간이나 제한 시간에 늦을 수 있습니다');
 P(/^誤差は(\d+)メートルです$/,m=>[`Accuracy ${m[1]} meters`,`误差${m[1]}米`,`誤差${m[1]}公尺`,`오차는 ${m[1]}미터입니다`]);
 W('GPSの位置はつかめています','GPS has your position','GPS已定位','GPS已定位','GPS 위치를 잡았습니다');
 W('GPSはまだ位置を探しています','GPS is still searching for your position','GPS仍在搜索位置','GPS仍在搜尋位置','GPS가 아직 위치를 찾고 있습니다');
@@ -6013,7 +6033,7 @@ function dtPracticeOK(){return MODE==='practice'&&!!opt.outdoor&&R.running&&!R.d
 function dtReset(msg){clearTimeout(DT.timer);DT.step=0;vcHide();if(msg)say(msg);}
 function dtSayTotal(){const el=elapsed(),km=MODE==='race'?posInfo(el).pos:(typeof odDist==='function'?odDist():OD.dist);
   if(!(km>=0.05)){say('まだ距離が出ていません。');vcShow(`<div class="vc-q"><b>—</b></div>`);return;}
-  const p=el/1000/km;say(`トータル${km.toFixed(1)}キロ経過。平均ラップ${sayPace(p)}です。`);
+  const p=el/1000/km;let cx='';try{if(MODE==='race')cx=cpVoice(1);}catch(e){}say(`トータル${km.toFixed(1)}キロ経過。平均ラップ${sayPace(p)}です。`+cx);
   vcShow(`<div class="vc-q"><b><span data-notr>${km.toFixed(2)} km</span></b><span><span>平均</span> <span data-notr>${fmtPace(p)}</span></span></div><div class="vc-s"><span>もう一度3回タップすると、今の時刻を読み上げます</span></div>`);}
 function dtSayTime(){const d=new Date(),h=d.getHours(),m=d.getMinutes();say(`現在時刻は、${h}時${m}分です。`);
   vcShow(`<div class="vc-q"><b><span data-notr>${h}:${String(m).padStart(2,'0')}</span></b></div>`);}
@@ -6021,6 +6041,44 @@ function dtInfo(){if(!((MODE==='race'&&R.running&&!R.done)||dtPracticeOK()))retu
   if(typeof tsReset==='function'&&TS.step)tsReset();try{speechSynthesis.cancel();}catch(e){}vcBeep(false);
   if(DT.step===0){dtSayTotal();DT.step=1;}else{dtSayTime();DT.step=0;}
   DT.timer=setTimeout(()=>dtReset(),15000);}
+
+/* ===================== 関門の手前の案内（1 km・700 m・300 m手前）と、間に合わないときのペース調整 =====================
+   「関門まで残り約0.7キロです。今のペースなら12分余裕があります。」
+   足りないときは「今のペースでは3分足りません。ペースを調整します。」と言い、関門の閉鎖1分前に着く速さに上げる。
+   関門を通過したら元のペースに戻す。3回タップの合計の距離のあとにも同じ案内を読む（小数1けた） */
+const CPA={s:null,d:{}};
+function cpVoice(dec){if(!(MODE==='race'&&R.running&&!R.done))return '';const el=elapsed(),pos=posInfo(el).pos,ci=cpInfo(pos,el,Date.now());
+  if(!ci||ci.left==null)return '';const dk=dec?ci.dist.toFixed(1):String(+ci.dist.toFixed(1));
+  let m=`関門まで残り約${dk}キロです。`;
+  if(ci.left<=0)return m+'関門の閉鎖時刻を過ぎています。';
+  if(ci.spare==null)return m;
+  if(ci.spare>=60000)return m+`今のペースなら${Math.floor(ci.spare/60000)}分余裕があります。`;
+  if(ci.spare>=0)return m+'今のペースなら余裕は1分未満です。';
+  /* 上げられるのは、直近3 kmの実際の速さ（3 km走るまでは今のテンポ）の1割増しまで。それでも足りないときは知らせるだけで、無理に上げない（ケガ防止） */
+  /* 間に合うかは閉鎖ちょうどで判定し、上げるときは閉鎖の少し前（最大1分前）に着く速さにする */
+  const need0=cpNeed(ci,0),need=cpNeed(ci,1),base=ci.rp?3600/ci.rp:baseSpdAt(pos)+(RS.spd||0),cap=base*1.1;
+  if(need0==null||need0>cap+1e-9)return m+'関門に間に合わないかもしれません。';
+  m+=`今のペースでは${Math.ceil(-ci.spare/60000)}分足りません。`;
+  if(cpAdjust(ci,pos,Math.min(Math.ceil(need*10)/10,Math.floor(cap*10)/10)))m+='ペースを調整します。';
+  else if(baseSpdAt(pos)+(RS.spd||0)>=need-0.05)m+='今のテンポで走れば間に合います。';
+  return m;}
+function cpNeed(ci,m){if(!(ci.left>0)||!(ci.dist>0.01))return null;const sec=(ci.left-(m?Math.min(60000,ci.left*0.1):0))/1000;return ci.dist/(sec/3600);}
+function cpAdjust(ci,pos,v){if(RC.autoSafe===false||RS.autoOff)return false;
+  v=Math.max(4,v);const cur=baseSpdAt(pos)+(RS.spd||0);if(v<=cur+0.05)return false;
+  const prev=RS.auto&&RS.auto.mode==='cp'?RS.auto.prev:RS.auto;
+  RS.auto={mode:'cp',from:pos,spd:v,at:+pos.toFixed(1),cpKm:ci.c.km,prev:prev||null,vReq:v,vAct:+cur.toFixed(1)};
+  RS.stg=-1;RS.spd=0;(RS.spdLog=RS.spdLog||[]).push({t:Math.round(rawEl()),spd:0});applyRate(true);
+  try{addEv('auto',`${+pos.toFixed(1)}km 関門（${+ci.c.km.toFixed(2)}km）に間に合うように調整 時速${v.toFixed(1)}km（${fmtPace(3600/v)}/km）`,{spd:v});}catch(e){}
+  renderRun();return true;}
+setInterval(()=>{try{if(!(MODE==='race'&&R.running&&!R.paused&&!R.done))return;if(CPA.s!==RS.startAt){CPA.s=RS.startAt;CPA.d={};}
+  const pos=posInfo(elapsed()).pos;
+  /* 関門を通過したら、関門に合わせた調整をやめて元のペースに戻す */
+  if(RS.auto&&RS.auto.mode==='cp'&&pos>RS.auto.cpKm+0.01){RS.auto0=RS.auto.cpKm;RS.auto=RS.auto.prev||null;RS.stg=null;applyRate(true);{const cs=rcCps(),lc=cs[cs.length-1],fin=lc&&Math.abs(lc.km-RS.auto0)<1e-6;queueSay(fin?'元のペースに戻します。':'関門を通過しました。元のペースに戻します。');}renderRun();}
+  const c=nextCp(pos);if(!c)return;const d=c.km-pos,T=[1,0.7,0.3].map(x=>x/UK),k=String(c.km);let lv=-1;T.forEach((x,i)=>{if(d<=x+1e-6)lv=i;});
+  if(lv<0||(CPA.d[k]!=null&&CPA.d[k]>=lv))return;
+  const first=CPA.d[k]==null;CPA.d[k]=lv;if(first&&lv>0&&d<T[lv]-0.15/UK)return; /* 途中から始めたときに、まとめて読まない */
+  const m=cpVoice(0);if(m)queueSay(m);}catch(e){}},1000);
+{const _ra=renderAuto;renderAuto=function(){_ra.apply(this,arguments);try{if(MODE==='race'&&RS.auto&&RS.auto.mode==='cp'){$('#autoLbl').textContent='関門に間に合うように調整中';$('#autoSub').textContent=`${+RS.auto.cpKm.toFixed(2)}km の関門の閉鎖に間に合う速さ（関門を通過したら元のペースに戻します）`;}}catch(e){}};}
 {const _r=reset;reset=function(){dtReset();return _r.apply(this,arguments);};}
 {const _s=raceStop;raceStop=function(){clearTimeout(DT.timer);DT.step=0;return _s.apply(this,arguments);};}
 
