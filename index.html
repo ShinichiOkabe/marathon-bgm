@@ -6225,6 +6225,7 @@ tfApply();new MutationObserver(()=>tfApply()).observe(document.body,{childList:t
 /* ===================== 2026-11-13：屋内の練習の記録を直す ／ 入力アシスト ===================== */
 /* 翻訳：英語を入れ、中国語・韓国語は英語で表示する */
 const AT=(ja,en)=>{try{I18N.D.set(ja.replace(/\s+/g,' '),[en,en,en,en]);}catch(e){}};
+try{I18N.D.set('🧭 アシスト',['🧭 Assist','🧭 助手','🧭 助手','🧭 어시스트']);}catch(e){}
 
 /* ---------- 1. 屋内の練習の記録を直す（「4. 実績」→「走行距離」の一覧） ---------- */
 const DE={id:null};
