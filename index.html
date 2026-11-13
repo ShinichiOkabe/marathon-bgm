@@ -834,7 +834,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-11e</p>
+  <p class="ver" data-notr translate="no">版 2026-11-13a</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -856,6 +856,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>保存するもの</th><th>保存する場所</th><th>使えるモード</th><th>目印</th></tr></thead><tbody><tr><td>曲（流す曲・順番）</td><td>「🎵 曲の登録（マイリスト）」</td><td>練習・本番・リラックス</td><td>紫の枠</td></tr><tr><td>練習メニュー</td><td>「練習メニューの保存」</td><td>練習だけ</td><td>「メニュー」タブの下</td></tr><tr><td>大会の情報と戦略</td><td>「本番レース情報・戦略を保存」</td><td>本番だけ</td><td>「大会」タブの下</td></tr></tbody></table>
 <p>曲の登録（マイリスト）・練習メニュー・本番レース情報の3つとも、今読み込んでいるものが黄色の行になり、「読み込み中」と出ます。「上書き」が押せるのは、その黄色の行だけです（ほかを上書きしたいときは、先にそれを「読み込む」）。どれも「上書き」を押すと、「前 → 後」で何が変わるかが出る確認が出ます。よければ「OK」、やめるときは「キャンセル」を押します。入れた曲や設定はそのスマホの中だけに残り、どこにも送られません。</p>
 <h3>消費カロリー（目安）</h3><p>画面の右上の「カロリー計算」を押して体重（kg）を入れ、「閉じる」を押すと、ボタンの下が「計算する」に変わります。練習が終わったときと本番のゴール時に「消費カロリー（目安） 約○○ kcal」と表示し、本番のログとCSVにも書き出します。走っている途中は表示しません。計算は「体重 × 走った距離」の目安です。体重を空にすると「計算しない」に戻ります。体重は「カロリー計算」の画面でしか表示しません。</p>
+<h3>入力アシスト</h3><p>画面の右上の「🧭 アシスト」を押すと、使い始めの手順を「目標となる大会 → 大会の情報 → 目標タイム → 曲 → 練習メニューの自動生成 → 屋内・屋外の練習 → 本番 → 実績の確認」の章に分けて案内します。入力する場所が順に光り、吹き出しで説明が出ます。好きな章から始められ、終わった章には「済」が付きます。はじめて開いたときや、本番待機を始められなかったときだけ「入力をお手伝いしましょうか？」と小さく出ます（「今後表示しない」で出なくなります）。走っている間・待機中は使えません。</p>
 <h2 id="h-2">2. 最初の準備（1回だけ）</h2>
 <ol><li>スマホのChromeでこのアプリを開きます。</li><li>Chrome右上の「⋮」→「ホーム画面に追加」を押すと、次からはアイコンで開けます。</li><li>「曲」タブの「曲を追加」を押し、スマホの中の音楽ファイルを選びます。何曲でも選べます。数秒待つと、曲ごとのテンポ（BPM）が自動で測られます。</li><li>流したい曲に「使う」のチェックを入れ、▲▼で順番を並べます。</li><li>紫の枠「🎵 曲の登録（マイリスト）」で名前（例：アップテンポ曲）を入れ、「今の曲を登録」を押します。次からは「読み込む」だけで、その曲の並びに戻ります。読み込むと画面が曲の一覧の位置に移り、一覧がオレンジ色に光ります。</li><li>屋外でGPSを使うときは、位置情報の許可を聞かれたら「許可」を押します。</li></ol>
 <table><thead><tr><th>使える曲</th><th>使えない曲</th></tr></thead><tbody><tr><td>MP3、M4A（AAC）、FLAC、WAV などファイルとして持っている曲、CDから取り込んだ曲</td><td>Apple Music・Spotify・Amazon Musicなどのアプリで「ダウンロード」した曲、コピー制限付きの曲（.m4pなど）</td></tr></tbody></table>
@@ -1032,7 +1033,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h3>走行距離の記録</h3>
 <p>「4. 実績」の「走行距離」で、走った距離の記録と月ごとの合計を見られます。</p>
 <div class="gfigs"><figure class="gfig"><img src="guide/g_dist.webp" loading="lazy" alt="「走行距離」の画面。月を押すと、その月の記録が出ます" onerror="this.parentNode.hidden=true"><figcaption>「走行距離」の画面。月を押すと、その月の記録が出ます</figcaption></figure><figure class="gfig"><img src="guide/g_indoor.webp" loading="lazy" alt="屋内の練習を終えたときの記録の画面" onerror="this.parentNode.hidden=true"><figcaption>屋内の練習を終えたときの記録の画面</figcaption></figure></div>
-<ul><li><strong>自動で記録</strong>：本番と屋外の練習は、終わったときに日付・開始時刻・大会名または練習場所・距離を自動で記録します。屋外の練習で「保存しない」を選んだときも、距離だけは記録します。</li><li><strong>屋内の練習</strong>：「屋内（時間で進む）」の練習を終えると、「この練習を記録に残しますか？」と聞かれます。「記録する」を押し、トレーニング機材名と距離（メニューから計算した距離が入っているので、機材の表示に合わせて直します）を確かめて「記録する」を押します。日時は自動で入り、カロリー計算をしていれば消費カロリーも自動で記録します。前に使った機材名は候補から選べます。</li><li><strong>目標の達成状況</strong>：今月と今週の距離を、自動生成で決めた月・週の目標と並べて表示します。</li><li><strong>月ごとの走行距離</strong>：直近6か月の合計を、屋外・屋内・本番で色分けしたグラフで表示します。オレンジの点と線は月の目標です。<strong>月を押すと</strong>、その月の練習の内容（日時・種類・大会名や場所や機材・距離・消費カロリー）が一覧で出ます。もう一度押すか「閉じる」で閉じます。</li><li><strong>消費カロリー</strong>：画面右上の「カロリー計算」で体重を入れて「計算する」にしている間は、記録ごとに消費カロリー（目安・体重×距離）を残します。今月・今週の合計も表示します。「月ごとの消費カロリーを表示」を押すと、月ごとの消費カロリーのグラフが出ます（もう一度押すと隠します）。消費カロリーが付いていない記録（体重を入れる前の記録など）は、今の体重で計算した目安をグラフと合計に入れます（月の一覧では「＊」が付きます）。体重を入れていないときは、グラフは空のままです。</li><li><strong>削除</strong>：記録の「削除」を押し、「もう一度押すと削除」と出たらもう一度押すと消せます。本番や練習のログを削除しても、走行距離の記録は残ります。</li></ul>
+<ul><li><strong>自動で記録</strong>：本番と屋外の練習は、終わったときに日付・開始時刻・大会名または練習場所・距離を自動で記録します。屋外の練習で「保存しない」を選んだときも、距離だけは記録します。</li><li><strong>屋内の練習</strong>：「屋内（時間で進む）」の練習を終えると、「この練習を記録に残しますか？」と聞かれます。「記録する」を押し、トレーニング機材名と距離（メニューから計算した距離が入っているので、機材の表示に合わせて直します）を確かめて「記録する」を押します。日時は自動で入り、カロリー計算をしていれば消費カロリーも自動で記録します。前に使った機材名は候補から選べます。</li><li><strong>目標の達成状況</strong>：今月と今週の距離を、自動生成で決めた月・週の目標と並べて表示します。</li><li><strong>月ごとの走行距離</strong>：直近6か月の合計を、屋外・屋内・本番で色分けしたグラフで表示します。オレンジの点と線は月の目標です。<strong>月を押すと</strong>、その月の練習の内容（日時・種類・大会名や場所や機材・距離・消費カロリー）が一覧で出ます。もう一度押すか「閉じる」で閉じます。</li><li><strong>消費カロリー</strong>：画面右上の「カロリー計算」で体重を入れて「計算する」にしている間は、記録ごとに消費カロリー（目安・体重×距離）を残します。今月・今週の合計も表示します。「月ごとの消費カロリーを表示」を押すと、月ごとの消費カロリーのグラフが出ます（もう一度押すと隠します）。消費カロリーが付いていない記録（体重を入れる前の記録など）は、今の体重で計算した目安をグラフと合計に入れます（月の一覧では「＊」が付きます）。体重を入れていないときは、グラフは空のままです。</li><li><strong>屋内の練習を直す</strong>：屋内の練習の記録は「編集」を押すと、日時・機材名・距離を直せます。消費カロリーも直した距離で計算し直し、Dropboxにも反映します。</li><li><strong>削除</strong>：記録の「削除」を押し、「もう一度押すと削除」と出たらもう一度押すと消せます。本番や練習のログを削除しても、走行距離の記録は残ります。</li></ul>
 <p>保存先がDropboxのときは、走行距離の記録もDropboxに保存し、スマホとパソコンで同じ記録を見られます。</p>
 <h3>実績データを削除する</h3>
 <p>「4. 実績」のいちばん上の「実績データの削除」を押して開き、表示中の種類（本番か練習）の記録をまとめて削除できます。</p>
@@ -1106,6 +1107,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>What</th><th>Where to save</th><th>Modes</th><th>Look for</th></tr></thead><tbody><tr><td>Songs (which songs, in what order)</td><td>"🎵 Song lists (my lists)"</td><td>Training, Race, Relax</td><td>Purple box</td></tr><tr><td>Training menu</td><td>"Save practice menu"</td><td>Training only</td><td>Below the "Menu" tab</td></tr><tr><td>Race info and strategy</td><td>"Save race info &amp; strategy"</td><td>Race only</td><td>Below the "Race" tab</td></tr></tbody></table>
 <p>For all three, the item that is currently loaded is shown as a yellow row marked "Loaded". You can press "Overwrite" only on that yellow row (to overwrite another one, "Load" it first). When you press "Overwrite", a confirmation shows what will change ("before → after"). Press "OK" to go ahead or "Cancel" to stop. Your songs and settings stay only on your phone and are not sent anywhere.</p>
 <h3>Calories burned (estimate)</h3><p>Press "Calories" at the top right, enter your body weight (kg) and press "Close". The label under the button changes to "On". When a training session ends and when you finish a race, the app shows "Calories burned (est.) about ○○ kcal" and also writes it to the race log and CSV. It is not shown while you are running. The estimate is "weight × distance run". Clear the weight to turn it "Off" again. Your weight is shown only on the "Calories" screen.</p>
+<h3>Input assist</h3><p>Press "🧭 Assist" at the top right to be guided through the setup in chapters: target race → race information → goal time → songs → auto-generated training menu → indoor/outdoor training → race day → viewing results. Each item to fill in is highlighted with an explanation bubble. You can start from any chapter; finished chapters are marked "Done". A small "Would you like help?" appears only the first time you open the app or when race standby cannot start ("Don't show again" turns it off). Not available while running or standing by.</p>
 <h2 id="e-2">2. First-time setup (once only)</h2>
 <ol><li>Open this app in Chrome on your phone.</li><li>In Chrome, tap "⋮" at the top right → "Add to Home screen" to open it from an icon next time.</li><li>On the "Songs" tab, press "Add songs" and choose music files on your phone. You can choose as many as you like. After a few seconds, each song's tempo (BPM) is measured automatically.</li><li>Check "Use" for the songs you want to play, and sort them with ▲▼.</li><li>In the purple box "🎵 Song lists (my lists)", enter a name (e.g. Up-tempo) and press "Register current songs". Next time, just press "Load" to get that set of songs back. After loading, the screen moves to the song list, which glows orange.</li><li>To use GPS outdoors, press "Allow" when asked for location permission.</li></ol>
 <table><thead><tr><th>Songs you can use</th><th>Songs you cannot use</th></tr></thead><tbody><tr><td>Music you have as files, such as MP3, M4A (AAC), FLAC or WAV, and songs ripped from CDs</td><td>Songs "downloaded" in apps such as Apple Music, Spotify or Amazon Music, and copy-protected songs (.m4p etc.)</td></tr></tbody></table>
@@ -1282,7 +1284,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <h3>Distance records</h3>
 <p>"Distance" in "4. Results" shows each run's distance and monthly totals.</p>
 <div class="gfigs"><figure class="gfig"><img src="guide/g_dist_en.webp" loading="lazy" alt="&quot;Distance&quot;. Tap a month to list its runs" onerror="this.parentNode.hidden=true"><figcaption>"Distance". Tap a month to list its runs</figcaption></figure><figure class="gfig"><img src="guide/g_indoor_en.webp" loading="lazy" alt="Logging indoor training when you finish" onerror="this.parentNode.hidden=true"><figcaption>Logging indoor training when you finish</figcaption></figure></div>
-<ul><li><strong>Automatic</strong>: races and outdoor training runs are logged with the date, start time, race name or place, and distance when they end. Outdoor runs are logged even if you choose "Don't save".</li><li><strong>Indoor training</strong>: when you finish "Indoor (advance by time)" training, you are asked "Save this training run?". Press "Log it", check the equipment name and distance (the distance calculated from the menu is filled in; change it to what the machine shows) and press "Log it". The date and time are filled in automatically, and calories are logged too while calorie calculation is on. Equipment used before can be picked from the list.</li><li><strong>Progress to goal</strong>: this month's and this week's distance next to the targets set by the auto plan.</li><li><strong>Distance by month</strong>: totals for the last 6 months, colored by outdoor, indoor and race. The orange dots and line are monthly targets. <strong>Tap a month</strong> to list that month's runs (date and time, type, race/place/equipment, distance, calories). Tap it again or press "Close" to close.</li><li><strong>Calories</strong>: while calorie calculation is on (weight entered with "Calories" at the top right), each record keeps its calories (approx., weight × distance). This month's and this week's totals are shown too. Press "Show calories by month" to show the monthly calorie graph (press again to hide). Records without calories (such as those made before you entered your weight) are included in the graph and totals using an estimate from your current weight (marked "＊" in the month list). Without a weight entered, the graph stays empty.</li><li><strong>Delete</strong>: press "Delete" on a record, then press it again when it says "Press again to delete". Deleting a race or training log does not delete its distance record.</li></ul>
+<ul><li><strong>Automatic</strong>: races and outdoor training runs are logged with the date, start time, race name or place, and distance when they end. Outdoor runs are logged even if you choose "Don't save".</li><li><strong>Indoor training</strong>: when you finish "Indoor (advance by time)" training, you are asked "Save this training run?". Press "Log it", check the equipment name and distance (the distance calculated from the menu is filled in; change it to what the machine shows) and press "Log it". The date and time are filled in automatically, and calories are logged too while calorie calculation is on. Equipment used before can be picked from the list.</li><li><strong>Progress to goal</strong>: this month's and this week's distance next to the targets set by the auto plan.</li><li><strong>Distance by month</strong>: totals for the last 6 months, colored by outdoor, indoor and race. The orange dots and line are monthly targets. <strong>Tap a month</strong> to list that month's runs (date and time, type, race/place/equipment, distance, calories). Tap it again or press "Close" to close.</li><li><strong>Calories</strong>: while calorie calculation is on (weight entered with "Calories" at the top right), each record keeps its calories (approx., weight × distance). This month's and this week's totals are shown too. Press "Show calories by month" to show the monthly calorie graph (press again to hide). Records without calories (such as those made before you entered your weight) are included in the graph and totals using an estimate from your current weight (marked "＊" in the month list). Without a weight entered, the graph stays empty.</li><li><strong>Edit indoor training</strong>: for indoor training records, press "Edit" to change the date and time, equipment and distance. Calories are recalculated and the change is saved to Dropbox too.</li><li><strong>Delete</strong>: press "Delete" on a record, then press it again when it says "Press again to delete". Deleting a race or training log does not delete its distance record.</li></ul>
 <p>With Dropbox chosen, distance records are saved to Dropbox too, so your phone and computer show the same records.</p>
 <h3>Delete logs</h3>
 <p>Press "Delete logs" at the top of "4. Results" to open it and delete several logs of the kind shown (race or training) at once.</p>
@@ -6219,5 +6221,251 @@ document.addEventListener('change',e=>{const el=e.target,k=tfKind(el);if(!k)retu
   if(f!==el.value){el.value=f;el.__tf=1;try{el.dispatchEvent(new Event('input',{bubbles:true}));}finally{el.__tf=0;}}},true);
 tfApply();new MutationObserver(()=>tfApply()).observe(document.body,{childList:true,subtree:true});
 </script>
+<script>
+/* ===================== 2026-11-13：屋内の練習の記録を直す ／ 入力アシスト ===================== */
+/* 翻訳：英語を入れ、中国語・韓国語は英語で表示する */
+const AT=(ja,en)=>{try{I18N.D.set(ja.replace(/\s+/g,' '),[en,en,en,en]);}catch(e){}};
+
+/* ---------- 1. 屋内の練習の記録を直す（「4. 実績」→「走行距離」の一覧） ---------- */
+const DE={id:null};
+AT('編集','Edit');AT('保存','Save');AT('やめる','Cancel');AT('機材名','Equipment');AT('時刻','Time');
+AT('日付と時刻を入れてください。','Enter the date and time.');
+AT('機材名を入れてください。','Enter the equipment name.');
+AT('距離を0.1〜200の数字で入れてください。','Enter a distance between 0.1 and 200.');
+AT('記録を直しました。','The record was updated.');
+AT('消費カロリーは直した距離で計算し直します。','Calories are recalculated for the new distance.');
+function deForm(x){const t=new Date(x.at),d=ymdISO(x.at),tm=String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0');
+  return `<tr class="de-row"><td colspan="5"><div class="de-f">
+    <label>日付<input type="date" id="deDate" value="${d}"></label><label>時刻<input type="time" id="deTime" value="${tm}"></label>
+    <label class="w">機材名<input type="text" id="deMach" list="diMachList" maxlength="40" autocomplete="off" value="${esc(x.name||'')}"></label>
+    <label>距離（km）<input type="number" id="deKm" min="0.1" max="200" step="0.1" inputmode="decimal" value="${(+x.km).toFixed(1)}"></label>
+    <div class="sub w">消費カロリーは直した距離で計算し直します。</div><div class="sub w de-msg" id="deMsg"></div>
+    <div class="ctrls w"><button class="primary-sm" type="button" id="deSave">保存</button><button class="small" type="button" id="deCancel">やめる</button></div></div></td></tr>`;}
+function deDecorate(){const L=$('#dList');if(!L)return;
+  L.querySelectorAll('[data-ddel]').forEach(b=>{const id=b.dataset.ddel,x=distLog.find(y=>y.id===id);if(!x||x.kind!=='in'||b.parentNode.querySelector('[data-dedit]'))return;
+    const e=document.createElement('button');e.className='small';e.type='button';e.dataset.dedit=id;e.textContent='編集';b.parentNode.insertBefore(e,b);});
+  if(DE.id){const x=distLog.find(y=>y.id===DE.id),b=L.querySelector(`[data-dedit="${CSS.escape(DE.id)}"]`);
+    if(!x||!b){DE.id=null;return;}const tr=b.closest('tr');tr.classList.add('de-on');tr.insertAdjacentHTML('afterend',deForm(x));
+    $('#deCancel').onclick=()=>{DE.id=null;distRender();};$('#deSave').onclick=()=>deSave(x);}}
+function deSave(x){const m=$('#deMsg'),d=$('#deDate').value,t=$('#deTime').value||'00:00',n=$('#deMach').value.trim(),km=parseFloat($('#deKm').value);
+  if(!/^\d{4}-\d\d-\d\d$/.test(d)){m.textContent='日付と時刻を入れてください。';return;}
+  if(!n){m.textContent='機材名を入れてください。';return;}
+  if(!(km>0&&km<=200)){m.textContent='距離を0.1〜200の数字で入れてください。';return;}
+  const old=+x.km||0;x.at=new Date(d+'T'+t+':00').getTime();x.name=n;x.km=+km.toFixed(2);
+  if(opt.weight)x.kcal=kcalOf(opt.weight,x.km);else if(x.kcal!=null&&old>0)x.kcal=Math.round(x.kcal*x.km/old/10)*10;
+  x.upd=Date.now();DE.id=null;distSave();distRender();try{agRender();}catch(e){}try{distSync();}catch(e){}
+  const s=$('#dList');if(s){const p=document.createElement('div');p.className='sub de-ok';p.textContent='記録を直しました。';s.prepend(p);setTimeout(()=>p.remove(),4000);}}
+{const _dr=distRender;distRender=function(){const r=_dr.apply(this,arguments);try{deDecorate();}catch(e){}return r;};}
+$('#dList').addEventListener('click',e=>{const b=e.target.closest('[data-dedit]');if(!b)return;DE.id=DE.id===b.dataset.dedit?null:b.dataset.dedit;distRender();
+  if(DE.id)setTimeout(()=>{const f=document.querySelector('.de-row');if(f)f.scrollIntoView({block:'nearest',behavior:'smooth'});},50);});
+/* Dropboxと合わせるとき、あとで直した記録のほうを残す */
+distSync=async function(){if(!CLOUD||CLOUD.svc==='none'||!navigator.onLine||!cloudSigned(CLOUD.svc))return;
+  try{const t=await cloudCall('get','distance.json');let rem={v:1,list:[],del:[]};if(t){try{rem=JSON.parse(t);}catch(e){}}
+    const del=new Set([...(rem.del||[]),...distDel]);let ch=false;
+    (rem.list||[]).forEach(x=>{if(del.has(x.id))return;const i=distLog.findIndex(y=>y.id===x.id);
+      if(i<0){distLog.push(x);ch=true;}else if((x.upd||0)>(distLog[i].upd||0)){distLog[i]=x;ch=true;}});
+    const before=distLog.length;distLog=distLog.filter(x=>!del.has(x.id));if(distLog.length!==before)ch=true;distDel=[...del];
+    if(ch)distSave();
+    const out=JSON.stringify({v:1,list:distLog,del:distDel.slice(-500)});if(out!==t)await cloudCall('put','distance.json',out);
+    if(ch){distRender();try{agRender();}catch(e){}}}catch(e){}};
+try{distRender();}catch(e){}
+
+/* ---------- 2. 入力アシスト ----------
+   画面の項目を順に光らせて、吹き出しで案内する。常には出さず、
+   ①「アシスト」ボタンを押したとき ②困っていそうなとき（はじめて開いた・本番待機でエラー）だけ声をかける */
+const AS_KEY='cbgm-assist';
+const AS=Object.assign({hasRace:null,done:{},never:false,offered:{},last:null},store.get(AS_KEY,{})||{});
+const asSave=()=>store.set(AS_KEY,{hasRace:AS.hasRace,done:AS.done,never:AS.never,offered:AS.offered,last:AS.last});
+const ASR={on:false,list:[],i:0,t0:0,el:null};
+const vis=el=>!!(el&&el.getClientRects().length&&getComputedStyle(el).visibility!=='hidden');
+const lab=sel=>()=>{const e=$(sel);return e?(e.closest('label,.f')||e):null;};
+function goMode(m,tab){try{if(HIST.on)histClose();}catch(e){}if(MODE!==m)setMode(m);if(tab){TAB[m]=tab;store.set('cbgm-tab',TAB);renderTabs();}}
+function agShowPanel(){const p=$('#agPanel');if(p&&p.hidden){p.hidden=false;$('#agOpen').setAttribute('aria-expanded','true');}try{agRender();}catch(e){}}
+const rpSince=()=>racePresets.some(p=>p.saved>ASR.t0);
+const mlSince=()=>mylists.some(m=>m.saved>ASR.t0);
+const ASTEP={};let AUSE=0;document.addEventListener('click',e=>{if(e.target.id==='agUse')AUSE=Date.now();},true);
+/* 章：c=章の番号、sel=光らせる場所（関数でもよい）、prep=開く前の準備、skip=飛ばす条件、wait=自動で次へ進む条件 */
+const CH=[
+ {n:1,t:'目標となる大会',done:()=>AS.hasRace!=null,steps:[
+  {sel:null,t:'目標となる大会はありますか？',b:'出る予定の大会があれば、その情報から練習メニューや本番のテンポを作れます。まだ決めていなくても、距離と目標タイムから始められます。',choice:[['ある',true],['まだ決めていない',false]]}]},
+ {n:2,t:'大会の情報',skip:()=>AS.hasRace===false,done:()=>racePresets.length>0,steps:[
+  {sel:lab('#rcName'),prep:()=>goMode('race','main'),t:'大会名',b:'大会名を入れます。'},
+  {sel:lab('#rcEv'),t:'種目',b:'フル・ハーフ以外は「その他」を選び、距離を入れます。'},
+  {sel:()=>$('#rcKmWrap'),skip:()=>RC.ev!=='その他',t:'距離',b:'大会の距離（km）を入れます。'},
+  {sel:lab('#rcDate'),t:'開催日',b:'カレンダーから開催日を選びます。'},
+  {sel:lab('#rcTime'),t:'スタート時刻',b:'号砲（先頭のスタート）の時刻を選びます。'},
+  {sel:lab('#rcWave'),t:'ウェーブの遅れ',b:'自分のブロックが先頭から何分遅れてスタートするかを入れます。ウェーブがない大会は0です。'},
+  {sel:lab('#rcLimit'),t:'制限時間',b:'数字だけで入れられます（例：600 → 6:00）。'},
+  {sel:lab('#rcCps'),t:'関門（任意）',b:'1行に1か所、「距離 時刻」で書きます（例：10 10:40）。わからなければ空のままで大丈夫です。'},
+  {sel:lab('#rcWs'),t:'給水所・エイド（任意）',b:'1行に1か所、「距離 内容」で書きます（例：15 水 バナナ）。空のままでも使えます。'}]},
+ {n:3,t:'目標タイム',done:()=>AS.hasRace===false?Object.values(PLAN.goals||{}).some(v=>v>0):racePresets.some(p=>p.rc&&+p.rc.goal>0),steps:[
+  {sel:lab('#rcGoal'),skip:()=>AS.hasRace===false,prep:()=>goMode('race','main'),t:'目標タイム',b:'数字だけで入れられます（例：40000 → 4:00:00、330 → 3:30:00）。'},
+  {sel:()=>{const e=$('#rpSave');return e&&e.closest('.rp');},skip:()=>AS.hasRace===false,t:'大会の情報を保存',b:'保存名を入れて「保存」を押します。保存した大会は、練習メニューの自動生成で選べます。',wait:rpSince},
+  {sel:lab('#agRace'),skip:()=>AS.hasRace!==false,prep:()=>{goMode('practice','main');agShowPanel();},t:'距離で選ぶ',b:'「大会を決めずに距離で選ぶ」を選びます。'},
+  {sel:()=>$('#agDist'),skip:()=>AS.hasRace!==false,t:'種目',b:'目標にする種目（フル・ハーフ・その他）を選びます。'},
+  {sel:lab('#agGoal'),skip:()=>AS.hasRace!==false,t:'目標タイム',b:'目標タイムを入れます（例：3:30:00、1:40:00、45:00）。'}]},
+ {n:4,t:'曲',done:()=>mylists.length>0||opt.src!=='songs',steps:[
+  {sel:()=>$('.srcsel'),prep:()=>goMode(MODE==='race'?'race':'practice','songs'),t:'流す音',b:'手元の曲を流すときは「曲を流す」。曲がないときは「ドラム」や「無音」でも使えます。'},
+  {sel:()=>$('#btnAdd'),skip:()=>opt.src!=='songs',t:'曲を追加',b:'スマホの中の音楽ファイル（MP3など）を選びます。テンポ（BPM）は自動で測ります。'},
+  {sel:()=>$('#songList'),skip:()=>opt.src!=='songs'||!songs.length,t:'流す曲を選ぶ',b:'流したい曲に「使う」のチェックを入れ、▲▼で順番を並べます。'},
+  {sel:()=>$('#mlSec .ml-save'),skip:()=>opt.src!=='songs'||!songs.length,t:'曲を登録',b:'名前を入れて「今の曲を登録」を押すと、次からは「読み込む」だけで同じ曲の並びに戻せます。',wait:mlSince}]},
+ {n:5,t:'練習メニューの自動生成',done:()=>!!AS.done[5],steps:[
+  {sel:lab('#agRace'),prep:()=>{goMode('practice','main');agShowPanel();},t:'目標の大会',b:'保存した大会を選びます。大会がないときは「大会を決めずに距離で選ぶ」です。'},
+  {sel:lab('#agGoal'),t:'目標タイム',b:'目標タイムを確かめます。大会に入れた目標タイムが入っています。'},
+  {sel:()=>$('.ag-days'),t:'練習する曜日',b:'必要なら、練習する曜日、LSD（長い距離）とペース走の曜日を選びます。'},
+  {sel:()=>$('#agGo'),t:'メニューを作る',b:'「本日の練習メニューを自動生成する」を押します。',wait:()=>!$('#agResult').hidden},
+  {sel:()=>$('#agResult'),skip:()=>$('#agResult').hidden,t:'このメニューで走る',b:'内容を確かめて「このメニューで走る」を押すと、練習メニューに入ります。',wait:()=>AUSE>ASR.t0}]},
+ {n:6,t:'屋内・屋外の練習',done:()=>raceLogs.some(x=>kindOf(x)==='prac')||distLog.some(x=>x.kind==='in'||x.kind==='out'),steps:[
+  {sel:()=>$('#ioRow'),prep:()=>goMode('practice','main'),t:'屋内か屋外か',b:'ジムなどの機材で走るなら「屋内」（時間で進む）、外を走るなら「屋外」（GPSの距離で進む）を選びます。'},
+  {sel:()=>$('#odBox'),skip:()=>!opt.outdoor,t:'屋外：GPS',b:'「GPSの位置をつかみました」と出るまで待ちます。そのあと機内モードにすると、電池が長持ちし動作も安定します。'},
+  {sel:()=>$('#btnStart'),t:'スタート',b:'準備ができたら「スタート」を押します。画面がロックされます（屋内はロック中のボタンを1回押すだけで動きます）。走り終えると記録の確認が出ます。'}]},
+ {n:7,t:'本番（大会当日）',done:()=>!!AS.done[7],steps:[
+  {sel:()=>vis($('#rcArm'))?$('#rcArm'):null,prep:()=>goMode('race','main'),t:'本番待機',b:'当日はスタートの少し前に「本番待機を始める」を押し、画面をつけたままにします。30分前にGPSがONになり、5分前にBGMが始まります。'},
+  {sel:()=>$('#runPanel'),t:'スタート',b:'スタートラインを越えたら「スタート」を押します。画面がロックされ、1km毎に声で知らせます。'},
+  {sel:null,t:'距離の確定',b:'距離の看板を通ったら、下のバーの「確定」を長押しします（画面を2回タップするのを3回くり返しても確定できます）。'},
+  {sel:null,t:'ゴール',b:'ゴールしたら下のバーの「ゴール」を長押しし、「ゴールした」か「途中でやめた」を選びます。保存が済んだら「閉じる」を押します。'}]},
+ {n:8,t:'実績の確認',done:()=>!!AS.done[8],steps:[
+  {sel:()=>$('#modeHist'),prep:()=>{try{if(MODE==='relax')setMode('practice');histOpen();}catch(e){}},t:'4. 実績',b:'過去の本番・練習の記録は、画面の一番上の「4. 実績」で見られます。'},
+  {sel:()=>$('#histKind'),t:'記録の種類',b:'「本番」「練習」「走行距離」で、見る記録を切り替えます。'},
+  {sel:()=>vis($('#raceList'))?$('#raceList'):null,t:'出走した大会の一覧',b:'大会を選ぶと、下にグラフ・前半後半・高低差・1km毎の表が出ます。'},
+  {sel:()=>$('#dashOpen'),t:'ダッシュボード',b:'完走回数とベストタイムをまとめて見られます。'},
+  {sel:()=>$('#cloudBox'),t:'保存先',b:'Dropboxを選ぶと、記録がずっと残り、パソコンでも見られます。'}]}];
+[['アシスト','Assist'],['入力アシスト','Input assist'],['案内したい章を選んでください。終わった章には「済」が付きます。','Choose a chapter. Finished chapters are marked "Done".'],
+ ['続きから','Continue'],['はじめから','From the start'],['済','Done'],['対象外','N/A'],['次へ','Next'],['戻る','Back'],['終わる','Finish'],['とばす','Skip'],
+ ['この章は終わりです。','This chapter is finished.'],['次の章へ','Next chapter'],['アシストを終わります。おつかれさまでした。','The assist is finished.'],
+ ['入力をお手伝いしましょうか？','Would you like help filling this in?'],['案内する','Show me'],['今はいい','Not now'],['今後表示しない','Don\'t show again'],
+ ['はじめての方へ：使い始めの手順を、画面の項目を順に光らせて案内できます。','New here? The assist can walk you through the setup by highlighting each item.'],
+ ['大会の情報の入力を、項目ごとに案内できます。','The assist can guide you through the race settings item by item.'],
+ ['本番待機を始める前に、足りない項目を案内できます。','The assist can show you what is still missing before standby.'],
+ ['まだ入っていません（あとで入れても大丈夫です）','Not filled in yet (you can do it later)'],
+ ['操作すると自動で次へ進みます','Moves on automatically when you do this'],
+ ['走っている間・待機中はアシストを使えません。','The assist is not available while running or standing by.'],
+ ['このアシストは「？ 使い方」の横の「🧭 アシスト」から、いつでも開けます。','You can open the assist any time with "🧭 Assist" next to "? Guide".'],
+ ['ある','Yes'],['まだ決めていない','Not yet']].forEach(a=>AT(a[0],a[1]));
+CH.forEach(c=>{AT(c.t,{1:'Target race',2:'Race information',3:'Goal time',4:'Songs',5:'Auto-generate a training menu',6:'Indoor / outdoor training',7:'Race day',8:'Viewing results'}[c.n]);});
+const EN={'目標となる大会はありますか？':'Do you have a target race?','出る予定の大会があれば、その情報から練習メニューや本番のテンポを作れます。まだ決めていなくても、距離と目標タイムから始められます。':'If you have a race planned, its details are used for the training menu and race-day tempo. If not, you can start from a distance and goal time.',
+ '大会名':'Race name','大会名を入れます。':'Enter the race name.','種目':'Event','フル・ハーフ以外は「その他」を選び、距離を入れます。':'For anything other than full or half, choose "Other" and enter the distance.',
+ '距離':'Distance','大会の距離（km）を入れます。':'Enter the race distance (km).','開催日':'Date','カレンダーから開催日を選びます。':'Pick the race date from the calendar.',
+ 'スタート時刻':'Start time','号砲（先頭のスタート）の時刻を選びます。':'Pick the time of the starting gun (first wave).','ウェーブの遅れ':'Wave delay',
+ '自分のブロックが先頭から何分遅れてスタートするかを入れます。ウェーブがない大会は0です。':'Enter how many minutes after the first wave your block starts. 0 if there are no waves.',
+ '制限時間':'Time limit','数字だけで入れられます（例：600 → 6:00）。':'Digits are enough (e.g. 600 → 6:00).','関門（任意）':'Cutoffs (optional)',
+ '1行に1か所、「距離 時刻」で書きます（例：10 10:40）。わからなければ空のままで大丈夫です。':'One per line, "distance time" (e.g. 10 10:40). Leave it empty if you don\'t know.',
+ '給水所・エイド（任意）':'Aid stations (optional)','1行に1か所、「距離 内容」で書きます（例：15 水 バナナ）。空のままでも使えます。':'One per line, "distance contents" (e.g. 15 water banana). It works empty too.',
+ '目標タイム':'Goal time','数字だけで入れられます（例：40000 → 4:00:00、330 → 3:30:00）。':'Digits are enough (e.g. 40000 → 4:00:00, 330 → 3:30:00).',
+ '大会の情報を保存':'Save the race info','保存名を入れて「保存」を押します。保存した大会は、練習メニューの自動生成で選べます。':'Enter a name and press "Save". Saved races can be chosen in the training menu generator.',
+ '距離で選ぶ':'Choose by distance','「大会を決めずに距離で選ぶ」を選びます。':'Choose "Choose by distance (no race)".','目標にする種目（フル・ハーフ・その他）を選びます。':'Choose the event to aim for (full, half or other).',
+ '目標タイムを入れます（例：3:30:00、1:40:00、45:00）。':'Enter the goal time (e.g. 3:30:00, 1:40:00, 45:00).','流す音':'Sound to play',
+ '手元の曲を流すときは「曲を流す」。曲がないときは「ドラム」や「無音」でも使えます。':'Choose "Songs" to play your music. Without songs, "Drum" or "Silent" also work.',
+ '曲を追加':'Add songs','スマホの中の音楽ファイル（MP3など）を選びます。テンポ（BPM）は自動で測ります。':'Choose music files (MP3 etc.) on your phone. The tempo (BPM) is measured automatically.',
+ '流す曲を選ぶ':'Choose songs','流したい曲に「使う」のチェックを入れ、▲▼で順番を並べます。':'Check "Use" for the songs to play and order them with ▲▼.',
+ '曲を登録':'Register songs','名前を入れて「今の曲を登録」を押すと、次からは「読み込む」だけで同じ曲の並びに戻せます。':'Enter a name and press "Register current songs"; next time just "Load" it.',
+ '目標の大会':'Target race','保存した大会を選びます。大会がないときは「大会を決めずに距離で選ぶ」です。':'Choose a saved race, or "Choose by distance (no race)".',
+ '目標タイムを確かめます。大会に入れた目標タイムが入っています。':'Check the goal time. The race\'s goal time is filled in.','練習する曜日':'Training days',
+ '必要なら、練習する曜日、LSD（長い距離）とペース走の曜日を選びます。':'If needed, choose your training days and the LSD and pace-run days.',
+ 'メニューを作る':'Make the menu','「本日の練習メニューを自動生成する」を押します。':'Press "Generate today\'s menu".','このメニューで走る':'Run this menu',
+ '内容を確かめて「このメニューで走る」を押すと、練習メニューに入ります。':'Check it and press "Run this menu" to put it in your training menu.','屋内か屋外か':'Indoor or outdoor',
+ 'ジムなどの機材で走るなら「屋内」（時間で進む）、外を走るなら「屋外」（GPSの距離で進む）を選びます。':'Choose "Indoor" (advances by time) for a machine, or "Outdoor" (advances by GPS distance) for running outside.',
+ '屋外：GPS':'Outdoor: GPS','「GPSの位置をつかみました」と出るまで待ちます。そのあと機内モードにすると、電池が長持ちし動作も安定します。':'Wait for "GPS position found". Then airplane mode saves battery and keeps things stable.',
+ 'スタート':'Start','準備ができたら「スタート」を押します。画面がロックされます（屋内はロック中のボタンを1回押すだけで動きます）。走り終えると記録の確認が出ます。':'Press "Start" when ready. The screen locks (indoors, the locked buttons work with one tap). When you finish, you are asked about saving.',
+ '本番待機':'Race standby','当日はスタートの少し前に「本番待機を始める」を押し、画面をつけたままにします。30分前にGPSがONになり、5分前にBGMが始まります。':'On race day press "Start race standby" shortly before the start and keep the screen on. GPS turns on 30 min before, BGM starts 5 min before.',
+ 'スタートラインを越えたら「スタート」を押します。画面がロックされ、1km毎に声で知らせます。':'Press "Start" when you cross the start line. The screen locks and you hear a notice every km.',
+ '距離の確定':'Confirm distance','距離の看板を通ったら、下のバーの「確定」を長押しします（画面を2回タップするのを3回くり返しても確定できます）。':'At a distance marker, long-press "Confirm" in the bottom bar (or double-tap the screen three times).',
+ 'ゴール':'Finish','ゴールしたら下のバーの「ゴール」を長押しし、「ゴールした」か「途中でやめた」を選びます。保存が済んだら「閉じる」を押します。':'At the finish, long-press "Finish", choose "I finished" or "I stopped", and press "Close" once saved.',
+ '4. 実績':'4. Results','過去の本番・練習の記録は、画面の一番上の「4. 実績」で見られます。':'Past race and training logs are under "4. Results" at the top.','記録の種類':'Kind of log',
+ '「本番」「練習」「走行距離」で、見る記録を切り替えます。':'Switch between "Race", "Training" and "Distance".','出走した大会の一覧':'Races entered',
+ '大会を選ぶと、下にグラフ・前半後半・高低差・1km毎の表が出ます。':'Choose a race to see graphs, halves, elevation and the per-km table below.','ダッシュボード':'Dashboard',
+ '完走回数とベストタイムをまとめて見られます。':'See your finishes and best times at a glance.','保存先':'Save to','Dropboxを選ぶと、記録がずっと残り、パソコンでも見られます。':'With Dropbox, all logs are kept and can be viewed on a computer.'};
+Object.keys(EN).forEach(k=>AT(k,EN[k]));
+
+/* 吹き出しとスポットライト */
+const asSpot=document.createElement('div');asSpot.className='as-spot';asSpot.hidden=true;document.body.appendChild(asSpot);
+const asBox=document.createElement('div');asBox.className='as-box';asBox.hidden=true;asBox.setAttribute('role','dialog');asBox.setAttribute('aria-live','polite');document.body.appendChild(asBox);
+const asMenu=document.createElement('div');asMenu.className='kcal-panel as-menu';asMenu.hidden=true;asMenu.setAttribute('role','dialog');document.body.appendChild(asMenu);
+const asOffer=document.createElement('div');asOffer.className='as-offer';asOffer.hidden=true;asOffer.setAttribute('role','status');document.body.appendChild(asOffer);
+const chState=c=>c.skip&&c.skip()?'na':c.done&&c.done()?'done':'';
+function asMenuOpen(){if(pkBlocked()){alert(TR('走っている間・待機中はアシストを使えません。'));return;}asOffer.hidden=true;
+  const st={done:'<span class="as-st ok">済</span>',na:'<span class="as-st na">対象外</span>','':''};
+  const nx=CH.find(c=>!chState(c));
+  asMenu.innerHTML=`<div class="kcal-card as-card"><h2>入力アシスト</h2><p class="sub">案内したい章を選んでください。終わった章には「済」が付きます。</p>
+   <ol class="as-chs">${CH.map(c=>`<li><button type="button" class="as-ch" data-ch="${c.n}"><span class="as-n">${c.n}</span><span class="as-t">${c.t}</span>${st[chState(c)]}</button></li>`).join('')}</ol>
+   <div class="row">${nx?`<button class="primary-sm" type="button" data-ch="${nx.n}" data-cont="1">続きから</button>`:''}<button class="small" type="button" id="asMClose">閉じる</button></div></div>`;
+  asMenu.hidden=false;$('#asMClose').onclick=()=>{asMenu.hidden=true;};}
+asMenu.addEventListener('click',e=>{if(e.target===asMenu){asMenu.hidden=true;return;}const b=e.target.closest('[data-ch]');if(!b)return;asMenu.hidden=true;asStart(+b.dataset.ch,!!b.dataset.cont);});
+/* 章 n から始める。続きからなら、終わった章は飛ばす */
+function asStart(n,cont){if(pkBlocked())return;const list=[];
+  CH.forEach(c=>{if(c.n<n)return;if(cont&&c.n>n&&chState(c))return;c.steps.forEach((s,i)=>list.push(Object.assign({ch:c,first:i===0,last:i===c.steps.length-1},s)));});
+  ASR.list=list;ASR.i=0;ASR.on=true;ASR.cont=cont;ASR.t0=Date.now();document.body.classList.add('as-on');asShow();}
+function asStop(msg){ASR.on=false;ASR.el=null;asSpot.hidden=true;asBox.hidden=true;document.body.classList.remove('as-on');asSave();
+  if(msg){asOfferShow(msg,null,true);}}
+function asStepSkip(s){if(s.ch.skip&&s.ch.skip())return true;return !!(s.skip&&s.skip());}
+function asShow(){if(!ASR.on)return;
+  while(ASR.i<ASR.list.length&&asStepSkip(ASR.list[ASR.i])){if(ASR.list[ASR.i].last)AS.done[ASR.list[ASR.i].ch.n]=1;ASR.i++;}
+  if(ASR.i>=ASR.list.length){asStop('アシストを終わります。おつかれさまでした。');return;}
+  const s=ASR.list[ASR.i];AS.last=s.ch.n;try{s.prep&&s.prep();}catch(e){}
+  if(s.wait&&s.wait())ASR.t0=Date.now(); /* 前に済ませた操作で、すぐ進まないように */
+  setTimeout(()=>{if(!ASR.on||ASR.list[ASR.i]!==s)return;let el=null;try{el=typeof s.sel==='function'?s.sel():null;}catch(e){}
+    ASR.el=el&&vis(el)?el:null;if(ASR.el){try{ASR.el.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}}
+    const chs=s.choice?`<div class="as-cho">${s.choice.map((c,i)=>`<button type="button" class="${i?'small':'primary-sm'}" data-asc="${i}">${c[0]}</button>`).join('')}</div>`:'';
+    asBox.innerHTML=`<div class="as-hd"><span class="as-chp"><span>${s.ch.n}</span>. <span>${s.ch.t}</span></span><button type="button" class="as-x" id="asX" aria-label="終わる">✕</button></div>
+      <b class="as-tt">${s.t}</b><p class="as-bd">${s.b}</p>${chs}
+      <div class="as-wt" id="asWt" hidden></div>
+      <div class="as-nav">${ASR.i>0?'<button class="small" type="button" id="asBack">戻る</button>':''}${s.choice?'':`<button class="primary-sm" type="button" id="asNext">${s.last?(ASR.i+1<ASR.list.length?'次の章へ':'終わる'):'次へ'}</button>`}</div>`;
+    asBox.hidden=false;$('#asX').onclick=()=>asStop('このアシストは「？ 使い方」の横の「🧭 アシスト」から、いつでも開けます。');
+    const bk=$('#asBack');if(bk)bk.onclick=asBackStep;const nx=$('#asNext');if(nx)nx.onclick=asNextStep;
+    asBox.querySelectorAll('[data-asc]').forEach(b=>b.onclick=()=>{AS.hasRace=s.choice[+b.dataset.asc][1];asSave();asNextStep();});
+    asWaitHint();asPlace();},s.prep?260:60);}
+function asWaitHint(){const s=ASR.list[ASR.i],w=$('#asWt');if(!s||!w)return;
+  if(s.wait){w.hidden=false;w.textContent=TR('操作すると自動で次へ進みます');}else w.hidden=true;}
+function asNextStep(){const s=ASR.list[ASR.i];if(s&&s.last){AS.done[s.ch.n]=1;asSave();}ASR.i++;ASR.t0=Date.now();asShow();}
+function asBackStep(){let j=ASR.i-1;while(j>0&&asStepSkip(ASR.list[j]))j--;ASR.i=Math.max(0,j);asShow();}
+/* 位置合わせ：光らせる枠と、吹き出しを重ならない側に出す（キーボードで画面が縮んでも合わせ直す） */
+function asPlace(){if(!ASR.on||asBox.hidden)return;const vv=window.visualViewport,vt=vv?vv.offsetTop:0,vh=vv?vv.height:innerHeight;
+  const el=ASR.el&&vis(ASR.el)?ASR.el:null;
+  if(el){const r=el.getBoundingClientRect(),p=6;asSpot.hidden=false;Object.assign(asSpot.style,{top:(r.top-p)+'px',left:(r.left-p)+'px',width:(r.width+p*2)+'px',height:(r.height+p*2)+'px'});
+    const bh=asBox.offsetHeight,typing=/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{}).tagName||''),mid=(r.top+r.bottom)/2-vt;
+    const top=typing||mid>vh/2;asBox.style.top=top?(vt+10)+'px':Math.max(vt+10,vt+vh-bh-10)+'px';asBox.classList.toggle('at-top',top);}
+  else{asSpot.hidden=true;asBox.style.top=Math.max(vt+10,vt+(vh-asBox.offsetHeight)/2)+'px';}}
+['scroll','resize'].forEach(t=>addEventListener(t,asPlace,{passive:true}));
+try{visualViewport.addEventListener('resize',asPlace);visualViewport.addEventListener('scroll',asPlace);}catch(e){}
+document.addEventListener('focusin',()=>setTimeout(asPlace,250));
+setInterval(()=>{if(!ASR.on)return;if(pkBlocked()){asStop('走っている間・待機中はアシストを使えません。');return;}
+  const s=ASR.list[ASR.i];if(s&&s.wait&&!asBox.hidden){let ok=false;try{ok=s.wait();}catch(e){}if(ok){asNextStep();return;}}
+  if(s&&typeof s.sel==='function'){let el=null;try{el=s.sel();}catch(e){}el=el&&vis(el)?el:null;if(el!==ASR.el)ASR.el=el;}asPlace();},400);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ASR.on)asStop();});
+/* 小さな声かけ（必要なときだけ） */
+function asOfferShow(msg,ch,info){if(!info&&(AS.never||ASR.on||pkBlocked()||!asMenu.hidden))return;
+  asOffer.innerHTML=info?`<span>${msg}</span><div class="ctrls"><button class="small" type="button" data-ao="x">閉じる</button></div>`:
+    `<b>入力をお手伝いしましょうか？</b><span>${msg}</span><div class="ctrls"><button class="primary-sm" type="button" data-ao="go">案内する</button><button class="small" type="button" data-ao="x">今はいい</button><button class="small" type="button" data-ao="never">今後表示しない</button></div>`;
+  asOffer.hidden=false;asOffer.dataset.ch=ch||'';clearTimeout(asOffer._t);asOffer._t=setTimeout(()=>{asOffer.hidden=true;},info?6000:20000);}
+asOffer.addEventListener('click',e=>{const b=e.target.closest('[data-ao]');if(!b)return;asOffer.hidden=true;
+  if(b.dataset.ao==='never'){AS.never=true;asSave();}else if(b.dataset.ao==='go'){const c=+asOffer.dataset.ch;if(c)asStart(c,false);else asMenuOpen();}});
+const offerOnce=(k,msg,ch)=>{if(AS.offered[k]||AS.never)return;AS.offered[k]=1;asSave();asOfferShow(msg,ch);};
+/* ① はじめて開いたとき（大会もマイリストもないとき） */
+setTimeout(()=>{if(!racePresets.length&&!mylists.length&&!R.running&&!RS.armed)offerOnce('first','はじめての方へ：使い始めの手順を、画面の項目を順に光らせて案内できます。',0);},2500);
+/* ② はじめて本番モードを開いたとき（保存した大会がないとき） */
+{const _sm=setMode;setMode=function(m){const r=_sm.apply(this,arguments);try{if(m==='race'&&!ASR.on&&!racePresets.length)offerOnce('race','大会の情報の入力を、項目ごとに案内できます。',2);}catch(e){}return r;};}
+/* ③ 本番待機を始められなかったとき（足りない項目がある） */
+{const _rm=rcMsg;rcMsg=function(t,err){const r=_rm.apply(this,arguments);try{if(err&&!ASR.on&&!AS.never)asOfferShow(TR('本番待機を始める前に、足りない項目を案内できます。'),2);}catch(e){}return r;};}
+/* 「🧭 アシスト」ボタン */
+{const hb=$('#btnHelp');if(hb){const b=document.createElement('button');b.className='small helpbtn asbtn';b.type='button';b.id='btnAssist';b.textContent='🧭 アシスト';hb.before(b);b.onclick=asMenuOpen;
+  setInterval(()=>{b.disabled=pkBlocked();},2000);}}
+</script>
+<style>
+.de-f{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 4px;background:var(--bg);border-radius:10px}.de-f label{display:flex;flex-direction:column;gap:3px;font-size:.75rem;color:var(--muted);font-weight:700}
+.de-f input{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%;min-width:0;box-sizing:border-box}.de-f .w{grid-column:1/-1}.de-f .ctrls{margin:0}.de-msg{color:var(--warn)}.dtw tr.de-on td{background:var(--accent-soft)}.dtw td button+button{margin-left:4px}.de-ok{color:#15803d;font-weight:700;margin-bottom:4px}
+.asbtn+.helpbtn{margin-left:0}
+.as-spot{position:fixed;z-index:1900;border-radius:12px;pointer-events:none;box-shadow:0 0 0 3px var(--amber),0 0 0 9999px rgba(10,15,20,.5);transition:top .2s,left .2s,width .2s,height .2s}
+.as-box{position:fixed;z-index:1950;left:12px;right:12px;margin:0 auto;max-width:440px;background:var(--surface);color:var(--ink);border:2px solid var(--amber);border-radius:16px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.as-hd{display:flex;align-items:center;gap:8px;margin-bottom:4px}.as-chp{font-size:.75rem;font-weight:700;color:var(--amber)}.as-x{margin-left:auto;border:0;background:none;color:var(--muted);font-size:1.1rem;padding:2px 6px}
+.as-tt{display:block;font-size:1.1rem;margin-bottom:2px}.as-bd{margin:0 0 8px;font-size:.92rem;line-height:1.6}.as-wt{font-size:.75rem;color:var(--accent);font-weight:700;margin-bottom:6px}
+.as-nav{display:flex;gap:8px;justify-content:flex-end}.as-cho{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 2px}.as-cho button{flex:1;padding:12px 8px;font-size:1rem}
+.as-card{max-width:420px}.as-chs{list-style:none;margin:10px 0;padding:0;display:flex;flex-direction:column;gap:6px}.as-ch{width:100%;display:flex;align-items:center;gap:10px;text-align:left;padding:9px 10px}
+.as-n{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.8rem;flex:none}.as-t{flex:1}
+.as-st{font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:999px}.as-st.ok{background:#dcfce7;color:#15803d}.as-st.na{background:var(--bg);color:var(--muted)}
+.as-offer{position:fixed;z-index:1800;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom,0px));margin:0 auto;max-width:440px;background:var(--surface);border:2px solid var(--accent);border-radius:14px;padding:10px 12px;box-shadow:0 6px 24px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+.as-offer .ctrls{margin:0;display:flex;gap:6px;flex-wrap:wrap}
+@media (prefers-color-scheme:dark){.as-st.ok{background:#14532d;color:#bbf7d0}}
+</style>
+
 </body>
 </html>
