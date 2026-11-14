@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html translate="no" class="notranslate"><head><meta charset=utf8><meta name="google" content="notranslate"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 
 
 
@@ -318,7 +318,7 @@ function hideJp(root){if(!root.querySelectorAll)return;root.querySelectorAll('la
   root.querySelectorAll('h2').forEach(h=>{if(/^(プルダウンの選択肢|Dropdown)/.test(h.textContent.trim())){h.style.display='none';const c=h.nextElementSibling;if(c)c.style.display='none'}})}
 function trTree(root){if(root.nodeType===3)return trNode(root);if(root.nodeType!==1)return;fixTables(root);hideJp(root);trAttr(root);root.querySelectorAll('[placeholder],[title],[aria-label]').forEach(trAttr);
   const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode())trNode(n)}
-document.documentElement.lang='en';document.title='Marathon Race Manager';
+document.documentElement.lang='en';document.documentElement.setAttribute('translate','no');document.title='Marathon Race Manager';
 const mo=new MutationObserver(ms=>{let add=false;for(const m of ms){if(m.type==='characterData')trNode(m.target);else if(m.type==='attributes')trAttr(m.target);else{m.addedNodes.forEach(trTree);if(m.addedNodes.length)add=true}}if(add){fixTables(document.body);hideJp(document.body)}});
 addEventListener('DOMContentLoaded',()=>{trTree(document.body);mo.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label']})});
 if(document.readyState!=='loading'){trTree(document.body);mo.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label']})}
