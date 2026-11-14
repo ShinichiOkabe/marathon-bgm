@@ -224,6 +224,7 @@ function langCard(){const o=(v,l,c)=>'<option value="'+v+'"'+(c===v?' selected':
   '<div class="note" style="margin-bottom:0">「マラソンBGMに合わせる」にすると、マラソンBGMの右上の「🌐」で日本語以外を選んだとき、英語で表示します。変更すると画面を読み込み直します。</div></div>'}
 document.addEventListener('change',e=>{const t=e.target,set=(k,v)=>{try{localStorage.setItem(k,v)}catch(_){}location.reload()};
   if(t.id==='lgSel')set('mkanri-lang',t.value);if(t.id==='lgUnit')set('mkanri-unit',t.value);if(t.id==='lgCur')set('mkanri-cur',t.value.trim()||'$')});
+var EN_TR=s=>s,EN_PACE=v=>v;const EN_WD={'日':'Sun','月':'Mon','火':'Tue','水':'Wed','木':'Thu','金':'Fri','土':'Sat'};
 if(EN){
 const D={
 'マラソン大会管理':'Marathon Race Manager','ダッシュボード':'Dashboard','大会一覧':'Races','予約・精算':'Bookings & Costs','チャレンジ':'Challenges','設定':'Settings',
@@ -297,6 +298,7 @@ const P=[
  [/^(\d+)大会・(\d+)項目を反映しました$/,(m,a,b)=>'Updated '+b+' fields in '+a+' races'],
  [/^(\d{4}\/\d{2}\/\d{2}) (.+)（BGMの記録名：(.*)・(.+)）$/,(m,a,b,c,d)=>a+' '+b+' (BGM record: '+c+' · '+d+')'],
  [/^([^：]+)：(.*)$/,(m,a,b)=>D[a]?D[a]+': '+tr(b):m]];
+EN_TR=s=>s==null||s===''?s:(D[String(s)]!=null?D[String(s)]:s);EN_PACE=v=>v&&UNIT==='mi'?paceMi(v):v;
 function paceMi(v){const p=String(v).split(':').map(Number);if(p.some(isNaN))return v;let s=p.reduce((a,b)=>a*60+b,0)/KM2MI;s=Math.round(s);const h=Math.floor(s/3600),mm=Math.floor(s%3600/60),ss=s%60;return (h?h+':'+String(mm).padStart(2,'0'):mm)+':'+String(ss).padStart(2,'0')}
 const JP=/[぀-ヿ㐀-鿿！-｠（）]/;
 function T(raw,ctx){const s=raw.trim();if(!s)return raw;let out=null;
@@ -700,7 +702,7 @@ function vKuni(){const st=prefStats(),pal=SEED.pal[(S.web.pal||1)-1]||SEED.pal[0
   '<div class="tw" style="max-height:none"><table><thead><tr><th>都道府県</th><th class="r">完走回数</th><th class="r">大会数</th><th>完走した大会名（×の数字は完走回数）</th></tr></thead><tbody>'+SEED.map.prefs.map(p=>{const o=st[p.name];return '<tr data-prefrow="'+esc(p.name)+'"'+(o.n?'':' class="lost"')+'><td>'+esc(p.name)+'</td><td class="r">'+(o.n||'')+'</td><td class="r">'+(o.list.length||'')+'</td><td class="w">'+esc(o.list.join('、'))+'</td></tr>'}).join('')+'</tbody></table></div></div>'+
   '<div class="note">「大会一覧」で「完走」になっている大会を、開催した都道府県ごとに自動表示します。</div>'}
 function svgToPng(svgEl,name,w){const xml=new XMLSerializer().serializeToString(svgEl),img=new Image(),vb=svgEl.viewBox.baseVal;
-  img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=Math.round(w*vb.height/vb.width);c.getContext('2d').drawImage(img,0,0,c.width,c.height);c.toBlob(b=>dl(name,b),'image/png')};
+  img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=Math.round(w*vb.height/vb.width);c.getContext('2d').drawImage(img,0,0,c.width,c.height);c.toBlob(b=>dl(EN?name.replace(/^国盗りマップ_/,'prefecture-map_').replace(/^完走した国_/,'countries_').replace(/^アメリカの州_/,'us-states_'):name,b),'image/png')};
   img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(xml.replace('<svg ','<svg width="'+w+'" height="'+Math.round(w*vb.height/vb.width)+'" '))}
 // ---------- チャレンジ：世界7大マラソン・完走した国と大陸 ----------
 const CTRY=[['アメリカ','北米'],['カナダ','北米'],['メキシコ','北米'],['イギリス','ヨーロッパ'],['アイルランド','ヨーロッパ'],['ドイツ','ヨーロッパ'],['フランス','ヨーロッパ'],['イタリア','ヨーロッパ'],['スペイン','ヨーロッパ'],['ポルトガル','ヨーロッパ'],['オランダ','ヨーロッパ'],['ベルギー','ヨーロッパ'],['スイス','ヨーロッパ'],['オーストリア','ヨーロッパ'],['ギリシャ','ヨーロッパ'],['チェコ','ヨーロッパ'],['デンマーク','ヨーロッパ'],['スウェーデン','ヨーロッパ'],['ノルウェー','ヨーロッパ'],['フィンランド','ヨーロッパ'],['アイスランド','ヨーロッパ'],['オーストラリア','オセアニア'],['ニュージーランド','オセアニア'],['韓国','アジア'],['台湾','アジア'],['中国','アジア'],['香港','アジア'],['モンゴル','アジア'],['タイ','アジア'],['ベトナム','アジア'],['カンボジア','アジア'],['シンガポール','アジア'],['マレーシア','アジア'],['フィリピン','アジア'],['インドネシア','アジア'],['インド','アジア'],['アラブ首長国連邦','アジア'],['ケニア','アフリカ'],['エチオピア','アフリカ'],['南アフリカ','アフリカ'],['モロッコ','アフリカ'],['エジプト','アフリカ'],['ブラジル','南米'],['アルゼンチン','南米'],['チリ','南米'],['ペルー','南米'],['南極','南極']];
@@ -947,9 +949,12 @@ async function importJson(text){let o;try{o=JSON.parse(text)}catch(e){tell('フ�
   S=normalize({races:o.races,travel:strip(o.travel),train:strip(o.train),meta:o.meta,lists:o.lists||S.lists,chk:o.chk||S.chk,web:o.web||S.web});save();render();toast('復元しました')}
 function exportCsv(){const g=S.meta.timeMode==2;
   const cols=[['No',r=>r.id],['開催日',r=>fd(r.d)],['曜',r=>dow(r.d)],['大会名称',r=>r.name],['写真URL',r=>r.photo],['年齢',r=>age(r)],['都道府県',r=>r.pref],['種目',r=>r.ev],['その他の距離(km)',r=>r.km],['制限時間',r=>r.limit!=null?fHM(r.limit):r.limitT],['公認',r=>r.cert],['MCC対象',r=>r.mcc],['先着/抽選',r=>r.ent],['申込日',r=>[fd(r.apd),r.apn].filter(Boolean).join(' ')],['申込完了',r=>r.apok],['抽選発表日',r=>fd(r.lotd)],['抽選結果',r=>r.lot],['状況',r=>status(r)],['エントリー費',r=>r.fee],['Tシャツ等',r=>r.goods],['振込手数料',r=>r.bank],['申込費用計',r=>entry(r)],['旅費計',r=>tAmt(r.id)],['総費用',r=>entry(r)+tAmt(r.id)],['完走/リタイア',r=>r.res],['リタイアポイント',r=>r.dnf],['ネットタイム',r=>r.net!=null?fT(r.net):r.netT],['グロスタイム',r=>r.gross!=null?fT(r.gross):r.grossT],['1km平均',r=>fP(pace(r,'net'))],['1km平均(グロス)',r=>fP(pace(r,'gross'))],['総合順位',r=>r.rank],['種目(部門)',r=>r.cls],['種目別順位',r=>r.erank],['賞',r=>r.award],['天候',r=>r.wx],['気温(℃)',r=>r.temp],['フル完走',r=>nth(r,'フル')],['ハーフ完走',r=>nth(r,'ハーフ')],['旅行手配',r=>tStat(r.id)],['ゲストランナー等',r=>r.guest],['備考',r=>r.memo]];
+  let C=cols;if(EN){const H={'No':'No','開催日':'Date','曜':'Day','大会名称':'Race name','写真URL':'Photo URL','年齢':'Age','都道府県':'State / Region','種目':'Event','その他の距離(km)':'Other distance (km)','制限時間':'Time limit','公認':'Certified','先着/抽選':'Entry type','申込日':'Entry opens','申込完了':'Entry done','抽選発表日':'Lottery results date','抽選結果':'Lottery result','状況':'Status','エントリー費':'Entry fee','Tシャツ等':'T-shirt etc.','振込手数料':'Transfer fee','申込費用計':'Entry costs','旅費計':'Travel costs','総費用':'Total cost','完走/リタイア':'Finished / DNF','リタイアポイント':'DNF point','ネットタイム':'Net time','グロスタイム':'Gun time','1km平均':UNIT==='mi'?'Avg/mi':'Avg/km','1km平均(グロス)':UNIT==='mi'?'Avg/mi (gun)':'Avg/km (gun)','総合順位':'Overall place','種目(部門)':'Division','種目別順位':'Division place','賞':'Award','天候':'Weather','気温(℃)':'Temp (°C)','フル完走':'Marathon #','ハーフ完走':'Half #','旅行手配':'Travel','ゲストランナー等':'Guest runners, etc.','備考':'Notes'};
+    const TV=new Set(['曜','都道府県','種目','公認','先着/抽選','申込完了','抽選結果','状況','完走/リタイア','天候','旅行手配']);
+    C=cols.filter(c=>c[0]!=='MCC対象').map(([h,f])=>[H[h]||h,TV.has(h)?(h==='曜'?r=>EN_WD[f(r)]||f(r):r=>EN_TR(f(r))):/^1km平均/.test(h)?r=>EN_PACE(f(r)):/^(フル|ハーフ)完走$/.test(h)?r=>String(f(r)||'').replace(/^第(\d+)回$/,'$1'):f])}
   const q=v=>{v=v==null?'':String(v);return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
-  const rows=S.races.slice().sort((a,b)=>a.id-b.id).map(r=>cols.map(c=>q(c[1](r))).join(','));
-  dl('大会一覧_'+today()+'.csv','﻿'+cols.map(c=>q(c[0])).join(',')+'\r\n'+rows.join('\r\n')+'\r\n')}
+  const rows=S.races.slice().sort((a,b)=>a.id-b.id).map(r=>C.map(c=>q(c[1](r))).join(','));
+  dl((EN?'race-list_':'大会一覧_')+today()+'.csv','\ufeff'+C.map(c=>q(c[0])).join(',')+'\r\n'+rows.join('\r\n')+'\r\n')}
 // ---------- render & events ----------
 function render(){
   if(HM()&&tab==='travel'){tab='races';ui.back=null}
@@ -981,7 +986,7 @@ document.addEventListener('click',async e=>{
   if(t.id==='trnImp'){const p=trnPlan();if(!p.add.length&&!p.upd.length)return tell('取り込む内容はありません。完走した大会（と、距離の入ったリタイアの大会）はすべてトレーニング記録に反映済みです。');
     if(!await ask('大会一覧の完走した大会'+(p.from?'（'+fd(p.from)+' 以降）':'')+'を、トレーニング記録に取り込みます。リタイアした大会も、リタイアポイントに距離（例 30.9km）が入っていれば、その距離で取り込みます。\n\n・追加 '+p.add.length+' 件\n・時間を更新 '+p.upd.length+' 件\n\n時間は'+(p.g?'グロスタイム（未入力の大会はネットタイム）':'ネットタイム')+'を使います。よろしいですか？'))return;
     for(const [t,v] of p.upd)Object.assign(t,v);for(const [t,id] of p.link)t.race=id;for(const a of p.add)S.train.push(a);save();render();return toast('追加 '+p.add.length+' 件 ／ 更新 '+p.upd.length+' 件')}
-  if(t.id==='bSave')return dl('マラソン大会管理_'+today()+'.json',exportJson());
+  if(t.id==='bSave')return dl((EN?'marathon-race-manager_':'マラソン大会管理_')+today()+'.json',exportJson());
   if(t.id==='bLoad')return $('#bFile').click();
   if(t.id==='bCsv')return exportCsv();
   if(t.id==='bReset'){if(await ask('大会・予約・トレーニングなどの記録をすべて消して、空の状態に戻します。よろしいですか？')){S=normalize(JSON.parse(JSON.stringify(SEED)));save();render();toast('すべてのデータを消しました')}return}
