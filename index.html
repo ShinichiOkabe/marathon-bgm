@@ -834,7 +834,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-15d</p>
+  <p class="ver" data-notr translate="no">版 2026-11-15f</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -856,6 +856,7 @@ body.live .recv{display:none}
 <table><thead><tr><th>保存するもの</th><th>保存する場所</th><th>使えるモード</th><th>目印</th></tr></thead><tbody><tr><td>曲（流す曲・順番）</td><td>「🎵 曲の登録（マイリスト）」</td><td>練習・本番・リラックス</td><td>紫の枠</td></tr><tr><td>練習メニュー</td><td>「練習メニューの保存」</td><td>練習だけ</td><td>「メニュー」タブの下</td></tr><tr><td>大会の情報と戦略</td><td>「本番レース情報・戦略を保存」</td><td>本番だけ</td><td>「大会」タブの下</td></tr></tbody></table>
 <p>曲の登録（マイリスト）・練習メニュー・本番レース情報の3つとも、今読み込んでいるものが黄色の行になり、「読み込み中」と出ます。「上書き」が押せるのは、その黄色の行だけです（ほかを上書きしたいときは、先にそれを「読み込む」）。どれも「上書き」を押すと、「前 → 後」で何が変わるかが出る確認が出ます。よければ「OK」、やめるときは「キャンセル」を押します。入れた曲や設定はそのスマホの中だけに残り、どこにも送られません。</p>
 <h3>消費カロリー（目安）</h3><p>画面の右上の「カロリー計算」を押して体重（kg）を入れ、「閉じる」を押すと、ボタンの下が「計算する」に変わります。練習が終わったときと本番のゴール時に「消費カロリー（目安） 約○○ kcal」と表示し、本番のログとCSVにも書き出します。走っている途中は表示しません。計算は「体重 × 走った距離」の目安です。体重を空にすると「計算しない」に戻ります。体重は「カロリー計算」の画面でしか表示しません。</p>
+<h3>本番待機中・走行中のリンク</h3><p>本番待機中と、本番・練習で走っている間（一時停止中も含む）は、「このアプリを応援する（PayPal）」など、別のタブを開くリンクを押せなくしています。ポケットの中で触れて別のタブが開くと、GPSが止まったり、2回タップでスタートできなくなったりするためです。別のタブが開いてしまったときは、マラソンBGMのタブに戻ってください（音楽は流れ続けます）。</p>
 <h3>本番待機中のスタート（2回タップ）</h3><p>本番待機中は、スタート5分前（BGMが始まるとき）に自動で画面がロックされます。スタートラインを通ったら、画面を2回タップします。「スタートしますか？」と読み上げるので、10秒以内にもう一度2回タップするとスタートします。スタートの時刻は1回目にタップした時刻です。スタート時刻の1秒前まではスタートせず、スタート時刻を読み上げます。待機中は3回タップを使いません（2回目のタップですぐに反応します）。これまでどおり、「解除」を長押ししてロックを外し、「スタート」ボタンで始めることもできます。</p>
 <h3>本番中のロック</h3><p>本番の走行中にロックを解除したあと、画面に20秒さわらなければ自動でロックし直します（ピッと鳴ります）。ロックが外れていると2回タップ・3回タップは使えないためです。2回タップは、2回目を1回目から約0.65秒以内に、近い場所（約1.6cm以内）をタップすれば数えます。3回タップの3回目は、2回目から約0.8秒以内、1回目から約2.4cm以内なら数えます（屋外の練習では、1回ごとに約0.9秒以内）。</p>
 <h3>入力アシスト</h3><p>画面の右上の「🧭 アシスト」を押すと、使い始めの手順を「目標となる大会 → 大会の情報 → 目標タイム → 曲 → 練習メニューの自動生成 → 屋内・屋外の練習 → 本番 → 実績の確認」の章に分けて案内します。入力する場所が順に光り、吹き出しで説明が出ます。好きな章から始められ、終わった章には「済」が付きます。はじめて開いたときや、本番待機を始められなかったときだけ「入力をお手伝いしましょうか？」と小さく出ます（「今後表示しない」で出なくなります）。走っている間・待機中は使えません。</p>
@@ -1109,6 +1110,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>What</th><th>Where to save</th><th>Modes</th><th>Look for</th></tr></thead><tbody><tr><td>Songs (which songs, in what order)</td><td>"🎵 Song lists (my lists)"</td><td>Training, Race, Relax</td><td>Purple box</td></tr><tr><td>Training menu</td><td>"Save practice menu"</td><td>Training only</td><td>Below the "Menu" tab</td></tr><tr><td>Race info and strategy</td><td>"Save race info &amp; strategy"</td><td>Race only</td><td>Below the "Race" tab</td></tr></tbody></table>
 <p>For all three, the item that is currently loaded is shown as a yellow row marked "Loaded". You can press "Overwrite" only on that yellow row (to overwrite another one, "Load" it first). When you press "Overwrite", a confirmation shows what will change ("before → after"). Press "OK" to go ahead or "Cancel" to stop. Your songs and settings stay only on your phone and are not sent anywhere.</p>
 <h3>Calories burned (estimate)</h3><p>Press "Calories" at the top right, enter your body weight (kg) and press "Close". The label under the button changes to "On". When a training session ends and when you finish a race, the app shows "Calories burned (est.) about ○○ kcal" and also writes it to the race log and CSV. It is not shown while you are running. The estimate is "weight × distance run". Clear the weight to turn it "Off" again. Your weight is shown only on the "Calories" screen.</p>
+<h3>Links during race standby and running</h3><p>During race standby and while running a race or training (including while paused), links that open another tab (such as "Support this app (PayPal)") are disabled. If another tab opens from a touch in your pocket, GPS can stop and the double-tap start won't work. If another tab does open, switch back to the Marathon BGM tab (the music keeps playing).</p>
 <h3>Starting from race standby (double-tap)</h3><p>During race standby, the screen locks automatically 5 minutes before the start (when the BGM begins). At the start line, double-tap the screen. You will hear "Start now?"; double-tap again within 10 seconds to start. The start time is the time of your first tap. Until 1 second before the start time it does not start and reads out the start time instead. Triple-taps are not used during standby (it responds right after the second tap). You can still long-press "Unlock" and press the Start button as before.</p>
 <h3>Lock during a race</h3><p>If you unlock the screen while running a race and don't touch it for 20 seconds, it locks again automatically (with a beep), because double- and triple-taps only work while locked. A double-tap counts when the second tap comes within about 0.65 seconds of the first and close to it (within about 1.6 cm). For a triple-tap, the third tap counts within about 0.8 seconds of the second and within about 2.4 cm of the first (in outdoor training, within about 0.9 seconds between each tap).</p>
 <h3>Input assist</h3><p>Press "🧭 Assist" at the top right to be guided through the setup in chapters: target race → race information → goal time → songs → auto-generated training menu → indoor/outdoor training → race day → viewing results. Each item to fill in is highlighted with an explanation bubble. You can start from any chapter; finished chapters are marked "Done". A small "Would you like help?" appears only the first time you open the app or when race standby cannot start ("Don't show again" turns it off). Not available while running or standing by.</p>
@@ -5400,17 +5402,22 @@ function raceFinalize(d,goal){if(!d||!d._fin)return;if(!d._orig)d._orig=JSON.str
   store.set(LOGS_KEY,raceLogs);try{distEnsure();}catch(e){}try{logChanged(d);}catch(e){}try{renderLog();}catch(e){}}
 /* 終わったあとの欄：一番上で「ゴールした」「途中でやめた」を選ぶ */
 const finChoice=d=>{const F=d._fin,D=+d.km||0,pos=F?Math.min(F.g,D):0,near=D-pos<=1;
-  const sel=d.result,b=(k,lab,rec)=>`<button type="button" data-fin="${k}" class="${sel===k?'primary-sm on':rec&&!sel?'primary-sm':'small'}">${lab}</button>`;
+  const sel=d.result,b=(k,lab,rec)=>`<button type="button" data-fin="${k}" class="${sel===k?'primary-sm on':sel?'small off':rec?'primary-sm':'small'}">${sel===k?'<span aria-hidden="true" data-notr>✓ </span>':''}<span>${lab}</span></button>`;
   return `<div class="fin-q"><b>ゴールしましたか？</b><div class="sub">選んだ内容で、距離と1 km毎の時刻を整えて記録します。あとから選び直せます（「閉じる」を押すまで）。</div>
     <div class="ctrls">${b('finish','ゴールした',near)}${b('dnf','途中でやめた（リタイア）',!near)}</div>
     ${F&&F.auto?'<div class="sub">制限時間＋30分で自動で終わりました。ゴールの時刻は、自動で終わった時刻になります（実際のゴールより遅い場合があります）。</div>':''}
-    ${sel?`<div class="fin-done">${sel==='finish'?'ゴール（完走）として記録しました。':'途中で終了（リタイア）として記録しました。'}</div>`:''}</div>`;};
+    ${sel?`<div class="fin-done"><span aria-hidden="true" data-notr>✓ </span><span>${sel==='finish'?'ゴール（完走）として記録しました。':'途中で終了（リタイア）として記録しました。'}</span></div>`:''}</div>`;};
 {const _ei=endItems;endItems=function(){const it=_ei.apply(this,arguments);if(ENDP.mode==='race'&&ENDP.d&&ENDP.d._fin&&it.length){
   if(!ENDP.d.result){it[0]=['wait','この記録','上で「ゴールした」か「途中でやめた」を選んでください'];return it.slice(0,1).concat(it.slice(1).filter(x=>x[1]!=='Dropbox'));}
   it[0]=['ok','この記録',ENDP.d.result==='finish'?'ゴール（完走）として保存しました':'途中で終了（リタイア）として保存しました'];}return it;};}
 {const _er=endRender;endRender=function(){const r=_er.apply(this,arguments);try{if(ENDP.on&&ENDP.mode==='race'&&ENDP.d&&ENDP.d._fin&&!endBox.hidden){const h=finChoice(ENDP.d);let q=endBox.querySelector('.fin-q');
   if(!q||q.dataset.h!==h){if(q)q.remove();const w=document.createElement('div');w.innerHTML=h;q=w.firstElementChild;q.dataset.h=h;const t=endBox.querySelector('.t');(t||endBox.firstChild).after(q);}}}catch(e){}return r;};}
-endBox.addEventListener('click',e=>{const b=e.target.closest('[data-fin]');if(!b||!ENDP.d)return;raceFinalize(ENDP.d,b.dataset.fin==='finish');ENDP.cloudAt=0;endRender();});
+endBox.addEventListener('click',e=>{const b=e.target.closest('[data-fin]');if(!b||!ENDP.d)return;const goal=b.dataset.fin==='finish';
+  /* 記録の整理でエラーが起きても、選んだ結果だけは必ず残す（2026-11-15） */
+  try{raceFinalize(ENDP.d,goal);}catch(err){try{const d=ENDP.d;d.result=goal?'finish':'dnf';(d.ev=d.ev||[]).push({type:'err',msg:'記録の整理でエラー：'+String(err&&err.message||err).slice(0,120),t:d._fin?d._fin.el:0,at:Date.now()});store.set(LOGS_KEY,raceLogs);try{renderLog();}catch(e3){}}catch(e2){}}
+  /* 押したことが分かるように：短く振動し、欄を光らせる */
+  try{navigator.vibrate&&navigator.vibrate(60);}catch(e){}
+  ENDP.cloudAt=0;endRender();const q=endBox.querySelector('.fin-q');if(q){q.classList.remove('fin-flash');void q.offsetWidth;q.classList.add('fin-flash');}});
 /* 閉じたら、選び直し用の控えは消す */
 {const _eh=endHide;endHide=function(){try{const d=ENDP.d;if(d&&d._fin){delete d._orig;delete d._fin;store.set(LOGS_KEY,raceLogs);}}catch(e){}return _eh.apply(this,arguments);};}
 {const _ll=logLabel;logLabel=function(x){const s=_ll.apply(this,arguments);return x&&x.result==='dnf'?s+'（途中終了）':s;};}
@@ -6535,7 +6542,7 @@ lockLayer.addEventListener('pointerdown',e=>{if(e.target.closest('button,.lock-b
 /* スタート5分前（BGMが始まったとき）に、1回だけ自動でロックする。自分で解除したあとは、そのまま */
 setInterval(()=>{try{
   if(!sbOn()){SB.locked=false;if(SB.step)sbReset();return;}
-  if(RS.pre&&!SB.locked){SB.locked=true;if(lockLayer.hidden&&document.visibilityState==='visible'){try{if(HIST.on)histClose();}catch(e){}try{document.querySelectorAll('.kcal-panel').forEach(p=>p.hidden=true);}catch(e){}lock();}}
+  if(RS.pre&&!SB.locked&&document.visibilityState==='visible'){SB.locked=true;if(lockLayer.hidden){try{if(HIST.on)histClose();}catch(e){}try{document.querySelectorAll('.kcal-panel').forEach(p=>p.hidden=true);}catch(e){}lock();}}
   }catch(e){}},1000);
 /* ロック中の案内を待機用に */
 {const sbHint=()=>{const h=document.getElementById('vcHint');if(!h)return;if(sbOn()&&!lockLayer.hidden){h.hidden=false;if(h.dataset.k!=='sb'){h.dataset.k='sb';h.innerHTML='<span>スタートラインを通ったら、2回タップを2回でスタート</span>';}}else if(h.dataset.k==='sb'){h.dataset.k='';}};
@@ -6548,5 +6555,20 @@ setInterval(()=>{try{
  ['スタートラインを通ったら、2回タップを2回でスタート','At the start line, double-tap twice to start'],
  ['2回タップでスタート','Started by double-tap']].forEach(a=>{try{I18N.D.set(a[0],[a[1],a[1],a[1],a[1]]);}catch(e){}});
 </script>
+<style>
+.fin-q button.on{outline:3px solid #16a34a;outline-offset:2px}
+.fin-q button.off{opacity:.55}
+.fin-q .fin-done{margin-top:8px;padding:8px 10px;border-radius:10px;background:#dcfce7;color:#15803d;font-weight:700}
+.fin-q.fin-flash{animation:finflash .7s ease-out}
+@keyframes finflash{0%{box-shadow:0 0 0 4px #4ade80}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-color-scheme:dark){.fin-q .fin-done{background:#14532d;color:#bbf7d0}}
+</style>
+<script>
+/* ===================== 2026-11-15：本番待機中・本番と練習の走行中は、別のタブを開くリンクを押せなくする =====================
+   ポケットの中で「このアプリを応援する（PayPal）」などに触れて、別のタブが開いてしまうのを防ぐ */
+setInterval(()=>{try{const busy=(MODE==='race'&&(RS.armed||RS.pre||(R.running&&!R.done)))||(MODE==='practice'&&R.running&&!R.done);document.body.classList.toggle('race-busy',!!busy);}catch(e){}},1000);
+document.addEventListener('click',e=>{const a=e.target.closest('a[target="_blank"]');if(a&&document.body.classList.contains('race-busy')){e.preventDefault();e.stopPropagation();}},true);
+</script>
+<style>.race-busy a[target="_blank"]{pointer-events:none;opacity:.4}</style>
 </body>
 </html>
