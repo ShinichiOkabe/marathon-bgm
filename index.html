@@ -834,7 +834,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-15f</p>
+  <p class="ver" data-notr translate="no">版 2026-11-15g</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -1074,6 +1074,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>スマホで保存した記録は、パソコンのマラソンBGMでも見られます。やり方は、次の「スマホの記録をパソコンで見る（Dropboxで連携）」を見てください。</p>
 <h4>こんなときは</h4>
 <ul><li><strong>「サインインの有効期限が切れました」と出た</strong>：「サインイン」を押して、もう一度ログインしてください。保存できていなかった記録はスマホに残っていて、サインインすると保存されます。</li><li><strong>「Dropbox（準備中）」と出て選べない</strong>：お使いの版のアプリでは、まだDropboxが使えません。利用者の方が何かを設定する必要はありません。画面の上に「新しい版があります」と出たら、新しい版にしてください。</li><li><strong>Dropboxをやめたい</strong>：「サインアウト」を押し、「保存先」を「なし（この端末だけ）」に戻します。Dropboxに保存した記録は消えずに残ります。このアプリへのアクセスの許可は、Dropboxのウェブサイトの「設定」にある接続済みのアプリの一覧からも取り消せます。</li><li><strong>記録には走った場所が入っています</strong>：GPSをONにしていた区間の位置が記録に含まれます。Dropboxのフォルダをほかの人と共有するときは気をつけてください。</li></ul>
+<h3>スマホとパソコンで記録を合わせる</h3><p>「4. 実績」を開いたときと、別のタブやアプリから戻ったときに、ほかの端末で変えた記録（公式記録・写真のURL・天気など）をDropboxから読み込み直します。保存し直すときもDropbox側の記録を確かめ、新しい公式記録などを古い記録で消さないようにしています。ネットにつながらず保存できなかった変更は、この端末に控えを残し、ページを閉じても消えません（「未保存の記録」の件数に入ります）。</p>
 <h3 id="h-pc">スマホの記録をパソコンで見る（Dropboxで連携）</h3>
 <p>保存先をDropboxにすると、<strong>スマホで走った記録を、パソコンのマラソンBGMでそのまま見られます</strong>。パソコンへのコピーやファイルの受け渡しは要りません。大きな画面で、ペースのグラフ・高低差・地図・前回との比較をじっくり見られます。</p>
 <div class="glink"><div><b>📱</b><strong>スマホで走る</strong>ゴール・練習を終了</div><i>→</i><div><b>☁️</b><strong>Dropboxに自動で保存</strong>ネットにつながったとき</div><i>→</i><div><b>💻</b><strong>パソコンで見る</strong>「4. 実績」を開くだけ</div></div>
@@ -1328,6 +1329,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>Logs saved from your phone can also be viewed in Marathon BGM on a computer. See the next section, "View your phone's logs on a computer (linked through Dropbox)".</p>
 <h4>If something goes wrong</h4>
 <ul><li><strong>"Your sign-in has expired."</strong>: press "Sign in" and log in again. Logs that weren't saved are still on your phone and are saved once you sign in.</li><li><strong>"Dropbox (coming soon)" can't be chosen</strong>: your version of the app can't use Dropbox yet. There is nothing you need to set up. When "A new version is available" appears at the top, update to it.</li><li><strong>To stop using Dropbox</strong>: press "Sign out" and set "Save to" back to "None (this device only)". Logs already saved in Dropbox stay there. You can also remove this app's access from the list of connected apps in your Dropbox settings on the Dropbox website.</li><li><strong>Logs contain where you ran</strong>: positions from the sections where GPS was on are included. Take care when sharing your Dropbox folder with others.</li></ul>
+<h3>Keeping phone and computer in step</h3><p>When you open "4. Results" or come back from another tab or app, records changed on another device (official results, photo URL, weather, etc.) are reloaded from Dropbox. Before saving again, the Dropbox copy is checked so that a newer official result is never erased by an older copy. Changes that could not be saved because you were offline are kept on this device, even if you close the page (they count as "Unsaved logs").</p>
 <h3 id="e-pc">View your phone's logs on a computer (linked through Dropbox)</h3>
 <p>When "Save to" is Dropbox, <strong>the runs you record on your phone can be viewed as they are in Marathon BGM on a computer</strong>. No copying or file transfer is needed. You can look at the pace graphs, elevation, map and comparison with earlier races on a big screen.</p>
 <div class="glink"><div><b>📱</b><strong>Run with your phone</strong>Finish / End training</div><i>→</i><div><b>☁️</b><strong>Saved to Dropbox automatically</strong>When online</div><i>→</i><div><b>💻</b><strong>View on a computer</strong>Just open "4. Results"</div></div>
@@ -3034,16 +3036,50 @@ const raceFile=x=>`race-${x.startAt}.json`;
 const idxMeta=x=>({id:x.id,name:x.name||'',date:x.date||'',startAt:x.startAt,el:x.el||0,km:x.km||0,kind:kindOf(x),result:rlStat(x),reach:+(logKm(x)||0).toFixed(3),photo:x.photo||''});
 async function cloudIndexGet(){const t=await cloudCall('get','index.json');if(!t)return [];try{const j=JSON.parse(t);return Array.isArray(j.races)?j.races:[];}catch(e){return [];}}
 /* 未保存の記録をアップロードし、一覧（index.json）を更新し、この端末には直近の数件だけ残す */
+/* ===== 2026-11-15：別の端末とのずれを防ぐ =====
+   upd＝最後に変えた時刻。保存し直す前にDropbox側の記録を読み、新しいほうを残す。
+   公式記録（off.at／offDelAt）・写真URL（photoAt）・天気（wx.got）は、項目ごとに新しいほうを選ぶ */
+const recUpd=x=>+(x&&x.upd)||0;
+function recMerge(a,b){/* a＝この端末、b＝Dropbox。新しいほうを土台にし、項目ごとに新しいものを入れる */
+  if(!b)return a;const base=recUpd(b)>recUpd(a)?b:a,o=base===a?b:a,m=Object.assign({},base);
+  const offT=x=>Math.max(x.off&&+x.off.at||0,+x.offDelAt||0);
+  const offSrc=offT(o)>offT(base)?o:base;if(offSrc.off)m.off=offSrc.off;else delete m.off;if(offSrc.offDelAt)m.offDelAt=offSrc.offDelAt;
+  if((+o.photoAt||0)>(+base.photoAt||0)||(!base.photo&&o.photo&&!base.photoAt)){m.photo=o.photo;if(o.photoAt)m.photoAt=o.photoAt;}
+  if(o.wx&&(!base.wx||(+o.wx.got||0)>(+base.wx.got||0)))m.wx=o.wx;
+  m.upd=Math.max(recUpd(a),recUpd(b));return m;}
+const recClean=x=>{const c=Object.assign({},x);delete c.cloud;delete c.dirty;delete c.loading;delete c._got;return c;};
+async function recPut(x){/* Dropbox側を確かめてから保存し、合わせた内容をこの端末にも反映する */
+  let r=null;try{const t=await cloudCall('get',raceFile(x));if(t)r=JSON.parse(t);}catch(e){if(e==='auth'||e===401||e===403)throw e;}
+  /* 変わったのに時刻が付いていない記録（天気の取得など）は、今を変えた時刻にする */
+  if(!x.upd||x.upd<=(+x.upAt||0))x.upd=Date.now();const m=r?recMerge(recClean(x),r):recClean(x);m.upAt=Date.now();
+  await cloudCall('put',raceFile(x),JSON.stringify(m));
+  const keep={id:x.id};Object.keys(x).forEach(k=>{if(!(k in m)&&!['cloud','dirty','loading','_got','id'].includes(k))delete x[k];});Object.assign(x,m,keep);}
+/* 未保存の記録をアップロードし、一覧（index.json）を更新し、この端末には直近の数件だけ残す */
 async function cloudSync(){const svc=CLOUD.svc;if(svc==='none'||!CP[svc]||CLOUD.busy||!navigator.onLine||!cloudSigned(svc))return cloudRender();
   CLOUD.busy=true;cloudRender();
   try{let idx=await cloudIndexGet(),dn=0;const pend=raceLogs.filter(x=>x.cloud!==svc);
-    for(const x of pend){const c=Object.assign({},x);delete c.cloud;await cloudCall('put',raceFile(x),JSON.stringify(c));x.cloud=svc;idx=idx.filter(e=>e.id!==x.id);idx.push(idxMeta(x));}
-    for(const id of Object.keys(CLOUD.cache)){const x=CLOUD.cache[id];if(x.dirty){const c=Object.assign({},x);delete c.dirty;delete c.cloud;await cloudCall('put',raceFile(x),JSON.stringify(c));x.dirty=false;dn++;idx=idx.filter(e=>e.id!==x.id);idx.push(idxMeta(x));}}
+    for(const x of pend){await recPut(x);x.cloud=svc;idx=idx.filter(e=>e.id!==x.id);idx.push(idxMeta(x));}
+    for(const id of Object.keys(CLOUD.cache)){const x=CLOUD.cache[id];if(x.dirty){await recPut(x);x.dirty=false;dn++;idx=idx.filter(e=>e.id!==x.id);idx.push(idxMeta(x));}}
     idx.sort((a,b)=>b.startAt-a.startAt);if(pend.length||dn)await cloudCall('put','index.json',JSON.stringify({v:1,races:idx}));
     CLOUD.index=idx;CLOUD.loaded=true;CLOUD.err='';
-    trimLogs();store.set(LOGS_KEY,raceLogs);
+    trimLogs();store.set(LOGS_KEY,raceLogs);dirtySave();
   }catch(e){CLOUD.err=e==='auth'||e===401||e===403?'auth':'fail';}
-  CLOUD.busy=false;try{renderLog();}catch(e){}cloudRender();}
+  CLOUD.busy=false;try{renderLog();}catch(e){}cloudRender();
+  if(!CLOUD.err)cloudRefresh();}
+/* 別の端末で変えた記録を読み込み直す（「4. 実績」を開いたとき・タブに戻ったとき。20秒に1回まで） */
+let refreshAt=0;
+async function cloudRefresh(force){const svc=CLOUD.svc;if(svc==='none'||!navigator.onLine||!cloudSigned(svc)||CLOUD.busy)return;
+  if(!force&&Date.now()-refreshAt<20000)return;refreshAt=Date.now();
+  const ids=new Set((CLOUD.index||[]).map(e=>e.id));let ch=false;
+  const list=raceLogs.filter(x=>x.cloud===svc&&ids.has(x.id)).concat(Object.values(CLOUD.cache).filter(x=>!x.dirty&&!x.loading&&ids.has(x.id)));
+  for(const x of list){try{const t=await cloudCall('get',raceFile(x));if(!t)continue;const r=JSON.parse(t);
+      if(recUpd(r)>recUpd(x)||(r.off&&!x.off&&!x.offDelAt)||(r.off&&x.off&&(+r.off.at||0)>(+x.off.at||0))){const m=recMerge(recClean(x),r);
+        Object.keys(x).forEach(k=>{if(!(k in m)&&!['cloud','id'].includes(k))delete x[k];});Object.assign(x,m,{id:x.id});ch=true;}}
+    catch(e){if(e==='auth'||e===401||e===403){CLOUD.err='auth';break;}}}
+  if(ch){store.set(LOGS_KEY,raceLogs);try{renderLog();}catch(e){}}cloudRender();}
+/* Dropboxだけにある記録を変えたとき、保存が済むまでこの端末にも控えを残す（ページを閉じても消えない） */
+const DIRTY_KEY='cbgm-cloud-dirty';
+function dirtySave(){try{const o={};Object.values(CLOUD.cache).forEach(x=>{if(x.dirty)o[x.id]=recClean(x);});if(Object.keys(o).length)store.set(DIRTY_KEY,o);else localStorage.removeItem(DIRTY_KEY);}catch(e){}}
 /* 実績の一覧に、この端末にないクラウドの記録を加える */
 function cloudOpts(){if(!CLOUD||CLOUD.svc==='none')return [];return CLOUD.index.filter(e=>kindOf(e)===HIST.kind&&!raceLogs.some(x=>x.id===e.id)).map(e=>`<option value="${esc(e.id)}">☁ ${logLabel(e)}</option>`);}
 function cloudLog(id){if(!CLOUD||!id||id==='cur')return null;if(CLOUD.cache[id])return CLOUD.cache[id];const e=CLOUD.index.find(x=>x.id===id);if(!e||kindOf(e)!==HIST.kind)return null;
@@ -3052,7 +3088,7 @@ function cloudLog(id){if(!CLOUD||!id||id==='cur')return null;if(CLOUD.cache[id])
       .catch(err=>{e._ld=false;e._fail=Date.now();CLOUD.err=err==='auth'?'auth':'fail';renderLog();cloudRender();});}
   return ph;}
 /* 天気の取得や折り返しの削除で記録が変わったら、保存し直す */
-function logChanged(d){if(!d)return;if(raceLogs.includes(d)){if(d.cloud)d.cloud=null;store.set(LOGS_KEY,raceLogs);}else if(CLOUD.cache[d.id])CLOUD.cache[d.id].dirty=true;setTimeout(cloudSync,0);}
+function logChanged(d){if(!d)return;d.upd=Date.now();if(raceLogs.includes(d)){if(d.cloud)d.cloud=null;store.set(LOGS_KEY,raceLogs);}else if(CLOUD.cache[d.id]){CLOUD.cache[d.id].upd=d.upd;CLOUD.cache[d.id].dirty=true;dirtySave();}setTimeout(cloudSync,0);}
 /* 記録を削除したら、クラウドからも消す */
 function cloudForget(d){if(!d||CLOUD.svc==='none')return;const inIdx=CLOUD.index.some(e=>e.id===d.id);delete CLOUD.cache[d.id];if(!inIdx||!cloudSigned(CLOUD.svc)||!navigator.onLine)return;
   CLOUD.index=CLOUD.index.filter(e=>e.id!==d.id);(async()=>{try{await cloudCall('del',raceFile(d));const idx=(await cloudIndexGet()).filter(e=>e.id!==d.id);await cloudCall('put','index.json',JSON.stringify({v:1,races:idx}));CLOUD.index=idx;}catch(e){CLOUD.err='fail';}renderLog();cloudRender();})();}
@@ -3060,7 +3096,7 @@ function cloudRender(){const sel=$('#cloudSvc');if(!sel)return;const svc=CLOUD.s
   if(!sel.options.length)sel.innerHTML=`<option value="none">なし（この端末だけ）</option>`+['dropbox'].map(k=>`<option value="${k}"${CLOUD_IDS[k]?'':' disabled'}>${CP[k].name}${CLOUD_IDS[k]?'':'（準備中）'}</option>`).join('');
   sel.value=svc;const msg=$('#cloudMsg'),st=$('#cloudSt'),bi=$('#cloudIn'),bn=$('#cloudNow'),bo=$('#cloudOut');
   if(svc==='none'){msg.textContent=`本番は最新${LOG_MAX}件、練習は最新${PRAC_MAX}件まで、この端末に残しています。`;st.textContent='';bi.hidden=bn.hidden=bo.hidden=true;return;}
-  const signed=cloudSigned(svc),pend=raceLogs.filter(x=>x.cloud!==svc).length;
+  const signed=cloudSigned(svc),pend=raceLogs.filter(x=>x.cloud!==svc).length+Object.values(CLOUD.cache).filter(x=>x.dirty).length;
   msg.textContent=signed?`本番と、保存した練習の記録を自動で保存し、この端末には本番・練習それぞれ直近${CLOUD_KEEP}件だけ残します。過去の記録は、ネットにつながっているときに一覧から読み込めます。`:'サインインすると、ゴール後に本番の記録を自動で保存します。';
   let t='',err=false;
   if(CLOUD.busy)t='保存しています…';
@@ -5601,9 +5637,9 @@ function photoRender(){const row=$('#photoRow');if(!row)return;const d=logData()
   if(i&&(d.result==='finish'||d.result==='dnf'||rlStat(d))&&!i.querySelector('.res-s')){const s=document.createElement('span');s.className='res-s';s.textContent='結果 '+(rlStat(d)==='finish'?'完走':'リタイア');i.insertBefore(s,i.firstChild.nextSibling);}}
 $('#photoSave').addEventListener('click',()=>{const d=logData();if(!d||d.loading||d.id==='cur')return;const v=$('#photoUrl').value.trim(),m=$('#photoMsg');
   if(v&&!rlPhotoOk(v)){m.textContent='http:// か https:// で始まるURLを入れてください';return;}
-  d.photo=v;const loc=raceLogs.find(x=>x.id===d.id);
-  if(loc){loc.photo=v;if(loc.cloud)delete loc.cloud;store.set(LOGS_KEY,raceLogs);}
-  else if(CLOUD.cache[d.id]){CLOUD.cache[d.id].dirty=true;const e=(CLOUD.index||[]).find(x=>x.id===d.id);if(e)e.photo=v;}
+  const pnow=Date.now();d.photo=v;d.photoAt=pnow;d.upd=pnow;const loc=raceLogs.find(x=>x.id===d.id);
+  if(loc){loc.photo=v;loc.photoAt=pnow;loc.upd=pnow;if(loc.cloud)delete loc.cloud;store.set(LOGS_KEY,raceLogs);}
+  else if(CLOUD.cache[d.id]){CLOUD.cache[d.id].photoAt=pnow;CLOUD.cache[d.id].upd=pnow;CLOUD.cache[d.id].dirty=true;setTimeout(dirtySave,0);const e=(CLOUD.index||[]).find(x=>x.id===d.id);if(e)e.photo=v;}
   m.textContent='保存しました';try{cloudSync();}catch(e){}renderLog();});
 {const _rl=renderLog;renderLog=function(){const r=_rl.apply(this,arguments);try{rlRender();}catch(e){}try{photoRender();}catch(e){}return r;};}
 try{renderLog();}catch(e){}
@@ -5834,9 +5870,9 @@ function offCheck(){const d=logData();if(!d||d.id!==OP.id)return null;const B=of
 function offSaveTo(d,o){const loc=raceLogs.find(x=>x.id===d.id)||d;const c=Object.assign({},o);delete c.bad;
   if(!Object.keys(c.splits||{}).length)delete c.splits;Object.keys(c).forEach(k=>{if(c[k]==null||c[k]==='')delete c[k];});
   const keep=Object.keys(c).some(k=>k!=='basis');
-  [loc,d].forEach(x=>{if(!x)return;if(keep)x.off=Object.assign({},c,{at:Date.now()});else delete x.off;offScale(x);});
+  const now=Date.now();[loc,d].forEach(x=>{if(!x)return;if(keep){x.off=Object.assign({},c,{at:now});delete x.offDelAt;}else{delete x.off;x.offDelAt=now;}x.upd=now;offScale(x);});
   const e=(CLOUD.index||[]).find(x=>x.id===d.id);if(e)e.el=loc.el;
-  if(raceLogs.includes(loc)){if(loc.cloud)delete loc.cloud;store.set(LOGS_KEY,raceLogs);}else if(CLOUD.cache[d.id]){CLOUD.cache[d.id].dirty=true;}
+  if(raceLogs.includes(loc)){if(loc.cloud)delete loc.cloud;store.set(LOGS_KEY,raceLogs);}else if(CLOUD.cache[d.id]){CLOUD.cache[d.id].dirty=true;dirtySave();}
   try{cloudSync();}catch(err){}}
 function offPanelSave(){const d=logData();if(!d||d.id!==OP.id)return;const r=offCheck();if(!r)return;const {o,lvl}=r;
   if(lvl==='err'){const w=$('#ofWarn');w.scrollIntoView({block:'center'});return;}
@@ -6570,5 +6606,14 @@ setInterval(()=>{try{const busy=(MODE==='race'&&(RS.armed||RS.pre||(R.running&&!
 document.addEventListener('click',e=>{const a=e.target.closest('a[target="_blank"]');if(a&&document.body.classList.contains('race-busy')){e.preventDefault();e.stopPropagation();}},true);
 </script>
 <style>.race-busy a[target="_blank"]{pointer-events:none;opacity:.4}</style>
+<script>
+/* ===================== 2026-11-15：Dropboxの記録を、別の端末と合わせる ===================== */
+/* 保存が済んでいなかった変更を戻す（ページを閉じても消えないように） */
+try{const o=store.get(DIRTY_KEY,null);if(o&&typeof o==='object'){Object.keys(o).forEach(id=>{if(raceLogs.some(x=>x.id===id))return;const x=o[id];x.id=id;x.dirty=true;x.cloud=CLOUD.svc;CLOUD.cache[id]=x;});
+  if(Object.keys(o).length)setTimeout(()=>{try{cloudSync();}catch(e){}},1500);}}catch(e){}
+/* 「4. 実績」を開いたとき、別のタブ・アプリから戻ったときに、別の端末で変えた記録を読み込み直す */
+{const _ho=histOpen;histOpen=function(){const r=_ho.apply(this,arguments);setTimeout(()=>{try{cloudRefresh();}catch(e){}},800);return r;};}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&typeof HIST!=='undefined'&&HIST.on){try{if(!CLOUD.busy)cloudSync();}catch(e){}}});
+</script>
 </body>
 </html>
