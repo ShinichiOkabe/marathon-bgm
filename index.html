@@ -834,7 +834,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-15h</p>
+  <p class="ver" data-notr translate="no">版 2026-11-15i</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -3034,7 +3034,12 @@ async function cloudCall(op,...a){const P=CP[CLOUD.svc];let tk=await cloudAccess
   try{return await P[op](tk,...a);}catch(e){if(e!==401)throw e;tk=await cloudAccess(true);return P[op](tk,...a);}}
 const raceFile=x=>`race-${x.startAt}.json`;
 const idxMeta=x=>({id:x.id,name:x.name||'',date:x.date||'',startAt:x.startAt,el:x.el||0,km:x.km||0,kind:kindOf(x),result:rlStat(x),reach:+(logKm(x)||0).toFixed(3),photo:x.photo||''});
-async function cloudIndexGet(){const t=await cloudCall('get','index.json');if(!t)return [];try{const j=JSON.parse(t);return Array.isArray(j.races)?j.races:[];}catch(e){return [];}}
+async function cloudIndexGet(){const t=await cloudCall('get','index.json');let r=[],del=[];if(t){try{const j=JSON.parse(t);if(Array.isArray(j.races))r=j.races;if(Array.isArray(j.del))del=j.del;}catch(e){}}r.del=del;return r;}
+/* 一覧（index.json）を書くときは、直前にもう一度読み、ほかの端末が加えた大会を消さないように合わせてから書く（2026-11-15）。
+   del＝削除した大会のid。削除した大会は、ほかの端末に残っていても一覧に戻さない */
+async function indexPut(upd,delIds){const cur=await cloudIndexGet(),del=new Set([...(cur.del||[]),...(delIds||[])]);
+  let races=cur.filter(e=>!upd.has(e.id)&&!del.has(e.id));upd.forEach(m=>{if(!del.has(m.id))races.push(m);});races.sort((a,b)=>b.startAt-a.startAt);
+  await cloudCall('put','index.json',JSON.stringify({v:1,races,del:[...del].slice(-500)}));races.del=[...del];return races;}
 /* 未保存の記録をアップロードし、一覧（index.json）を更新し、この端末には直近の数件だけ残す */
 /* ===== 2026-11-15：別の端末とのずれを防ぐ =====
    upd＝最後に変えた時刻。保存し直す前にDropbox側の記録を読み、新しいほうを残す。
@@ -3059,10 +3064,13 @@ async function recPut(x){/* Dropbox側を確かめてから保存し、合わせ
 /* 未保存の記録をアップロードし、一覧（index.json）を更新し、この端末には直近の数件だけ残す */
 async function cloudSync(){const svc=CLOUD.svc;if(svc==='none'||!CP[svc]||CLOUD.busy||!navigator.onLine||!cloudSigned(svc))return cloudRender();
   CLOUD.busy=true;cloudRender();
-  try{let idx=await cloudIndexGet(),dn=0;const pend=raceLogs.filter(x=>x.cloud!==svc);
-    for(const x of pend){await recPut(x);x.cloud=svc;idx=idx.filter(e=>e.id!==x.id);idx.push(idxMeta(x));}
-    for(const id of Object.keys(CLOUD.cache)){const x=CLOUD.cache[id];if(x.dirty){await recPut(x);x.dirty=false;dn++;idx=idx.filter(e=>e.id!==x.id);idx.push(idxMeta(x));}}
-    idx.sort((a,b)=>b.startAt-a.startAt);if(pend.length||dn)await cloudCall('put','index.json',JSON.stringify({v:1,races:idx}));
+  try{let idx=await cloudIndexGet(),dn=0;const have=new Set(idx.map(e=>e.id)),gone=new Set(idx.del||[]),upd=new Map();
+    /* 「保存済み」なのに一覧（index.json）にない記録は、もう一度送る（削除した記録は除く） */
+    raceLogs.forEach(x=>{if(x.cloud===svc&&!x.live&&!have.has(x.id)&&!gone.has(x.id))delete x.cloud;});
+    const pend=raceLogs.filter(x=>x.cloud!==svc&&!gone.has(x.id));
+    for(const x of pend){await recPut(x);x.cloud=svc;upd.set(x.id,idxMeta(x));}
+    for(const id of Object.keys(CLOUD.cache)){const x=CLOUD.cache[id];if(x.dirty){if(!gone.has(id)){await recPut(x);upd.set(x.id,idxMeta(x));dn++;}x.dirty=false;}}
+    if(upd.size)idx=await indexPut(upd);
     CLOUD.index=idx;CLOUD.loaded=true;CLOUD.err='';
     trimLogs();store.set(LOGS_KEY,raceLogs);dirtySave();
   }catch(e){CLOUD.err=e==='auth'||e===401||e===403?'auth':'fail';}
@@ -3097,7 +3105,7 @@ function cloudLog(id){if(!CLOUD||!id||id==='cur')return null;if(CLOUD.cache[id])
 function logChanged(d){if(!d)return;d.upd=Date.now();if(raceLogs.includes(d)){if(d.cloud)d.cloud=null;store.set(LOGS_KEY,raceLogs);}else if(CLOUD.cache[d.id]){CLOUD.cache[d.id].upd=d.upd;CLOUD.cache[d.id].dirty=true;dirtySave();}setTimeout(cloudSync,0);}
 /* 記録を削除したら、クラウドからも消す */
 function cloudForget(d){if(!d||CLOUD.svc==='none')return;const inIdx=CLOUD.index.some(e=>e.id===d.id);delete CLOUD.cache[d.id];if(!inIdx||!cloudSigned(CLOUD.svc)||!navigator.onLine)return;
-  CLOUD.index=CLOUD.index.filter(e=>e.id!==d.id);(async()=>{try{await cloudCall('del',raceFile(d));const idx=(await cloudIndexGet()).filter(e=>e.id!==d.id);await cloudCall('put','index.json',JSON.stringify({v:1,races:idx}));CLOUD.index=idx;}catch(e){CLOUD.err='fail';}renderLog();cloudRender();})();}
+  CLOUD.index=CLOUD.index.filter(e=>e.id!==d.id);(async()=>{try{await cloudCall('del',raceFile(d));CLOUD.index=await indexPut(new Map(),[d.id]);}catch(e){CLOUD.err='fail';}renderLog();cloudRender();})();}
 function cloudRender(){const sel=$('#cloudSvc');if(!sel)return;const svc=CLOUD.svc;
   if(!sel.options.length)sel.innerHTML=`<option value="none">なし（この端末だけ）</option>`+['dropbox'].map(k=>`<option value="${k}"${CLOUD_IDS[k]?'':' disabled'}>${CP[k].name}${CLOUD_IDS[k]?'':'（準備中）'}</option>`).join('');
   sel.value=svc;const msg=$('#cloudMsg'),st=$('#cloudSt'),bi=$('#cloudIn'),bn=$('#cloudNow'),bo=$('#cloudOut');
