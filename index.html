@@ -834,7 +834,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-15g</p>
+  <p class="ver" data-notr translate="no">版 2026-11-15h</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -3044,6 +3044,8 @@ function recMerge(a,b){/* a＝この端末、b＝Dropbox。新しいほうを土
   if(!b)return a;const base=recUpd(b)>recUpd(a)?b:a,o=base===a?b:a,m=Object.assign({},base);
   const offT=x=>Math.max(x.off&&+x.off.at||0,+x.offDelAt||0);
   const offSrc=offT(o)>offT(base)?o:base;if(offSrc.off)m.off=offSrc.off;else delete m.off;if(offSrc.offDelAt)m.offDelAt=offSrc.offDelAt;
+  /* 公式記録をもう一方から持ってきたときは、ネットタイム・1 km毎の時刻もそれに合わせて計算し直す（一覧のタイムが古いままにならないように） */
+  if(offSrc!==base){const ob=offSrc._offBase||base._offBase;if(ob)m._offBase=JSON.parse(JSON.stringify(ob));try{offScale(m);}catch(e){}}
   if((+o.photoAt||0)>(+base.photoAt||0)||(!base.photo&&o.photo&&!base.photoAt)){m.photo=o.photo;if(o.photoAt)m.photoAt=o.photoAt;}
   if(o.wx&&(!base.wx||(+o.wx.got||0)>(+base.wx.got||0)))m.wx=o.wx;
   m.upd=Math.max(recUpd(a),recUpd(b));return m;}
@@ -3072,10 +3074,14 @@ async function cloudRefresh(force){const svc=CLOUD.svc;if(svc==='none'||!navigat
   if(!force&&Date.now()-refreshAt<20000)return;refreshAt=Date.now();
   const ids=new Set((CLOUD.index||[]).map(e=>e.id));let ch=false;
   const list=raceLogs.filter(x=>x.cloud===svc&&ids.has(x.id)).concat(Object.values(CLOUD.cache).filter(x=>!x.dirty&&!x.loading&&ids.has(x.id)));
-  for(const x of list){try{const t=await cloudCall('get',raceFile(x));if(!t)continue;const r=JSON.parse(t);
-      if(recUpd(r)>recUpd(x)||(r.off&&!x.off&&!x.offDelAt)||(r.off&&x.off&&(+r.off.at||0)>(+x.off.at||0))){const m=recMerge(recClean(x),r);
-        Object.keys(x).forEach(k=>{if(!(k in m)&&!['cloud','id'].includes(k))delete x[k];});Object.assign(x,m,{id:x.id});ch=true;}}
+  const sig=o=>JSON.stringify([o.off||null,+o.offDelAt||0,o.photo||'',+o.photoAt||0,o.wx?+o.wx.got||0:0,+o.el||0]);let push=false;
+  for(const x of list){try{const t=await cloudCall('get',raceFile(x));if(!t)continue;const r=JSON.parse(t),m=recMerge(recClean(x),r);
+      /* Dropboxのほうが新しい → この端末の記録を合わせる */
+      if(recUpd(r)>recUpd(x)||sig(m)!==sig(x)){Object.keys(x).forEach(k=>{if(!(k in m)&&!['cloud','id','dirty'].includes(k))delete x[k];});Object.assign(x,m,{id:x.id});ch=true;}
+      /* この端末にしかない新しい内容（公式記録など）がある → Dropboxに送り直す */
+      if(sig(m)!==sig(r)){if(raceLogs.includes(x))delete x.cloud;else x.dirty=true;push=true;}}
     catch(e){if(e==='auth'||e===401||e===403){CLOUD.err='auth';break;}}}
+  if(push){store.set(LOGS_KEY,raceLogs);dirtySave();setTimeout(()=>{try{cloudSync();}catch(e){}},0);}
   if(ch){store.set(LOGS_KEY,raceLogs);try{renderLog();}catch(e){}}cloudRender();}
 /* Dropboxだけにある記録を変えたとき、保存が済むまでこの端末にも控えを残す（ページを閉じても消えない） */
 const DIRTY_KEY='cbgm-cloud-dirty';
