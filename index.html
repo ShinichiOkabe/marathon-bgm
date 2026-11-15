@@ -834,7 +834,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-13a</p>
+  <p class="ver" data-notr translate="no">版 2026-11-15d</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -856,6 +856,8 @@ body.live .recv{display:none}
 <table><thead><tr><th>保存するもの</th><th>保存する場所</th><th>使えるモード</th><th>目印</th></tr></thead><tbody><tr><td>曲（流す曲・順番）</td><td>「🎵 曲の登録（マイリスト）」</td><td>練習・本番・リラックス</td><td>紫の枠</td></tr><tr><td>練習メニュー</td><td>「練習メニューの保存」</td><td>練習だけ</td><td>「メニュー」タブの下</td></tr><tr><td>大会の情報と戦略</td><td>「本番レース情報・戦略を保存」</td><td>本番だけ</td><td>「大会」タブの下</td></tr></tbody></table>
 <p>曲の登録（マイリスト）・練習メニュー・本番レース情報の3つとも、今読み込んでいるものが黄色の行になり、「読み込み中」と出ます。「上書き」が押せるのは、その黄色の行だけです（ほかを上書きしたいときは、先にそれを「読み込む」）。どれも「上書き」を押すと、「前 → 後」で何が変わるかが出る確認が出ます。よければ「OK」、やめるときは「キャンセル」を押します。入れた曲や設定はそのスマホの中だけに残り、どこにも送られません。</p>
 <h3>消費カロリー（目安）</h3><p>画面の右上の「カロリー計算」を押して体重（kg）を入れ、「閉じる」を押すと、ボタンの下が「計算する」に変わります。練習が終わったときと本番のゴール時に「消費カロリー（目安） 約○○ kcal」と表示し、本番のログとCSVにも書き出します。走っている途中は表示しません。計算は「体重 × 走った距離」の目安です。体重を空にすると「計算しない」に戻ります。体重は「カロリー計算」の画面でしか表示しません。</p>
+<h3>本番待機中のスタート（2回タップ）</h3><p>本番待機中は、スタート5分前（BGMが始まるとき）に自動で画面がロックされます。スタートラインを通ったら、画面を2回タップします。「スタートしますか？」と読み上げるので、10秒以内にもう一度2回タップするとスタートします。スタートの時刻は1回目にタップした時刻です。スタート時刻の1秒前まではスタートせず、スタート時刻を読み上げます。待機中は3回タップを使いません（2回目のタップですぐに反応します）。これまでどおり、「解除」を長押ししてロックを外し、「スタート」ボタンで始めることもできます。</p>
+<h3>本番中のロック</h3><p>本番の走行中にロックを解除したあと、画面に20秒さわらなければ自動でロックし直します（ピッと鳴ります）。ロックが外れていると2回タップ・3回タップは使えないためです。2回タップは、2回目を1回目から約0.65秒以内に、近い場所（約1.6cm以内）をタップすれば数えます。3回タップの3回目は、2回目から約0.8秒以内、1回目から約2.4cm以内なら数えます（屋外の練習では、1回ごとに約0.9秒以内）。</p>
 <h3>入力アシスト</h3><p>画面の右上の「🧭 アシスト」を押すと、使い始めの手順を「目標となる大会 → 大会の情報 → 目標タイム → 曲 → 練習メニューの自動生成 → 屋内・屋外の練習 → 本番 → 実績の確認」の章に分けて案内します。入力する場所が順に光り、吹き出しで説明が出ます。好きな章から始められ、終わった章には「済」が付きます。はじめて開いたときや、本番待機を始められなかったときだけ「入力をお手伝いしましょうか？」と小さく出ます（「今後表示しない」で出なくなります）。走っている間・待機中は使えません。</p>
 <h2 id="h-2">2. 最初の準備（1回だけ）</h2>
 <ol><li>スマホのChromeでこのアプリを開きます。</li><li>Chrome右上の「⋮」→「ホーム画面に追加」を押すと、次からはアイコンで開けます。</li><li>「曲」タブの「曲を追加」を押し、スマホの中の音楽ファイルを選びます。何曲でも選べます。数秒待つと、曲ごとのテンポ（BPM）が自動で測られます。</li><li>流したい曲に「使う」のチェックを入れ、▲▼で順番を並べます。</li><li>紫の枠「🎵 曲の登録（マイリスト）」で名前（例：アップテンポ曲）を入れ、「今の曲を登録」を押します。次からは「読み込む」だけで、その曲の並びに戻ります。読み込むと画面が曲の一覧の位置に移り、一覧がオレンジ色に光ります。</li><li>屋外でGPSを使うときは、位置情報の許可を聞かれたら「許可」を押します。</li></ol>
@@ -972,7 +974,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p><strong>確定したことの確かめ方</strong>：確定を押すと、声で「21キロ、確定しました」と言い、画面全体が<strong>緑色</strong>に光って「21 km 確定しました」と出ます。取消を押したときは<strong>オレンジ色</strong>で「確定を取り消しました」と出ます。左右の矢印で看板を変えたときも、選んだ看板の距離を声で言います。</p>
 <p><strong>2回タップで確定する</strong>：画面ロック中に、下のボタン以外の場所を<strong>2回続けてタップ</strong>すると、「推定16.1キロ。16キロの看板で確定できます」と読み上げます。<strong>もう一度2回タップ</strong>すると「16キロで確定しますか？」と聞くので、<strong>さらに2回タップ</strong>すると確定します（確定する時刻は、1回目にタップした時刻です）。15秒タップしなければ取りやめます。声の聞き取りは使わないので、ネットがなくても使えます。看板が違うときは、下のバーの矢印で選んでから2回タップします。</p>
 <p><strong>2回タップでゴールする</strong>：確定に使う看板は1km毎で、ゴールまで1km未満の看板と中間点は使いません。推定の距離がゴールまで1km未満のとき、または最後の看板（ゴールまで1km以上ある一番先の看板）を確定したあとに2回タップすると、「ゴールで終了できます」と読み上げます。同じように<strong>もう一度2回タップ</strong>で「ゴールしますか？」、<strong>さらに2回タップ</strong>でゴール（終了）します。ゴールの時刻は、1回目にタップした時刻です。ゴールラインを越えたらすぐに2回タップしてください。</p>
-<p><strong>3回タップで合計の距離と時刻</strong>：画面ロック中に、下のボタン以外の場所を<strong>3回続けてタップ</strong>すると、「トータル5.3キロ経過。平均ラップ5分45秒です。」と読み上げます。15秒以内に<strong>もう一度3回タップ</strong>すると「現在時刻は、9時30分です。」、その次の3回タップでまた合計の距離に戻ります。平均ラップは、スタートからの時間を走った距離で割ったものです。本番と屋外の練習で使えます（屋内の練習は使いません）。2回タップは3回目が来ないのを確かめてから動くので、2回タップの読み上げは少し（約0.5秒）遅れて始まります。本番で2回タップの確定・ゴールの途中（15秒以内）は、3回続けてタップしても2回タップとして扱います（誤タッチを防ぐため、3回タップはその間は使えません）。屋外の練習の1 km毎のお知らせは「5キロ経過。ラップ5分40秒です。」です。</p>
+<p><strong>3回タップで合計の距離と時刻</strong>：画面ロック中に、下のボタン以外の場所を<strong>3回続けてタップ</strong>すると、「トータル5.3キロ経過。平均ラップ5分45秒です。」と読み上げます。15秒以内に<strong>もう一度3回タップ</strong>すると「現在時刻は、9時30分です。」、その次の3回タップでまた合計の距離に戻ります。平均ラップは、スタートからの時間を走った距離で割ったものです。本番と屋外の練習で使えます（屋内の練習は使いません）。2回タップは3回目が来ないのを確かめてから動くので、2回タップの読み上げは少し（約0.8秒）遅れて始まります。本番で2回タップの確定・ゴールの途中（15秒以内）は、3回続けてタップしても2回タップとして扱います（誤タッチを防ぐため、3回タップはその間は使えません）。屋外の練習の1 km毎のお知らせは「5キロ経過。ラップ5分40秒です。」です。</p>
 <p><strong>現在地は戻りません</strong>：GPSなどで一度進んだ距離より、推定の現在地が戻ることはありません（自分で看板を確定し直したときだけ変わります）。スマホを開き直したときも、それまでに進んだ距離から続けます。</p>
 <p><strong>ゴール（終了）を間違えて押したとき</strong>：終了の画面に出る「ゴール（終了）を取り消して走り続ける」を押すと、終了する前の状態に戻って走行を続けます（終了から20分以内。時間はそのまま進んでいます）。</p>
 <figure class="gfig"><img src="guide/g_fx.webp" loading="lazy" alt="距離の確定のボタン（上：ロックしていないとき、下：ロック中）" onerror="this.parentNode.hidden=true"><figcaption>距離の確定のボタン（上：ロックしていないとき、下：ロック中）</figcaption></figure>
@@ -1107,6 +1109,8 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <table><thead><tr><th>What</th><th>Where to save</th><th>Modes</th><th>Look for</th></tr></thead><tbody><tr><td>Songs (which songs, in what order)</td><td>"🎵 Song lists (my lists)"</td><td>Training, Race, Relax</td><td>Purple box</td></tr><tr><td>Training menu</td><td>"Save practice menu"</td><td>Training only</td><td>Below the "Menu" tab</td></tr><tr><td>Race info and strategy</td><td>"Save race info &amp; strategy"</td><td>Race only</td><td>Below the "Race" tab</td></tr></tbody></table>
 <p>For all three, the item that is currently loaded is shown as a yellow row marked "Loaded". You can press "Overwrite" only on that yellow row (to overwrite another one, "Load" it first). When you press "Overwrite", a confirmation shows what will change ("before → after"). Press "OK" to go ahead or "Cancel" to stop. Your songs and settings stay only on your phone and are not sent anywhere.</p>
 <h3>Calories burned (estimate)</h3><p>Press "Calories" at the top right, enter your body weight (kg) and press "Close". The label under the button changes to "On". When a training session ends and when you finish a race, the app shows "Calories burned (est.) about ○○ kcal" and also writes it to the race log and CSV. It is not shown while you are running. The estimate is "weight × distance run". Clear the weight to turn it "Off" again. Your weight is shown only on the "Calories" screen.</p>
+<h3>Starting from race standby (double-tap)</h3><p>During race standby, the screen locks automatically 5 minutes before the start (when the BGM begins). At the start line, double-tap the screen. You will hear "Start now?"; double-tap again within 10 seconds to start. The start time is the time of your first tap. Until 1 second before the start time it does not start and reads out the start time instead. Triple-taps are not used during standby (it responds right after the second tap). You can still long-press "Unlock" and press the Start button as before.</p>
+<h3>Lock during a race</h3><p>If you unlock the screen while running a race and don't touch it for 20 seconds, it locks again automatically (with a beep), because double- and triple-taps only work while locked. A double-tap counts when the second tap comes within about 0.65 seconds of the first and close to it (within about 1.6 cm). For a triple-tap, the third tap counts within about 0.8 seconds of the second and within about 2.4 cm of the first (in outdoor training, within about 0.9 seconds between each tap).</p>
 <h3>Input assist</h3><p>Press "🧭 Assist" at the top right to be guided through the setup in chapters: target race → race information → goal time → songs → auto-generated training menu → indoor/outdoor training → race day → viewing results. Each item to fill in is highlighted with an explanation bubble. You can start from any chapter; finished chapters are marked "Done". A small "Would you like help?" appears only the first time you open the app or when race standby cannot start ("Don't show again" turns it off). Not available while running or standing by.</p>
 <h2 id="e-2">2. First-time setup (once only)</h2>
 <ol><li>Open this app in Chrome on your phone.</li><li>In Chrome, tap "⋮" at the top right → "Add to Home screen" to open it from an icon next time.</li><li>On the "Songs" tab, press "Add songs" and choose music files on your phone. You can choose as many as you like. After a few seconds, each song's tempo (BPM) is measured automatically.</li><li>Check "Use" for the songs you want to play, and sort them with ▲▼.</li><li>In the purple box "🎵 Song lists (my lists)", enter a name (e.g. Up-tempo) and press "Register current songs". Next time, just press "Load" to get that set of songs back. After loading, the screen moves to the song list, which glows orange.</li><li>To use GPS outdoors, press "Allow" when asked for location permission.</li></ol>
@@ -1223,7 +1227,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p><strong>How you know it was confirmed</strong>: when you press Confirm, the voice says "21 kilometers confirmed" and the whole screen flashes <strong>green</strong> with "21 km Confirmed". Undo flashes <strong>orange</strong> with "Confirmation cancelled". When you change the marker with the arrows, the voice reads out the chosen distance.</p>
 <p><strong>Confirm by double-tapping</strong>: while the screen is locked, <strong>double-tap</strong> anywhere except the bottom buttons and the app reads out e.g. "Estimated 16.1 km. You can confirm at the 16 km marker". <strong>Double-tap again</strong> and it asks "Confirm at 16 km?"; <strong>double-tap once more</strong> to confirm (the time recorded is when you first tapped). If you don't tap for 15 seconds, it stops. No speech recognition is used, so it works without an internet connection. If the marker is wrong, choose it with the arrows on the bottom bar first, then double-tap.</p>
 <p><strong>Finish by double-tapping</strong>: markers are every 1 km; the halfway point and markers less than 1 km from the finish are not used. When the estimate is less than 1 km from the finish, or after you have confirmed the last marker (the furthest one at least 1 km before the finish), a double-tap reads out "You can finish here". <strong>Double-tap again</strong> for "Finish now?" and <strong>once more</strong> to finish. The finish time recorded is when you first tapped, so double-tap right after crossing the finish line.</p>
-<p><strong>Total distance and time by triple-tapping</strong>: while the screen is locked, <strong>triple-tap</strong> anywhere except the bottom buttons and the app reads out e.g. "Total 5.3 kilometers. Average 5 minutes 45 seconds per kilometer." <strong>Triple-tap again</strong> within 15 seconds for "The time is 9:30."; the next triple-tap goes back to the total distance. The average is the time since the start divided by the distance run. This works in races and outdoor practice (not indoor practice). A double-tap waits briefly to make sure no third tap follows, so its read-out starts about half a second later. In a race, while a double-tap confirmation or finish is in progress (within 15 seconds), a triple-tap counts as a double-tap (to avoid mistaken touches, triple-tap is not available then). In outdoor practice, the 1 km notice is "5 kilometers done. Lap 5 minutes 40 seconds."</p>
+<p><strong>Total distance and time by triple-tapping</strong>: while the screen is locked, <strong>triple-tap</strong> anywhere except the bottom buttons and the app reads out e.g. "Total 5.3 kilometers. Average 5 minutes 45 seconds per kilometer." <strong>Triple-tap again</strong> within 15 seconds for "The time is 9:30."; the next triple-tap goes back to the total distance. The average is the time since the start divided by the distance run. This works in races and outdoor practice (not indoor practice). A double-tap waits briefly to make sure no third tap follows, so its read-out starts about 0.8 seconds later. In a race, while a double-tap confirmation or finish is in progress (within 15 seconds), a triple-tap counts as a double-tap (to avoid mistaken touches, triple-tap is not available then). In outdoor practice, the 1 km notice is "5 kilometers done. Lap 5 minutes 40 seconds."</p>
 <p><strong>Your position never goes back</strong>: the estimated position never drops below the distance you have already covered by GPS etc. (it changes only when you confirm a marker yourself). This also holds after you reopen the app.</p>
 <p><strong>If you press Finish by mistake</strong>: on the finish screen, press "Cancel the finish and keep running" to go back to the state before you finished and carry on (within 20 minutes; the clock has kept running).</p>
 <figure class="gfig"><img src="guide/g_fx_en.webp" loading="lazy" alt="Distance confirm buttons (top: unlocked, bottom: locked)" onerror="this.parentNode.hidden=true"><figcaption>Distance confirm buttons (top: unlocked, bottom: locked)</figcaption></figure>
@@ -5978,17 +5982,30 @@ function vcDo(){const p=VC.pend;vcEnd();if(!p||!(MODE==='race'&&R.running))retur
   if(p.act==='undo'){fxUndo();return;}
   const last=fxLast();if(last&&Math.abs(last.km-p.km)<1e-6)fxPop(last);
   try{speechSynthesis.cancel();}catch(e){}doFix(p.km,p.el);FX.off=0;renderRun();vcBeep(true);}
+/* 2回タップとみなす間隔（ミリ秒）と、1回目からのずれ（px、約1.6cm）。走りながらでも届くよう、2026-11-15に 450ms・60px から広げた */
+const DTAP={ms:650,px:100};
+/* 3回タップの3回目は、もう少し遅れても・ずれても数える（2026-11-15）。
+   本番と待機中：2回目から0.8秒以内、1回目から約2.4cm以内（または2回目から約1.6cm以内）。
+   屋外の練習：2回タップを使わないので、1回ごとの間隔を0.9秒まで広げる */
+const DTAP3={ms:800,px:150,prMs:900};
+/* 次のタップを、続きのタップとして数えるか（n=これまでの回数） */
+function tapNext(o,e,now,pr){const lim=pr?DTAP3.prMs:(o.n===2?DTAP3.ms:DTAP.ms);if(!o.n||now-o.tap>=lim)return false;
+  const d1=Math.hypot(e.clientX-o.tx,e.clientY-o.ty),d2=Math.hypot(e.clientX-(o.lx??o.tx),e.clientY-(o.ly??o.ty));
+  return o.n===2||pr?(d1<DTAP3.px||d2<DTAP.px):d1<DTAP.px;}
+/* 2回目のあと、3回目が来ないと決めるまで待つ時間 */
+const tapWait=pr=>pr?DTAP3.prMs:DTAP3.ms;
 /* 2回タップ（ロック中、下のボタン以外の場所） */
 lockLayer.addEventListener('pointerdown',e=>{if(e.target.closest('button,.lock-bar,.vcbox'))return;if(!(MODE==='race'&&R.running&&!R.done)&&!dtPracticeOK())return;
-  const now=Date.now(),near=Math.hypot(e.clientX-VC.tx,e.clientY-VC.ty)<60;
+  const now=Date.now(),pr=MODE!=='race';
   /* 2回タップの確定・ゴールの途中では、続けて触れた3回目は数えない（3回タップは無効。誤タッチとみなす） */
-  if(now<(VC.skip||0)){VC.skip=now+450;return;}
-  if(VC.n&&now-VC.tap<450&&near)VC.n++;else{VC.n=1;VC.tx=e.clientX;VC.ty=e.clientY;}
+  if(now<(VC.skip||0)){VC.skip=now+DTAP.ms;return;}
+  if(tapNext(VC,e,now,pr))VC.n++;else{VC.n=1;VC.tx=e.clientX;VC.ty=e.clientY;}
+  VC.lx=e.clientX;VC.ly=e.clientY;
   VC.tap=now;clearTimeout(VC.tapT);
   /* 3回タップ：合計の距離・平均ラップ（→時刻）。2回タップ：3回目が来ないのを確かめてから、これまでどおり確定 */
-  if(VC.n===2&&MODE==='race'&&TS.step>0){VC.n=0;VC.tap=0;VC.skip=now+450;tapAct(2);return;}
+  if(VC.n===2&&MODE==='race'&&TS.step>0){VC.n=0;VC.tap=0;VC.skip=now+DTAP.ms;tapAct(2);return;}
   if(VC.n>=3){VC.n=0;VC.tap=0;tapAct(3);return;}
-  if(VC.n===2)VC.tapT=setTimeout(()=>{VC.n=0;VC.tap=0;tapAct(2);},450);},true);
+  if(VC.n===2)VC.tapT=setTimeout(()=>{VC.n=0;VC.tap=0;tapAct(2);},tapWait(pr));},true);
 function tapAct(k){VC.tapAt=Date.now();if(k===3&&!(MODE==='race'&&TS.step>0)){dtInfo();return;}if(MODE==='race'){clearTimeout(DT.timer);DT.step=0;vcStart();}}
 {const _r=reset;reset=function(){vcEnd();return _r.apply(this,arguments);};}
 /* ロック中の画面の上に、使い方を小さく出す */
@@ -6434,7 +6451,7 @@ setInterval(()=>{if(!ASR.on)return;if(pkBlocked()){asStop('走っている間・
   if(s&&typeof s.sel==='function'){let el=null;try{el=s.sel();}catch(e){}el=el&&vis(el)?el:null;if(el!==ASR.el)ASR.el=el;}asPlace();},400);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ASR.on)asStop();});
 /* 小さな声かけ（必要なときだけ） */
-function asOfferShow(msg,ch,info){if(!info&&(AS.never||ASR.on||pkBlocked()||!asMenu.hidden))return;
+function asOfferShow(msg,ch,info){if(!lockLayer.hidden||(typeof R!=='undefined'&&R.running)||(typeof RS!=='undefined'&&(RS.armed||RS.pre)))return;if(!info&&(AS.never||ASR.on||pkBlocked()||!asMenu.hidden))return;
   asOffer.innerHTML=info?`<span>${msg}</span><div class="ctrls"><button class="small" type="button" data-ao="x">閉じる</button></div>`:
     `<b>入力をお手伝いしましょうか？</b><span>${msg}</span><div class="ctrls"><button class="primary-sm" type="button" data-ao="go">案内する</button><button class="small" type="button" data-ao="x">今はいい</button><button class="small" type="button" data-ao="never">今後表示しない</button></div>`;
   asOffer.hidden=false;asOffer.dataset.ch=ch||'';clearTimeout(asOffer._t);asOffer._t=setTimeout(()=>{asOffer.hidden=true;},info?6000:20000);}
@@ -6468,5 +6485,68 @@ setTimeout(()=>{if(!racePresets.length&&!mylists.length&&!R.running&&!RS.armed)o
 @media (prefers-color-scheme:dark){.as-st.ok{background:#14532d;color:#bbf7d0}}
 </style>
 
+<script>
+/* ===================== 2026-11-15：本番中にロックが外れたままにならないように =====================
+   本番の走行中にロックを解除したあと、画面に20秒さわらなければ自動でロックし直す（ピッと鳴らす）。
+   ロックが外れていると2回タップ・3回タップが使えないため */
+const RL={last:Date.now(),ms:20000};
+['pointerdown','keydown','scroll','input'].forEach(t=>document.addEventListener(t,()=>{RL.last=Date.now();},{capture:true,passive:true}));
+setInterval(()=>{try{if(!(MODE==='race'&&R.running&&!R.done&&!R.paused))return;if(!lockLayer.hidden){RL.last=Date.now();return;}
+  if(document.visibilityState!=='visible'||!vcBox.hidden)return;if(typeof ENDP!=='undefined'&&ENDP.on)return;
+  const ae=document.activeElement;if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))return;
+  if(Date.now()-RL.last>=RL.ms){RL.last=Date.now();lock();try{vcBeep(false);}catch(e){}}}catch(e){}},1000);
+{const _u=unlock;unlock=function(){RL.last=Date.now();return _u.apply(this,arguments);};}
+</script>
+<script>
+/* ===================== 2026-11-15：本番待機中、2回タップを2回してスタート =====================
+   スタート5分前（BGMが始まるとき）に自動でロック画面にする。
+   1回目の2回タップ：「スタートしますか？」→ 10秒以内に2回目の2回タップ：スタート。
+   スタートの時刻は1回目にタップした時刻。スタート時刻の1秒前まではスタートしない（時刻を読み上げるだけ）。
+   待機中は3回タップを使わない。ボタンでのスタートもこれまでどおり使える */
+const SB={step:0,t1:0,timer:0,n:0,tap:0,tx:0,ty:0,tapT:0,skip:0,locked:false};
+const sbOn=()=>MODE==='race'&&!R.running&&!R.done&&(RS.armed||RS.pre);
+function sbReset(msg){clearTimeout(SB.timer);SB.step=0;SB.t1=0;if(!vcBox.hidden&&vcBox.dataset.sb)vcHide();delete vcBox.dataset.sb;if(msg)say(msg);}
+function sbBox(h){vcShow(h);vcBox.dataset.sb='1';}
+const sbSay=(ja,en)=>{try{I18N.D.set(ja,[en,en,en,en]);}catch(e){}say(ja);};
+function sbHM(ms){const d=new Date(ms);return `${d.getHours()}時${d.getMinutes()}分`+(d.getSeconds()?`${d.getSeconds()}秒`:'');}
+function sbDouble(){if(!sbOn())return;clearTimeout(SB.timer);try{speechSynthesis.cancel();}catch(e){}
+  const now=Date.now();
+  if(SB.step===0){const g=startGateMs();
+    if(g>0){const w=rcWaveMs();vcBeep(false);{const d=new Date(w);sbSay(`まだスタートできません。スタート時刻は${sbHM(w)}です。`,`You can't start yet. The start time is ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}.`);}
+      sbBox(`<div class="vc-q"><b><span data-notr>${new Date(w).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}</span></b><span>まだスタートできません</span></div>`);
+      SB.timer=setTimeout(()=>sbReset(),5000);return;}
+    SB.step=1;SB.t1=SB.f||now;vcBeep(false);say('スタートしますか？もう一度2回タップするとスタートします。');
+    sbBox(`<div class="ts-dots"><i class="on"></i><i></i></div><div class="vc-q"><b>スタート</b><span>スタートしますか？</span></div><div class="vc-s"><span>もう一度2回タップするとスタートします</span><br><small>10秒タップしなければ取りやめます</small></div>`);
+    SB.timer=setTimeout(()=>sbReset('スタートをやめました。'),10000);return;}
+  /* 2回目：スタート。時刻は1回目にタップした時刻にさかのぼる */
+  const t1=SB.t1;sbReset();const b=$('#btnStart');if(!b)return;
+  b.click();
+  if(MODE==='race'&&R.running&&RS.startAt){const back=Math.max(0,RS.startAt-t1);if(back>0&&back<15000){RS.startAt-=back;R.t0-=back;}
+    try{addEv('tapstart','2回タップでスタート');}catch(e){}vcBeep(true);}
+  else say('スタートできませんでした。スタートボタンを押してください。');}
+lockLayer.addEventListener('pointerdown',e=>{if(e.target.closest('button,.lock-bar,.vcbox'))return;if(!sbOn())return;
+  const now=Date.now();
+  if(now<SB.skip){SB.skip=now+DTAP.ms;return;}
+  if(tapNext(SB,e,now,false))SB.n++;else{SB.n=1;SB.f=now;SB.tx=e.clientX;SB.ty=e.clientY;}
+  SB.lx=e.clientX;SB.ly=e.clientY;
+  SB.tap=now;clearTimeout(SB.tapT);
+  /* 待機中は3回タップを使わない（2026-11-15）。2回目のタップですぐに動き、続けて触れた3回目は誤タッチとして数えない */
+  if(SB.n===2){SB.n=0;SB.skip=now+DTAP.ms;sbDouble();return;}},true);
+/* スタート5分前（BGMが始まったとき）に、1回だけ自動でロックする。自分で解除したあとは、そのまま */
+setInterval(()=>{try{
+  if(!sbOn()){SB.locked=false;if(SB.step)sbReset();return;}
+  if(RS.pre&&!SB.locked){SB.locked=true;if(lockLayer.hidden&&document.visibilityState==='visible'){try{if(HIST.on)histClose();}catch(e){}try{document.querySelectorAll('.kcal-panel').forEach(p=>p.hidden=true);}catch(e){}lock();}}
+  }catch(e){}},1000);
+/* ロック中の案内を待機用に */
+{const sbHint=()=>{const h=document.getElementById('vcHint');if(!h)return;if(sbOn()&&!lockLayer.hidden){h.hidden=false;if(h.dataset.k!=='sb'){h.dataset.k='sb';h.innerHTML='<span>スタートラインを通ったら、2回タップを2回でスタート</span>';}}else if(h.dataset.k==='sb'){h.dataset.k='';}};
+  const _l=lock;lock=function(){const r=_l.apply(this,arguments);sbHint();try{document.querySelectorAll('.as-offer').forEach(x=>x.hidden=true);}catch(e){}return r;};setInterval(sbHint,1000);}
+{const _u=unlock;unlock=function(){sbReset();return _u.apply(this,arguments);};}
+[['スタートしますか？もう一度2回タップするとスタートします。','Start now? Double-tap again to start.'],['スタートしますか？','Start now?'],['スタート','Start'],
+ ['もう一度2回タップするとスタートします','Double-tap again to start'],['10秒タップしなければ取りやめます','Stops if you don\'t tap for 10 seconds'],
+ ['スタートをやめました。','Start cancelled.'],['まだスタートできません','You can\'t start yet'],['スタートまで','Until the start'],
+ ['スタートできませんでした。スタートボタンを押してください。','Could not start. Please press the Start button.'],
+ ['スタートラインを通ったら、2回タップを2回でスタート','At the start line, double-tap twice to start'],
+ ['2回タップでスタート','Started by double-tap']].forEach(a=>{try{I18N.D.set(a[0],[a[1],a[1],a[1],a[1]]);}catch(e){}});
+</script>
 </body>
 </html>
