@@ -1205,7 +1205,7 @@ document.addEventListener('change',e=>{const t=e.target;if(tab!=='meal')return;
   if(t.dataset.mmemo!=null){e.stopPropagation();const m=mealData(),mm=m.memo[ui.mr]=m.memo[ui.mr]||{};if(t.value.trim())mm[t.dataset.mmemo]=t.value.trim();else delete mm[t.dataset.mmemo];save();return toast('保存しました')}},true);
 
 // ---------- today's training menu (dashboard) ----------
-const TP_BGM='https://claude.ai/artifact/Led2yd1taWd5FADh4rvrBD';
+const TP_BGM='https://shinichiokabe.github.io/marathon-bgm/';
 const TP_NAME={W:'ウォームアップ',J:'ジョグ',P:'ペース走',M:'目標ペース',I:'インターバル',R:'つなぎジョグ',B:'ビルドアップ',L:'ロング走',C:'クールダウン'};
 function tpState(){const w=S.web;if(!w.tp||typeof w.tp!=='object')w.tp={};return w.tp}
 const tpSec=s=>{const m=/^(\d+):(\d\d)$/.exec(s||'');return m?+m[1]*60+ +m[2]:null};
