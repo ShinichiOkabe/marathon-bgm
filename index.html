@@ -163,6 +163,7 @@ section{display:flex;flex-direction:column;gap:12px}
 .ml.flash{animation:rpfl 1.2s ease-out}@keyframes rpfl{0%{background:var(--accent-soft)}100%{background:transparent}}button.ok{border-color:var(--accent);color:var(--accent);font-weight:700}
 .strat,.rp{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .sauto{display:inline-flex;align-items:center;gap:6px;font-size:.88rem}.sauto select{width:auto;padding:4px 6px}
+.strat-big{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:flex-end;gap:4px 10px;padding:10px 4px 6px;border-top:2px solid var(--line)}.strat-big .lb{font-size:.9rem;color:var(--muted);font-weight:700}.strat-big .tm{font-size:1.9rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}.strat-big .gl{font-size:.9rem;color:var(--muted)}.strat-big .ok{color:var(--accent)}.strat-big .ng{color:var(--warn)}
 .strat-h{display:flex;flex-direction:column;gap:2px}.strat-h .sub{margin:0;font-size:.8rem}
 .srow{display:grid;grid-template-columns:4.7em 4.9em 3.9em 3.7em 2.9em 26px;align-items:center;gap:6px 5px;padding:7px 0;border-top:1px solid var(--line);font-size:.85rem}
 .srow.hd{color:var(--muted);padding:0 0 2px;border-top:0}.srow.hd span{text-align:center;white-space:nowrap;font-size:.8em}.srow.hd .hk{grid-column:2/4}
@@ -526,7 +527,7 @@ body.live .recv{display:none}
     <div class="title-row"><h1>マラソンBGM</h1><button class="small kcalbtn" id="btnKcal"><span>カロリー計算</span><small id="kcalState">計算しない</small></button><button class="small helpbtn" id="btnHelp" aria-label="使い方ガイド">？ 使い方</button><button id="btnLock" class="lockbtn" hidden>画面ロック</button><button class="primary-sm" id="rcArm" hidden>本番待機を始める</button><button id="rcDisarm" hidden>待機をやめる</button></div>
     <p class="ml-msg" id="rcMsg"></p>
     <div class="unit-row" data-notr translate="no"><a class="unit-link" id="unitLink" href="https://shinichiokabe.github.io/marathon-bgm-mile/" rel="noopener">🇺🇸 Mile version（マイル版）はこちら →</a></div>
-    <div class="net-row" id="netRow"><button type="button" class="net-chip" id="netChip" aria-expanded="false" aria-controls="netList"><i></i><span id="netChipT">ネット接続あり</span><small>使える機能</small></button><div class="net-list" id="netList" hidden></div></div>
+    <div class="unit-row kanri-row"><a class="unit-link" id="kanriLink" href="https://shinichiokabe.github.io/marathon-bgm/kanri.html" target="_blank" rel="noopener">📋 マラソン大会管理を開く →</a></div> <div class="net-row" id="netRow"><button type="button" class="net-chip" id="netChip" aria-expanded="false" aria-controls="netList"><i></i><span id="netChipT">ネット接続あり</span><small>使える機能</small></button><div class="net-list" id="netList" hidden></div></div>
     <p class="sub" id="leadTxt">手元の曲を、練習メニューの1kmペースで走りやすい速さに合わせて、音程を変えずに再生します。</p>
     <div class="resume" id="resumeBox" hidden><div><b>本番の途中で止まっています</b><div id="resumeTxt"></div></div>
       <div class="ctrls"><button class="primary-sm" id="resumeGo">本番を再開する</button><button class="small" id="resumeNo">再開しない（記録だけ残す）</button></div></div>
@@ -646,7 +647,7 @@ body.live .recv{display:none}
       <label class="f">スタート時刻<input type="time" id="rcTime"></label>
       <label class="f">ウェーブの遅れ（分）<input type="number" id="rcWave" min="0" max="180" step="1" inputmode="numeric"><span class="hint">先頭ウェーブのスタートから、自分が並ぶブロックのウェーブがスタートするまでの分数。ウェーブがない大会は0</span></label>
       <label class="f">制限時間（時:分）<input type="text" id="rcLimit" placeholder="6:00" autocomplete="off"><span class="hint">ウェーブスタートの大会は、大会の制限時間に「先頭ウェーブから最終ウェーブがスタートするまでの時間差」を足して入れます（例：6:00＋20分→6:20）</span></label>
-      <label class="f">目標タイム（時:分:秒）<input type="text" id="rcGoal" placeholder="4:59:00" autocomplete="off"></label>
+      <label class="f">目標タイム（時:分:秒）<input type="text" id="rcGoal" placeholder="4:59:00" autocomplete="off"></label> <label class="f">目標タイムがないときのペース（1 km何分）<input type="text" id="rcDPace" data-f="pace" inputmode="numeric" autocomplete="off" placeholder="例）6:00"><span class="hint">目標タイムも戦略も入れないときは、このペースに合わせたテンポで流します</span></label>
       <label class="f">ロスタイム分の余裕（分）<input type="number" id="rcMargin" min="0" max="30" step="1" inputmode="numeric"></label>
       <label class="f wide">関門（任意）「距離km　号砲からの制限時間」または「距離km　閉鎖時刻」を1行ずつ
         <textarea id="rcCps" rows="4" autocomplete="off" placeholder="例）
@@ -741,7 +742,7 @@ body.live .recv{display:none}
   <section id="stratSec">
     <div class="strat">
       <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。</span></div>
-      <div id="stratList"></div>
+      <div id="stratList"></div><div class="strat-big" id="stratBig" hidden></div>
       <div class="ctrls"><button class="small" id="stratAdd">＋ ステージを追加</button><span class="sauto">目標タイムから<select id="stratN" aria-label="作るステージ数"></select>で<button class="small" id="stratAuto">作る</button></span><button class="small" id="stratClear">戦略を消す</button></div>
       <label class="chk"><input type="checkbox" id="rcAutoSafe"> 1km毎に、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）</label>
       <p class="ml-msg err" id="stratMsg"></p>
@@ -834,7 +835,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-17a</p>
+  <p class="ver" data-notr translate="no">版 2026-11-19a</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -2318,7 +2319,7 @@ function mlShowSongs(t){if(MODE==='relax')return;blurInputs();const sl=$('#songL
 function say(t){try{if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=1.05;
   audio.volume=Math.max(.05,opt.vol*.3);u.onend=u.onerror=()=>{audio.volume=opt.vol;};speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
 function virtualMenu(){
-  if(MODE==='race'){const p=Math.min(PMAX,Math.max(PMIN,Math.round(rcEff()||360*UK)));let min=(+RC.limit||360)+30;const e=rcEndMs(),now=Date.now();
+  if(MODE==='race'){const p=Math.min(PMAX,Math.max(PMIN,Math.round(rcEff()||(+RC.dpace||360*UK))));let min=(+RC.limit||360)+30;const e=rcEndMs(),now=Date.now();
     if(e&&now<e&&now>e-24*3600000)min=Math.max(1,(e-now)/60000);
     return [{id:'race',name:RC.name||'本番',pace:p,bpm:cadFromPace(p),auto:true,min}];}
   return [{id:'relax',name:'リラックス',pace:360,bpm:cadFromPace(360),auto:true,min:24*60}];}
@@ -2380,7 +2381,7 @@ function applyModeUI(){{const tx=MODE_TXT[MODE]||MODE_TXT.practice;T0('#leadTxt'
   $('#btnReset').textContent=MODE==='practice'?'リセット':MODE==='race'&&R.running?'ゴール（終了）':MODE==='race'&&R.done?'終了（画面を閉じる）':'ストップ';
   document.querySelectorAll('[data-shuffle]').forEach(c=>c.checked=!!opt.shuffle);
   if(MODE==='race'){setVal('rcName',RC.name);setVal('rcEv',RC.ev);setVal('rcKm',RC.km);setVal('rcDate',RC.date);setVal('rcTime',RC.time);setVal('rcWave',RC.wave);
-    setVal('rcLimit',fmtHM(+RC.limit||0));setVal('rcGoal',RC.goal?fmtHMS(RC.goal):'');setVal('rcMargin',RC.margin);setVal('rcCps',RC.cps||'');$('#rcCpsView').innerHTML=rcCpsView();setVal('rcWs',RC.ws||'');$('#rcWsView').innerHTML=rcWsView();setVal('rcTurns',RC.turns||'');$('#rcTurnsView').innerHTML=rcTurnsView();
+    setVal('rcLimit',fmtHM(+RC.limit||0));setVal('rcGoal',RC.goal?fmtHMS(RC.goal):'');setVal('rcDPace',fmtPace(+RC.dpace||360*UK));setVal('rcMargin',RC.margin);setVal('rcCps',RC.cps||'');$('#rcCpsView').innerHTML=rcCpsView();setVal('rcWs',RC.ws||'');$('#rcWsView').innerHTML=rcWsView();setVal('rcTurns',RC.turns||'');$('#rcTurnsView').innerHTML=rcTurnsView();
     $('#rcKmWrap').hidden=RC.ev!=='その他';$('#rcSum').innerHTML=rcSummary();
     $('#rcArm').hidden=RS.armed||RS.pre||R.running||R.done;$('#rcDisarm').hidden=!(RS.armed||RS.pre)||R.running;}
   else{$('#rcArm').hidden=$('#rcDisarm').hidden=true;}
@@ -2430,7 +2431,7 @@ function rcInput(e){const t=e.target,id=t.id;if(!/^rc[A-Z]/.test(id)||id==='rcAr
   if(id==='rcName')RC.name=v.trim();else if(id==='rcEv')RC.ev=v;else if(id==='rcKm'){const k=parseFloat(v);if(k>0)RC.km=k;}
   else if(id==='rcDate')RC.date=v;else if(id==='rcTime')RC.time=v;else if(id==='rcWave'){const k=parseInt(v,10);RC.wave=k>=0?k:0;}
   else if(id==='rcLimit'){const s2=parseHMS(v);if(s2==null)return;RC.limit=Math.round(s2/60);}
-  else if(id==='rcGoal'){const s2=parseHMS(v);if(s2==null)return;RC.goal=s2;}
+  else if(id==='rcGoal'){const s2=parseHMS(v);if(s2==null)return;RC.goal=s2;} else if(id==='rcDPace'){const p2=parsePace(v);if(!p2)return;RC.dpace=p2;}
   else if(id==='rcMargin'){const k=parseInt(v,10);RC.margin=k>=0?Math.min(30,k):0;}
   else if(id==='rcCps')RC.cps=v;
   else if(id==='rcWs')RC.ws=v;
@@ -2438,7 +2439,7 @@ function rcInput(e){const t=e.target,id=t.id;if(!/^rc[A-Z]/.test(id)||id==='rcAr
   store.set('cbgm-race',RC);$('#rcTurnsView').innerHTML=rcTurnsView();if(MODE==='race'&&!R.running)menu=virtualMenu();
   $('#rcKmWrap').hidden=RC.ev!=='その他';$('#rcSum').innerHTML=rcSummary();$('#rcCpsView').innerHTML=rcCpsView();$('#rcWsView').innerHTML=rcWsView();renderRun();renderSongs();}
 $('#raceSec').addEventListener('input',rcInput);$('#raceSec').addEventListener('compositionend',rcInput);$('#raceSec').addEventListener('keyup',e=>{if(e.target.tagName==='TEXTAREA')rcInput(e);});
-$('#raceSec').addEventListener('click',e=>{const b=e.target.closest('[data-clr]');if(!b)return;const ta=document.getElementById(b.dataset.clr);if(!ta)return;ta.value='';rcInput({target:ta});});$('#raceSec').addEventListener('change',e=>{rcInput(e);if(e.target.id==='rcLimit'||e.target.id==='rcGoal'){const g=e.target;g.value=g.id==='rcLimit'?fmtHM(+RC.limit||0):(RC.goal?fmtHMS(RC.goal):'');}});
+$('#raceSec').addEventListener('click',e=>{const b=e.target.closest('[data-clr]');if(!b)return;const ta=document.getElementById(b.dataset.clr);if(!ta)return;ta.value='';rcInput({target:ta});});$('#raceSec').addEventListener('change',e=>{rcInput(e);if(e.target.id==='rcLimit'||e.target.id==='rcGoal'){const g=e.target;g.value=g.id==='rcLimit'?fmtHM(+RC.limit||0):(RC.goal?fmtHMS(RC.goal):'');} if(e.target.id==='rcDPace')e.target.value=fmtPace(+RC.dpace||360*UK);});
 function rcMsg(t,err){const m=$('#rcMsg');m.textContent=t;m.classList.toggle('err',!!err);}
 $('#rcArm').addEventListener('click',()=>{
   if(opt.src==='songs'&&!songs.some(used))return rcMsg('流す曲がありません。曲の一覧で「使う」にチェックを入れてください。',true);
@@ -2497,7 +2498,9 @@ function renderStrat(){const box=$('#stratList');if(!box)return;const rows=strat
     (last?`<span class="gl" title="${+km.toFixed(3)} km">ゴール</span>`:`<input type="number" id="st-to-${i}" data-sto="${i}" min="0.1" max="${km}" step="0.1" value="${r.to??''}" inputmode="decimal" aria-label="${i+1}ステージの終わり（km）">`)+
     `<input type="number" id="st-spd-${i}" data-sspd="${i}" min="3" max="30" step="0.1" value="${r.spd??''}" inputmode="decimal" aria-label="${i+1}ステージの時速"><span class="sp" id="st-p-${i}">${validSpd(r.spd)?fmtPace(3600/r.spd):''}</span>`+
     `<button class="x" data-sdel="${i}" aria-label="${i+1}ステージを削除">×</button></div>`;from=last?km:to;return html;}).join(''):'<div class="sub">戦略はありません。目標タイムから計算した1つのテンポで流します。</div>';
-  const ts=stratTotalSec();$('#stratSum').textContent=rows.length?(ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。'):'';}
+  const ts=stratTotalSec();stratBigUpd(rows.length?ts:null);$('#stratSum').textContent=rows.length?(ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。'):'';}
+function stratBigUpd(ts){const b=$('#stratBig');if(!b)return;if(!ts){b.hidden=true;b.innerHTML='';return;}const d=RC.goal?ts-RC.goal:null;
+  b.innerHTML=`<span class="lb">ゴール予想</span><span class="tm${d==null?'':d<=0?' ok':' ng'}">${fmtHMS(ts)}</span>`+(RC.goal?`<span class="gl">目標 ${fmtHMS(RC.goal)}</span>`:'');b.hidden=false;}
 function stratDefN(){const km=rcKm();return km>45?Math.min(20,Math.max(3,Math.round(km/10))):3;}
 let stratNPicked=false;document.addEventListener('change',e=>{if(e.target.id==='stratN')stratNPicked=true;});
 document.addEventListener('input',e=>{if(/^rc(Km|Ev)$/.test(e.target.id)&&!stratNPicked)fillStratN();});
@@ -2520,7 +2523,7 @@ document.addEventListener('click',e=>{const t=e.target;
   else if(t.dataset&&t.dataset.sdel!=null){RC.strat.splice(+t.dataset.sdel,1);stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}});
 document.addEventListener('input',e=>{const t=e.target,d=t.dataset||{};if(d.sto==null&&d.sspd==null)return;const i=+(d.sto??d.sspd),r=stratRows()[i];if(!r)return;const v=parseFloat(t.value);
   if(d.sto!=null){if(v>0)r.to=v;}else{if(validSpd(v))r.spd=v;const sp=$('#st-p-'+i);if(sp)sp.textContent=validSpd(v)?fmtPace(3600/v):'';}
-  stratSave();const ts=stratTotalSec();$('#stratSum').textContent=ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。';$('#rcSum').innerHTML=rcSummary();renderRun();});
+  stratSave();const ts=stratTotalSec();stratBigUpd(ts);$('#stratSum').textContent=ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。';$('#rcSum').innerHTML=rcSummary();renderRun();});
 document.addEventListener('change',e=>{if(e.target.dataset&&e.target.dataset.sto!=null)renderStrat();});
 /* ---------- saved race settings ---------- */
 /* the saved item that is loaded right now (yellow row); only it can be overwritten */
@@ -3793,7 +3796,7 @@ W('開催日','Date','比赛日期','比賽日期','개최일');
 W('スタート時刻','Start time','起跑时间','起跑時間','출발 시각');
 W('ウェーブの遅れ（分）','Wave delay (min)','分批起跑延迟（分）','分批起跑延遲（分）','웨이브 지연 (분)');
 W('制限時間（時:分）','Time limit (h:mm)','关门时间（时:分）','關門時間（時:分）','제한 시간 (시:분)');
-W('目標タイム（時:分:秒）','Target time (h:mm:ss)','目标成绩（时:分:秒）','目標成績（時:分:秒）','목표 기록 (시:분:초)');
+W('目標タイム（時:分:秒）','Target time (h:mm:ss)','目标成绩（时:分:秒）','目標成績（時:分:秒）','목표 기록 (시:분:초)'); W('目標タイムがないときのペース（1 km何分）','Pace when there is no target time (min/km)','没有目标成绩时的配速（每公里几分）','沒有目標成績時的配速（每公里幾分）','목표 기록이 없을 때의 페이스 (1km 몇 분)'); W('目標タイムも戦略も入れないときは、このペースに合わせたテンポで流します','With no target time and no strategy, the music follows this pace.','没有目标成绩和策略时，按此配速的节奏播放','沒有目標成績和策略時，按此配速的節奏播放','목표 기록도 전략도 없을 때는 이 페이스에 맞춘 템포로 재생합니다'); W('ゴール予想','Predicted finish','预计完赛','預計完賽','골 예상'); W('📋 マラソン大会管理を開く →','📋 Open Marathon Race Manager →','📋 打开马拉松赛事管理 →','📋 開啟馬拉松賽事管理 →','📋 마라톤 대회 관리 열기 →');
 W('ロスタイム分の余裕（分）','Margin for start loss (min)','起跑损失时间余量（分）','起跑損失時間餘裕（分）','로스타임 여유 (분)');
 W('関門（任意）「距離km 号砲からの制限時間」または「距離km 閉鎖時刻」を1行ずつ','Cutoffs (optional): one per line, "distance-km time-from-gun" or "distance-km closing-clock-time"','关门点（可选）：每行一个，“距离km 鸣枪后限时”或“距离km 关闭时刻”','關門點（可選）：每行一個，「距離km 鳴槍後限時」或「距離km 關閉時刻」','관문 (선택): 한 줄에 하나씩 "거리km 출발 신호부터 제한 시간" 또는 "거리km 폐쇄 시각"');
 W('例）','e.g.','例：','例：','예)');
@@ -4273,7 +4276,7 @@ W('練習時間','Training time','训练时间','訓練時間','연습 시간');
 W('記録すると、「4. 実績」の「走行距離」に屋内の練習として残します。','If you log it, it is kept as indoor training under "Distance" in "4. Results".','记录后，会作为室内训练保存在“4. 记录”的“跑步距离”中。','記錄後，會作為室內訓練保存在「4. 記錄」的「跑步距離」中。','기록하면 "4. 실적"의 "주행 거리"에 실내 연습으로 남깁니다.');
 W('記録しない','Don\'t log','不记录','不記錄','기록 안 함');W('日時','Date and time','日期时间','日期時間','일시');
 
-W('メニューから計算した距離を入れています。機材に表示された距離に直してください。','The distance calculated from the menu is filled in. Change it to the distance shown on the machine.','已填入根据菜单计算的距离。请改为器材上显示的距离。','已填入根據菜單計算的距離。請改為器材上顯示的距離。','메뉴로 계산한 거리를 넣었습니다. 기구에 표시된 거리로 고쳐 주세요.');
+W('メニューから計算した距離を入れています。機材に表示された距離に直してください。','The distance calculated from the menu is filled in. Change it to the distance shown on the machine.','已填入根据菜单计算的距离。请改为器材上显示的距离。','已填入根據菜單計算的距離。請改為器材上顯示的距離。','메뉴로 계산한 거리를 넣었습니다. 기구에 표시된 거리로 고쳐 주세요.'); W('機材に表示された距離を入れてください。','Enter the distance shown on the machine.','请输入器材上显示的距离。','請輸入器材上顯示的距離。','기구에 표시된 거리를 입력하세요.'); P(/^（メニューからの計算：約 ([\d.]+) km）$/,m=>[`(From the menu: about ${m[1]} km)`,`（按菜单计算：约 ${m[1]} 公里）`,`（按菜單計算：約 ${m[1]} 公里）`,`(메뉴로 계산: 약 ${m[1]} km)`]);
 W('消費カロリー（目安）','Calories (estimate)','消耗热量（参考）','消耗熱量（參考）','소비 칼로리(참고)');W('も記録します。','will also be logged.','也会记录。','也會記錄。','도 기록합니다.');
 W('カロリー計算が「計算しない」のため、消費カロリーは記録しません。','Calories are not logged because Calories is set to "Off".','“热量计算”设为“不计算”，因此不记录消耗热量。','「熱量計算」設為「不計算」，因此不記錄消耗熱量。','칼로리 계산이 "계산 안 함"이라 소비 칼로리는 기록하지 않습니다.');
 W('トレーニング機材名を入れてください。','Enter the equipment name.','请输入训练器材名称。','請輸入訓練器材名稱。','트레이닝 기구 이름을 입력하세요.');W('距離（km）を入れてください。','Enter the distance (km).','请输入距离（km）。','請輸入距離（km）。','거리(km)를 입력하세요.');
@@ -5267,8 +5270,8 @@ function inForm(){const box=$('#inSave'),t=new Date(INS.at),when=`${t.getFullYea
   box.innerHTML=`<b class="t">屋内の練習を記録する</b>
     <div class="sub"><span>日時</span> <b data-notr>${when}</b></div>
     <label for="isMach">トレーニング機材名<input id="isMach" type="text" list="isMachList" maxlength="40" autocomplete="off" placeholder="例）ジムのトレッドミル" value="${esc(last)}"><datalist id="isMachList">${ms.map(n=>`<option value="${esc(n)}">`).join('')}</datalist></label>
-    <label for="isKm">距離（km）<input id="isKm" type="number" min="0.1" max="200" step="0.1" inputmode="decimal" value="${INS.km>0?INS.km.toFixed(1):''}"></label>
-    <div class="sub">メニューから計算した距離を入れています。機材に表示された距離に直してください。</div>
+    <label for="isKm">距離（km）<input id="isKm" type="number" min="0.1" max="200" step="0.1" inputmode="decimal" value="" placeholder="例）8.0"></label>
+    <div class="sub">機材に表示された距離を入れてください。</div>${INS.km>0?`<div class="sub">（メニューからの計算：約 ${INS.km.toFixed(1)} km）</div>`:''}
     <div class="sub" id="isKc"></div><div class="sub" id="isMsg" style="color:var(--warn)"></div>
     <div class="ctrls"><button class="primary-sm" type="button" id="isSave">記録する</button><button class="small" type="button" id="isBack">記録しない</button></div>`;
   const kc=()=>{const km=parseFloat($('#isKm').value),k=opt.weight&&km>0?kcalOf(opt.weight,km):null;$('#isKc').innerHTML=opt.weight?(k!=null?`<span>消費カロリー（目安）</span> <b data-notr>${k.toLocaleString('ja-JP')} kcal</b> <span>も記録します。</span>`:''):'カロリー計算が「計算しない」のため、消費カロリーは記録しません。';};
@@ -5620,6 +5623,7 @@ $('#freePace').addEventListener('change',e=>{const p=parsePace(e.target.value);i
   e.target.value=fmtPace(FREE.pace);renderAll();});
 try{if(FREE.on){const pm=MODE==='practice'?menu:practiceMenu;if(!isFreeM(pm))freeApply();}renderAll();}catch(e){}
 
+{const _od=odRender;odRender=function(){const r=_od.apply(this,arguments);try{if(FREE.on&&MODE==='practice')freeUI();}catch(e){}return r;};}
 /* 実績・本番：出走した大会の一覧（日付・大会名・写真URL・種目・状況・ネットタイム・1km平均）。行を選ぶと下の「本番のログ」に出す */
 function rlStat(x){if(!x)return '';if(x.live)return 'run';if(x.result==='finish'||x.result==='dnf')return x.result;
   if(x.log){const k=+x.km||0,r=logKm(x);if(k&&r)return r>=k-0.05?'finish':'dnf';}return '';}
@@ -6165,6 +6169,7 @@ setInterval(()=>{try{if(!(MODE==='race'&&R.running&&!R.paused&&!R.done))return;i
   else{a.href='https://shinichiokabe.github.io/marathon-bgm-mile/';a.textContent='Mile version（マイル版）はこちら →';}
   a.addEventListener('click',e=>{if(R&&R.running){e.preventDefault();say('走っている間は切り替えられません。');}});}}
 
+{const a=document.getElementById('kanriLink');if(a)a.addEventListener('click',e=>{if(R&&(R.running||RS.pre||RS.armed)){e.preventDefault();say('走っている間は開けません。');}});}
 /* ===================== 持ち物チェックリスト =====================
    上部の「持ち物チェックリスト」から開く別画面。種目（マラソン／ウルトラ）と対策（基本・暑さ・寒さ・雨・夜間）を選び、
    「持ち物チェックリスト作成」で一覧を作る。チェックはこの端末に残る。持ち物は「アレンジ」で追加・編集・削除できる。
