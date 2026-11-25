@@ -741,7 +741,7 @@ body.live .recv{display:none}
   <div class="tabsec" data-tab="strat" hidden>
   <section id="stratSec">
     <div class="strat">
-      <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。</span></div>
+      <div class="strat-h"><b>本番の戦略</b><span class="sub">（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。各ステージの「＋」で、その上にステージを挿入できます（その区間を2つに分けます）。</span></div>
       <div id="stratList"></div><div class="strat-big" id="stratBig" hidden></div>
       <div class="ctrls"><button class="small" id="stratAdd">＋ ステージを追加</button><span class="sauto">目標タイムから<select id="stratN" aria-label="作るステージ数"></select>で<button class="small" id="stratAuto">作る</button></span><button class="small" id="stratClear">戦略を消す</button></div>
       <label class="chk"><input type="checkbox" id="rcAutoSafe"> 1km毎に、目標より10分以上遅れていたら直近5kmのペースで戦略を自動で調整する（そのペースで制限時間を超えるときは、完走できる速さに調整する）</label>
@@ -835,7 +835,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-19a</p>
+  <p class="ver" data-notr translate="no">版 2026-11-25b</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -1075,6 +1075,8 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <p>スマホで保存した記録は、パソコンのマラソンBGMでも見られます。やり方は、次の「スマホの記録をパソコンで見る（Dropboxで連携）」を見てください。</p>
 <h4>こんなときは</h4>
 <ul><li><strong>「サインインの有効期限が切れました」と出た</strong>：「サインイン」を押して、もう一度ログインしてください。保存できていなかった記録はスマホに残っていて、サインインすると保存されます。</li><li><strong>「Dropbox（準備中）」と出て選べない</strong>：お使いの版のアプリでは、まだDropboxが使えません。利用者の方が何かを設定する必要はありません。画面の上に「新しい版があります」と出たら、新しい版にしてください。</li><li><strong>Dropboxをやめたい</strong>：「サインアウト」を押し、「保存先」を「なし（この端末だけ）」に戻します。Dropboxに保存した記録は消えずに残ります。このアプリへのアクセスの許可は、Dropboxのウェブサイトの「設定」にある接続済みのアプリの一覧からも取り消せます。</li><li><strong>記録には走った場所が入っています</strong>：GPSをONにしていた区間の位置が記録に含まれます。Dropboxのフォルダをほかの人と共有するときは気をつけてください。</li></ul>
+<h3>本番の設定・練習メニューの引き継ぎ</h3><p>保存先がDropboxのときは、本番の設定（大会の情報・戦略）、保存した大会、練習メニュー、保存した練習メニュー、自動生成の設定を、スマホとパソコンで引き継ぎます。アプリを開いたとき、ほかのアプリから戻ったとき、ネットにつながったとき、設定を変えたときに合わせ、新しいほうを残します。保存した大会と練習メニューは1件ずつ合わせるので、両方の端末で別々に保存したものはどちらも残り、削除したものは戻りません。走っている間と本番待機中は合わせません。</p>
+<h3>練習メニュー・戦略のステージの挿入</h3><p>各ステージの右上の「＋」を押すと、その上にステージを挿入します。練習メニューでは同じペースの10分のステージ、本番の戦略ではその区間を半分に分けたステージ（時速は同じ）が入ります。</p>
 <h3>スマホとパソコンで記録を合わせる</h3><p>アプリを開いたとき、ネットにつながっていてDropboxにまだ保存していない記録があれば、自動で保存します（走っている間と本番待機中は除く）。「4. 実績」を開いたときと、別のタブやアプリから戻ったときに、ほかの端末で変えた記録（公式記録・写真のURL・天気など）をDropboxから読み込み直します。保存し直すときもDropbox側の記録を確かめ、新しい公式記録などを古い記録で消さないようにしています。ネットにつながらず保存できなかった変更は、この端末に控えを残し、ページを閉じても消えません（「未保存の記録」の件数に入ります）。</p>
 <h3 id="h-pc">スマホの記録をパソコンで見る（Dropboxで連携）</h3>
 <p>保存先をDropboxにすると、<strong>スマホで走った記録を、パソコンのマラソンBGMでそのまま見られます</strong>。パソコンへのコピーやファイルの受け渡しは要りません。大きな画面で、ペースのグラフ・高低差・地図・前回との比較をじっくり見られます。</p>
@@ -1330,6 +1332,8 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <p>Logs saved from your phone can also be viewed in Marathon BGM on a computer. See the next section, "View your phone's logs on a computer (linked through Dropbox)".</p>
 <h4>If something goes wrong</h4>
 <ul><li><strong>"Your sign-in has expired."</strong>: press "Sign in" and log in again. Logs that weren't saved are still on your phone and are saved once you sign in.</li><li><strong>"Dropbox (coming soon)" can't be chosen</strong>: your version of the app can't use Dropbox yet. There is nothing you need to set up. When "A new version is available" appears at the top, update to it.</li><li><strong>To stop using Dropbox</strong>: press "Sign out" and set "Save to" back to "None (this device only)". Logs already saved in Dropbox stay there. You can also remove this app's access from the list of connected apps in your Dropbox settings on the Dropbox website.</li><li><strong>Logs contain where you ran</strong>: positions from the sections where GPS was on are included. Take care when sharing your Dropbox folder with others.</li></ul>
+<h3>Carrying race settings and training menus over</h3><p>When saving to Dropbox, the race settings (race info and strategy), saved races, the training menu, saved training menus and the auto-generate settings are carried over between your phone and computer. They are matched when you open the app, come back from another app, go online or change a setting, keeping the newer one. Saved races and menus are matched one by one, so items saved separately on each device are both kept and deleted items do not come back. Nothing is matched while running or in race standby.</p>
+<h3>Inserting stages</h3><p>Tap "＋" at the top right of a stage to insert a stage above it: a 10-minute stage at the same pace in the training menu, or, in the race strategy, the section split in half (same speed).</p>
 <h3>Keeping phone and computer in step</h3><p>When you open the app while online, any logs not yet saved to Dropbox are saved automatically (except while running or in race standby). When you open "4. Results" or come back from another tab or app, records changed on another device (official results, photo URL, weather, etc.) are reloaded from Dropbox. Before saving again, the Dropbox copy is checked so that a newer official result is never erased by an older copy. Changes that could not be saved because you were offline are kept on this device, even if you close the page (they count as "Unsaved logs").</p>
 <h3 id="e-pc">View your phone's logs on a computer (linked through Dropbox)</h3>
 <p>When "Save to" is Dropbox, <strong>the runs you record on your phone can be viewed as they are in Marathon BGM on a computer</strong>. No copying or file transfer is needed. You can look at the pace graphs, elevation, map and comparison with earlier races on a big screen.</p>
@@ -1826,7 +1830,7 @@ function renderMenu(){
   $('#menuList').innerHTML=menu.map((s,i)=>`<div class="row${i===cur?' cur':''}" data-id="${s.id}">
     <div class="row-top"><span class="idx">${i+1}</span>
       <input type="text" id="n-${s.id}" data-f="name" value="${esc(s.name)}" aria-label="ステージ名">
-      <button class="x" data-del="${s.id}" aria-label="このステージを削除" ${menu.length<2?'disabled':''}>×</button></div>
+      <button class="ins" data-ins="${s.id}" aria-label="この上にステージを挿入" title="この上にステージを挿入">＋</button><button class="x" data-del="${s.id}" aria-label="このステージを削除" ${menu.length<2?'disabled':''}>×</button></div>
     <div class="fields">
       <div class="field"><label class="label" for="p-${s.id}">ペース（/km）</label>
         <div class="pace-box"><button class="pstep" data-pstep="-5" aria-label="ペースを5秒早くする" title="5秒早く">早く</button>
@@ -1906,6 +1910,10 @@ $('#menuList').addEventListener('change',e=>{if(e.target.dataset.f!=='pace')retu
   e.target.value=fmtPace(s.pace);});
 $('#menuList').addEventListener('click',e=>{const t=e.target;const row=t.closest('.row');if(!row)return;const s=menu.find(x=>x.id===row.dataset.id);
   if(t.dataset.del){if(menu.length<2)return;menu=menu.filter(x=>x.id!==s.id);activePreset='custom';saveMenu();if(R.running){R.seg=segAt(elapsed());stageChanged();}renderAll();return;}
+  /* 2026-11-25：この上にステージを挿入（ペースはこのステージと同じ、10分） */
+  if(t.dataset.ins){const i=menu.indexOf(s);if(i<0)return;menu.splice(i,0,{id:gid(),name:'ステージ'+(menu.length+1),pace:s.pace,bpm:s.auto?cadFromPace(s.pace):s.bpm,auto:s.auto,min:10});
+    activePreset='custom';saveMenu();if(R.running){R.seg=segAt(elapsed());stageChanged();}renderAll();
+    setTimeout(()=>{const n=document.getElementById('n-'+menu[i].id);if(n){n.scrollIntoView({block:'center',behavior:'smooth'});}},50);return;}
   if(t.dataset.pstep){s.pace=Math.min(PMAX,Math.max(PMIN,s.pace+(+t.dataset.pstep)));if(s.auto)s.bpm=cadFromPace(s.pace);
     document.getElementById('p-'+s.id).value=fmtPace(s.pace);refreshRow(s);menuChanged();return;}
   if(t.dataset.reauto){s.auto=true;s.bpm=cadFromPace(s.pace);refreshRow(s);menuChanged();}});
@@ -2497,7 +2505,7 @@ function renderStrat(){const box=$('#stratList');if(!box)return;const rows=strat
   box.innerHTML=rows.length?'<div class="srow hd"><span></span><span class="hk">区間（km）</span><span>時速</span><span>ペース</span><span></span></div>'+rows.map((r,i)=>{const last=i===rows.length-1,to=last?km:+r.to||0;const html=`<div class="srow${cur&&cur.i===i?' cur':''}"><span class="sn">${i+1}ステージ</span><span class="fr">${i?(+from.toFixed(2))+' ～':'スタート ～'}</span>`+
     (last?`<span class="gl" title="${+km.toFixed(3)} km">ゴール</span>`:`<input type="number" id="st-to-${i}" data-sto="${i}" min="0.1" max="${km}" step="0.1" value="${r.to??''}" inputmode="decimal" aria-label="${i+1}ステージの終わり（km）">`)+
     `<input type="number" id="st-spd-${i}" data-sspd="${i}" min="3" max="30" step="0.1" value="${r.spd??''}" inputmode="decimal" aria-label="${i+1}ステージの時速"><span class="sp" id="st-p-${i}">${validSpd(r.spd)?fmtPace(3600/r.spd):''}</span>`+
-    `<button class="x" data-sdel="${i}" aria-label="${i+1}ステージを削除">×</button></div>`;from=last?km:to;return html;}).join(''):'<div class="sub">戦略はありません。目標タイムから計算した1つのテンポで流します。</div>';
+    `<span class="sact"><button class="ins" data-sins="${i}" aria-label="${i+1}ステージの上にステージを挿入（この区間を2つに分けます）" title="この上に挿入（区間を2つに分ける）">＋</button><button class="x" data-sdel="${i}" aria-label="${i+1}ステージを削除">×</button></span></div>`;from=last?km:to;return html;}).join(''):'<div class="sub">戦略はありません。目標タイムから計算した1つのテンポで流します。</div>';
   const ts=stratTotalSec();stratBigUpd(rows.length?ts:null);$('#stratSum').textContent=rows.length?(ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。'):'';}
 function stratBigUpd(ts){const b=$('#stratBig');if(!b)return;if(!ts){b.hidden=true;b.innerHTML='';return;}const d=RC.goal?ts-RC.goal:null;
   b.innerHTML=`<span class="lb">ゴール予想</span><span class="tm${d==null?'':d<=0?' ok':' ng'}">${fmtHMS(ts)}</span>`+(RC.goal?`<span class="gl">目標 ${fmtHMS(RC.goal)}</span>`:'');b.hidden=false;}
@@ -2520,7 +2528,11 @@ document.addEventListener('click',e=>{const t=e.target;
     rows.push({to:null,spd:prev?prev.spd:(rcEff()?Math.round(3600/rcEff()*10)/10:8)});RC.strat=rows;stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}
   else if(t.id==='stratAuto')stratAuto();
   else if(t.id==='stratClear'){RC.strat=[];stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}
-  else if(t.dataset&&t.dataset.sdel!=null){RC.strat.splice(+t.dataset.sdel,1);stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}});
+  else if(t.dataset&&t.dataset.sdel!=null){RC.strat.splice(+t.dataset.sdel,1);stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}
+  /* 2026-11-25：この上にステージを挿入。このステージの区間を半分に分け、前半を新しいステージにする（時速は同じ） */
+  else if(t.dataset&&t.dataset.sins!=null){const rows=stratRows(),i=+t.dataset.sins,r=rows[i];if(!r)return;const km=rcKm(),from=i?+rows[i-1].to||0:0,to=r.to==null?km:+r.to||km;
+    const mid=Math.round((from+(to-from)/2)*10)/10;rows.splice(i,0,{to:mid>from&&mid<to?mid:+((from+to)/2).toFixed(2),spd:r.spd});RC.strat=rows;stratSave();renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();
+    setTimeout(()=>{const n=document.getElementById('st-to-'+i);if(n)n.scrollIntoView({block:'center',behavior:'smooth'});},50);}});
 document.addEventListener('input',e=>{const t=e.target,d=t.dataset||{};if(d.sto==null&&d.sspd==null)return;const i=+(d.sto??d.sspd),r=stratRows()[i];if(!r)return;const v=parseFloat(t.value);
   if(d.sto!=null){if(v>0)r.to=v;}else{if(validSpd(v))r.spd=v;const sp=$('#st-p-'+i);if(sp)sp.textContent=validSpd(v)?fmtPace(3600/v):'';}
   stratSave();const ts=stratTotalSec();stratBigUpd(ts);$('#stratSum').textContent=ts?`この戦略のゴール予想 ${fmtHMS(ts)}`+(RC.goal?`（目標 ${fmtHMS(RC.goal)}）`:''):'時速と区間の終わり（km）を入れると、ゴール予想を表示します。';$('#rcSum').innerHTML=rcSummary();renderRun();});
@@ -3802,7 +3814,7 @@ W('関門（任意）「距離km 号砲からの制限時間」または「距�
 W('例）','e.g.','例：','例：','예)');
 W('読み取った関門','Cutoffs read','已识别的关门点','已識別的關門點','읽어 들인 관문');
 W('本番の戦略','Race strategy','比赛策略','比賽策略','대회 전략');
-W('（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。','(Optional) Set a speed for each section and the music plays at a tempo for that speed. Use "+ Add stage" to add as many stages as you need (works for ultramarathons too).','（可选）为每个区间设定时速后，该区间会以相应节奏播放。用“＋ 添加阶段”可以任意增加阶段（也适用于超级马拉松）。','（可選）為每個區間設定時速後，該區間會以相應節奏播放。用「＋ 新增階段」可以任意增加階段（也適用於超級馬拉松）。','(선택) 구간마다 시속을 정하면 그 구간은 그 속도에 맞춘 템포로 재생합니다. "+ 스테이지 추가"로 원하는 만큼 늘릴 수 있습니다 (울트라마라톤에도 사용 가능).');
+W('（任意）区間ごとに時速を決めると、その区間はその速さに合わせたテンポで流します。「＋ ステージを追加」で何ステージでも増やせます（ウルトラマラソンにも使えます）。各ステージの「＋」で、その上にステージを挿入できます（その区間を2つに分けます）。','(Optional) Set a speed for each section and the music plays at a tempo for that speed. Use "+ Add stage" to add as many stages as you need (works for ultramarathons too). Tap "＋" on a stage to insert a stage above it (that section is split in two).','（可选）为每个区间设定时速后，该区间会以相应节奏播放。用“＋ 添加阶段”可以任意增加阶段（也适用于超级马拉松）。点阶段上的“＋”可在其上方插入一个阶段（把该区间一分为二）。','（可選）為每個區間設定時速後，該區間會以相應節奏播放。用「＋ 新增階段」可以任意增加階段（也適用於超級馬拉松）。點階段上的「＋」可在其上方插入一個階段（把該區間一分為二）。','(선택) 구간마다 시속을 정하면 그 구간은 그 속도에 맞춘 템포로 재생합니다. "+ 스테이지 추가"로 원하는 만큼 늘릴 수 있습니다 (울트라마라톤에도 사용 가능). 스테이지의 "＋"를 누르면 그 위에 스테이지를 삽입합니다(그 구간을 둘로 나눕니다).');
 W('＋ ステージを追加','+ Add stage','＋ 添加阶段','＋ 新增階段','+ 스테이지 추가');
 W('目標タイムから','From target time:','根据目标成绩','根據目標成績','목표 기록으로');
 W('作るステージ数','Number of stages','生成阶段数','產生階段數','만들 스테이지 수');
@@ -6641,6 +6653,86 @@ setTimeout(()=>{try{const svc=CLOUD.svc;if(svc==='none'||!CP[svc]||!navigator.on
   if(R.running||RS.armed||RS.pre)return;
   const pend=raceLogs.filter(x=>x.cloud!==svc&&!x.live).length+Object.values(CLOUD.cache).filter(x=>x.dirty).length;
   if(pend&&!CLOUD.busy)cloudSync();}catch(e){}},2000);
+</script>
+<style>
+/* 2026-11-25：ステージの挿入ボタン */
+.ins{padding:4px;width:30px;height:30px;border:0;background:transparent;color:var(--accent);font-size:1.15rem;font-weight:700;line-height:1}
+.ins:hover{color:var(--ink)}
+.srow .sact{display:flex;flex-direction:column;align-items:center;gap:2px}
+.srow .sact .ins,.srow .sact .x{width:26px;height:24px;padding:0}
+/* 2026-11-25：スマホで左右に揺れないように。入力欄の文字が16px未満だと、iPhoneでは触れたときに画面が拡大されて左右に動くので16pxにする */
+html,body{overflow-x:hidden;overflow-x:clip;overscroll-behavior-x:none}
+@media (max-width:760px){input[type=text],input[type=number],input[type=date],input[type=time],input[type=search],input[type=url],input[type=email],input[type=tel],input:not([type]),select,textarea{font-size:16px!important}}
+</style>
+<script>
+/* ===================== 2026-11-25：本番の設定・練習メニューを、Dropboxでスマホとパソコンの間で引き継ぐ =====================
+   Dropboxの settings.json に、次の設定を「最後に変えた時刻」つきで入れる。新しいほうを残す。
+   保存した大会・保存した練習メニューは、1件ずつ合わせる（両方で別々に保存したものは両方残す。削除したものは戻さない） */
+const SY_KEYS=['cbgm-race','cbgm-race-presets','cbgm-rp-active','cbgm-menu-pace','cbgm-preset-pace','cbgm-menu-presets','cbgm-pm-active','cbgm-plan'];
+const SY_ARR={'cbgm-race-presets':1,'cbgm-menu-presets':1};
+const SY={t:store.get('cbgm-sync-t',{})||{},del:store.get('cbgm-sync-del',{})||{},quiet:false,timer:0,busy:false,at:0};
+const syRaw=k=>{try{const v=localStorage.getItem(k);return v==null?undefined:JSON.parse(v);}catch(e){return undefined;}};
+const sySave=()=>{try{localStorage.setItem('cbgm-sync-t',JSON.stringify(SY.t));localStorage.setItem('cbgm-sync-del',JSON.stringify(SY.del));}catch(e){}};
+const syBlocked=()=>{try{return R.running||R.acc>0||RS.armed||RS.pre||(window.FREE&&FREE.on);}catch(e){return true;}};
+/* この端末で変えたら、時刻を付けて、少し待ってからDropboxへ */
+{const _set=store.set;store.set=function(k,v){
+  if(!SY.quiet&&SY_KEYS.includes(k)){
+    if(SY_ARR[k]){const prev=syRaw(k)||[],now=new Set((v||[]).map(x=>x&&x.id));const gone=prev.filter(x=>x&&x.id&&!now.has(x.id)).map(x=>x.id);
+      if(gone.length){SY.del[k]=Array.from(new Set([...(SY.del[k]||[]),...gone])).slice(-300);}}
+    SY.t[k]=Date.now();sySave();clearTimeout(SY.timer);SY.timer=setTimeout(()=>{settingsSync().catch(()=>{});},3000);}
+  return _set.apply(this,arguments);};}
+/* 保存した大会・練習メニューを1件ずつ合わせる（同じidなら保存日時が新しいほう） */
+function syMergeArr(a,b,del){const out=[],seen=new Map();(a||[]).forEach(x=>{if(x&&x.id&&!del.has(x.id)){seen.set(x.id,out.length);out.push(x);}});
+  (b||[]).forEach(x=>{if(!x||!x.id||del.has(x.id))return;if(seen.has(x.id)){const i=seen.get(x.id);if((+x.saved||0)>(+out[i].saved||0))out[i]=x;}else{seen.set(x.id,out.length);out.push(x);}});return out;}
+function syApply(k,v){SY.quiet=true;try{
+  if(k==='cbgm-plan'){PLAN=Object.assign({race:null,goal:0,run:[1,0,1,1,1,1,1],lsd:5,paceDay:2,hist:{}},v||{});store.set(PLAN_KEY,PLAN);}
+  else{store.set(k,v);applyKV(k,v);}}catch(e){}finally{SY.quiet=false;}}
+async function settingsSync(){const svc=CLOUD.svc;if(svc==='none'||!CP[svc]||!navigator.onLine||!cloudSigned(svc)||SY.busy)return;
+  if(syBlocked()){clearTimeout(SY.timer);SY.timer=setTimeout(()=>{settingsSync().catch(()=>{});},60000);return;}
+  SY.busy=true;SY.at=Date.now();let changed=false;
+  try{let r={v:1,keys:{},del:{}};const txt=await cloudCall('get','settings.json');if(txt){try{const j=JSON.parse(txt);if(j&&j.keys)r=Object.assign({v:1,keys:{},del:{}},j);}catch(e){}}
+    const out={v:1,keys:{},del:{}};let push=!txt;
+    for(const k of SY_KEYS){const lv=syRaw(k),rk=r.keys[k];let lt=+SY.t[k]||0;if(!lt&&k==='cbgm-race'&&lv&&lv._t)lt=+lv._t;
+      if(SY_ARR[k]){const del=new Set([...(SY.del[k]||[]),...((r.del&&r.del[k])||[])]);const m=syMergeArr(lv,rk&&rk.v,del);const t=Math.max(lt,rk?+rk.t||0:0)||1;
+        out.keys[k]={v:m,t};out.del[k]=[...del].slice(-300);SY.del[k]=out.del[k];
+        if(JSON.stringify(m)!==JSON.stringify(lv||[])){syApply(k,m);changed=true;}SY.t[k]=t;
+        if(!rk||JSON.stringify(m)!==JSON.stringify(rk.v)||JSON.stringify(out.del[k])!==JSON.stringify((r.del&&r.del[k])||[]))push=true;}
+      else if(rk&&(+rk.t||0)>lt){out.keys[k]=rk;if(JSON.stringify(rk.v)!==JSON.stringify(lv)){syApply(k,rk.v);changed=true;}SY.t[k]=+rk.t;}
+      else if(lv!==undefined){const t=lt||1;out.keys[k]={v:lv,t};SY.t[k]=t;if(!rk||(+rk.t||0)<t||JSON.stringify(rk.v)!==JSON.stringify(lv))push=true;}
+      else if(rk)out.keys[k]=rk;}
+    sySave();if(push)await cloudCall('put','settings.json',JSON.stringify(out));
+  }catch(e){}
+  SY.busy=false;
+  if(changed){try{renderAll();}catch(e){}try{renderRP();renderPM();}catch(e){}try{agRender();}catch(e){}try{if(typeof renderStrat==='function')renderStrat();}catch(e){}}}
+/* いつ合わせるか：アプリを開いたとき・ほかのアプリから戻ったとき・ネットにつながったとき・この端末で変えたとき */
+setTimeout(()=>{settingsSync().catch(()=>{});},3500);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&Date.now()-SY.at>20000)setTimeout(()=>{settingsSync().catch(()=>{});},800);});
+addEventListener('online',()=>setTimeout(()=>{settingsSync().catch(()=>{});},1500));
+</script>
+<style>
+/* 2026-11-25：Androidで文字サイズを大きくしていても、画面の幅からはみ出さないように */
+.big-row>div:first-child{min-width:0;max-width:100%}
+.big{max-width:100%;overflow:hidden}
+#stratList{overflow-x:auto;overscroll-behavior-x:contain}
+.primary-sm{white-space:normal;flex:0 1 auto;max-width:100%}
+.ctrls{flex-wrap:wrap}
+.ctrls>*{max-width:100%}
+.f{min-width:0;max-width:100%}
+.dtw,.tblw,[class*="-w"]{overscroll-behavior-x:contain}
+.pace-box{flex-wrap:wrap;max-width:100%}
+.sauto{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px;max-width:100%}
+.muted,.hint,.vl-v,.sub{overflow-wrap:anywhere}
+.vl-v{white-space:normal}.vl-r{flex-wrap:wrap}.vl-r input[type=range]{flex:1 1 6em;min-width:0}
+.stabs{max-width:100%}.stabs .stab{min-width:0;white-space:normal;overflow-wrap:anywhere;line-height:1.25}
+.modes{max-width:100%}.modes .mode,.modes:not(.io-row) .mode{min-width:0;flex:1 1 auto;white-space:normal;line-height:1.25;overflow-wrap:anywhere}
+</style>
+<script>
+/* 大きなタイマーの数字が枠に収まらないときは、収まる大きさまで小さくする（文字サイズの設定を大きくしている場合など） */
+(()=>{const fit=()=>{document.querySelectorAll('.big').forEach(el=>{if(!el.getClientRects().length)return;const box=el.parentElement;if(!box)return;
+    const w=Math.min(box.clientWidth||Infinity,document.documentElement.clientWidth-16);el.style.fontSize='';
+    if(el.scrollWidth>w+1){const cur=parseFloat(getComputedStyle(el).fontSize);el.style.fontSize=Math.max(20,Math.floor(cur*w/el.scrollWidth*0.97))+'px';}});};
+  let last='';setInterval(()=>{const k=[...document.querySelectorAll('.big')].map(e=>e.textContent.length).join(',')+'|'+innerWidth+'|'+document.body.className;if(k!==last){last=k;fit();}},500);
+  addEventListener('resize',()=>{last='';});})();
 </script>
 </body>
 </html>
