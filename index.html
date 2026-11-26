@@ -185,7 +185,7 @@ section{display:flex;flex-direction:column;gap:12px}
 .src-b small{font-weight:400;font-size:.72rem;color:var(--muted);text-align:center}
 .src-b.on{background:var(--accent-soft);border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.src-b.on small{color:var(--ink)}
 .songs-off{opacity:.5}
-.opts-v{flex-direction:column;align-items:flex-start;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.opts.opts-v,.opts-v{flex-direction:column;align-items:flex-start;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 #stratSec{display:flex;flex-direction:column;gap:14px}
 /* while running: only what is needed, on one screen */
 body.live header,body.live .stabs,body.live .tabsec{display:none!important}
@@ -496,6 +496,8 @@ body.hist .wrap>*:not(header):not(#histSec),body.hist #ioRow,body.hist #hashNote
 .rc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .rc-grid .f{display:flex;flex-direction:column;gap:3px;font-size:.78rem;color:var(--muted);font-weight:700;min-width:0}
 .rc-grid .f.wide{grid-column:1/-1}
+/* 2026-11-27c：同じ行の入力欄の高さをそろえる（見出しが2行に折り返しても、入力欄が上下にずれない） */
+@supports (grid-template-rows:subgrid){.rc-grid>.f:not(.wide){display:grid;grid-template-rows:subgrid;grid-row:span 3;row-gap:3px;align-content:start}.rc-grid>.f:not(.wide)>*{align-self:start}.rc-grid>.f:not(.wide)>select{height:100%;max-height:44px}}
 .rc-grid input,.rc-grid select{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%;min-width:0}
 .rc-sum{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.88rem;line-height:1.8}
 .rc-sum b{font-family:var(--f-num);font-size:1.05rem}
@@ -848,7 +850,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-27b</p>
+  <p class="ver" data-notr translate="no">版 2026-11-27d</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -7224,15 +7226,17 @@ function profPanel(box,o){if(!box)return;const st=PST[o.key]=PST[o.key]||{seg:0}
   const HP=130;if(o.pace&&o.pace.length){const q=o.pace.filter(x=>x.b>a+1e-9&&x.a<b-1e-9&&x.p>0);const vals=q.map(x=>x.p);if(o.avgPace>0)vals.push(o.avgPace);
     if(vals.length){let lo=Math.min(...vals),hi=Math.max(...vals);const sp=Math.max(20,hi-lo),s=sp>240?60:sp>100?30:sp>40?15:10;lo=Math.floor((lo-s*0.3)/s)*s;hi=Math.ceil((hi+s*0.3)/s)*s;
       YP=v=>t+(HP-t-bt)*(v-lo)/(hi-lo);let g='';for(let v=lo;v<=hi;v+=s)g+=`<line x1="${l}" x2="${W-r}" y1="${YP(v)}" y2="${YP(v)}" stroke="currentColor" stroke-opacity=".12"/><text x="${l-6}" y="${YP(v)+4}" text-anchor="end" font-size="10" fill="currentColor" fill-opacity=".6">${fmtPace(v)}</text>`;
-      let pth='';q.forEach(x=>{const xa=X(Math.max(a,x.a)),xb=X(Math.min(b,x.b)),y=YP(x.p);pth+=`M${xa.toFixed(1)},${y.toFixed(1)} H${xb.toFixed(1)} `;});
-      g+=`<path d="${pth}" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round"/>`;
+      let pth='',pb=null;q.forEach(x=>{const xa=X(Math.max(a,x.a)),xb=X(Math.min(b,x.b)),y=YP(x.p);if(pb!=null&&Math.abs(x.a-pb)<0.02)pth+=`V${y.toFixed(1)} H${xb.toFixed(1)} `;else pth+=`M${xa.toFixed(1)},${y.toFixed(1)} H${xb.toFixed(1)} `;pb=x.b;});
+      g+=`<path d="${pth}" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`;
       if(o.avgPace>0)g+=`<line x1="${l}" x2="${W-r}" y1="${YP(o.avgPace)}" y2="${YP(o.avgPace)}" stroke="${AV}" stroke-width="1.6" stroke-dasharray="6 4"/><text x="${W-r-2}" y="${YP(o.avgPace)-4}" text-anchor="end" font-size="10" font-weight="700" fill="${AV}">${en?'avg':'平均'} ${fmtPace(o.avgPace)}</text>`;
       if(q.length){const tt=q.reduce((s,x)=>s+x.p*(Math.min(b,x.b)-Math.max(a,x.a)),0),dd=q.reduce((s,x)=>s+(Math.min(b,x.b)-Math.max(a,x.a)),0);if(dd>0&&st.seg>0)stat.push(en?`Section pace ${fmtPace(tt/dd)}/${o.unit}`:`この区間のペース ${fmtPace(tt/dd)}/${o.unit}`);}
       html+=`<div class="chart-t">${en?'Pace':'ペース'}（/${o.unit}・${en?'faster is higher':'上ほど速い'}）</div><svg class="pp" viewBox="0 0 ${W} ${HP}" role="img" aria-label="${en?'Pace':'ペース'}">${g}${xt(HP)}${mk(HP)}${cur(HP)}</svg>`;}}
   if(!html){box.innerHTML='';box.hidden=true;return;}
   const opts=[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}"${n===iv?' selected':''}>${n}</option>`).join('');
+  const lgs=(o.legend||[]).filter(x=>(o.marks||[]).some(m=>m.u>=a&&m.u<=b&&m.col===x.col));
+  const lgH=lgs.length?`<div class="lg">${lgs.map(x=>`<span><i style="background:${x.col}"></i>${x.t}</span>`).join('')}<span><i style="background:${AV}"></i>${en?'Average':'全体の平均'}</span></div>`:`<div class="lg"><span><i style="background:${AV}"></i>${en?'Average':'全体の平均'}</span></div>`;
   box.innerHTML=`<div class="seg-h"><label>${en?'Section':'区間の間隔'} <select class="pint" aria-label="${en?'Section length':'区間の間隔'}">${opts}</select> ${o.unit}</label></div>`+
-    `<div class="seg">${segs.map((s,i)=>`<button type="button" data-seg="${i}" aria-pressed="${i===st.seg}">${s[2]}</button>`).join('')}</div>`+html+
+    `<div class="seg">${segs.map((s,i)=>`<button type="button" data-seg="${i}" aria-pressed="${i===st.seg}">${s[2]}</button>`).join('')}</div>`+lgH+html+
     `<div class="ro"></div><div class="st">${stat.join('　')}${stat.length?'<br>':''}${en?'Dashed orange line: average for the whole run. Trace a graph to move the map.':'オレンジの点線は全体の平均です。グラフをなぞると、地図がその地点へ動きます。'}</div>`;
   box.hidden=false;
   /* 区間ボタンの列：横の位置をそのまま保ち、選んだボタンが見えていないときだけ、見える位置まで少しずらす */
@@ -7258,6 +7262,7 @@ cprofRender=function(w,g){const box=$(w==='race'?'#crsProf':'#pcrsProf');if(!box
   const pr=g.prof;let E=null;if(pr){const k=g.len/pr.L;E=[pr.v.map((v,i)=>[uOf(i*pr.s*k),v])];}
   const turns=g.turns.length<=12;
   profPanel(box,{key:'c'+w,gid:g.id,total,unit,en,elev:E,avgE:E?pr.v.reduce((s,v)=>s+v,0)/pr.v.length:null,noElev:en?'No elevation data in this GPX':'このGPXには高さの情報がありません',
+    legend:[{col:'var(--amber,#b86e00)',t:en?'Turn':'曲がり角'}],
     marks:g.turns.map(tn=>({u:uOf(tn.d),col:'var(--amber,#b86e00)'})).filter(()=>turns||(PST['c'+w]&&PST['c'+w].seg>0)),
     rerender:()=>cprofRender(w,g),
     onSeg:(a,b,fit,si)=>{const Lf=window.L;if(!M.hl||!Lf)return;M.hl.clearLayers();const ll=[];const m0=mOf(a),m1=Math.min(g.len,mOf(b));for(let m=m0;m<=m1;m+=Math.max(10,(m1-m0)/300))ll.push(crsAt(g.pts,g.cum,m));ll.push(crsAt(g.pts,g.cum,m1));
@@ -7279,6 +7284,7 @@ function logProfRender(d){const box=$('#geoProf');if(!box)return;if(!d){box.inne
   const tAt=u=>{let pk=0,pt=0;for(const x of D.rows){if(u<=x.km+1e-9){const f=x.km>pk?(u-pk)/(x.km-pk):0;return pt+(x.t-pt)*f;}pk=x.km;pt=x.t;}return null;};
   profPanel(box,{key:'log',gid:d.id,total:D.total,unit,en,elev:D.E,avgE:profAvgE(D.E),elevNote:en?'GPS altitude, approx.':'GPSの高度・目安',pace:D.P,avgPace:D.avgP,
     marks:passShown(d).map(p=>({u:p.km,col:pcol(p),dash:p.type==='cp'?'1 0':'3 3'})),
+    legend:[{col:'var(--amber)',t:en?'Halfway':'中間点'},{col:'var(--ml-line)',t:en?'Turnaround':'折り返し'},{col:'var(--warn)',t:en?'Cutoff':'関門'}],
     extra:u=>{const t=tAt(u);return t!=null?(en?`　elapsed ${hms(t)}`:`　経過 ${hms(t)}`):'';},
     rerender:()=>logProfRender(d),
     onSeg:(a,b,fit,si)=>logProfSeg(d,a,b,fit,si),
