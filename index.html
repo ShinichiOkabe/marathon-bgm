@@ -848,7 +848,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-27a</p>
+  <p class="ver" data-notr translate="no">版 2026-11-27b</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -7202,7 +7202,7 @@ function profPAt(P,u){if(!P)return null;for(const q of P){if(u>q.a-1e-9&&u<=q.b+
 function profAvgE(E){let s=0,w=0;(E||[]).forEach(g=>{for(let i=1;i<g.length;i++){const dk=g[i][0]-g[i-1][0];if(dk<=0)continue;s+=(g[i][1]+g[i-1][1])/2*dk;w+=dk;}});return w>0?s/w:null;}
 /* o = {key,total,unit,en,elev:[[[u,e],…],…]|null,avgE,pace:[{a,b,p}]|null,avgPace,marks:[{u,col,dash}],onPoint(u,first),onSeg(a,b,fit),extra(u),noElev} */
 function profPanel(box,o){if(!box)return;const st=PST[o.key]=PST[o.key]||{seg:0};const en=o.en,iv=PINT.v,segs=profSegs(o.total,iv,en);
-  if(st.iv!==iv||st.gid!==o.gid){st.seg=0;st.iv=iv;st.gid=o.gid;}if(st.seg>=segs.length)st.seg=0;
+  if(st.iv!==iv||st.gid!==o.gid){st.seg=0;st.iv=iv;st.gid=o.gid;st.sl=0;}if(st.seg>=segs.length)st.seg=0;
   const [a,b]=segs[st.seg],W=360,l=44,r=10,t=10,bt=22,X=u=>l+(W-l-r)*(u-a)/Math.max(1e-9,b-a);
   const span=b-a,stp=span>30?10:span>12?5:span>5?1:span>2?0.5:0.2;
   const xt=H=>{let s='';for(let k=Math.ceil(a/stp-1e-9)*stp;k<=b+1e-6;k+=stp){const kk=+k.toFixed(2);s+=`<text x="${X(kk)}" y="${H-6}" text-anchor="middle" font-size="10" fill="currentColor" fill-opacity=".6">${kk}</text>`;}return s;};
@@ -7235,8 +7235,11 @@ function profPanel(box,o){if(!box)return;const st=PST[o.key]=PST[o.key]||{seg:0}
     `<div class="seg">${segs.map((s,i)=>`<button type="button" data-seg="${i}" aria-pressed="${i===st.seg}">${s[2]}</button>`).join('')}</div>`+html+
     `<div class="ro"></div><div class="st">${stat.join('　')}${stat.length?'<br>':''}${en?'Dashed orange line: average for the whole run. Trace a graph to move the map.':'オレンジの点線は全体の平均です。グラフをなぞると、地図がその地点へ動きます。'}</div>`;
   box.hidden=false;
-  const pb=box.querySelector('[aria-pressed="true"]');if(pb&&pb.scrollIntoView&&st.seg>0)try{pb.parentNode.scrollLeft=pb.offsetLeft-40;}catch(e){}
-  box.querySelector('.pint').addEventListener('change',e=>{PINT.v=+e.target.value;st.seg=0;st.iv=PINT.v;o.onSeg&&o.onSeg(0,o.total,false,0);o.rerender();});
+  /* 区間ボタンの列：横の位置をそのまま保ち、選んだボタンが見えていないときだけ、見える位置まで少しずらす */
+  {const row=box.querySelector('.seg'),pb=box.querySelector('[aria-pressed="true"]');if(row){row.scrollLeft=st.sl||0;
+    if(pb){const rr=row.getBoundingClientRect(),br=pb.getBoundingClientRect();if(br.left<rr.left)row.scrollLeft+=br.left-rr.left-8;else if(br.right>rr.right)row.scrollLeft+=br.right-rr.right+8;}
+    st.sl=row.scrollLeft;row.addEventListener('scroll',()=>{st.sl=row.scrollLeft;},{passive:true});}}
+  box.querySelector('.pint').addEventListener('change',e=>{PINT.v=+e.target.value;st.seg=0;st.iv=PINT.v;st.sl=0;o.onSeg&&o.onSeg(0,o.total,false,0);o.rerender();});
   box.querySelectorAll('[data-seg]').forEach(bn=>bn.addEventListener('click',()=>{st.seg=+bn.dataset.seg;const s=profSegs(o.total,PINT.v,en)[st.seg];o.onSeg&&o.onSeg(s[0],s[1],true,st.seg);o.rerender();}));
   if(o.onSeg)o.onSeg(a,b,false,st.seg);
   const ro=box.querySelector('.ro'),svgs=[...box.querySelectorAll('svg')];
