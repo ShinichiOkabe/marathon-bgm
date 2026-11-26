@@ -667,7 +667,7 @@ body.live .recv{display:none}
 10.5 第1折り返し
 31.2 第2折り返し"></textarea></label>
       <div class="f wide">読み取った折り返し地点<div class="rc-cps" id="rcTurnsView"></div><button class="small" type="button" data-clr="rcTurns">折り返し地点をすべてクリア</button></div>
-      <div class="f wide" id="crsBox">コース（GPX・任意）大会のコースのGPXファイルを登録すると、GPSの位置をコースに重ねて、コースに沿った距離で案内します。ファイルはこのスマホの中に保存するので、当日はオフラインで使えます<div class="crs-row"><button class="small" type="button" id="crsPick">GPXを選ぶ</button><button class="small" type="button" id="crsDel" hidden>外す</button><button class="small" type="button" id="crsMapBtn" hidden>地図で確認</button><input type="file" id="crsFile" accept=".gpx,.tcx,.xml,application/gpx+xml,application/xml,text/xml" hidden></div><div class="sub" id="crsInfo">登録していません</div><div class="crs-map" id="crsMap" hidden></div><p class="ml-msg" id="crsMsg"></p></div>
+      <div class="f wide" id="crsBox">コース（GPX・任意）大会のコースのGPXファイルを登録すると、GPSの位置をコースに重ねて、コースに沿った距離で案内します。ファイルはこのスマホの中に保存するので、当日はオフラインで使えます<div class="crs-row"><button class="small" type="button" id="crsPick">GPXを選ぶ</button><button class="small" type="button" id="crsDel" hidden>外す</button><button class="small" type="button" id="crsMapBtn" hidden>地図で確認</button><input type="file" id="crsFile" accept=".gpx,.tcx,.xml,application/gpx+xml,application/xml,text/xml" hidden></div><div class="sub" id="crsInfo">登録していません</div><div class="crs-map" id="crsMap" hidden></div><div class="crs-prof" id="crsProf" hidden></div><p class="ml-msg" id="crsMsg"></p></div>
     </div>
     <div class="rc-sum" id="rcSum"></div>
     <div class="rp">
@@ -728,7 +728,7 @@ body.live .recv{display:none}
       <div class="csv-sel" id="csvSel" hidden></div>
       <p class="ml-msg" id="csvMsg"></p>
     </div>
-    <div class="rp fx-hide" id="pcrsBox"><div class="strat-h"><b>コース（GPX・任意）</b><span class="sub">練習のコースのGPXファイルを登録すると、屋外の練習で曲がり角とコースから外れたことを声で案内します。「練習メニューの保存」で、コースも一緒に保存できます。ファイルはこのスマホの中に保存するので、オフラインで使えます。</span></div><div class="crs-row"><button class="small" type="button" id="pcrsPick">GPXを選ぶ</button><button class="small" type="button" id="pcrsDel" hidden>外す</button><button class="small" type="button" id="pcrsMapBtn" hidden>地図で確認</button><input type="file" id="pcrsFile" accept=".gpx,.tcx,.xml,application/gpx+xml,application/xml,text/xml" hidden></div><div class="sub" id="pcrsInfo">登録していません</div><div class="crs-map" id="pcrsMap" hidden></div><p class="ml-msg" id="pcrsMsg"></p></div>
+    <div class="rp fx-hide" id="pcrsBox"><div class="strat-h"><b>コース（GPX・任意）</b><span class="sub">練習のコースのGPXファイルを登録すると、屋外の練習で曲がり角とコースから外れたことを声で案内します。「練習メニューの保存」で、コースも一緒に保存できます。ファイルはこのスマホの中に保存するので、オフラインで使えます。</span></div><div class="crs-row"><button class="small" type="button" id="pcrsPick">GPXを選ぶ</button><button class="small" type="button" id="pcrsDel" hidden>外す</button><button class="small" type="button" id="pcrsMapBtn" hidden>地図で確認</button><input type="file" id="pcrsFile" accept=".gpx,.tcx,.xml,application/gpx+xml,application/xml,text/xml" hidden></div><div class="sub" id="pcrsInfo">登録していません</div><div class="crs-map" id="pcrsMap" hidden></div><div class="crs-prof" id="pcrsProf" hidden></div><p class="ml-msg" id="pcrsMsg"></p></div>
     <div class="rp fx-hide">
       <div class="strat-h"><b>練習メニューの保存</b><span class="sub">練習メニュー（ステージ・ペース・時間）に名前を付けて保存しておくと、あとで読み込めます。練習モードでだけ保存・読み込みできます。曲は「曲」タブのマイリストで別に登録します。</span></div>
       <div class="ml-save"><input type="text" id="pmName" maxlength="40" placeholder="保存名（例：火曜のペース走）" aria-label="保存名"><button class="primary-sm" id="pmSave">保存</button></div>
@@ -763,7 +763,7 @@ body.live .recv{display:none}
       <div id="logGeo" class="geo">
         <div id="geoHalf" class="geo-half"></div>
         <div id="geoElev"></div>
-        <div class="ctrls" id="geoMapCtl" hidden><button class="small" type="button" id="geoMapBtn">地図を表示</button><span class="sub" id="geoMapMsg"></span></div>
+        <div class="ctrls" id="geoMapCtl" hidden><button class="small" type="button" id="geoMapBtn">地図を表示</button><button class="small" type="button" id="geoMkGpx" hidden>コースのGPXを作る</button><span class="sub" id="geoMapMsg"></span></div>
         <div id="geoMap" hidden></div>
       </div>
       <div class="tw" id="logTable"></div>
@@ -848,7 +848,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-26j</p>
+  <p class="ver" data-notr translate="no">版 2026-11-26k</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -1090,7 +1090,7 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <ul><li><strong>「サインインの有効期限が切れました」と出た</strong>：「サインイン」を押して、もう一度ログインしてください。保存できていなかった記録はスマホに残っていて、サインインすると保存されます。</li><li><strong>「Dropbox（準備中）」と出て選べない</strong>：お使いの版のアプリでは、まだDropboxが使えません。利用者の方が何かを設定する必要はありません。画面の上に「新しい版があります」と出たら、新しい版にしてください。</li><li><strong>Dropboxをやめたい</strong>：「サインアウト」を押し、「保存先」を「なし（この端末だけ）」に戻します。Dropboxに保存した記録は消えずに残ります。このアプリへのアクセスの許可は、Dropboxのウェブサイトの「設定」にある接続済みのアプリの一覧からも取り消せます。</li><li><strong>記録には走った場所が入っています</strong>：GPSをONにしていた区間の位置が記録に含まれます。Dropboxのフォルダをほかの人と共有するときは気をつけてください。</li></ul>
 <h3>本番の設定・練習メニューの引き継ぎ</h3><p>保存先がDropboxのときは、本番の設定（大会の情報・戦略）、保存した大会、練習メニュー、保存した練習メニュー、自動生成の設定を、スマホとパソコンで引き継ぎます。アプリを開いたとき、ほかのアプリから戻ったとき、ネットにつながったとき、設定を変えたときに合わせ、新しいほうを残します。保存した大会と練習メニューは1件ずつ合わせるので、両方の端末で別々に保存したものはどちらも残り、削除したものは戻りません。走っている間と本番待機中は合わせません。</p>
 <h3>屋内の練習の表示とお知らせ</h3><p>屋内の練習では、「全体の残り」の横に、時間で何％終わったかを表示します。GPSを使わないので、お知らせは10分ごとです（「10分たちました。推定1.4キロです。」と声で知らせ、画面にも推定の距離と残り時間を出します）。「音」タブの「10分毎にお知らせ」で切り替えられます（屋内ではバイブレーションは使いません）。屋外の練習と本番は、これまでどおり1 kmごとです。</p>
-<h3>コース（GPX）の案内</h3><p>「2. 本番」の「大会」タブの「コース（GPX・任意）」で、大会のコースのGPXファイルを登録できます（TCXも可）。点を間引いてこのスマホの中に保存するので、当日はオフラインで使えます。全長と大会の距離との差、曲がり角の数を表示し、大会の距離に合わせて伸び縮みさせて使います。保存した大会にも一緒に保存され、Dropboxで引き継げます。</p><ul><li><strong>コースに沿った距離</strong>：走っている間、GPSの位置をコースの線に重ね、コースに沿って何km地点かで距離を出します。人を避けて蛇行したりGPSが揺れたりしても距離が伸びないので、距離の確定はふだんは要りません。トンネルのあとなど、気になったときだけ確定してください。2回タップの1回目で「看板との差は約30メートルです」と読み上げます。</li><li><strong>コースから外れたとき</strong>：コースから60m以上離れた状態が15秒続くと「コースから外れています」、戻ると「コースに戻りました」と知らせます。</li><li><strong>ゴールまでの残り</strong>：1km毎のお知らせに「ゴールまで あと○キロです」を加えます。</li><li><strong>曲がり角</strong>：150m手前と直前に「160メートル先、右です」「まもなく右です」と知らせます。本番では「設定」タブでONにしたときだけ案内します。</li><li><strong>練習のコース</strong>：練習用のGPXは「メニュー」タブで登録し、「練習メニューの保存」で一緒に保存・読み込みできます（大会のコースとは別です）。屋外の練習で曲がり角とコース外れを案内します。</li><li><strong>地図で確認</strong>：「GPXを選ぶ」「外す」の隣の「地図で確認」で、コースの線、スタート・ゴール、1kmごとの印、曲がり角（矢印の向きが曲がる向き）を地図で確かめられます。地図はネットから読み込むので、電波があるときに走る前に確認します。走っている間は開けません。「設定」タブには、今のモードに合う項目だけが表示されます。</li><li><strong>本番待機</strong>：GPSの位置がつかめたら、コースがあるか、スタート地点から離れていないかを確かめて知らせます。</li></ul><p>これらのON/OFFは「設定」タブ（以前の「音・合図」）の「コースの案内（GPX）」で切り替えます。<strong>走っている間は、ロック画面を2回フリック（指ですばやく払う）すると、曲がり角とコース外れの音声案内をON／OFFできます。</strong>ウルトラマラソンなど案内の少ない大会では、走りながらONにできます。切り替えはその回の走りだけで、次に走るときは「設定」タブのとおりに戻ります。ゴールまでの残りや1 kmごとのラップはそのままです。</p>
+<h3>コース（GPX）の案内</h3><p>「2. 本番」の「大会」タブの「コース（GPX・任意）」で、大会のコースのGPXファイルを登録できます（TCXも可）。点を間引いてこのスマホの中に保存するので、当日はオフラインで使えます。全長と大会の距離との差、曲がり角の数を表示し、大会の距離に合わせて伸び縮みさせて使います。保存した大会にも一緒に保存され、Dropboxで引き継げます。</p><ul><li><strong>コースに沿った距離</strong>：走っている間、GPSの位置をコースの線に重ね、コースに沿って何km地点かで距離を出します。人を避けて蛇行したりGPSが揺れたりしても距離が伸びないので、距離の確定はふだんは要りません。トンネルのあとなど、気になったときだけ確定してください。2回タップの1回目で「看板との差は約30メートルです」と読み上げます。</li><li><strong>コースから外れたとき</strong>：コースから60m以上離れた状態が15秒続くと「コースから外れています」、戻ると「コースに戻りました」と知らせます。</li><li><strong>ゴールまでの残り</strong>：1km毎のお知らせに「ゴールまで あと○キロです」を加えます。</li><li><strong>曲がり角</strong>：150m手前と直前に「160メートル先、右です」「まもなく右です」と知らせます。本番では「設定」タブでONにしたときだけ案内します。</li><li><strong>練習のコース</strong>：練習用のGPXは「メニュー」タブで登録し、「練習メニューの保存」で一緒に保存・読み込みできます（大会のコースとは別です）。屋外の練習で曲がり角とコース外れを案内します。</li><li><strong>地図で確認</strong>：「GPXを選ぶ」「外す」の隣の「地図で確認」で、コースの線、スタート・ゴール、1kmごとの印、曲がり角（矢印の向きが曲がる向き）を地図で確かめられます。地図はネットから読み込むので、電波があるときに走る前に確認します。走っている間は開けません。「設定」タブには、今のモードに合う項目だけが表示されます。</li><li><strong>高低差と距離のグラフ</strong>：地図の下に出ます。「全体」と10kmごとの区間（S-10、10-20、…、40-G）を切り替えられ、区間を押すとその区間の地図を拡大します。グラフをなぞると、地図がその地点へ動きます。上り・下りの合計と標高の範囲も出ます。高さの情報がないGPXでは、距離の軸だけになります（なぞると地図は動きます）。</li><li><strong>走った記録からコースのGPXを作る</strong>：「4. 実績」で記録を選び、地図の隣の「コースのGPXを作る」を押すと、GPSの記録からおおよそのコースのGPXファイルを作ります（飛んだ点を除いてならし、間引きます）。「大会」タブか「メニュー」タブの「GPXを選ぶ」で登録できます。元のGPXがある記録（GPX・TCXファイルから取り込んだ記録、コースのGPXを登録して走った記録）には、ボタンは出ません。</li><li><strong>本番待機</strong>：GPSの位置がつかめたら、コースがあるか、スタート地点から離れていないかを確かめて知らせます。</li></ul><p>これらのON/OFFは「設定」タブ（以前の「音・合図」）の「コースの案内（GPX）」で切り替えます。<strong>走っている間は、ロック画面を2回フリック（指ですばやく払う）すると、曲がり角とコース外れの音声案内をON／OFFできます。</strong>ウルトラマラソンなど案内の少ない大会では、走りながらONにできます。切り替えはその回の走りだけで、次に走るときは「設定」タブのとおりに戻ります。ゴールまでの残りや1 kmごとのラップはそのままです。</p>
 <h3>目標タイムと戦略</h3><p>「大会」タブで目標タイムを変えても、戦略の時速と区間は変わりません（自分で変えた内容はそのまま残ります）。「戦略」タブの「目標」の表示と、ゴール予想が目標より速いか遅いかの色は、すぐに新しくなります。戦略を新しい目標に合わせたいときは、「自動で作る」を押し直してください。</p>
 <h3>練習メニュー・戦略のステージの挿入</h3><p>各ステージの右上の「＋」を押すと、その上にステージを挿入します。練習メニューでは同じペースの10分のステージ、本番の戦略ではその区間を半分に分けたステージ（時速は同じ）が入ります。</p>
 <h3>スマホとパソコンで記録を合わせる</h3><p>アプリを開いたとき、ネットにつながっていてDropboxにまだ保存していない記録があれば、自動で保存します（走っている間と本番待機中は除く）。「4. 実績」を開いたときと、別のタブやアプリから戻ったときに、ほかの端末で変えた記録（公式記録・写真のURL・天気など）をDropboxから読み込み直します。保存し直すときもDropbox側の記録を確かめ、新しい公式記録などを古い記録で消さないようにしています。ネットにつながらず保存できなかった変更は、この端末に控えを残し、ページを閉じても消えません（「未保存の記録」の件数に入ります）。</p>
@@ -1350,7 +1350,7 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <ul><li><strong>"Your sign-in has expired."</strong>: press "Sign in" and log in again. Logs that weren't saved are still on your phone and are saved once you sign in.</li><li><strong>"Dropbox (coming soon)" can't be chosen</strong>: your version of the app can't use Dropbox yet. There is nothing you need to set up. When "A new version is available" appears at the top, update to it.</li><li><strong>To stop using Dropbox</strong>: press "Sign out" and set "Save to" back to "None (this device only)". Logs already saved in Dropbox stay there. You can also remove this app's access from the list of connected apps in your Dropbox settings on the Dropbox website.</li><li><strong>Logs contain where you ran</strong>: positions from the sections where GPS was on are included. Take care when sharing your Dropbox folder with others.</li></ul>
 <h3>Carrying race settings and training menus over</h3><p>When saving to Dropbox, the race settings (race info and strategy), saved races, the training menu, saved training menus and the auto-generate settings are carried over between your phone and computer. They are matched when you open the app, come back from another app, go online or change a setting, keeping the newer one. Saved races and menus are matched one by one, so items saved separately on each device are both kept and deleted items do not come back. Nothing is matched while running or in race standby.</p>
 <h3>Indoor training display and notices</h3><p>In indoor training, the percentage of time completed is shown next to "Total left". Since GPS is not used, notices come every 10 minutes ("10 minutes elapsed. Estimated 1.4 kilometers.") with the estimated distance and time left on screen. Turn them on or off with "Announce every 10 min" on the Sound tab (no vibration indoors). Outdoor training and races still announce every 1 km.</p>
-<h3>Course guidance (GPX)</h3><p>On the Race tab of "2. Race", register the race course GPX (TCX also works) under "Course (GPX, optional)". It is thinned and stored on this phone, so it works offline on race day. The length, the difference from the race distance and the number of turns are shown, and the course is stretched to the race distance. It is saved with saved races and carried over via Dropbox.</p><ul><li><strong>Distance along the course</strong>: your GPS position is placed on the course line and the distance is measured along it, so weaving and GPS jitter do not add distance. Marker confirmation is usually not needed; the first double-tap reads out the gap to the marker.</li><li><strong>Off course</strong>: if you are more than 60 m from the course for 15 seconds you hear "You are off the course", and "You are back on the course" when you return.</li><li><strong>Distance to finish</strong>: added to each 1 km notice.</li><li><strong>Turns</strong>: announced about 150 m before and right at the turn; in races only when turned on in Settings.</li><li><strong>Training course</strong>: register a training GPX in the Menu tab; it is saved and loaded together with "Save training menu" (separate from the race course), and guides turns and off-course in outdoor training.</li><li><strong>Check on map</strong>: the "Check on map" button next to "Choose GPX" and "Remove" shows the course line, start/finish, a marker every km, and turns (the arrow points the way you turn). The map is loaded from the internet, so check it before running while you have a signal. It cannot be opened while running. The Settings tab shows only the items for the current mode.</li><li><strong>Race standby</strong>: once GPS has a fix, it checks that the course is present and that you are near the start.</li></ul><p>Turn these on or off under "Course guidance (GPX)" on the Settings tab (formerly "Sound & cues"). <strong>While running, flick the lock screen twice to turn turn and off-course voice guidance on or off</strong> (handy in ultramarathons with few marshals). The switch lasts for that run only; distance to finish and 1 km laps are unchanged.</p>
+<h3>Course guidance (GPX)</h3><p>On the Race tab of "2. Race", register the race course GPX (TCX also works) under "Course (GPX, optional)". It is thinned and stored on this phone, so it works offline on race day. The length, the difference from the race distance and the number of turns are shown, and the course is stretched to the race distance. It is saved with saved races and carried over via Dropbox.</p><ul><li><strong>Distance along the course</strong>: your GPS position is placed on the course line and the distance is measured along it, so weaving and GPS jitter do not add distance. Marker confirmation is usually not needed; the first double-tap reads out the gap to the marker.</li><li><strong>Off course</strong>: if you are more than 60 m from the course for 15 seconds you hear "You are off the course", and "You are back on the course" when you return.</li><li><strong>Distance to finish</strong>: added to each 1 km notice.</li><li><strong>Turns</strong>: announced about 150 m before and right at the turn; in races only when turned on in Settings.</li><li><strong>Training course</strong>: register a training GPX in the Menu tab; it is saved and loaded together with "Save training menu" (separate from the race course), and guides turns and off-course in outdoor training.</li><li><strong>Check on map</strong>: the "Check on map" button next to "Choose GPX" and "Remove" shows the course line, start/finish, a marker every km, and turns (the arrow points the way you turn). The map is loaded from the internet, so check it before running while you have a signal. It cannot be opened while running.</li><li><strong>Elevation and distance graph</strong>: shown under the map. Switch between "All" and 10 km sections (S-10, 10-20, ..., 40-G); choosing a section zooms the map to it. Trace the graph to move the map to that point. Total climb/descent and elevation range are shown. GPX files without elevation show only the distance axis.</li><li><strong>Make a course GPX from a run</strong>: in "4. Records", choose a run and press "Make course GPX" next to the map to create an approximate course GPX file from the GPS log (stray points removed, smoothed and thinned). Register it with "Choose GPX" on the Race tab or the Menu tab. The button does not appear for runs that already have an original GPX (runs imported from GPX/TCX files, or runs made with a registered course GPX).</li><li><strong>Race standby</strong>: once GPS has a fix, it checks that the course is present and that you are near the start.</li></ul><p>Turn these on or off under "Course guidance (GPX)" on the Settings tab (formerly "Sound & cues"). <strong>While running, flick the lock screen twice to turn turn and off-course voice guidance on or off</strong> (handy in ultramarathons with few marshals). The switch lasts for that run only; distance to finish and 1 km laps are unchanged.</p>
 <h3>Goal time and strategy</h3><p>Changing the goal time on the Race tab does not change the strategy speeds or sections (your edits are kept). The goal shown on the Strategy tab, and whether the predicted finish is ahead of or behind it, update right away. To fit the strategy to a new goal, press "Auto-create" again.</p>
 <h3>Inserting stages</h3><p>Tap "＋" at the top right of a stage to insert a stage above it: a 10-minute stage at the same pace in the training menu, or, in the race strategy, the section split in half (same speed).</p>
 <h3>Keeping phone and computer in step</h3><p>When you open the app while online, any logs not yet saved to Dropbox are saved automatically (except while running or in race standby). When you open "4. Results" or come back from another tab or app, records changed on another device (official results, photo URL, weather, etc.) are reloaded from Dropbox. Before saving again, the Dropbox copy is checked so that a newer official result is never erased by an older copy. Changes that could not be saved because you were offline are kept on this device, even if you close the page (they count as "Unsaved logs").</p>
@@ -2713,7 +2713,7 @@ function archiveCurrent(result){if(!RS.startAt)return;addEv(result==='goal'?'goa
   /* スタート前にGPSでつかんだ位置を、天気を取る場所として残す */
   const sp0=GPS.on&&GPS.pt&&Date.now()-GPS.pt.ts<120000?{la:+GPS.pt.la.toFixed(5),lo:+GPS.pt.lo.toFixed(5)}:null;
   const r=_s.apply(this,arguments);
-  if(MODE==='race'&&fresh&&R.running&&RS.startAt){RS.log=[];RS.ev=[];RS.geo={sp:sp0,trk:[],pass:[],cps:rcCps(),gun:rcGunMs(),limit:+RC.limit||0};RS.auto=null;RS.autoOff=false;RS.goalLogged=false;logSelId='cur';addEv('start','スタート');renderLog();}return r;};}
+  if(MODE==='race'&&fresh&&R.running&&RS.startAt){RS.log=[];RS.ev=[];RS.geo={sp:sp0,trk:[],pass:[],cps:rcCps(),gun:rcGunMs(),limit:+RC.limit||0,crs:RC.course&&RC.course.id?{id:RC.course.id,name:RC.course.name||''}:null};RS.auto=null;RS.autoOff=false;RS.goalLogged=false;logSelId='cur';addEv('start','スタート');renderLog();}return r;};}
 {const _p=pause;pause=function(){const r=_p.apply(this,arguments);if(MODE==='race'&&RS.startAt){addEv('pause','一時停止');}return r;};}
 {const _r=raceStop;raceStop=function(){const was=MODE==='race'&&R.running;const r=_r.apply(this,arguments);if(was)archiveCurrent('goal');return r;};}
 {const _f=finish;finish=function(){const was=MODE==='race'&&R.running;const r=_f.apply(this,arguments);if(was)archiveCurrent('limit');return r;};}
@@ -3256,7 +3256,7 @@ function pracSnap(realMs){if(!OD||!(OD.dist>=0.2))return null;
     log.push({km:dist,t:Math.round(realMs),at:startAt+Math.round(realMs),src:'GPS',tgt:tg});}
   const names=[...new Set(menu.map(s=>s&&s.name).filter(Boolean))];
   return {id:'P'+startAt,kind:'prac',name:'',menu:names.slice(0,3).join('・')+(names.length>3?'…':''),date:ymdISO(startAt),startAt,endAt:startAt+Math.round(realMs),km:+dist.toFixed(2),el:Math.round(realMs),
-    log,ev:[],kcal:typeof kcalOf==='function'?kcalOf(opt.weight,dist):null,geo:{sp:OD.sp||null,trk:(OD.trk||[]).slice(),pass:[]}};}
+    log,ev:[],kcal:typeof kcalOf==='function'?kcalOf(opt.weight,dist):null,geo:{sp:OD.sp||null,trk:(OD.trk||[]).slice(),pass:[],crs:(()=>{try{const r=pcRef();return r&&r.id?{id:r.id,name:r.name||''}:null;}catch(e){return null;}})()}};}
 /* 場所名：スタート地点の住所（市区町村と町名）をOpenStreetMapから調べる */
 async function placeName(sp){if(!sp||!navigator.onLine)return '';
   try{const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${sp.la}&lon=${sp.lo}&zoom=16&addressdetails=1&accept-language=ja`);if(!r.ok)return '';
@@ -6831,7 +6831,7 @@ const crsOffOn=w=>CRS_FLICK==='on'?true:CRS_FLICK==='off'?false:(w==='race'?CRS_
 /* 練習のコース（練習メニューに登録。練習メニューの保存で一緒に保存） */
 const pcRef=()=>{try{return store.get('cbgm-pcourse',null);}catch(e){return null;}};
 const CRS_G={};
-function crsGeom(id){if(!id)return null;if(CRS_G[id])return CRS_G[id];const dt=crsData(id);if(!dt||!Array.isArray(dt.p)||dt.p.length<2)return null;const cum=crsCum(dt.p);const g={id,pts:dt.p,cum,len:cum[cum.length-1],turns:crsTurns(dt.p,cum),name:dt.name||''};return CRS_G[id]=g;}
+function crsGeom(id){if(!id)return null;if(CRS_G[id])return CRS_G[id];const dt=crsData(id);if(!dt||!Array.isArray(dt.p)||dt.p.length<2)return null;const cum=crsCum(dt.p);const g={id,pts:dt.p,cum,len:cum[cum.length-1],turns:crsTurns(dt.p,cum),name:dt.name||'',prof:dt.e&&Array.isArray(dt.e.v)&&dt.e.v.length>1?dt.e:null};return CRS_G[id]=g;}
 const pcGeom=()=>{const r=pcRef();return r&&r.id?crsGeom(r.id):null;};
 const crsOptSave=()=>store.set('cbgm-crs-opt',CRS_OPT);
 const CRS={id:null,on:false,name:'',pts:null,cum:null,len:0,turns:[],xy:null,
@@ -6846,8 +6846,9 @@ const crsToast=h=>{try{kmT.innerHTML=h;kmT.hidden=false;kmT.classList.remove('sh
 /* --- GPX・TCXを読む --- */
 function crsParse(txt){const doc=new DOMParser().parseFromString(txt,'application/xml');if(doc.getElementsByTagName('parsererror').length)return [];
   const by=n=>[...doc.getElementsByTagNameNS('*',n)];let pts=[];
-  for(const tag of ['trkpt','rtept']){const L=by(tag);if(L.length>1){pts=L.map(e=>[+e.getAttribute('lat'),+e.getAttribute('lon')]);break;}}
-  if(pts.length<2){pts=by('Position').map(e=>{const a=e.getElementsByTagNameNS('*','LatitudeDegrees')[0],b=e.getElementsByTagNameNS('*','LongitudeDegrees')[0];return a&&b?[+a.textContent,+b.textContent]:null;}).filter(Boolean);}
+  const elv=(e,n)=>{const x=e&&e.getElementsByTagNameNS('*',n)[0];const v=x?parseFloat(x.textContent):NaN;return isFinite(v)?v:null;};
+  for(const tag of ['trkpt','rtept']){const L=by(tag);if(L.length>1){pts=L.map(e=>[+e.getAttribute('lat'),+e.getAttribute('lon'),elv(e,'ele')]);break;}}
+  if(pts.length<2){pts=by('Position').map(e=>{const a=e.getElementsByTagNameNS('*','LatitudeDegrees')[0],b=e.getElementsByTagNameNS('*','LongitudeDegrees')[0];return a&&b?[+a.textContent,+b.textContent,elv(e.parentNode,'AltitudeMeters')]:null;}).filter(Boolean);}
   try{CRS_NM=by('name').map(e=>e.textContent.trim()).find(Boolean)||'';}catch(e){CRS_NM='';}
   return pts.filter(p=>isFinite(p[0])&&isFinite(p[1])&&Math.abs(p[0])<=90&&Math.abs(p[1])<=180&&!(p[0]===0&&p[1]===0));}
 const crsH=(a,b)=>hav({la:a[0],lo:a[1]},{la:b[0],lo:b[1]});
@@ -6940,12 +6941,21 @@ function crsInfo(){const box=$('#crsInfo');if(!box)return;crsActivate();const de
   const lenU=CRS.len/1000/UK,race=rcKm(),diff=lenU-race,pct=race?Math.abs(diff)/race*100:0;
   box.innerHTML=`<b>コース：<span data-notr>${esc(CRS.name)}</span></b><br>全長 ${lenU.toFixed(2)} km（大会の距離 ${race.toFixed(race%1?3:0)} km より ${diff>=0?'+':'−'}${Math.abs(diff).toFixed(2)} km。大会の距離に合わせて使います）／曲がり角 ${CRS.turns.length}か所`+(pct>10?'<br><b>コースの長さが大会の距離と10％以上違います。別の大会のコースでないか確かめてください。</b>':'');
   box.classList.toggle('crs-warn',pct>10);}
-function crsRegister(name,txt,target){target=target||'race';const msg=target==='race'?crsMsg:pcrsMsg;const raw=crsParse(txt);if(raw.length<2){msg('GPXからコースを読み取れませんでした。',true);return;}
+function crsRegister(name,txt,target,msgFn){target=target||'race';const msg=msgFn||(target==='race'?crsMsg:pcrsMsg);let raw;if(Array.isArray(txt)){CRS_NM='';raw=txt;}else raw=crsParse(txt);if(raw.length<2){msg('GPXからコースを読み取れませんでした。',true);return false;}
   if(CRS_NM)name=CRS_NM;
-  const p=crsSimplify(raw,4),id='C'+Date.now().toString(36),len=crsCum(p).pop();if(len<200){msg('コースが短すぎます。',true);return;}
-  store.set(crsKey(id),{id,name,p,len:Math.round(len),saved:Date.now()});
+  const p=crsSimplify(raw,4),id='C'+Date.now().toString(36),len=crsCum(p).pop();if(len<200){msg('コースが短すぎます。',true);return false;}
+  const o={id,name,p,len:Math.round(len),saved:Date.now()};try{const e=crsProfile(raw);if(e)o.e=e;}catch(_){}
+  store.set(crsKey(id),o);
   if(target==='race'){RC.course={id,name,len:Math.round(len)};store.set('cbgm-race',RC);crsActivate(true);crsInfo();}else{store.set('cbgm-pcourse',{id,name,len:Math.round(len)});pcrsInfo();}
-  msg(`コースを登録しました（${raw.length}点 → ${p.length}点に間引いて保存）。`);try{crsCloud();}catch(e){}}
+  msg(`コースを登録しました（${raw.length}点 → ${p.length}点に間引いて保存）。`+(o.e?'':'このGPXには高さの情報がないため、高低差のグラフは出ません。'));try{crsCloud();}catch(e){}return true;}
+/* 高低差：元の点（間引く前）から、コースに沿って50m毎の高さを作る（前後100mでならす）。高さのある点が半分未満なら作らない */
+function crsProfile(raw){const has=raw.filter(p=>p[2]!=null&&isFinite(p[2]));if(has.length<5||has.length<raw.length*0.5)return null;
+  const C=crsCum(raw),L=C[C.length-1],S=50,n=Math.floor(L/S)+1,E=[];
+  const I=[];raw.forEach((p,i)=>{if(p[2]!=null&&isFinite(p[2]))I.push(i);});let j=0;
+  for(let k=0;k<n;k++){const d=k*S;while(j<I.length-2&&C[I[j+1]]<=d)j++;const a=I[j],b=I[Math.min(j+1,I.length-1)];
+    let v;if(d<=C[a]||a===b)v=raw[a][2];else if(d>=C[b])v=raw[b][2];else{const t=(d-C[a])/Math.max(1e-9,C[b]-C[a]);v=raw[a][2]+(raw[b][2]-raw[a][2])*t;}E.push(v);}
+  const sm=E.map((v,i)=>{let s=0,c=0;for(let k=Math.max(0,i-2);k<=Math.min(E.length-1,i+2);k++){s+=E[k];c++;}return +(s/c).toFixed(1);});
+  return {s:S,L:Math.round(L),v:sm};}
 function crsMsg(t,err){const m=$('#crsMsg');if(m){m.textContent=t;m.classList.toggle('err',!!err);}}
 $('#crsPick').addEventListener('click',()=>{if(R.running){crsMsg('走っている間は変えられません。',true);return;}$('#crsFile').click();});
 $('#crsFile').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;const rd=new FileReader();rd.onload=()=>crsRegister(f.name.replace(/\.(gpx|tcx|xml)$/i,''),String(rd.result||''));rd.onerror=()=>crsMsg('ファイルを読めませんでした。',true);rd.readAsText(f);});
@@ -6994,6 +7004,12 @@ try{const D=I18N.D;[['設定','Settings'],['設定（音・合図・案内）','
 .crs-row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
 .crs-map{height:320px;border:1px solid var(--line);border-radius:10px;margin:6px 0;overflow:hidden;background:var(--bg)}
 .crs-map .leaflet-control-attribution{font-size:10px}
+.crs-prof{margin:4px 0 8px}.crs-prof .seg{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
+.crs-prof .seg button{min-height:34px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card,#fff);color:var(--ink);font-size:.82rem}
+.crs-prof .seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.crs-prof svg{width:100%;height:auto;display:block;touch-action:none;cursor:crosshair;color:var(--ink)}
+.crs-prof .ro{font-size:.85rem;min-height:1.3em;color:var(--ink);font-variant-numeric:tabular-nums}
+.crs-prof .st{font-size:.8rem;color:var(--muted)}
 .crs-tip{font-size:12px}
 #crsInfo{color:var(--ink)}#crsInfo.crs-warn{color:var(--warn)}
 #crsMsg.err{color:var(--warn)}
@@ -7028,7 +7044,7 @@ const CMAP={race:{map:null,lay:null,id:null,open:false},prac:{map:null,lay:null,
 const cmapEls=w=>w==='race'?{btn:$('#crsMapBtn'),box:$('#crsMap'),msg:crsMsg}:{btn:$('#pcrsMapBtn'),box:$('#pcrsMap'),msg:pcrsMsg};
 const cmapGeom=w=>w==='race'?(RC.course&&RC.course.id?crsGeom(RC.course.id):null):pcGeom();
 const cmapEn=()=>typeof I18N!=='undefined'&&I18N.lang&&I18N.lang!=='ja';
-function cmapClose(w,destroy){const M=CMAP[w],E=cmapEls(w);M.open=false;if(E.box)E.box.hidden=true;if(E.btn)E.btn.textContent=cmapEn()?'Check on map':'地図で確認';
+function cmapClose(w,destroy){const M=CMAP[w],E=cmapEls(w);M.open=false;if(E.box)E.box.hidden=true;{const pf=$(w==='race'?'#crsProf':'#pcrsProf');if(pf)pf.hidden=true;}if(E.btn)E.btn.textContent=cmapEn()?'Check on map':'地図で確認';
   if(destroy&&M.map){try{M.map.remove();}catch(e){}M.map=null;M.lay=null;M.id=null;}}
 function cmapSync(w){const E=cmapEls(w),g=cmapGeom(w);if(!E.btn)return;E.btn.hidden=!g;
   if(!g||CMAP[w].id&&CMAP[w].id!==g.id)cmapClose(w,true);}
@@ -7066,7 +7082,9 @@ function cmapDraw(w,g,fit){const Lf=window.L,M=CMAP[w];if(!Lf||!M.map)return;M.l
   const s=g.pts[0],e=g.pts[g.pts.length-1],same=crsH(s,e)<30;
   Lf.marker(e,{icon:pin('G','#14202b'),keyboard:false,zIndexOffset:500}).bindTooltip((en?'Finish ':'ゴール ')+total.toFixed(2)+' '+unit,{direction:'top'}).addTo(M.lay);
   Lf.marker(s,{icon:pin('S','#15803d'),keyboard:false,zIndexOffset:same?600:400}).bindTooltip(same?(en?'Start / Finish':'スタート・ゴール'):(en?'Start':'スタート'),{direction:'top'}).addTo(M.lay);
-  if(fit)M.map.fitBounds(Lf.latLngBounds(ll),{padding:[20,20],maxZoom:16});}
+  if(fit)M.map.fitBounds(Lf.latLngBounds(ll),{padding:[20,20],maxZoom:16});
+  M.hl=Lf.layerGroup().addTo(M.lay);M.cur=Lf.circleMarker(g.pts[0],{radius:9,color:'#14202b',weight:3,fill:true,fillColor:'#fff',fillOpacity:.6,interactive:false,opacity:0}).addTo(M.lay);
+  try{cprofRender(w,g);}catch(e){console.error(e);}}
 $('#crsMapBtn').addEventListener('click',()=>{if(CMAP.race.open){cmapClose('race');return;}cmapOpen('race');});
 $('#pcrsMapBtn').addEventListener('click',()=>{if(CMAP.prac.open){cmapClose('prac');return;}cmapOpen('prac');});
 {const _a=crsInfo;crsInfo=function(){const r=_a.apply(this,arguments);try{cmapSync('race');}catch(e){}return r;};}
@@ -7079,6 +7097,91 @@ try{const D=I18N.D;[['地図で確認','Check on map'],['地図を閉じる','Cl
  ['電波があるときに、地図で確認できます。','You can check the map when you have a signal.'],
  ['ネットにつながっていないため、地図を表示できません。電波があるときに確認してください。','No internet connection, so the map cannot be shown. Check it when you have a signal.']]
  .forEach(([j,e])=>D.set(j,[e,e,e,e]));}catch(e){}
+</script>
+<script>
+/* ===================== 2026-11-26k：地図の下に高低差と距離のグラフ（10km毎の区間：S-10、10-20、…、40-G） =====================
+   ・区間を押すと、その区間の地図を拡大して表示（区間の線を濃く）
+   ・グラフをなぞると、その地点に丸を出して地図を動かす（最初に触れたとき拡大）
+   ・高さの情報がないGPXは、距離の軸だけ（なぞると地図は動く） */
+const CPROF={race:{seg:0},prac:{seg:0}};
+function cprofSegs(total,en){const S=[[0,total,en?'All':'全体']];if(total<=12)return S;
+  const B=[0];for(let k=10;k<total-1e-6;k+=10)B.push(k);if(total-B[B.length-1]<1&&B.length>1)B.pop();B.push(total);
+  for(let i=0;i<B.length-1;i++){const a=B[i],b=B[i+1];S.push([a,b,(i===0?'S':String(a))+'-'+(i===B.length-2?'G':String(b))]);}return S;}
+function cprofRender(w,g){const box=$(w==='race'?'#crsProf':'#pcrsProf');if(!box)return;const M=CMAP[w],P=CPROF[w],en=cmapEn();
+  const sc=w==='race'?crsScale():1,uOf=m=>m*sc/1000/UK,mOf=u=>u*1000*UK/sc,unit=UK>1.5?(en?'mi':'マイル'):'km',total=uOf(g.len);
+  const segs=cprofSegs(total,en);if(P.seg>=segs.length||P.gid!==g.id)P.seg=0;P.gid=g.id;
+  const pr=g.prof,eAt=u=>{if(!pr)return null;const i=mOf(u)*(pr.L/g.len)/pr.s,a=Math.max(0,Math.min(pr.v.length-1,Math.floor(i))),b=Math.min(pr.v.length-1,a+1),t=Math.max(0,Math.min(1,i-a));return pr.v[a]+(pr.v[b]-pr.v[a])*t;};
+  const [a,b]=segs[P.seg],W=360,H=150,l=42,r=10,t=10,bt=22,X=u=>l+(W-l-r)*(u-a)/Math.max(1e-9,b-a);
+  const N=Math.max(2,Math.min(400,Math.ceil(mOf(b-a)/50)+1)),S=[];for(let i=0;i<N;i++){const u=a+(b-a)*i/(N-1);S.push([u,eAt(u)]);}
+  let body='',stat='';
+  if(pr){let lo=Math.min(...S.map(p=>p[1])),hi=Math.max(...S.map(p=>p[1]));const span=Math.max(10,hi-lo),st=span>400?100:span>160?50:span>60?20:span>24?10:5;
+    lo=Math.floor((lo-st*0.3)/st)*st;hi=Math.ceil((hi+st*0.3)/st)*st;const Y=v=>t+(H-t-bt)*(hi-v)/(hi-lo);P.Y=Y;
+    for(let v=lo;v<=hi;v+=st)body+=`<line x1="${l}" x2="${W-r}" y1="${Y(v)}" y2="${Y(v)}" stroke="currentColor" stroke-opacity=".12"/><text x="${l-6}" y="${Y(v)+4}" text-anchor="end" font-size="10" fill="currentColor" fill-opacity=".6">${v}m</text>`;
+    const pl=S.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' L');
+    body+=`<path d="M${X(a)},${H-bt} L${pl} L${X(b)},${H-bt} Z" fill="var(--accent)" fill-opacity=".14"/><path d="M${pl}" fill="none" stroke="var(--accent)" stroke-width="2"/>`;
+    let up=0,dn=0;for(let i=1;i<S.length;i++){const d=S[i][1]-S[i-1][1];if(d>0)up+=d;else dn-=d;}
+    const mx=Math.max(...S.map(p=>p[1])),mn=Math.min(...S.map(p=>p[1]));
+    stat=en?`Up +${Math.round(up)} m / Down −${Math.round(dn)} m / Elevation ${Math.round(mn)}–${Math.round(mx)} m`:`上り +${Math.round(up)}m／下り −${Math.round(dn)}m／標高 ${Math.round(mn)}〜${Math.round(mx)}m`;}
+  else{P.Y=()=>(H-bt+t)/2;body+=`<line x1="${l}" x2="${W-r}" y1="${(H-bt+t)/2}" y2="${(H-bt+t)/2}" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4"/><text x="${(l+W-r)/2}" y="${(H-bt+t)/2-10}" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity=".6">${en?'No elevation data in this GPX':'このGPXには高さの情報がありません'}</text>`;}
+  /* 距離の目盛り・曲がり角の位置 */
+  const span=b-a,stp=span>30?10:span>12?5:span>5?1:span>2?0.5:0.2;for(let k=Math.ceil(a/stp-1e-9)*stp;k<=b+1e-6;k+=stp){const kk=+k.toFixed(2);body+=`<text x="${X(kk)}" y="${H-6}" text-anchor="middle" font-size="10" fill="currentColor" fill-opacity=".6">${kk}</text>`;}
+  if(P.seg>0||g.turns.length<=12)g.turns.forEach(tn=>{const u=uOf(tn.d);if(u<a||u>b)return;body+=`<line x1="${X(u)}" x2="${X(u)}" y1="${t}" y2="${H-bt}" stroke="var(--amber,#b86e00)" stroke-dasharray="3 3" stroke-width="1.2"/>`;});
+  body+=`<line class="cur" y1="${t}" y2="${H-bt}" stroke="currentColor" stroke-width="1" visibility="hidden"/><circle class="dot" r="4" fill="currentColor" visibility="hidden"/>`;
+  box.innerHTML=`<div class="seg">${segs.map((s,i)=>`<button type="button" data-seg="${i}" aria-pressed="${i===P.seg}">${s[2]}</button>`).join('')}</div>`+
+    `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${en?'Elevation':'高低差'}">${body}</svg><div class="ro"></div><div class="st">${stat}${stat?'　':''}${en?'Trace the graph to move the map.':'グラフをなぞると、地図がその地点へ動きます。'}</div>`;
+  box.hidden=false;
+  Object.assign(P,{a,b,X,l,r,W,uOf,mOf,unit,eAt});
+  /* 区間の線を濃く、地図を区間に合わせて拡大 */
+  const Lf=window.L;if(M.hl&&Lf){M.hl.clearLayers();const ll=[];const m0=mOf(a),m1=Math.min(g.len,mOf(b));for(let m=m0;m<=m1;m+=Math.max(10,(m1-m0)/300))ll.push(crsAt(g.pts,g.cum,m));ll.push(crsAt(g.pts,g.cum,m1));
+    if(P.seg>0)Lf.polyline(ll,{color:'#0b3a8f',weight:7,opacity:.9,interactive:false}).addTo(M.hl);
+    if(P.fitNow){P.fitNow=false;try{M.map.fitBounds(Lf.latLngBounds(ll),{padding:[24,24],maxZoom:17});}catch(e){}}}
+  box.querySelectorAll('[data-seg]').forEach(bn=>bn.addEventListener('click',()=>{P.seg=+bn.dataset.seg;P.fitNow=true;cprofRender(w,g);}));
+  const svg=box.querySelector('svg'),cl=svg.querySelector('.cur'),dt=svg.querySelector('.dot'),ro=box.querySelector('.ro');
+  const move=(e,first)=>{const rc=svg.getBoundingClientRect();if(!rc.width)return;const x=(e.clientX-rc.left)/rc.width*W;const u=Math.max(a,Math.min(b,a+(x-l)/(W-l-r)*(b-a)));
+    const xx=X(u),ev=eAt(u),yy=P.Y(ev);cl.setAttribute('x1',xx);cl.setAttribute('x2',xx);cl.setAttribute('visibility','visible');dt.setAttribute('cx',xx);dt.setAttribute('cy',yy);dt.setAttribute('visibility','visible');
+    ro.textContent=`${u.toFixed(2)} ${unit}`+(ev!=null?(en?`　elevation ${Math.round(ev)} m`:`　標高 ${Math.round(ev)}m`):'');
+    const p=crsAt(g.pts,g.cum,mOf(u));if(M.cur&&M.map){M.cur.setLatLng(p);M.cur.setStyle({opacity:1});
+      try{if(first){const z=M.map.getZoom();M.map.setView(p,Math.max(z||0,16),{animate:false});}else M.map.panTo(p,{animate:false});}catch(_){}}};
+  svg.addEventListener('pointerdown',e=>{try{svg.setPointerCapture(e.pointerId);}catch(_){}move(e,true);});
+  svg.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'||e.buttons)move(e,false);});}
+try{const D=I18N.D;[['全体','All'],['グラフをなぞると、地図がその地点へ動きます。','Trace the graph to move the map.'],['このGPXには高さの情報がありません','No elevation data in this GPX'],
+ ['このGPXには高さの情報がないため、高低差のグラフは出ません。','This GPX has no elevation data, so no elevation graph is shown.']].forEach(([j,e])=>D.set(j,[e,e,e,e]));}catch(e){}
+</script>
+<script>
+/* ===================== 2026-11-26k：走った記録から、おおよそのコースのGPXを作る（「4. 実績」の地図の隣） =====================
+   ・GPSの点の飛び（1点だけ大きく外れた点）を除き、前後の点でならしてから、形を変えない範囲で間引く（高さのため100m毎に1点は残す）
+   ・GPSを切っていた区間は、前後を直線でつなぐ。高さはGPSの高度（目安）。時刻は入れない（コースとして使うため）
+   ・元のGPXがある記録には作らない（ボタンを出さない）：GPX・TCXファイルから取り込んだ記録／コースのGPXを登録して走った記録
+     （以前の版の本番の記録は、同じ大会名でいまコースが登録されていれば、元のGPXありとみなす） */
+function crsFromRecord(d){const T=((d&&d.geo&&d.geo.trk)||[]).filter(p=>isFinite(p[1])&&isFinite(p[2])&&!(p[1]===0&&p[2]===0));if(T.length<10)return [];
+  const H=(a,b)=>hav({la:a[1],lo:a[2]},{la:b[1],lo:b[2]});
+  const Q=T.filter((p,i)=>{if(i===0||i===T.length-1)return true;const a=T[i-1],b=T[i+1];return !(H(a,p)>120&&H(p,b)>120&&H(a,b)<80);});
+  return Q.map((p,i)=>{let la=0,lo=0,al=0,n=0,na=0;for(let k=Math.max(0,i-3);k<=Math.min(Q.length-1,i+3);k++){if(H(Q[k],p)>60)continue;la+=Q[k][1];lo+=Q[k][2];n++;if(Q[k][3]!=null&&isFinite(Q[k][3])){al+=Q[k][3];na++;}}
+    return [la/n,lo/n,na?al/na:null];});}
+function crsThin(P,tol,every){if(P.length<3)return P.slice();const la0=P[0][0]*Math.PI/180,kx=111320*Math.cos(la0),ky=110540;
+  const X=P.map(p=>[p[1]*kx,p[0]*ky]);const keep=new Uint8Array(P.length);keep[0]=keep[P.length-1]=1;const st=[[0,P.length-1]];
+  while(st.length){const [a,b]=st.pop();let md=0,mi=-1;const ax=X[a][0],ay=X[a][1],dx=X[b][0]-ax,dy=X[b][1]-ay,L2=dx*dx+dy*dy;
+    for(let i=a+1;i<b;i++){let t=L2?((X[i][0]-ax)*dx+(X[i][1]-ay)*dy)/L2:0;t=Math.max(0,Math.min(1,t));const ex=ax+t*dx-X[i][0],ey=ay+t*dy-X[i][1],dd=ex*ex+ey*ey;if(dd>md){md=dd;mi=i;}}
+    if(mi>0&&md>tol*tol){keep[mi]=1;st.push([a,mi],[mi,b]);}}
+  const C=crsCum(P);let last=0;const out=[];P.forEach((p,i)=>{if(keep[i]||C[i]-last>=every){out.push(p);last=C[i];}});return out;}
+/* 元のGPXがあるか：{why,name} またはnull */
+function geoOrig(d){if(!d)return null;if(d.gpx)return {why:'imp',name:String(d.gpx||'')};const c=d.geo&&d.geo.crs;if(c)return {why:'crs',name:c.name||''};
+  if(kindOf(d)!=='prac'&&!(d.geo&&'crs' in d.geo)&&RC.course&&(RC.name||'')&&(d.name||'')===RC.name)return {why:'crs',name:RC.course.name||''};return null;}
+function gpxCourseOf(d){const raw=crsFromRecord(d);if(raw.length<10)return null;const P=crsThin(raw,3,100);if(crsCum(P).pop()<200)return null;
+  const x=t=>String(t).replace(/[<>&"']/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&apos;'}[c]));
+  const t=new Date(d.startAt||Date.now()),dt=`${t.getFullYear()}/${t.getMonth()+1}/${t.getDate()}`,nm=`${d.name||(kindOf(d)==='prac'?'練習':'本番')}（${dt}の記録から）`;
+  return {nm,n:P.length,xml:`<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Marathon BGM" xmlns="http://www.topografix.com/GPX/1/1">\n<metadata><name>${x(nm)}</name><desc>GPSの記録から作ったおおよそのコース</desc></metadata>\n<trk><name>${x(nm)}</name><type>running</type>\n<trkseg>\n`+
+    P.map(p=>`<trkpt lat="${p[0].toFixed(6)}" lon="${p[1].toFixed(6)}">${p[2]!=null?`<ele>${p[2].toFixed(1)}</ele>`:''}</trkpt>`).join('\n')+'\n</trkseg>\n</trk>\n</gpx>\n'};}
+$('#geoMkGpx').addEventListener('click',()=>{const msg=t=>{const m=$('#geoMapMsg');if(m)m.textContent=t;};const d=logData();if(!d)return;
+  if(geoOrig(d)){msg('この記録には元のGPXがあるため、作りません。');return;}
+  const g=gpxCourseOf(d);if(!g){msg('この記録には、コースを作れるだけのGPSの点がありません。');return;}
+  const t=new Date(d.startAt||Date.now()),fn=`course-${t.getFullYear()}${String(t.getMonth()+1).padStart(2,'0')}${String(t.getDate()).padStart(2,'0')}-${(d.name||(kindOf(d)==='prac'?'training':'race')).replace(/[\\/:*?"<>|\s]+/g,'_')}.gpx`;
+  window.__lastGpx=g.xml;
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([g.xml],{type:'application/gpx+xml'}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);
+  msg(`コースのGPX「${fn}」を作りました（${g.n}点）。GPSの記録から作ったおおよそのコースです。「大会」タブか「メニュー」タブの「GPXを選ぶ」で登録できます。`);});
+{const _g=geoRender;geoRender=function(d){const r=_g.apply(this,arguments);try{const b=$('#geoMkGpx');if(b)b.hidden=!d||!!geoOrig(d)||((d.geo&&d.geo.trk)||[]).length<10;}catch(e){}return r;};}
+try{const D=I18N.D;[['コースのGPXを作る','Make course GPX'],['この記録には元のGPXがあるため、作りません。','This run already has an original GPX, so none is made.'],
+ ['この記録には、コースを作れるだけのGPSの点がありません。','This run does not have enough GPS points to make a course.']].forEach(([j,e])=>D.set(j,[e,e,e,e]));}catch(e){}
 </script>
 </body>
 </html>
