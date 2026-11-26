@@ -835,7 +835,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-25b</p>
+  <p class="ver" data-notr translate="no">版 2026-11-26c</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -1076,6 +1076,8 @@ menu,2026-11-05,ジョグ,,,,,tm.J450x600</code></pre>
 <h4>こんなときは</h4>
 <ul><li><strong>「サインインの有効期限が切れました」と出た</strong>：「サインイン」を押して、もう一度ログインしてください。保存できていなかった記録はスマホに残っていて、サインインすると保存されます。</li><li><strong>「Dropbox（準備中）」と出て選べない</strong>：お使いの版のアプリでは、まだDropboxが使えません。利用者の方が何かを設定する必要はありません。画面の上に「新しい版があります」と出たら、新しい版にしてください。</li><li><strong>Dropboxをやめたい</strong>：「サインアウト」を押し、「保存先」を「なし（この端末だけ）」に戻します。Dropboxに保存した記録は消えずに残ります。このアプリへのアクセスの許可は、Dropboxのウェブサイトの「設定」にある接続済みのアプリの一覧からも取り消せます。</li><li><strong>記録には走った場所が入っています</strong>：GPSをONにしていた区間の位置が記録に含まれます。Dropboxのフォルダをほかの人と共有するときは気をつけてください。</li></ul>
 <h3>本番の設定・練習メニューの引き継ぎ</h3><p>保存先がDropboxのときは、本番の設定（大会の情報・戦略）、保存した大会、練習メニュー、保存した練習メニュー、自動生成の設定を、スマホとパソコンで引き継ぎます。アプリを開いたとき、ほかのアプリから戻ったとき、ネットにつながったとき、設定を変えたときに合わせ、新しいほうを残します。保存した大会と練習メニューは1件ずつ合わせるので、両方の端末で別々に保存したものはどちらも残り、削除したものは戻りません。走っている間と本番待機中は合わせません。</p>
+<h3>屋内の練習の表示とお知らせ</h3><p>屋内の練習では、「全体の残り」の横に、時間で何％終わったかを表示します。GPSを使わないので、お知らせは10分ごとです（「10分たちました。推定1.4キロです。」と声で知らせ、画面にも推定の距離と残り時間を出します）。「音」タブの「10分毎にお知らせ」で切り替えられます（屋内ではバイブレーションは使いません）。屋外の練習と本番は、これまでどおり1 kmごとです。</p>
+<h3>目標タイムと戦略</h3><p>「大会」タブで目標タイム（または余裕の分）を変えると、戦略の各ステージの時速も、ゴール予想が新しい目標に合うように変わります。区間の分け方と、ステージごとの速さの配分（前半を抑えるなど）はそのままです。</p>
 <h3>練習メニュー・戦略のステージの挿入</h3><p>各ステージの右上の「＋」を押すと、その上にステージを挿入します。練習メニューでは同じペースの10分のステージ、本番の戦略ではその区間を半分に分けたステージ（時速は同じ）が入ります。</p>
 <h3>スマホとパソコンで記録を合わせる</h3><p>アプリを開いたとき、ネットにつながっていてDropboxにまだ保存していない記録があれば、自動で保存します（走っている間と本番待機中は除く）。「4. 実績」を開いたときと、別のタブやアプリから戻ったときに、ほかの端末で変えた記録（公式記録・写真のURL・天気など）をDropboxから読み込み直します。保存し直すときもDropbox側の記録を確かめ、新しい公式記録などを古い記録で消さないようにしています。ネットにつながらず保存できなかった変更は、この端末に控えを残し、ページを閉じても消えません（「未保存の記録」の件数に入ります）。</p>
 <h3 id="h-pc">スマホの記録をパソコンで見る（Dropboxで連携）</h3>
@@ -1333,6 +1335,8 @@ menu,2026-11-05,Jog,,,,,tm.J450x600</code></pre>
 <h4>If something goes wrong</h4>
 <ul><li><strong>"Your sign-in has expired."</strong>: press "Sign in" and log in again. Logs that weren't saved are still on your phone and are saved once you sign in.</li><li><strong>"Dropbox (coming soon)" can't be chosen</strong>: your version of the app can't use Dropbox yet. There is nothing you need to set up. When "A new version is available" appears at the top, update to it.</li><li><strong>To stop using Dropbox</strong>: press "Sign out" and set "Save to" back to "None (this device only)". Logs already saved in Dropbox stay there. You can also remove this app's access from the list of connected apps in your Dropbox settings on the Dropbox website.</li><li><strong>Logs contain where you ran</strong>: positions from the sections where GPS was on are included. Take care when sharing your Dropbox folder with others.</li></ul>
 <h3>Carrying race settings and training menus over</h3><p>When saving to Dropbox, the race settings (race info and strategy), saved races, the training menu, saved training menus and the auto-generate settings are carried over between your phone and computer. They are matched when you open the app, come back from another app, go online or change a setting, keeping the newer one. Saved races and menus are matched one by one, so items saved separately on each device are both kept and deleted items do not come back. Nothing is matched while running or in race standby.</p>
+<h3>Indoor training display and notices</h3><p>In indoor training, the percentage of time completed is shown next to "Total left". Since GPS is not used, notices come every 10 minutes ("10 minutes elapsed. Estimated 1.4 kilometers.") with the estimated distance and time left on screen. Turn them on or off with "Announce every 10 min" on the Sound tab (no vibration indoors). Outdoor training and races still announce every 1 km.</p>
+<h3>Goal time and strategy</h3><p>When you change the goal time (or the margin) on the Race tab, the speed of each strategy stage is adjusted so the predicted finish matches the new goal. The sections and the pacing shape (such as holding back early) stay the same.</p>
 <h3>Inserting stages</h3><p>Tap "＋" at the top right of a stage to insert a stage above it: a 10-minute stage at the same pace in the training menu, or, in the race strategy, the section split in half (same speed).</p>
 <h3>Keeping phone and computer in step</h3><p>When you open the app while online, any logs not yet saved to Dropbox are saved automatically (except while running or in race standby). When you open "4. Results" or come back from another tab or app, records changed on another device (official results, photo URL, weather, etc.) are reloaded from Dropbox. Before saving again, the Dropbox copy is checked so that a newer official result is never erased by an older copy. Changes that could not be saved because you were offline are kept on this device, even if you close the page (they count as "Unsaved logs").</p>
 <h3 id="e-pc">View your phone's logs on a computer (linked through Dropbox)</h3>
@@ -6734,5 +6738,62 @@ addEventListener('online',()=>setTimeout(()=>{settingsSync().catch(()=>{});},150
   let last='';setInterval(()=>{const k=[...document.querySelectorAll('.big')].map(e=>e.textContent.length).join(',')+'|'+innerWidth+'|'+document.body.className;if(k!==last){last=k;fit();}},500);
   addEventListener('resize',()=>{last='';});})();
 </script>
+<script>
+/* ===================== 2026-11-26：目標タイムを変えたら、戦略の時速も新しい目標に合わせる =====================
+   区間の分け方と、ステージごとの速さの配分（前半を抑えるなど）はそのままにして、全体の速さだけを合わせる。
+   ゴール予想が「目標タイム − 余裕の分」になるようにする（「自動で作る」と同じ考え方）。走っている間は変えない */
+function stratFollowGoal(){if(R.running||R.done)return false;const rows=stratRows();if(!rows.length)return false;
+  const target=RC.goal?RC.goal-(+RC.margin||0)*60:0;if(!(target>0))return false;
+  const ts=stratTotalSec();if(!ts)return false;let k=ts/target;if(Math.abs(k-1)<0.001)return false;
+  for(let n=0;n<3;n++){rows.forEach(r=>{if(validSpd(r.spd))r.spd=Math.min(30,Math.max(3,Math.round(+r.spd*k*10)/10));});const t2=stratTotalSec();if(!t2)break;k=t2/target;if(Math.abs(k-1)<0.003)break;}
+  RC.strat=rows;stratSave();return true;}
+$('#raceSec').addEventListener('change',e=>{const id=e.target&&e.target.id;
+  if(id==='rcGoal'||id==='rcMargin'){const ch=stratFollowGoal();
+    if(ch){try{rcMsg('戦略の時速も、新しい目標タイムに合わせて変えました（区間と速さの配分はそのまま）。');}catch(_){}
+      const m=$('#stratMsg');if(m)m.textContent='目標タイムに合わせて、時速を変えました（区間と速さの配分はそのまま）。';}
+    try{renderStrat();$('#rcSum').innerHTML=rcSummary();renderRun();}catch(_){}}});
+/* 大会の情報を入れている間も、「戦略」タブのゴール予想と目標の表示を新しくしておく */
+$('#raceSec').addEventListener('input',e=>{if(/^rc(Goal|Margin|Km|Ev)$/.test(e.target.id||''))try{renderStrat();}catch(_){}});
+try{const D=I18N.D;[['戦略の時速も、新しい目標タイムに合わせて変えました（区間と速さの配分はそのまま）。','The strategy speeds were also adjusted to the new goal time (sections and pacing shape unchanged).'],
+ ['目標タイムに合わせて、時速を変えました（区間と速さの配分はそのまま）。','Speeds were adjusted to the goal time (sections and pacing shape unchanged).']].forEach(a=>D.set(a[0],[a[1],a[1],a[1],a[1]]));}catch(_){}
+</script>
+<script>
+/* ===================== 2026-11-26：屋内の練習 =====================
+   ①「全体の残り」の横に、時間で何％終わったかを表示する
+   ② GPSを使わないので、「1km毎にお知らせ」を「10分毎にお知らせ」にする（声と画面。バイブレーションはしない） */
+const IN10={ann:-1};
+const inMenuRun=()=>MODE==='practice'&&!opt.outdoor&&!(FREE.on&&isFreeM(menu));
+function inLabels(){const indoor=MODE==='practice'&&!opt.outdoor;
+  const setTxt=(id,ja)=>{const i=document.getElementById(id);if(!i||!i.parentElement)return;const lb=i.parentElement;let n=[...lb.childNodes].find(x=>x.nodeType===3&&x.textContent.trim());
+    if(!n){n=document.createTextNode('');lb.appendChild(n);}const want=' '+ja;if(lb.dataset.ja!==ja){lb.dataset.ja=ja;n.textContent=want;try{if(typeof I18N!=='undefined'&&I18N.lang&&I18N.lang!=='ja'&&I18N.apply)I18N.apply(lb);}catch(_){}}};
+  setTxt('optKm',indoor?'10分毎にお知らせ（音声と画面）':'1km毎にお知らせ（音声と画面）');
+  /* 屋内ではバイブレーションの設定を出さない（10分毎のバイブレーションはしない） */
+  const vr=document.getElementById('optVibRow');if(vr)vr.classList.toggle('in-hide',indoor);}
+function inPct(){const lb=$('#st1Label');if(!lb)return;let sp=document.getElementById('totPct');
+  if(!(inMenuRun()&&lb.textContent.indexOf('全体の残り')===0&&lb.textContent.indexOf('距離')<0)&&!(sp&&inMenuRun())){if(sp)sp.remove();return;}
+  const tot=totalMs();if(!tot){if(sp)sp.remove();return;}const el=Math.min(elapsed(),tot),p=R.done?100:Math.min(100,Math.floor(el/tot*100));
+  if(!sp){sp=document.createElement('span');sp.id='totPct';sp.className='tot-pct';lb.appendChild(sp);}
+  const h=`<span data-notr>${p}% </span>完了`;if(sp.dataset.p!==String(p)){sp.dataset.p=p;sp.innerHTML=h;}}
+{const _rr=renderRun;renderRun=function(){const r=_rr.apply(this,arguments);try{inPct();inLabels();}catch(_){}return r;};}
+{const _am=applyModeUI;applyModeUI=function(){const r=_am.apply(this,arguments);try{const sp=document.getElementById('totPct');if(sp)sp.remove();inPct();inLabels();}catch(_){}return r;};}
+document.addEventListener('change',e=>{if(e.target&&e.target.closest&&e.target.closest('#ioRow'))setTimeout(()=>{try{inLabels();inPct();}catch(_){}},0);});
+{const _s=start;start=function(){if(MODE==='practice'&&(R.done||(!R.running&&R.acc===0)))IN10.ann=0;return _s.apply(this,arguments);};}
+setInterval(()=>{try{if(!(inMenuRun()&&R.running&&!R.paused&&!R.done)){if(!R.running&&!R.acc)IN10.ann=-1;return;}
+  const tot=totalMs(),el=elapsed(),n=Math.floor(el/600000);if(IN10.ann<0){IN10.ann=n;return;}
+  if(n>IN10.ann){IN10.ann=n;if(tot-el<60000)return; /* 終わりの直前は知らせない */
+    let km=0;for(let k=0;k<menu.length;k++){const st=segStart(k),len=menu[k].min*60000;km+=Math.max(0,Math.min(el-st,len))/1000/menu[k].pace;}
+    if(opt.kmNotice!==false){queueSay(`${sayMin(n*600000)}たちました。推定${km.toFixed(1)}キロです。`);
+      kmT.innerHTML=`<div class="kk">${sayMin(n*600000)}</div><div class="kl">推定 ${km.toFixed(1)} km</div><div class="kd">残り ${fmt(tot-el)}</div>`;kmT.hidden=false;
+      kmT.classList.remove('show');void kmT.offsetWidth;kmT.classList.add('show');clearTimeout(kmTT);kmTT=setTimeout(()=>{kmT.hidden=true;},7000);}}}catch(_){}},1000);
+try{I18N.D.set('10分毎にお知らせ（音声と画面）',['Announce every 10 min (voice and screen)','每10分钟提示（语音和画面）','每10分鐘提示（語音和畫面）','10분마다 알림 (음성과 화면)']);
+  I18N.D.set('10分毎にバイブレーション',['Vibrate every 10 min','每10分钟振动','每10分鐘震動','10분마다 진동']);}catch(_){}
+setTimeout(()=>{try{inLabels();inPct();}catch(_){}},300);
+</script>
+<style>
+/* 2026-11-26：屋内の練習の表示 */
+.tot-pct{margin-left:.5em;font-weight:700;color:var(--accent)}
+#totDist{color:var(--ink)}
+#optVibRow.in-hide{display:none!important}
+</style>
 </body>
 </html>
