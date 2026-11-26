@@ -850,7 +850,7 @@ body.live .recv{display:none}
   </section>
   </div>
   <div class="support"><p>寄付は任意です。寄付をしなくても、すべての機能を無料で使えます。</p><a class="support-btn" href="https://paypal.me/marathonBGM" target="_blank" rel="noopener">☕ このアプリを応援する（PayPal）</a><p class="support-mail">ご意見・ご要望：<a href="mailto:marathonbgm@mbr.nifty.com" data-notr>marathonbgm@mbr.nifty.com</a><br>可能な範囲内で機能改善に取り組んでいます。<br>メールの返信は原則行っていません。</p></div>
-  <p class="ver" data-notr translate="no">版 2026-11-27d</p>
+  <p class="ver" data-notr translate="no">版 2026-11-27e</p>
 </div>
 
 <div id="kcalPanel" class="kcal-panel" hidden role="dialog" aria-label="カロリー計算">
@@ -7200,6 +7200,11 @@ function profSegs(total,iv,en){const S=[[0,total,en?'All':'全体']];if(total<=i
   for(let i=0;i<B.length-1;i++){const a=B[i],b=B[i+1];S.push([a,b,(i===0?'S':String(a))+'-'+(i===B.length-2?'G':String(b))]);}return S;}
 function profEAt(E,u){if(!E)return null;for(const s of E){if(u<s[0][0]-1e-9||u>s[s.length-1][0]+1e-9)continue;let lo=0,hi=s.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(s[m][0]<=u)lo=m;else hi=m;}
   const A=s[lo],B=s[hi];if(B[0]===A[0])return A[1];const t=Math.max(0,Math.min(1,(u-A[0])/(B[0]-A[0])));return A[1]+(B[1]-A[1])*t;}return null;}
+function profMono(P){if(!P.length)return '';if(P.length===1)return `M${P[0][0]},${P[0][1]}`;const n=P.length,dx=[],m=[],tg=[];
+  for(let i=0;i<n-1;i++){dx[i]=P[i+1][0]-P[i][0];m[i]=(P[i+1][1]-P[i][1])/dx[i];}
+  tg[0]=m[0];tg[n-1]=m[n-2];for(let i=1;i<n-1;i++){tg[i]=m[i-1]*m[i]<=0?0:3*(dx[i-1]+dx[i])/((2*dx[i]+dx[i-1])/m[i-1]+(dx[i]+2*dx[i-1])/m[i]);}
+  let d=`M${P[0][0].toFixed(1)},${P[0][1].toFixed(1)}`;for(let i=0;i<n-1;i++){const h=dx[i]/3;d+=` C${(P[i][0]+h).toFixed(1)},${(P[i][1]+tg[i]*h).toFixed(1)} ${(P[i+1][0]-h).toFixed(1)},${(P[i+1][1]-tg[i+1]*h).toFixed(1)} ${P[i+1][0].toFixed(1)},${P[i+1][1].toFixed(1)}`;}return d+' ';}
+function profCurveY(PC,u){if(!PC)return null;for(const P of PC){if(u<P[0][2]-1e-9||u>P[P.length-1][2]+1e-9)continue;for(let i=1;i<P.length;i++){if(u<=P[i][2]+1e-9){const A=P[i-1],B=P[i],t=(u-A[2])/Math.max(1e-9,B[2]-A[2]);return A[1]+(B[1]-A[1])*t;}}}return null;}
 function profPAt(P,u){if(!P)return null;for(const q of P){if(u>q.a-1e-9&&u<=q.b+1e-9)return q.p;}return null;}
 function profAvgE(E){let s=0,w=0;(E||[]).forEach(g=>{for(let i=1;i<g.length;i++){const dk=g[i][0]-g[i-1][0];if(dk<=0)continue;s+=(g[i][1]+g[i-1][1])/2*dk;w+=dk;}});return w>0?s/w:null;}
 /* o = {key,total,unit,en,elev:[[[u,e],…],…]|null,avgE,pace:[{a,b,p}]|null,avgPace,marks:[{u,col,dash}],onPoint(u,first),onSeg(a,b,fit),extra(u),noElev} */
@@ -7223,10 +7228,16 @@ function profPanel(box,o){if(!box)return;const st=PST[o.key]=PST[o.key]||{seg:0}
       html+=`<div class="chart-t">${en?'Elevation':'高低差'}${o.elevNote?`（${o.elevNote}）`:''}</div><svg class="pe" viewBox="0 0 ${W} ${HE}" role="img" aria-label="${en?'Elevation':'高低差'}">${g}${xt(HE)}${mk(HE)}${cur(HE)}</svg>`;}}
   else if(o.noElev&&!o.pace){YE=()=>(HE-bt+t)/2;html+=`<svg class="pe" viewBox="0 0 ${W} ${HE}" role="img" aria-label="${en?'Distance':'距離'}"><line x1="${l}" x2="${W-r}" y1="${(HE-bt+t)/2}" y2="${(HE-bt+t)/2}" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4"/><text x="${(l+W-r)/2}" y="${(HE-bt+t)/2-10}" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity=".6">${o.noElev}</text>${xt(HE)}${mk(HE)}${cur(HE)}</svg>`;}
   /* ペース（速いほど上） */
-  const HP=130;if(o.pace&&o.pace.length){const q=o.pace.filter(x=>x.b>a+1e-9&&x.a<b-1e-9&&x.p>0);const vals=q.map(x=>x.p);if(o.avgPace>0)vals.push(o.avgPace);
+  const HP=130;let PC=null;if(o.pace&&o.pace.length){const q=o.pace.filter(x=>x.b>a+1e-9&&x.a<b-1e-9&&x.p>0);
+    /* 縦の範囲：極端なラップ（スタートのロスなど）に引っぱられないよう、中央値±(4×ばらつき、最低60秒)の中だけで決める。外れたラップはグラフの端で止める */
+    const ps=q.map(x=>x.p).sort((x,y)=>x-y),md=ps.length?ps[ps.length>>1]:0,mad=ps.length?[...ps.map(v=>Math.abs(v-md))].sort((x,y)=>x-y)[ps.length>>1]:0,lim=Math.max(60,mad*4);
+    const vals=ps.filter(v=>ps.length<4||Math.abs(v-md)<=lim);if(o.avgPace>0)vals.push(o.avgPace);
     if(vals.length){let lo=Math.min(...vals),hi=Math.max(...vals);const sp=Math.max(20,hi-lo),s=sp>240?60:sp>100?30:sp>40?15:10;lo=Math.floor((lo-s*0.3)/s)*s;hi=Math.ceil((hi+s*0.3)/s)*s;
-      YP=v=>t+(HP-t-bt)*(v-lo)/(hi-lo);let g='';for(let v=lo;v<=hi;v+=s)g+=`<line x1="${l}" x2="${W-r}" y1="${YP(v)}" y2="${YP(v)}" stroke="currentColor" stroke-opacity=".12"/><text x="${l-6}" y="${YP(v)+4}" text-anchor="end" font-size="10" fill="currentColor" fill-opacity=".6">${fmtPace(v)}</text>`;
-      let pth='',pb=null;q.forEach(x=>{const xa=X(Math.max(a,x.a)),xb=X(Math.min(b,x.b)),y=YP(x.p);if(pb!=null&&Math.abs(x.a-pb)<0.02)pth+=`V${y.toFixed(1)} H${xb.toFixed(1)} `;else pth+=`M${xa.toFixed(1)},${y.toFixed(1)} H${xb.toFixed(1)} `;pb=x.b;});
+      const yp=v=>t+(HP-t-bt)*(v-lo)/(hi-lo);YP=v=>yp(Math.max(lo,Math.min(hi,v)));let g='';for(let v=lo;v<=hi;v+=s)g+=`<line x1="${l}" x2="${W-r}" y1="${yp(v)}" y2="${yp(v)}" stroke="currentColor" stroke-opacity=".12"/><text x="${l-6}" y="${yp(v)+4}" text-anchor="end" font-size="10" fill="currentColor" fill-opacity=".6">${fmtPace(v)}</text>`;
+      /* なめらかな線：各ラップの真ん中を通る曲線（行き過ぎない曲線＝単調な3次補間）。記録が飛んでいるところは切る */
+      const grp=[];let cg=null,pb=null;q.forEach(x=>{if(!cg||pb==null||Math.abs(x.a-pb)>=0.02){cg=[];grp.push(cg);}cg.push(x);pb=x.b;});
+      PC=[];let pth='';grp.forEach(G=>{const pts=[];const f=G[0],z=G[G.length-1];pts.push([Math.max(a,f.a),f.p]);G.forEach(x=>pts.push([(x.a+x.b)/2,x.p]));pts.push([Math.min(b,z.b),z.p]);
+        const P=pts.filter((p,i)=>i===0||p[0]>pts[i-1][0]+1e-6).map(p=>[X(p[0]),YP(p[1]),p[0],p[1]]);PC.push(P);pth+=profMono(P);});
       g+=`<path d="${pth}" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`;
       if(o.avgPace>0)g+=`<line x1="${l}" x2="${W-r}" y1="${YP(o.avgPace)}" y2="${YP(o.avgPace)}" stroke="${AV}" stroke-width="1.6" stroke-dasharray="6 4"/><text x="${W-r-2}" y="${YP(o.avgPace)-4}" text-anchor="end" font-size="10" font-weight="700" fill="${AV}">${en?'avg':'平均'} ${fmtPace(o.avgPace)}</text>`;
       if(q.length){const tt=q.reduce((s,x)=>s+x.p*(Math.min(b,x.b)-Math.max(a,x.a)),0),dd=q.reduce((s,x)=>s+(Math.min(b,x.b)-Math.max(a,x.a)),0);if(dd>0&&st.seg>0)stat.push(en?`Section pace ${fmtPace(tt/dd)}/${o.unit}`:`この区間のペース ${fmtPace(tt/dd)}/${o.unit}`);}
@@ -7250,7 +7261,7 @@ function profPanel(box,o){if(!box)return;const st=PST[o.key]=PST[o.key]||{seg:0}
   const move=(e,first,svg)=>{const rc=svg.getBoundingClientRect();if(!rc.width)return;const x=(e.clientX-rc.left)/rc.width*W;const u=Math.max(a,Math.min(b,a+(x-l)/(W-l-r)*(b-a)));
     const ev=profEAt(o.elev,u),pv=profPAt(o.pace,u);
     svgs.forEach(s=>{const c=s.querySelector('.cur'),d=s.querySelector('.dot');c.setAttribute('x1',X(u));c.setAttribute('x2',X(u));c.setAttribute('visibility','visible');
-      const y=s.classList.contains('pp')?(pv!=null&&YP?YP(pv):null):(YE?YE(ev!=null?ev:0):null);if(y!=null&&(s.classList.contains('pp')||ev!=null||!o.elev)){d.setAttribute('cx',X(u));d.setAttribute('cy',y);d.setAttribute('visibility','visible');}else d.setAttribute('visibility','hidden');});
+      const y=s.classList.contains('pp')?(pv!=null&&YP?(profCurveY(PC,u)??YP(pv)):null):(YE?YE(ev!=null?ev:0):null);if(y!=null&&(s.classList.contains('pp')||ev!=null||!o.elev)){d.setAttribute('cx',X(u));d.setAttribute('cy',y);d.setAttribute('visibility','visible');}else d.setAttribute('visibility','hidden');});
     ro.textContent=`${u.toFixed(2)} ${o.unit}`+(ev!=null?(en?`　elevation ${Math.round(ev)} m`:`　標高 ${Math.round(ev)}m`):'')+(pv!=null?(en?`　pace ${fmtPace(pv)}/${o.unit}`:`　ペース ${fmtPace(pv)}/${o.unit}`):'')+(o.extra?o.extra(u):'');
     o.onPoint&&o.onPoint(u,first);};
   svgs.forEach(svg=>{svg.addEventListener('pointerdown',e=>{try{svg.setPointerCapture(e.pointerId);}catch(_){}move(e,true,svg);});
